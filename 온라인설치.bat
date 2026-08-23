@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "URL=https://github.com/oyinkr-biz/biztech-updates/releases/latest/download/BizTechSetup.exe"
+set "URL=https://github.com/oyinkr-biz/biz-u/releases/latest/download/BizTechSetup.exe"
 set "OUT=%TEMP%\BizTechSetup.exe"
 
 echo BizTech v3 Online Installer

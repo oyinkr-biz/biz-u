@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "BASE=https://raw.githubusercontent.com/oyinkr-biz/biztech-updates/main/v3"
+set "BASE=https://raw.githubusercontent.com/oyinkr-biz/biz-u/main/v3"
 set "DEST=%~dp0"
 
 echo BizTech v3 Online Updater
