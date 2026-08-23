@@ -1,5 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal
 
 set "URL=https://github.com/oyinkr-biz/biz-u/releases/latest/download/BizTechSetup.exe"
 set "OUT=%TEMP%\BizTechSetup.exe"
@@ -7,28 +7,30 @@ set "OUT=%TEMP%\BizTechSetup.exe"
 echo BizTech v3 Online Installer
 echo ============================
 echo.
-echo Downloading installer... (about 90MB)
+echo Downloading... (about 90MB, please wait)
 echo.
 
-powershell -Command "
-try {
-    $wc = New-Object System.Net.WebClient
-    $wc.DownloadFile('%URL%', '%OUT%')
-    Write-Host 'Download complete.'
-} catch {
-    Write-Host 'ERROR: ' + $_.Exception.Message
-    exit 1
-}"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest -Uri '%URL%' -OutFile '%OUT%' -UseBasicParsing"
 
-if not exist "%OUT%" (
-    echo [ERROR] Download failed. Check your internet connection.
-    pause & exit /b 1
+if %errorlevel% neq 0 (
+    echo.
+    echo [ERROR] Download failed. Check internet connection.
+    pause
+    exit /b 1
 )
 
-echo Running installer...
-start /wait "" "%OUT%"
-del "%OUT%" > nul 2>&1
+if not exist "%OUT%" (
+    echo.
+    echo [ERROR] File not found after download.
+    pause
+    exit /b 1
+)
 
+echo Download complete. Running installer...
 echo.
-echo Installation complete.
+"%OUT%"
+
+del "%OUT%" > nul 2>&1
+echo.
+echo Done.
 pause
