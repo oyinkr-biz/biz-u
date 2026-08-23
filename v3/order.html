@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>주문하기</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+     background:#f5f5f5;color:#212121;min-height:100dvh;padding-bottom:90px}
+
+/* 헤더 */
+#hdr{background:#1a237e;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:100;
+     box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#hdr h1{font-size:18px;font-weight:800;letter-spacing:-.5px}
+#hdr p{font-size:12px;color:#90caf9;margin-top:2px}
+
+/* 주문자 정보 */
+#info-box{background:#fff;margin:10px 12px 0;border-radius:12px;padding:14px 16px;
+          box-shadow:0 1px 4px rgba(0,0,0,.1)}
+#info-box h2{font-size:13px;color:#1a237e;font-weight:700;margin-bottom:10px}
+.frow{display:flex;gap:8px;margin-bottom:8px}
+.frow:last-child{margin-bottom:0}
+.finput{flex:1;padding:11px 12px;border:1.5px solid #e0e0e0;border-radius:8px;
+        font-size:14px;outline:none;transition:border-color .2s;background:#fafafa}
+.finput:focus{border-color:#1a237e;background:#fff}
+.finput::placeholder{color:#bdbdbd}
+#order-total{font-size:13px;color:#1a237e;font-weight:800;text-align:right;margin-bottom:6px}
+
+/* 검색 */
+#search-wrap{margin:10px 12px 0;position:relative}
+#search{width:100%;padding:12px 12px 12px 40px;border:1.5px solid #e0e0e0;border-radius:10px;
+        font-size:14px;outline:none;background:#fff;transition:border-color .2s}
+#search:focus{border-color:#1a237e}
+#search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);
+                     font-size:16px;pointer-events:none}
+
+/* 제품 목록 */
+#prod-list{padding:8px 12px}
+.cat-label{font-size:11px;color:#9e9e9e;font-weight:700;letter-spacing:.5px;
+           text-transform:uppercase;padding:10px 0 4px}
+.prod-card{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:6px;
+           display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.prod-card.selected{border:1.5px solid #1a237e;background:#f3f4fd}
+.prod-info{flex:1;min-width:0}
+.prod-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prod-size{font-size:11px;color:#9e9e9e;margin-top:2px}
+.prod-price{font-size:12px;color:#1a237e;font-weight:700;margin-top:2px}
+.qty-ctrl{display:flex;align-items:center;gap:0;flex-shrink:0}
+.qty-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid #e0e0e0;background:#f5f5f5;
+         font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+         color:#424242;user-select:none;-webkit-user-select:none}
+.qty-btn:active{background:#e0e0e0}
+.qty-val{width:40px;text-align:center;font-size:15px;font-weight:700;color:#1a237e;
+          border:1.5px solid transparent;border-radius:6px;background:transparent;
+          font-family:inherit;padding:4px 0;-moz-appearance:textfield}
+.qty-val:focus{outline:none;border-color:#1a237e;background:#f3f4fd}
+.qty-val::-webkit-outer-spin-button,.qty-val::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qty-val.zero{color:#bdbdbd}
+
+/* 메모 */
+#memo-box{background:#fff;margin:4px 12px 0;border-radius:12px;padding:14px 16px;
+          box-shadow:0 1px 4px rgba(0,0,0,.1)}
+#memo-box h2{font-size:13px;color:#616161;font-weight:700;margin-bottom:8px}
+#memo{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;
+      font-size:13px;outline:none;resize:none;height:70px;background:#fafafa;font-family:inherit}
+#memo:focus{border-color:#1a237e;background:#fff}
+
+/* 하단 고정 바 */
+#bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;
+            border-top:1px solid #e0e0e0;padding:12px 16px;
+            box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:200}
+#order-btn{width:100%;padding:15px;background:#1a237e;color:#fff;border:none;
+           border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;
+           display:flex;align-items:center;justify-content:center;gap:8px;
+           transition:background .15s}
+#order-btn:active{background:#0d47a1}
+#order-btn:disabled{background:#bdbdbd;cursor:default}
+#order-summary{text-align:center;font-size:12px;color:#9e9e9e;margin-bottom:8px}
+
+/* 완료 화면 */
+#done{display:none;position:fixed;inset:0;background:#1a237e;
+      flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;
+      padding:32px}
+#done .icon{font-size:72px;margin-bottom:20px}
+#done h1{font-size:26px;font-weight:800;margin-bottom:12px}
+#done p{font-size:15px;color:#90caf9;line-height:1.6;margin-bottom:30px}
+#done-btn{padding:14px 36px;background:#fff;color:#1a237e;border:none;border-radius:12px;
+          font-size:16px;font-weight:700;cursor:pointer}
+
+/* 로딩 */
+.loading{text-align:center;padding:40px;color:#9e9e9e;font-size:14px}
+.no-prod{text-align:center;padding:30px;color:#bdbdbd;font-size:13px}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <h1 id="shop-name">주문하기</h1>
+  <p id="shop-sub">제품을 선택하고 주문해 주세요</p>
+</div>
+
+<div id="info-box">
+  <h2>📋 주문자 정보</h2>
+  <div class="frow">
+    <input class="finput" id="ord-name" placeholder="이름 또는 상호명 (연락처만 입력해도 됨)" maxlength="30">
+  </div>
+  <div class="frow">
+    <input class="finput" id="ord-phone" placeholder="연락처 (이름만 입력해도 됨, 등록된 거래처면 단가 자동 적용)" type="tel" maxlength="20">
+  </div>
+  <div id="client-match" style="font-size:11px;color:#2e7d32;display:none;margin-top:-2px"></div>
+</div>
+
+<div id="search-wrap">
+  <input id="search" placeholder="제품 검색..." autocomplete="off">
+</div>
+
+<div id="prod-list"><div class="loading">제품 불러오는 중...</div></div>
+
+<div id="memo-box">
+  <h2>📝 요청사항</h2>
+  <textarea id="memo" placeholder="배송 요청사항, 특이사항 등"></textarea>
+</div>
+
+<div id="bottom-bar">
+  <div id="order-total" style="display:none">합계: <span id="order-total-val">0</span>원</div>
+  <div id="order-summary">제품을 선택해 주세요</div>
+  <button id="order-btn" disabled>주문하기</button>
+</div>
+
+<div id="done">
+  <div class="icon">✅</div>
+  <h1>주문 완료!</h1>
+  <p id="done-msg">주문이 접수됐습니다.<br>담당자가 확인 후 연락드리겠습니다.</p>
+  <button id="done-btn">새 주문하기</button>
+</div>
+
+<script>
+const API = '';
+let allProducts = [];
+let cart = {}; // code → qty
+let selectedClientId = '';
+
+async function init() {
+  try {
+    const shopRes = await fetch(API + '/api/order/shopinfo').then(r => r.json()).catch(() => ({}));
+    if (shopRes.data?.name) {
+      document.getElementById('shop-name').textContent = shopRes.data.name + ' 주문서';
+      document.title = shopRes.data.name + ' 주문';
+    }
+    await loadProducts();
+  } catch(e) {
+    document.getElementById('prod-list').innerHTML = '<div class="no-prod">제품 목록을 불러오지 못했습니다.<br>인터넷 연결을 확인해 주세요.</div>';
+  }
+}
+
+// 이름/전화번호로 등록된 거래처 자동 매칭
+let _lookupTimer = null;
+function scheduleClientLookup() {
+  clearTimeout(_lookupTimer);
+  _lookupTimer = setTimeout(doClientLookup, 500);
+}
+async function doClientLookup() {
+  const name  = document.getElementById('ord-name').value.trim();
+  const phone = document.getElementById('ord-phone').value.trim();
+  const matchEl = document.getElementById('client-match');
+  if (!name && !phone) {
+    selectedClientId = '';
+    matchEl.style.display = 'none';
+    return loadProducts();
+  }
+  try {
+    const params = new URLSearchParams();
+    if (name) params.set('name', name);
+    if (phone) params.set('phone', phone);
+    const r = await fetch(API + '/api/order/lookup?' + params.toString());
+    const j = await r.json();
+    if (j.data && j.data.id) {
+      selectedClientId = j.data.id;
+      matchEl.textContent = `✓ 등록된 거래처(${j.data.name})로 자동 연결됨 — 거래처 단가가 적용됩니다`;
+      matchEl.style.display = '';
+    } else {
+      selectedClientId = '';
+      matchEl.style.display = 'none';
+    }
+  } catch(e) {
+    selectedClientId = '';
+    matchEl.style.display = 'none';
+  }
+  loadProducts();
+}
+document.getElementById('ord-name').addEventListener('input', scheduleClientLookup);
+document.getElementById('ord-phone').addEventListener('input', scheduleClientLookup);
+
+async function loadProducts() {
+  const url = API + '/api/order/products' + (selectedClientId ? ('?client_id=' + encodeURIComponent(selectedClientId)) : '');
+  const prodRes = await fetch(url).then(r => r.json());
+  allProducts = prodRes.data || [];
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  renderProducts(q ? filterProducts(q) : allProducts);
+  updateSummary();
+}
+
+function filterProducts(q) {
+  return allProducts.filter(p =>
+    p.name.toLowerCase().includes(q) || (p.size||'').toLowerCase().includes(q) || (p.cat||'').toLowerCase().includes(q)
+  );
+}
+
+function renderProducts(list) {
+  const container = document.getElementById('prod-list');
+  if (!list.length) { container.innerHTML = '<div class="no-prod">검색 결과가 없습니다.</div>'; return; }
+
+  const groups = {};
+  list.forEach(p => {
+    const cat = p.cat || '전체';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(p);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([cat, prods]) => {
+    if (Object.keys(groups).length > 1) html += `<div class="cat-label">${cat}</div>`;
+    prods.forEach(p => {
+      const qty = cart[p.code] || 0;
+      html += `
+        <div class="prod-card${qty > 0 ? ' selected' : ''}" id="card-${p.code}">
+          <div class="prod-info">
+            <div class="prod-name">${esc(p.name)}</div>
+            ${p.size ? `<div class="prod-size">${esc(p.size)}</div>` : ''}
+            ${p.price ? `<div class="prod-price">${Number(p.price).toLocaleString()}원${p.custom_price ? ' (거래처 단가)' : ''}</div>` : ''}
+          </div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty('${p.code}',-1)">−</button>
+            <input class="qty-val${qty===0?' zero':''}" id="qty-${p.code}" type="number" inputmode="numeric" min="0" step="1"
+                   value="${qty}" onfocus="this.select()" onchange="setQty('${p.code}', this.value)">
+            <button class="qty-btn" onclick="changeQty('${p.code}',1)">+</button>
+          </div>
+        </div>`;
+    });
+  });
+  container.innerHTML = html;
+}
+
+function changeQty(code, delta) {
+  const cur = cart[code] || 0;
+  applyQty(code, cur + delta);
+}
+
+function setQty(code, val) {
+  const n = Math.floor(Number(val));
+  applyQty(code, isNaN(n) ? 0 : n);
+}
+
+function applyQty(code, next) {
+  next = Math.max(0, next);
+  if (next === 0) { delete cart[code]; } else { cart[code] = next; }
+  const qtyEl = document.getElementById('qty-' + code);
+  const cardEl = document.getElementById('card-' + code);
+  if (qtyEl) { qtyEl.value = next; qtyEl.className = 'qty-val' + (next===0?' zero':''); }
+  if (cardEl) { cardEl.className = 'prod-card' + (next>0?' selected':''); }
+  updateSummary();
+}
+
+function updateSummary() {
+  const total = Object.values(cart).reduce((a,b) => a+b, 0);
+  const kinds = Object.keys(cart).length;
+  const sumEl = document.getElementById('order-summary');
+  const btn   = document.getElementById('order-btn');
+  const totalEl = document.getElementById('order-total');
+  const totalValEl = document.getElementById('order-total-val');
+  if (total === 0) {
+    sumEl.textContent = '제품을 선택해 주세요';
+    btn.disabled = true; btn.textContent = '주문하기';
+    totalEl.style.display = 'none';
+  } else {
+    sumEl.textContent = `${kinds}종류  총 ${total}개 선택됨`;
+    btn.disabled = false; btn.textContent = `주문하기  (${total}개)`;
+    const amount = Object.entries(cart).reduce((sum, [code, qty]) => {
+      const p = allProducts.find(x => String(x.code) === String(code));
+      return sum + (p && p.price ? p.price * qty : 0);
+    }, 0);
+    if (amount > 0) {
+      totalValEl.textContent = amount.toLocaleString();
+      totalEl.style.display = '';
+    } else {
+      totalEl.style.display = 'none';
+    }
+  }
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  const filtered = q ? filterProducts(q) : allProducts;
+  renderProducts(filtered);
+  Object.entries(cart).forEach(([code, qty]) => {
+    const qtyEl = document.getElementById('qty-' + code);
+    const cardEl = document.getElementById('card-' + code);
+    if (qtyEl) { qtyEl.value = qty; qtyEl.className = 'qty-val'; }
+    if (cardEl) { cardEl.className = 'prod-card selected'; }
+  });
+});
+
+document.getElementById('order-btn').addEventListener('click', async () => {
+  const name  = document.getElementById('ord-name').value.trim();
+  const phone = document.getElementById('ord-phone').value.trim();
+  if (!name && !phone) { document.getElementById('ord-name').focus(); alert('이름 또는 연락처를 입력해 주세요.'); return; }
+  if (!Object.keys(cart).length) { alert('제품을 선택해 주세요.'); return; }
+
+  const btn = document.getElementById('order-btn');
+  btn.disabled = true; btn.textContent = '주문 접수 중...';
+
+  const items = Object.entries(cart).map(([code, qty]) => {
+    const p = allProducts.find(x => String(x.code) === String(code)) || {};
+    return { code, name: p.name||'', size: p.size||'', qty, price: p.price||0 };
+  });
+
+  try {
+    const r = await fetch(API + '/api/order/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_name: name,
+        client_id: selectedClientId || null,
+        phone,
+        items,
+        memo: document.getElementById('memo').value.trim()
+      })
+    });
+    const j = await r.json();
+    if (j.ok) {
+      document.getElementById('done-msg').textContent =
+        `주문이 접수됐습니다.\n담당자가 확인 후 연락드리겠습니다.\n\n주문번호: #${j.order_id}`;
+      document.getElementById('done').style.display = 'flex';
+    } else {
+      alert('주문 접수 실패: ' + (j.error || '오류'));
+      btn.disabled = false; btn.textContent = '주문하기';
+    }
+  } catch(e) {
+    alert('연결 오류: ' + e.message);
+    btn.disabled = false; btn.textContent = '주문하기';
+  }
+});
+
+document.getElementById('done-btn').addEventListener('click', () => {
+  cart = {};
+  selectedClientId = '';
+  document.getElementById('ord-name').value = '';
+  document.getElementById('ord-phone').value = '';
+  document.getElementById('memo').value = '';
+  document.getElementById('client-match').style.display = 'none';
+  document.getElementById('done').style.display = 'none';
+  loadProducts();
+  window.scrollTo(0,0);
+});
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+init();
+</script>
+</body>
+</html>
