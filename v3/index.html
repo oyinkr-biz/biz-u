@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.33</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.34</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7302,9 +7302,18 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
 
                     // 엑셀용 데이터 수집 — 인쇄 화면과 동일한 14컬럼 구조 (t=행타입: h헤더/p제품/s합계/1단일)
+                    // r.tran 중복 제거 (API JOIN으로 인한 중복 방어)
+                    const tranUniq = [];
+                    if (r.tran) {
+                        const _seen = new Set();
+                        r.tran.forEach(t => {
+                            const k = `${t.Inot_Item}_${t.Inot_Quty}_${t.Inot_Amt}`;
+                            if (!_seen.has(k)) { _seen.add(k); tranUniq.push(t); }
+                        });
+                    }
                     if (level === 3) {
                         excelRows.push({t:'h', d:[rowNum, fmtDate(r.Ivn_Date), cName, '', '', '', '', '', '', '', '', '', '', '']});
-                        if (r.tran) r.tran.forEach(t => {
+                        tranUniq.forEach(t => {
                             const qty = num(t.Inot_Quty), amt = num(t.Inot_Amt);
                             excelRows.push({t:'p', d:['', t.Inot_Item||'', t.Item_Name||'', '', qty, qty>0?Math.round(amt/qty):0, amt, '', '', '', '', '', '', '']});
                         });
@@ -7347,8 +7356,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                     // 3단계: 제품 상세 행 + 합계 행
                     if (level === 3) {
-                        if (r.tran && r.tran.length > 0) {
-                            r.tran.forEach(t => {
+                        if (tranUniq.length > 0) {
+                            tranUniq.forEach(t => {
                                 const qty  = num(t.Inot_Quty);
                                 const amt  = num(t.Inot_Amt);
                                 const unit = qty > 0 ? Math.round(amt / qty) : 0;
@@ -10573,14 +10582,8 @@ function doSaveHtml(){
             const dataRows = cached.map(r => r.d || r);   // 하위호환: 일반 배열도 허용
             const types    = cached.map(r => r.t || 'p');
 
-            if (!window.XLSXStyle) {
-                // XLSXStyle 미로드 시 색상 없이 일반 출력
-                _xlsxDownload([hdrs, ...dataRows], `거래처기간별현황_${from}_${to}.xlsx`);
-                return;
-            }
-
             const aoa = [hdrs, ...dataRows];
-            const ws  = XLSXStyle.utils.aoa_to_sheet(aoa);
+            const ws  = XLSX.utils.aoa_to_sheet(aoa);
 
             // 컬럼 너비 설정
             ws['!cols'] = [
@@ -10621,9 +10624,9 @@ function doSaveHtml(){
                 });
             });
 
-            const wb = XLSXStyle.utils.book_new();
-            XLSXStyle.utils.book_append_sheet(wb, ws, '거래처기간별현황');
-            XLSXStyle.writeFile(wb, `거래처기간별현황_${from}_${to}.xlsx`);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, '거래처기간별현황');
+            XLSX.writeFile(wb, `거래처기간별현황_${from}_${to}.xlsx`);
         };
 
         // ── 전역 데이터 캐시 ──────────────────────────────────────────
