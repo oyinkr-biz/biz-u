@@ -42,10 +42,19 @@ pause > nul
 set "FILES=index.html api.js style.css mobile.html order.html version.json"
 for %%F in (%FILES%) do (
     echo Downloading %%F...
-    powershell -Command "Invoke-WebRequest '%BASE%/%%F' -OutFile '%DEST%%%F' -UseBasicParsing"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest '%BASE%/%%F' -OutFile '%DEST%%%F' -UseBasicParsing"
     if !errorlevel! neq 0 (
         echo [ERROR] Failed to download %%F
         pause & exit /b 1
+    )
+)
+:: server.exe 업데이트 (서버 중단 후 교체)
+echo Downloading server.exe... (14MB)
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest '%BASE%/server.exe' -OutFile '%DEST%server_new.exe' -UseBasicParsing"
+if !errorlevel! equ 0 (
+    if exist "%DEST%server_new.exe" (
+        move /y "%DEST%server_new.exe" "%DEST%server.exe" > nul
+        echo server.exe updated.
     )
 )
 
