@@ -263,7 +263,9 @@
                             <select id="side-period" class="l-input" style="width:65px">
                                 <option value="1">1개월</option>
                                 <option value="2">2개월</option>
-                                <option value="3">3개월</option>
+                                <option value="3" selected>3개월</option>
+                                <option value="6">6개월</option>
+                                <option value="12">12개월</option>
                             </select>
                             <button id="side-history-btn" class="ex-btn-legacy" style="margin-left:4px">조회</button>
                             <button class="ex-btn-legacy side-stmt-btn">거래명세서</button>
@@ -2106,7 +2108,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.09 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2645,7 +2647,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.09</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.20</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -10432,12 +10434,16 @@ function doSaveHtml(){
         // 거래처 기간별 매입/매출 현황 창 열릴 때 날짜 초기값
         document.getElementById('open-cust-period-status')?.addEventListener('click', () => {
             const today = new Date().toISOString().slice(0,10);
-            const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cps-date-from');
             const t = document.getElementById('cps-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;   // 기본 오늘~오늘 (빠른 조회)
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runCpsSearch?.(), 80);
+        });
+        // from 날짜 클릭 시 → 1일로 자동 변경 (기간 조회 편의)
+        document.getElementById('cps-date-from')?.addEventListener('click', function() {
+            const today = new Date().toISOString().slice(0,10);
+            if (this.value === today) this.value = today.slice(0,8) + '01';
         });
 
         // 거래처입출금현황 창 열릴 때 날짜 초기값 + 자동 조회
@@ -13086,9 +13092,10 @@ function doSaveHtml(){
         let dailyStrip = { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, dc:0, received:0 };
         let clientTodaySum = 0;  // 현재 거래처 금일 누계 (저장 후 갱신)
         let currentTicket    = null;
+        let currentGubun     = '1';  // 현재 로드된 전표의 Ivn_Gubun
         let currentClientId  = null;
         let isExistingEntry  = false; // true=DB에서 불러온 기존 전표, false=신규
-        let todayTickets     = [];   // 오늘 날짜 전체 전표 [{ticket, clientId, clientName}] (ASC)
+        let todayTickets     = [];   // 오늘 날짜 전체 전표 [{ticket, gubun, date, clientId, clientName, sawon}] (ASC)
         let currentTicketIdx = -1;   // todayTickets 내 현재 위치
         let _salesLockedClientId = null; // 매출등록 거래처 잠금 ID
 
@@ -13365,10 +13372,13 @@ function doSaveHtml(){
 
 
         // ── 전표 불러오기 (작성순번 ◄►) ─────────────────────────
-        async function loadTicket(ticketNum, dateHint) {
+        async function loadTicket(ticketNum, dateHint, gubunHint) {
             if (!ticketNum || ticketNum < 1) return;
             try {
-                const url = dateHint ? `${API}/inven/${ticketNum}?date=${dateHint}` : `${API}/inven/${ticketNum}`;
+                const params = [];
+                if (dateHint)  params.push(`date=${dateHint}`);
+                if (gubunHint) params.push(`gubun=${gubunHint}`);
+                const url = `${API}/inven/${ticketNum}` + (params.length ? '?' + params.join('&') : '');
                 const r = await fetch(url);
                 const j = await r.json();
                 if (!j.ok || !j.data) { alert('해당 전표를 찾을 수 없습니다.'); return; }
@@ -13378,8 +13388,9 @@ function doSaveHtml(){
                     return Object.assign({}, r2, { _itemName: item ? item.Item_Name : '' });
                 });
                 currentTicket    = ticketNum;
+                currentGubun     = gubunHint || m.Ivn_Gubun || '1';
                 isExistingEntry  = true;
-                currentTicketIdx = todayTickets.findIndex(x => x.ticket === ticketNum);
+                currentTicketIdx = todayTickets.findIndex(x => x.ticket === ticketNum && x.gubun === currentGubun);
                 if ($id('ivn-ticket')) $id('ivn-ticket').value = ticketNum;
                 updateSeqDisplay();
                 if ($id('ivn-date'))   $id('ivn-date').value   = m.Ivn_Date || '';
@@ -13470,13 +13481,17 @@ function doSaveHtml(){
             todayTickets     = [];
             currentTicketIdx = -1;
             const d = dateStr || ($id('ivn-date')?.value) || today8();
+            // 매출(1)/매입(2) — Gubun=0(수금)과 같은 Ivn_Ticket 번호 중복 방지
+            const formGubun = $id('ivn-gubun')?.value || '1';
             try {
                 const r = await fetch(`${API}/inven?from=${d}&to=${d}`);
                 const j = await r.json();
                 const list = j.data || [];
                 todayTickets = list
+                    .filter(x => String(x.Ivn_Gubun ?? '1') === formGubun)
                     .map(x => ({
                         ticket:     parseInt(x.Ivn_Ticket),
+                        gubun:      String(x.Ivn_Gubun ?? '1'),
                         date:       x.Ivn_Date || '',
                         clientId:   x.Ivn_Client,
                         clientName: (allClients.find(c => String(c.Client_ID) === String(x.Ivn_Client))?.Client_Name) || '',
@@ -13485,7 +13500,7 @@ function doSaveHtml(){
                     .filter(x => x.ticket)
                     .sort((a, b) => a.ticket - b.ticket);
                 if (currentTicket) {
-                    currentTicketIdx = todayTickets.findIndex(x => x.ticket === currentTicket);
+                    currentTicketIdx = todayTickets.findIndex(x => x.ticket === currentTicket && x.gubun === currentGubun);
                 }
                 updateSeqDisplay();
 
@@ -13532,50 +13547,33 @@ function doSaveHtml(){
             if (!clientId) return;
             try {
                 const curGubun = $id('ivn-gubun')?.value || '1';
-                const isPurchase = curGubun === '2';
                 const setV = (id, v) => { const el = $id(id); if (el) el.value = v; };
 
-                // 매출(1)/매입(2) 공통: gubun 서버 필터 없이 전체 조회 후 클라이언트 필터
-                // (Access DB Ivn_Gubun 정수형이라 서버 문자열 필터 불일치 방지)
-                const r = await fetch(`${API}/inven?client=${clientId}`);
-                const j = await r.json();
-                const list = (j.data || []).filter(row => String(row.Ivn_Gubun ?? '1') === curGubun);
-
-                // 거래일자 필드값 기준 (수동 입력 날짜 포함)
                 const todayStr = $id('ivn-date')?.value || today8();
-                let todayAmt = 0, prevBal = 0, lastDate = '';
+                // Normalize to YYYY-MM-DD for API
+                const beforeDate = todayStr.replace(/(\d{4})-?(\d{2})-?(\d{2})/, '$1-$2-$3');
 
-                // 기초잔액(Client_Re)을 전일잔액에 포함 (설정일이 오늘 이하이면 포함)
-                const cli      = allClients.find(x => String(x.Client_ID) === String(clientId));
-                const initBal  = parseInt(cli?.Client_Re) || 0;
-                const initDate = (cli?.Client_Day1 || '').substring(0, 10);
-                if (initBal && (!initDate || initDate <= todayStr)) {
-                    prevBal += initBal;
-                }
+                // 전일잔액: Amt 테이블의 오늘 이전 마지막 Amt_Misu (정확한 누적잔액)
+                const [balR, todayR] = await Promise.all([
+                    fetch(`${API}/amt/prev-bal?client=${clientId}&before=${beforeDate}`),
+                    fetch(`${API}/inven?client=${clientId}&from=${beforeDate}&to=${beforeDate}`)
+                ]);
+                const balJ   = await balR.json();
+                const todayJ = await todayR.json();
 
-                list.forEach(row => {
-                    const amt  = parseNum(row.Ivn_Total) || 0;
-                    const cash = parseNum(row.Ivn_Cash)  || 0;
-                    const bank = parseNum(row.Ivn_Bank)  || 0;
-                    const card = parseNum(row.Ivn_Card)  || 0;
-                    const dc   = parseNum(row.Ivn_DC)    || 0;
-                    const d    = row.Ivn_Date || '';
-                    const g1   = String(row.Ivn_Gubun   || '1');
-                    const g2   = String(row.Ivn_soGubun || '0');
-                    const eff  = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
-                    const asgn = eff === '2' ? -1 : 1;
+                const prevBal  = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
+                const todayList = (todayJ.data || []).filter(row => String(row.Ivn_Gubun ?? '1') === curGubun);
 
+                let todayAmt = 0, lastDate = '';
+                todayList.forEach(row => {
+                    const amt = parseNum(row.Ivn_Total) || 0;
+                    const d   = row.Ivn_Date || '';
                     if (!lastDate || d > lastDate) lastDate = d;
-
-                    // 현재 편집 중인 전표는 calcTotals에서 별도 계산 → 제외
+                    const g2  = String(row.Ivn_soGubun || '0');
+                    const eff = (g2 === '2' || g2 === '1') ? (curGubun === '1' ? '2' : '1') : curGubun;
+                    const asgn = eff === '2' ? -1 : 1;
                     if (currentTicket && parseInt(row.Ivn_Ticket) === parseInt(currentTicket)) return;
-
-                    if (d <= todayStr) {
-                        prevBal += asgn * (amt - (cash + bank + card + dc));
-                    }
-                    if (d === todayStr) {
-                        todayAmt += asgn * amt;
-                    }
+                    todayAmt += asgn * amt;
                 });
 
                 setV('ivn-prev-bal',  prevBal  !== 0 ? prevBal.toLocaleString('ko-KR')  : '0');
@@ -13583,7 +13581,6 @@ function doSaveHtml(){
                 setV('ivn-today-sum', todayAmt !== 0 ? todayAmt.toLocaleString('ko-KR') : '0');
 
                 clientTodaySum = todayAmt;
-                // 총잔액은 calcTotals()가 prevBal 기준으로 재계산
                 calcTotals();
             } catch(e) {
                 console.warn('잔액 로드 실패', e);
@@ -13653,7 +13650,7 @@ function doSaveHtml(){
                 tr.addEventListener('mouseleave', () => { if (!isCurrent) tr.style.background = isCurrent ? '' : (sbg || ''); });
                 tr.addEventListener('click', () => {
                     removePopup('seq-popup');
-                    loadTicket(item.ticket, item.date);
+                    loadTicket(item.ticket, item.date, item.gubun);
                 });
                 if (isCurrent) tr.dataset.current = '1';
                 tbody.appendChild(tr);
@@ -13972,7 +13969,7 @@ function doSaveHtml(){
                 div.addEventListener('mousedown', e => {
                     e.preventDefault();
                     removePopup('write-client-popup');
-                    loadTicket(t.ticket, t.date);
+                    loadTicket(t.ticket, t.date, t.gubun);
                 });
                 popup.appendChild(div);
             });
@@ -14485,9 +14482,11 @@ function doSaveHtml(){
             const effDir = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
 
             const prevBal  = parseNum($id('ivn-prev-bal')?.value);
+            // 금일 다른 전표의 누계를 포함해야 수금전표(납품없음) 등에서 정확한 총잔액 표시
+            const todayOther = clientTodaySum || 0;
             // 매입(effDir=2): 음수 잔액(미지급), 반품(effDir=1): 양수. Windows BizTech 동일.
             const amtSign  = effDir === '2' ? -1 : 1;
-            const totalBal = prevBal + amtSign * (truncAmt - cash - bank - card - dc);
+            const totalBal = prevBal + todayOther + amtSign * (truncAmt - cash - bank - card - dc);
             const tbEl = $id('ivn-total-bal');
             if (tbEl) tbEl.value = totalBal !== 0 ? totalBal.toLocaleString('ko-KR') : '0';
 
@@ -14550,52 +14549,55 @@ function doSaveHtml(){
             try {
                 const r = await fetch(`${API}/inven?client=${clientId}&from=${fromDate}&to=${toDate}`);
                 const j = await r.json();
-                // API는 DESC(최신→과거) 반환 → 날짜순(오래된→최신) 표시를 위해 reverse
-                const list = (j.data || []).slice(0, 30).reverse();
+                // API는 DESC(최신→과거) 반환 → 전체 기간 ASC 정렬
+                const rawList = (j.data || []).slice().reverse();
                 const tbody = $id('excel-side-grid-body');
                 if (!tbody) return;
 
-                const rows = [];
-
-                // 기초잔액 행 삽입 (설정일이 조회기간 내에 있을 때)
-                if (initBal && initDate && initDate >= fromDate && initDate <= toDate) {
-                    rows.push({
-                        _isInit: true,
-                        dateStr: initDate.substring(5).replace('-', '/'),
-                        amt: initBal,
-                    });
-                }
-
-                list.forEach(x => {
-                    // 두번째 처리구분이 '2'이면 방향 반전 (매출/매입→매입방향, 매입/매출→매출방향)
+                // 날짜별 집계 (일별 합계 표시)
+                const dayMap = new Map();
+                rawList.forEach(x => {
+                    const fd = (x.Ivn_Date || '').substring(0, 10);
+                    const ds = (x.Ivn_Date || '').substring(5).replace(/-/g, '/');
+                    if (!dayMap.has(fd)) dayMap.set(fd, { dateStr: ds, fullDate: fd, panMae: 0, ipGeum: 0 });
+                    const d = dayMap.get(fd);
                     const xg1 = String(x.Ivn_Gubun || '1');
-                    const xg2 = String(x.Ivn_soGubun || '0'); // DB 컬럼명: Ivn_soGubun
+                    const xg2 = String(x.Ivn_soGubun || '0');
                     const xEff = xg2 === '2' ? (xg1 === '1' ? '2' : '1') : xg1;
                     const xSign = xEff === '2' ? -1 : 1;
-                    rows.push({
-                        dateStr:  (x.Ivn_Date || '').substring(5).replace(/-/g, '/'),
-                        fullDate: (x.Ivn_Date || '').substring(0, 10),
-                        ticket:   parseInt(x.Ivn_Ticket) || 0,
-                        sawon:    x.Ivn_Sawon,
-                        sign: xSign,
-                        amt:  xSign * parseFloat(x.Ivn_Total || 0),
-                        dc:   parseFloat(x.Ivn_DC || 0),
-                        paid: parseFloat(x.Ivn_Cash || 0) + parseFloat(x.Ivn_Bank || 0)
-                            + parseFloat(x.Ivn_Card || 0) + parseFloat(x.Ivn_DC   || 0),
-                        recv: parseFloat(x.Ivn_Cash || 0) + parseFloat(x.Ivn_Bank || 0)
-                            + parseFloat(x.Ivn_Card || 0),
-                    });
+                    const amt  = xSign * parseFloat(x.Ivn_Total || 0);
+                    const paid = parseFloat(x.Ivn_Cash || 0) + parseFloat(x.Ivn_Bank || 0)
+                               + parseFloat(x.Ivn_Card || 0) + parseFloat(x.Ivn_DC   || 0);
+                    const net = amt - xSign * paid;
+                    if (net > 0) d.panMae += net;
+                    else if (net < 0) d.ipGeum += (-net);
                 });
 
-                if (rows.length === 0) {
+                // 날짜 ASC 정렬 후 최근 months*31일만 표시 (과다 데이터 방지)
+                const allDaySorted = Array.from(dayMap.values()).sort((a, b) => a.fullDate.localeCompare(b.fullDate));
+                const maxDays = months * 31;
+                const limitedDays = allDaySorted.slice(-maxDays); // 최신 N일만
+                const dayRows = [];
+                if (initBal && initDate && limitedDays.length > 0 && initDate >= limitedDays[0].fullDate && initDate <= toDate) {
+                    dayRows.push({ _isInit: true, dateStr: initDate.substring(5).replace('-', '/'), fullDate: initDate, amt: initBal });
+                }
+                dayRows.push(...limitedDays);
+                dayRows.sort((a, b) => (a.fullDate || '').localeCompare(b.fullDate || ''));
+
+                // 표시되는 가장 오래된 날짜 직전 Amt_Misu를 시작잔액으로 사용
+                const seedDate = dayRows.filter(x => !x._isInit)[0]?.fullDate || fromDate;
+                const balR = await fetch(`${API}/amt/prev-bal?client=${clientId}&before=${seedDate}`);
+                const balJ = await balR.json();
+
+                if (dayRows.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;font-size:10px">내역 없음</td></tr>';
                     return;
                 }
 
-                // 누적잔액은 ASC(오래된→최신) 순으로 계산 후, 화면 표시만 reverse(최신→오래된)
-                let cumBal = (initBal && initDate && initDate < fromDate) ? initBal : 0;
+                // 누적잔액: fromDate 이전 Amt_Misu를 기준값으로 사용
+                let cumBal = balJ.ok ? (balJ.data?.balance ?? 0) : ((initBal && initDate && initDate < fromDate) ? initBal : 0);
 
-                const renderedRows = rows.map(x => {
+                const renderedRows = dayRows.map(x => {
                     if (x._isInit) {
                         cumBal += x.amt;
                         return `<tr style="height:18px;background:#fffde7">
@@ -14604,22 +14606,13 @@ function doSaveHtml(){
                             <td style="font-size:10px;padding:1px 3px;text-align:right;color:#7a6000;font-weight:bold">${fmt(x.amt)}</td>
                         </tr>`;
                     }
-                    cumBal += x.amt - x.sign * x.paid;
+                    cumBal += x.panMae - x.ipGeum;
                     const balClr = cumBal > 0 ? '#c00' : cumBal < 0 ? '#00a' : '#000';
-                    const amtDisp = x.amt > 0
-                        ? fmt(x.amt)
-                        : x.amt < 0
-                            ? `<span style="color:#c00">-${fmt(Math.abs(x.amt))}</span>`
-                            : '';
-                    const sn     = parseInt(x.sawon) || 0;
-                    const snum   = (sn >= 11 && sn <= 19) ? String(sn - 10) : '';
-                    const sclr   = window._sawonClr ? window._sawonClr(x.sawon) : '#444';
-                    const sbg    = window._sawonBg  ? window._sawonBg(x.sawon)  : '';
-                    return `<tr data-ticket="${x.ticket}" data-date="${x.fullDate}" style="cursor:pointer;${sbg?`background:${sbg};`:''}height:18px" title="클릭: 상세내역">
+                    return `<tr style="height:18px">
                         <td style="font-size:10px;padding:1px 3px">${x.dateStr}</td>
-                        <td style="font-size:10px;padding:1px 2px;text-align:center;font-weight:bold;color:${sclr}">${snum}</td>
-                        <td style="font-size:10px;padding:1px 3px;text-align:right">${amtDisp}</td>
-                        <td style="font-size:10px;padding:1px 3px;text-align:right">${x.recv > 0 ? fmt(x.recv) : ''}</td>
+                        <td style="font-size:10px;padding:1px 2px"></td>
+                        <td style="font-size:10px;padding:1px 3px;text-align:right">${x.panMae > 0 ? fmt(x.panMae) : ''}</td>
+                        <td style="font-size:10px;padding:1px 3px;text-align:right">${x.ipGeum > 0 ? fmt(x.ipGeum) : ''}</td>
                         <td style="font-size:10px;padding:1px 3px;text-align:right;color:${balClr}">${cumBal !== 0 ? fmt(cumBal) : '0'}</td>
                     </tr>`;
                 });
@@ -15485,13 +15478,13 @@ function doSaveHtml(){
                 if (todayTickets.length === 0) return;
                 if (currentTicketIdx > 0) {
                     const prev = todayTickets[currentTicketIdx - 1];
-                    loadTicket(prev.ticket, prev.date);
+                    loadTicket(prev.ticket, prev.date, prev.gubun);
                 } else if (currentTicketIdx === 0) {
                     // already at first
                 } else {
                     // 신규 상태에서 ◄ → 마지막 전표
                     const last = todayTickets[todayTickets.length - 1];
-                    loadTicket(last.ticket, last.date);
+                    loadTicket(last.ticket, last.date, last.gubun);
                 }
             });
             // 작성순번 ► → 다음 전표 이동
@@ -15499,7 +15492,7 @@ function doSaveHtml(){
                 if (todayTickets.length === 0) return;
                 if (currentTicketIdx >= 0 && currentTicketIdx < todayTickets.length - 1) {
                     const next = todayTickets[currentTicketIdx + 1];
-                    loadTicket(next.ticket, next.date);
+                    loadTicket(next.ticket, next.date, next.gubun);
                 } else {
                     // 마지막이거나 신규상태 → 신규 입력
                     newEntry();
@@ -16145,7 +16138,7 @@ function doSaveHtml(){
                 await loadTodayTickets(d);
                 if (clientId) {
                     const t = todayTickets.find(x => String(x.clientId) === String(clientId));
-                    if (t) { await loadTicket(t.ticket, t.date); }
+                    if (t) { await loadTicket(t.ticket, t.date, t.gubun); }
                     else   { selectClient(clientId); }
                 }
             };
