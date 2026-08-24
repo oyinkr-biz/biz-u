@@ -7400,18 +7400,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                 window._cpsExcelRows = excelRows;  // 엑셀 내보내기용 캐시
 
-                // 화면 표시는 8000행으로 제한 (UI 응답성 보호) — 엑셀은 전체 데이터 사용
-                const MAX_DISPLAY = 8000;
-                const truncated = htmlParts.length > MAX_DISPLAY;
-                const displayParts = truncated ? htmlParts.slice(0, MAX_DISPLAY) : htmlParts;
-                tbody.innerHTML = displayParts.join('');
-                if (truncated) {
-                    const warnTr = document.createElement('tr');
-                    warnTr.innerHTML = `<td colspan="38" style="text-align:center;padding:6px;background:#fff8e1;color:#a06000;font-size:11px;border:1px solid #ffe082">
-                        ⚠ 화면에는 ${MAX_DISPLAY.toLocaleString()}행 표시 중 (전체 ${rows.length.toLocaleString()}건) — 전체 데이터는 [엑셀변환(F12)] 사용
-                    </td>`;
-                    tbody.appendChild(warnTr);
-                }
+                tbody.innerHTML = htmlParts.join('');
 
             } catch(e) {
                 tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:8px;color:#c00">오류: ${e.message}</td></tr>`;
