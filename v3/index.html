@@ -21,7 +21,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.08 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.09 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2106,7 +2106,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.08 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.09 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2645,7 +2645,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.08</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.09</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -13365,10 +13365,11 @@ function doSaveHtml(){
 
 
         // ── 전표 불러오기 (작성순번 ◄►) ─────────────────────────
-        async function loadTicket(ticketNum) {
+        async function loadTicket(ticketNum, dateHint) {
             if (!ticketNum || ticketNum < 1) return;
             try {
-                const r = await fetch(`${API}/inven/${ticketNum}`);
+                const url = dateHint ? `${API}/inven/${ticketNum}?date=${dateHint}` : `${API}/inven/${ticketNum}`;
+                const r = await fetch(url);
                 const j = await r.json();
                 if (!j.ok || !j.data) { alert('해당 전표를 찾을 수 없습니다.'); return; }
                 const m = j.data.mast || {};
@@ -13476,6 +13477,7 @@ function doSaveHtml(){
                 todayTickets = list
                     .map(x => ({
                         ticket:     parseInt(x.Ivn_Ticket),
+                        date:       x.Ivn_Date || '',
                         clientId:   x.Ivn_Client,
                         clientName: (allClients.find(c => String(c.Client_ID) === String(x.Ivn_Client))?.Client_Name) || '',
                         sawon:      x.Ivn_Sawon
@@ -13650,7 +13652,7 @@ function doSaveHtml(){
                 tr.addEventListener('mouseleave', () => { if (!isCurrent) tr.style.background = isCurrent ? '' : (sbg || ''); });
                 tr.addEventListener('click', () => {
                     removePopup('seq-popup');
-                    loadTicket(item.ticket);
+                    loadTicket(item.ticket, item.date);
                 });
                 tbody.appendChild(tr);
             });
@@ -13965,7 +13967,7 @@ function doSaveHtml(){
                 div.addEventListener('mousedown', e => {
                     e.preventDefault();
                     removePopup('write-client-popup');
-                    loadTicket(t.ticket);
+                    loadTicket(t.ticket, t.date);
                 });
                 popup.appendChild(div);
             });
@@ -15477,19 +15479,22 @@ function doSaveHtml(){
             $id('ivn-seq-prev')?.addEventListener('click', () => {
                 if (todayTickets.length === 0) return;
                 if (currentTicketIdx > 0) {
-                    loadTicket(todayTickets[currentTicketIdx - 1].ticket);
+                    const prev = todayTickets[currentTicketIdx - 1];
+                    loadTicket(prev.ticket, prev.date);
                 } else if (currentTicketIdx === 0) {
                     // already at first
                 } else {
                     // 신규 상태에서 ◄ → 마지막 전표
-                    loadTicket(todayTickets[todayTickets.length - 1].ticket);
+                    const last = todayTickets[todayTickets.length - 1];
+                    loadTicket(last.ticket, last.date);
                 }
             });
             // 작성순번 ► → 다음 전표 이동
             $id('ivn-seq-next')?.addEventListener('click', () => {
                 if (todayTickets.length === 0) return;
                 if (currentTicketIdx >= 0 && currentTicketIdx < todayTickets.length - 1) {
-                    loadTicket(todayTickets[currentTicketIdx + 1].ticket);
+                    const next = todayTickets[currentTicketIdx + 1];
+                    loadTicket(next.ticket, next.date);
                 } else {
                     // 마지막이거나 신규상태 → 신규 입력
                     newEntry();
@@ -16135,7 +16140,7 @@ function doSaveHtml(){
                 await loadTodayTickets(d);
                 if (clientId) {
                     const t = todayTickets.find(x => String(x.clientId) === String(clientId));
-                    if (t) { await loadTicket(t.ticket); }
+                    if (t) { await loadTicket(t.ticket, t.date); }
                     else   { selectClient(clientId); }
                 }
             };
