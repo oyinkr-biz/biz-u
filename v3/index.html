@@ -13635,15 +13635,16 @@ function doSaveHtml(){
             document.body.appendChild(popup);
 
             const tbody = popup.querySelector('#seq-popup-body');
-            todayTickets.forEach((item, i) => {
-                const isCurrent = (i === currentTicketIdx);
+            [...todayTickets].reverse().forEach((item, i) => {
+                const origIdx = todayTickets.length - 1 - i;
+                const isCurrent = (origIdx === currentTicketIdx);
                 const slabel = window._sawonLabel ? window._sawonLabel(item.sawon) : '';
                 const sclr   = window._sawonClr   ? window._sawonClr(item.sawon)   : '#444';
                 const sbg    = window._sawonBg    ? window._sawonBg(item.sawon)    : '';
                 const tr = document.createElement('tr');
                 tr.style.cssText = `cursor:pointer;${isCurrent ? 'background:#000080;color:#fff;' : sbg ? `background:${sbg};` : ''}`;
                 tr.innerHTML = `
-                    <td style="padding:4px 8px;text-align:center;white-space:nowrap;">${i + 1}</td>
+                    <td style="padding:4px 8px;text-align:center;white-space:nowrap;">${origIdx + 1}</td>
                     <td style="padding:4px 6px;text-align:center;font-weight:bold;white-space:nowrap;color:${isCurrent ? '#fff' : sclr}">${slabel}</td>
                     <td style="padding:4px 8px;">${item.clientName}</td>
                     <td style="padding:4px 8px;text-align:center;white-space:nowrap;">${item.ticket}</td>
@@ -13654,8 +13655,12 @@ function doSaveHtml(){
                     removePopup('seq-popup');
                     loadTicket(item.ticket, item.date);
                 });
+                if (isCurrent) tr.dataset.current = '1';
                 tbody.appendChild(tr);
             });
+            // 현재 선택된 행으로 스크롤
+            const curTr = tbody.querySelector('[data-current="1"]');
+            if (curTr) curTr.scrollIntoView({ block: 'center' });
         }
 
         // ── 거래처/제품 검색 모드 (환경설정 라디오 반영) ────────
