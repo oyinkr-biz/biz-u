@@ -2108,7 +2108,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.27 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.28 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2647,7 +2647,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.27</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.28</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7272,6 +7272,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 rows.sort((a, b) => String(a.Ivn_Date).localeCompare(String(b.Ivn_Date)));
 
                 const htmlParts = [];
+                const excelRows = [];   // DOM 대신 원본 데이터로 엑셀 구성
                 let rowNum = 0;
 
                 rows.forEach(r => {
@@ -7292,6 +7293,13 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const curBal   = prevBal + amtSign * total - received - dc;
                     balMap[cid]    = curBal;
                     rowNum++;
+
+                    // 엑셀용 데이터 수집 (DOM 비의존)
+                    excelRows.push([rowNum, fmtDate(r.Ivn_Date), cName, prevBal, '', '', amtSign*total, isReturn?total:0, dc, received, curBal]);
+                    if (level === 3 && r.tran) r.tran.forEach(t => {
+                        const qty = num(t.Inot_Quty), amt = num(t.Inot_Amt);
+                        excelRows.push(['', t.Inot_Item||'', t.Item_Name||'', '', qty, qty>0?Math.round(amt/qty):0, amt, '', '', '', '']);
+                    });
 
                     const rowBg    = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
                     const rowFw    = level === 3 ? 'font-weight:bold;' : '';
@@ -7373,6 +7381,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         );
                     }
                 });
+
+                window._cpsExcelRows = excelRows;  // 엑셀 내보내기용 캐시
 
                 // 청크 렌더링 — 1500행씩 나눠서 프레임 사이에 삽입 (대용량 충돌 방지)
                 tbody.innerHTML = '';
@@ -10550,21 +10560,12 @@ function doSaveHtml(){
 
         // ── 거래처 기간별 엑셀 변환 ──────────────────────────────────
         window.runCpsExcel = function() {
-            const tbody = document.getElementById('cust-period-status-grid-body');
-            if (!tbody) return;
-            const rows = tbody.querySelectorAll('tr');
-            if (!rows.length || rows[0].querySelector('td[colspan]')) {
-                alert('조회 후 엑셀 변환하세요.'); return;
-            }
-            const headers = ['번호','거래일자','거래처명','전일잔액','매출수량','단가','총금액','반품(할인)','총금액','입금금액','잔액'];
-            const data = [headers, ...[...rows].filter(tr => tr.querySelectorAll('td').length > 0)
-                .map(tr => [...tr.querySelectorAll('td')].map(td => {
-                    const v = td.textContent.trim().replace(/,/g, '');
-                    return isNaN(v) || v === '' ? v : Number(v);
-                }))];
+            const cached = window._cpsExcelRows;
+            if (!cached?.length) { alert('조회 후 엑셀 변환하세요.'); return; }
+            const headers = ['번호','거래일자','거래처명','전일잔액','매출수량','단가','총금액','반품','할인','입금','잔액'];
             const from  = document.getElementById('cps-date-from')?.value || '';
             const to    = document.getElementById('cps-date-to')?.value   || '';
-            _xlsxDownload(data, `거래처기간별현황_${from}_${to}.xlsx`);
+            _xlsxDownload([headers, ...cached], `거래처기간별현황_${from}_${to}.xlsx`);
         };
 
         // ── 전역 데이터 캐시 ──────────────────────────────────────────
