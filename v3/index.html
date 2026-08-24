@@ -2108,7 +2108,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.28 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.29 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2647,7 +2647,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.28</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.29</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7294,17 +7294,17 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     balMap[cid]    = curBal;
                     rowNum++;
 
+                    const rowBg    = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
+                    const rowFw    = level === 3 ? 'font-weight:bold;' : '';
+                    const isReturn = g2 === '1';
+                    const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
+
                     // 엑셀용 데이터 수집 (DOM 비의존)
                     excelRows.push([rowNum, fmtDate(r.Ivn_Date), cName, prevBal, '', '', amtSign*total, isReturn?total:0, dc, received, curBal]);
                     if (level === 3 && r.tran) r.tran.forEach(t => {
                         const qty = num(t.Inot_Quty), amt = num(t.Inot_Amt);
                         excelRows.push(['', t.Inot_Item||'', t.Item_Name||'', '', qty, qty>0?Math.round(amt/qty):0, amt, '', '', '', '']);
                     });
-
-                    const rowBg    = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
-                    const rowFw    = level === 3 ? 'font-weight:bold;' : '';
-                    const isReturn = g2 === '1';
-                    const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
 
                     if (level === 3) {
                         htmlParts.push(
