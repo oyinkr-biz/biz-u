@@ -2108,7 +2108,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.23 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2647,7 +2647,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.23</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.24</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7271,7 +7271,17 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 // 기간 내 기초잔액 → 가상 행으로 rows에 삽입
                 rows.sort((a, b) => String(a.Ivn_Date).localeCompare(String(b.Ivn_Date)));
 
-                tbody.innerHTML = '';
+                // 5000건 초과 시 경고 (렌더러 보호)
+                const MAX_ROWS = 5000;
+                if (rows.length > MAX_ROWS) {
+                    tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:10px;color:#c00;font-size:12px">
+                        조회 결과가 너무 많습니다 (${rows.length.toLocaleString()}건).<br>
+                        기간을 줄이거나 거래처를 지정한 후 다시 조회하세요.
+                    </td></tr>`;
+                    return;
+                }
+
+                const htmlParts = [];
                 let rowNum = 0;
 
                 rows.forEach(r => {
@@ -7293,22 +7303,25 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     balMap[cid]    = curBal;
                     rowNum++;
 
-                    // 전표 헤더 행 (3단계: 날짜+거래처만, 1/2단계: 금액 포함)
-                    const tr = document.createElement('tr');
-                    tr.style.background = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
-                    tr.style.fontWeight = level === 3 ? 'bold' : '';
+                    const rowBg    = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
+                    const rowFw    = level === 3 ? 'font-weight:bold;' : '';
                     const isReturn = g2 === '1';
                     const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
+
                     if (level === 3) {
-                        tr.innerHTML =
+                        htmlParts.push(
+                            `<tr style="background:${rowBg};${rowFw}">` +
                             `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
                             cell(fmtDate(r.Ivn_Date), false) +
                             cell(cName, false) +
                             cell('', true) + cell('', true) + cell('', true) +
                             cell('', true) + cell('', true) + cell('', true) +
-                            cell('', true) + cell('', true) + cell('', true) + cell('', true);
+                            cell('', true) + cell('', true) + cell('', true) + cell('', true) +
+                            `</tr>`
+                        );
                     } else {
-                        tr.innerHTML =
+                        htmlParts.push(
+                            `<tr style="background:${rowBg};${rowFw}">` +
                             `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
                             cell(fmtDate(r.Ivn_Date), false) +
                             cell(cName, false) +
@@ -7322,9 +7335,10 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             cell(fmt(cash), true) +
                             cell(fmt(card), true) +
                             cell(fmt(bank), true) +
-                            cell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '');
+                            cell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
+                            `</tr>`
+                        );
                     }
-                    tbody.appendChild(tr);
 
                     // 3단계: 제품 상세 행 + 합계 행
                     if (level === 3) {
@@ -7335,10 +7349,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 const unit = qty > 0 ? Math.round(amt / qty) : 0;
                                 const itemCode = t.Inot_Item || '';
                                 const itemName = t.Item_Name || itemCode;
-
-                                const td = document.createElement('tr');
-                                td.style.background = '#fff';
-                                td.innerHTML =
+                                htmlParts.push(
+                                    `<tr style="background:#fff;">` +
                                     `<td style="border:1px solid #e8e8e8;padding:1px 3px"></td>` +
                                     cell(`  ${itemCode}`, false, ';color:#555;padding-left:12px') +
                                     cell(itemName, false, ';color:#333') +
@@ -7346,39 +7358,33 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     cell(fmt(qty), true, ';color:#005') +
                                     cell(fmt(unit), true) +
                                     cell(fmt(amt), true) +
-                                    cell('', true) +
-                                    cell('', true) +
-                                    cell('', true) +
-                                    cell('', true) +
-                                    cell('', true) +
-                                    cell('', true) +
-                                    cell('', true);
-                                tbody.appendChild(td);
+                                    cell('', true) + cell('', true) + cell('', true) +
+                                    cell('', true) + cell('', true) + cell('', true) + cell('', true) +
+                                    `</tr>`
+                                );
                             });
                         }
-                        // 합계 행 (제품 목록 아래) — td에 직접 배경/테두리 적용
                         const SUM_BG = 'background:#d8c8b8;border-top:2px solid #a09080;border-bottom:2px solid #a09080;font-weight:bold;';
                         const scell = (txt, right, extra='') =>
                             `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 4px;font-size:11px;${right?'text-align:right':''}${extra}">${txt}</td>`;
-                        const sumRow = document.createElement('tr');
-                        sumRow.innerHTML =
+                        htmlParts.push(
+                            `<tr>` +
                             `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 3px"></td>` +
-                            scell('', false) +
-                            scell('', false) +
+                            scell('', false) + scell('', false) +
                             scell(fmt(prevBal), true, ';color:#555') +
-                            scell('', true) +
-                            scell('', true) +
+                            scell('', true) + scell('', true) +
                             scell(fmt(total), true, amtStyle) +
                             scell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
                             scell(dc ? fmt(dc) : '', true) +
                             scell(fmt(total), true, amtStyle) +
-                            scell(fmt(cash), true) +
-                            scell(fmt(card), true) +
-                            scell(fmt(bank), true) +
-                            scell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '');
-                        tbody.appendChild(sumRow);
+                            scell(fmt(cash), true) + scell(fmt(card), true) + scell(fmt(bank), true) +
+                            scell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
+                            `</tr>`
+                        );
                     }
                 });
+
+                tbody.innerHTML = htmlParts.join('');
 
             } catch(e) {
                 tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:8px;color:#c00">오류: ${e.message}</td></tr>`;
