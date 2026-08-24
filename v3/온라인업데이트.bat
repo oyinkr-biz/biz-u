@@ -39,7 +39,7 @@ echo Press any key to update...
 pause > nul
 
 :: Download files
-set "FILES=index.html api.js style.css mobile.html order.html version.json"
+set "FILES=index.html api.js style.css mobile.html order.html version.json xlsx-js-style.bundle.js"
 for %%F in (%FILES%) do (
     echo Downloading %%F...
     powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest '%BASE%/%%F' -OutFile '%DEST%%%F' -UseBasicParsing"
