@@ -2108,7 +2108,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.26 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.27 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2647,7 +2647,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.26</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.27</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7271,16 +7271,6 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 // 기간 내 기초잔액 → 가상 행으로 rows에 삽입
                 rows.sort((a, b) => String(a.Ivn_Date).localeCompare(String(b.Ivn_Date)));
 
-                // 9000건 초과 시 경고 (렌더러 보호)
-                const MAX_ROWS = 9000;
-                if (rows.length > MAX_ROWS) {
-                    tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:10px;color:#c00;font-size:12px">
-                        조회 결과가 너무 많습니다 (${rows.length.toLocaleString()}건).<br>
-                        기간을 줄이거나 거래처를 지정한 후 다시 조회하세요.
-                    </td></tr>`;
-                    return;
-                }
-
                 const htmlParts = [];
                 let rowNum = 0;
 
@@ -7384,7 +7374,20 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     }
                 });
 
-                tbody.innerHTML = htmlParts.join('');
+                // 청크 렌더링 — 1500행씩 나눠서 프레임 사이에 삽입 (대용량 충돌 방지)
+                tbody.innerHTML = '';
+                const CHUNK = 1500;
+                let ci = 0;
+                function renderNextChunk() {
+                    const slice = htmlParts.slice(ci, ci + CHUNK);
+                    if (slice.length === 0) return;
+                    const tmp = document.createElement('tbody');
+                    tmp.innerHTML = slice.join('');
+                    while (tmp.firstChild) tbody.appendChild(tmp.firstChild);
+                    ci += CHUNK;
+                    if (ci < htmlParts.length) requestAnimationFrame(renderNextChunk);
+                }
+                requestAnimationFrame(renderNextChunk);
 
             } catch(e) {
                 tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:8px;color:#c00">오류: ${e.message}</td></tr>`;
