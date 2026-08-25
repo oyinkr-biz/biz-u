@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.36 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.39 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.36 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.39 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.36</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.39</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -13159,6 +13159,7 @@ function doSaveHtml(){
         let isExistingEntry  = false; // true=DB에서 불러온 기존 전표, false=신규
         let todayTickets     = [];   // 오늘 날짜 전체 전표 [{ticket, gubun, date, clientId, clientName, sawon}] (ASC)
         let currentTicketIdx = -1;   // todayTickets 내 현재 위치
+        let todayMaxTicket   = 0;    // 오늘 날짜 전체 Gubun MAX Ivn_Ticket (작성순번 표시용)
         let _salesLockedClientId = null; // 매출등록 거래처 잠금 ID
 
         // ── 매출등록 거래처 잠금 헬퍼 ─────────────────────────
@@ -13549,6 +13550,8 @@ function doSaveHtml(){
                 const r = await fetch(`${API}/inven?from=${d}&to=${d}`);
                 const j = await r.json();
                 const list = j.data || [];
+                // 모든 Gubun 포함 최대 Ticket (작성순번 표시 = Windows 방식과 일치)
+                todayMaxTicket = list.reduce((mx, x) => Math.max(mx, parseInt(x.Ivn_Ticket) || 0), 0);
                 todayTickets = list
                     .filter(x => String(x.Ivn_Gubun ?? '1') === formGubun)
                     .map(x => ({
@@ -13600,7 +13603,7 @@ function doSaveHtml(){
             if (currentTicketIdx >= 0) {
                 el.value = `${currentTicketIdx + 1}/${todayTickets.length}`;
             } else {
-                el.value = todayTickets.length > 0 ? todayTickets.length + 1 : 1;
+                el.value = todayMaxTicket > 0 ? todayMaxTicket + 1 : 1;
             }
         }
 
@@ -16425,26 +16428,24 @@ function doSaveHtml(){
     };
 
     function _buildStatementHtml(d, comp, cfg = {}) {
-        const fmtN = v => { const n = parseInt((v||'').replace(/,/g,'')); return (isNaN(n)||n===0) ? '' : n.toLocaleString('ko-KR'); };
+        const fmtN = v => { const n = parseInt((v||'').toString().replace(/,/g,'')); return (isNaN(n)||n===0) ? '' : n.toLocaleString('ko-KR'); };
         const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-        const compName     = esc(comp.Co_Name     || document.getElementById('header-company-name')?.textContent || '');
-        const compSno      = esc(comp.Co_sNo      || '');
-        const compRep      = esc(comp.Co_Header   || '');
-        const compAddr1    = esc(comp.Co_Addr     || '');
-        const compAddr2    = esc(comp.Co_Addr1    || '');
-        const compBiz      = esc(comp.Co_Business || '');
-        const compItem     = esc(comp.Co_Item     || '');
-        const compTel      = esc(comp.Co_STel     || '');
-        const compBankInfo = esc(comp.Co_BankInfo || '');
-        const compURL      = esc(comp.Co_URL      || '');
+        const compName  = esc(comp.Co_Name     || document.getElementById('header-company-name')?.textContent || '');
+        const compSno   = esc(comp.Co_sNo      || '');
+        const compRep   = esc(comp.Co_Header   || '');
+        const compAddr1 = esc(comp.Co_Addr     || '');
+        const compAddr2 = esc(comp.Co_Addr1    || '');
+        const compBiz   = esc(comp.Co_Business || '');
+        const compItem  = esc(comp.Co_Item     || '');
+        const compTel   = esc(comp.Co_STel     || '');
+        const footer    = esc(cfg.thermal_footer || '');
 
-        const prevBalN  = parseInt((d.prevBal||'').replace(/,/g,''))  || 0;
+        const prevBalN  = parseInt((d.prevBal ||'').replace(/,/g,'')) || 0;
         const delivAmtN = parseInt((d.delivAmt||'').replace(/,/g,'')) || 0;
-        const cashN     = parseInt((d.cash||'').replace(/,/g,''))     || 0;
-        const bankN     = parseInt((d.bank||'').replace(/,/g,''))     || 0;
-        const cardN     = parseInt((d.card||'').replace(/,/g,''))     || 0;
-        const sumBal    = prevBalN + delivAmtN;
+        const cashN     = parseInt((d.cash    ||'').replace(/,/g,'')) || 0;
+        const bankN     = parseInt((d.bank    ||'').replace(/,/g,'')) || 0;
+        const cardN     = parseInt((d.card    ||'').replace(/,/g,'')) || 0;
         const received  = cashN + bankN + cardN;
 
         const MIN_ROWS = 17;
@@ -16456,163 +16457,29 @@ function doSaveHtml(){
         const totQtyStr = totQtyN > 0 ? (Math.round(totQtyN * 10) / 10).toLocaleString('ko-KR') : '';
         const totAmt = padded.reduce((s,r) => s + (parseInt((r.amt||'').toString().replace(/,/g,''))||0), 0);
         const totVat = padded.reduce((s,r) => s + (parseInt((r.vat||'').toString().replace(/,/g,''))||0), 0);
-        const totSum = totAmt + totVat;
         const totAmtStr = totAmt > 0 ? totAmt.toLocaleString('ko-KR') : '';
         const totVatStr = totVat > 0 ? totVat.toLocaleString('ko-KR') : '';
-        const totSumStr = totSum > 0 ? totSum.toLocaleString('ko-KR') : '';
+        const totSumStr = (totAmt + totVat) > 0 ? (totAmt + totVat).toLocaleString('ko-KR') : '';
 
-        const makeRows = (accent, stripColor) => padded.map((r, i) => {
-            const hasData = !!r.name;
-            const bR  = `border-right:1px solid #e8e8e8`;
-            const bBd = `border-bottom:1px dashed #e8e8e8`;
-            if (!hasData) {
-                return `<tr style="height:18px">
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bR};${bBd}"></td>
-                    <td style="${bBd}"></td>
-                </tr>`;
-            }
-            const bg = i % 2 === 1 ? stripColor : '#fff';
+        const C = 'border-bottom:1px solid #e0e0e0;font-size:11px';
+        const rowsHtml = padded.map((r, i) => {
+            if (!r.name) return `<tr style="height:20px"><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td></tr>`;
             const rowAmt = parseInt((r.amt||'').toString().replace(/,/g,''))||0;
             const rowVat = parseInt((r.vat||'').toString().replace(/,/g,''))||0;
-            const rowTot = rowAmt + rowVat;
-            const c = `border-right:1px solid #e8e8e8;border-bottom:1px dashed #e8e8e8;font-size:11px`;
-            return `<tr style="height:18px;background:${bg}">
-                <td style="${c};text-align:center">${i+1}</td>
-                <td style="${c};text-align:left;padding:0 5px;overflow:hidden;white-space:nowrap">${esc(r.name)}</td>
-                <td style="${c};text-align:right;padding:0 4px">${r.qty||''}</td>
-                <td style="${c};text-align:center">${esc(r.unit||'')}</td>
-                <td style="${c};text-align:right;padding:0 4px">${fmtN(r.price)}</td>
-                <td style="${c};text-align:right;padding:0 4px">${fmtN(r.amt)}</td>
-                <td style="${c};text-align:right;padding:0 4px">${fmtN(r.vat)}</td>
-                <td style="${c};text-align:right;padding:0 4px">${rowTot ? rowTot.toLocaleString('ko-KR') : ''}</td>
+            return `<tr style="height:20px">
+                <td style="${C};text-align:center">${i+1}</td>
+                <td style="${C};text-align:left;padding:0 5px;overflow:hidden;white-space:nowrap">${esc(r.name)}${r.size ? ' <span style="color:#666;font-size:10px">'+esc(r.size)+'</span>' : ''}</td>
+                <td style="${C};text-align:right;padding:0 4px">${r.qty||''}</td>
+                <td style="${C};text-align:center">${esc(r.unit||'')}</td>
+                <td style="${C};text-align:right;padding:0 4px">${fmtN(r.price)}</td>
+                <td style="${C};text-align:right;padding:0 4px">${fmtN(r.amt)}</td>
+                <td style="${C};text-align:right;padding:0 4px">${fmtN(r.vat)}</td>
+                <td style="${C};text-align:right;padding:0 4px">${(rowAmt+rowVat) ? (rowAmt+rowVat).toLocaleString('ko-KR') : ''}</td>
             </tr>`;
         }).join('');
 
-        const makeCopy = (copyLabel, accent, stripColor, showPageNum) => {
-            const b2  = `border:1px solid ${accent}`;
-            const b1  = `border:1px solid #e8e8e8`;
-            const bR  = `border-right:1px solid #e8e8e8`;
-            const bB  = `border-bottom:1px solid #e8e8e8`;
-            const lbl = `font-size:10px;color:${accent};font-weight:bold`;
-
-            return `
-<div style="page-break-inside:avoid">
-  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
-    <span style="font-size:10px;color:#555">${showPageNum ? '1 / 1' : ''}</span>
-    <span style="font-size:10px;color:${accent};font-weight:bold">(${copyLabel})</span>
-  </div>
-  <table style="width:100%;border-collapse:collapse;${b2}">
-    <tr>
-      <td style="width:53%;vertical-align:top;padding:5px 5px;border-right:1px solid ${accent}">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
-          <span style="font-size:20px;font-weight:bold;color:${accent};letter-spacing:2px">거 래 명 세 표</span>
-          <span style="font-size:10px;font-weight:bold;color:${accent};${b1};padding:1px 5px">( ${copyLabel} )</span>
-        </div>
-        <div style="font-size:11px;font-weight:bold;color:${accent};line-height:1.8">
-          거래일: ${esc(d.date)}<br>
-          거래처: ${esc(d.clientName)}<br>
-          주 소: ${esc(d.clientAddr||'')}
-        </div>
-      </td>
-      <td style="width:16px;text-align:center;vertical-align:middle;border-right:1px solid ${accent};writing-mode:vertical-rl;${lbl};padding:1px 0">공급자</td>
-      <td style="vertical-align:top;padding:0">
-        <table style="width:100%;border-collapse:collapse">
-          <tr>
-            <td style="${bB};${bR};${lbl};text-align:center;height:17px;width:20%">등록번호</td>
-            <td style="${bB};${bR};font-size:10px;padding:0 6px;width:27%">${compSno}</td>
-            <td style="${bB};${bR};${lbl};text-align:center;width:14%">성명</td>
-            <td style="${bB};font-size:10px;padding:0 6px">${compRep}</td>
-          </tr>
-          <tr>
-            <td style="${bB};${bR};${lbl};text-align:center;height:17px">상 호</td>
-            <td colspan="3" style="${bB};font-size:10px;padding:0 6px">${compName}</td>
-          </tr>
-          <tr>
-            <td style="${bB};${bR};${lbl};text-align:center;height:17px">사 업 장</td>
-            <td colspan="3" style="${bB};font-size:10px;padding:0 6px">${compAddr1}</td>
-          </tr>
-          <tr>
-            <td style="${bB};${bR};${lbl};text-align:center;height:17px">주 소</td>
-            <td colspan="3" style="${bB};font-size:10px;padding:0 6px">${compAddr2}</td>
-          </tr>
-          <tr>
-            <td style="${bB};${bR};${lbl};text-align:center;height:17px">업 태</td>
-            <td style="${bB};${bR};font-size:10px;padding:0 6px">${compBiz}</td>
-            <td style="${bB};${bR};${lbl};text-align:center">종목</td>
-            <td style="${bB};font-size:10px;padding:0 6px">${compItem}</td>
-          </tr>
-          <tr>
-            <td style="${bR};${lbl};text-align:center;height:17px">담 당</td>
-            <td style="${bR};font-size:10px;padding:0 6px">${esc(d.charge)}</td>
-            <td style="${bR};${lbl};text-align:center">전화</td>
-            <td style="font-size:10px;padding:0 6px">${compTel}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" style="padding:0;border-top:1px solid ${accent}">
-        <table style="width:100%;border-collapse:collapse;table-layout:fixed">
-          <thead>
-            <tr style="height:21px;background:${stripColor}">
-              <th style="width:6%;${b1};${lbl};text-align:center">No.</th>
-              <th style="width:35%;${b1};${lbl};text-align:center">품 목</th>
-              <th style="width:8%;${b1};${lbl};text-align:center">수량</th>
-              <th style="width:6%;${b1};${lbl};text-align:center">단위</th>
-              <th style="width:11%;${b1};${lbl};text-align:center">단 가</th>
-              <th style="width:14%;${b1};${lbl};text-align:center">공급가액</th>
-              <th style="width:9%;${b1};${lbl};text-align:center">세 액</th>
-              <th style="width:11%;${b1};${lbl};text-align:center">합 계</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${makeRows(accent, stripColor)}
-            <tr style="height:18px">
-              <td colspan="2" style="border-top:1px solid ${accent}"></td>
-              <td style="border-top:1px solid ${accent};text-align:right;padding:0 4px;font-size:11px">${totQtyStr}</td>
-              <td colspan="2" style="border-top:1px solid ${accent}"></td>
-              <td style="border-top:1px solid ${accent};text-align:right;padding:0 4px;font-size:11px">${totAmtStr}</td>
-              <td style="border-top:1px solid ${accent};text-align:right;padding:0 4px;font-size:11px">${totVatStr}</td>
-              <td style="border-top:1px solid ${accent};text-align:right;padding:0 4px;font-size:11px">${totSumStr}</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" style="padding:0">
-        <table style="width:100%;border-collapse:collapse;border-top:1px solid ${accent}">
-          <tr style="height:15px">
-            <td style="${b1};${lbl};text-align:center;width:15%">합 계</td>
-            <td style="${b1};${lbl};text-align:center;width:15%">전잔액</td>
-            <td style="${b1};${lbl};text-align:center;width:18%">전잔액+합계</td>
-            <td style="${b1};${lbl};text-align:center;width:16%">입 금</td>
-            <td style="${b1};${lbl};text-align:center;width:16%">현잔액</td>
-            <td rowspan="2" style="${b1};${lbl};text-align:center;vertical-align:middle">인수자</td>
-          </tr>
-          <tr style="height:15px">
-            <td style="${b1};font-size:10px;text-align:right;padding-right:6px">${fmtN(d.delivAmt)}</td>
-            <td style="${b1};font-size:10px;text-align:right;padding-right:6px">${fmtN(d.prevBal)}</td>
-            <td style="${b1};font-size:10px;text-align:right;padding-right:6px">${sumBal>0?sumBal.toLocaleString('ko-KR'):''}</td>
-            <td style="${b1};font-size:10px;text-align:right;padding-right:6px">${received>0?received.toLocaleString('ko-KR'):''}</td>
-            <td style="${b1};font-size:10px;text-align:right;padding-right:6px">${fmtN(d.totalBal)}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-  <div style="display:flex;justify-content:space-between;margin-top:2px;font-size:10px">
-    <span style="color:#333">${esc(cfg.thermal_footer || '')}</span>
-    <span style="color:${accent}">${compURL}</span>
-  </div>
-</div>`;
-        };
+        const addrLine = [compAddr1, compAddr2].filter(Boolean).join(' ');
+        const bizLine  = [compBiz && ('업태: ' + compBiz), compItem && ('종목: ' + compItem)].filter(Boolean).join(' / ');
 
         return `<!DOCTYPE html>
 <html lang="ko">
@@ -16621,16 +16488,100 @@ function doSaveHtml(){
 <title>${esc(d.clientName || '거래명세표')}</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'맑은 고딕','Malgun Gothic',sans-serif}
-  th{font-weight:normal}
-  @page{size:A4 portrait;margin:4mm}
-  @media print{button{display:none}.pg-break{page-break-before:always}}
+  body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-size:11px;color:#111}
+  th{font-weight:600}
+  table{border-collapse:collapse;width:100%}
+  @page{size:A4 portrait;margin:10mm 12mm}
+  @media print{button{display:none}}
 </style>
 </head>
 <body>
-${makeCopy('공급자보관용',    '#cc0000', '#fce9e3', true)}
-<div style="border-top:1px dashed #bbb;margin:1mm 0"></div>
-${makeCopy('공급받는자보관용','#003db3', '#dde8f8', false)}
+
+<!-- 헤더: 배경색 없음, 하단 가로선만 -->
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:12px">
+  <div>
+    <div style="font-size:16px;font-weight:700">${compName}</div>
+    <div style="font-size:10px;color:#444;margin-top:3px;line-height:1.7">
+      사업자번호: ${compSno}${compRep ? ' &nbsp;|&nbsp; 대표: '+compRep : ''}${compTel ? ' &nbsp;|&nbsp; TEL: '+compTel : ''}<br>
+      ${addrLine}${bizLine ? ' &nbsp;|&nbsp; '+bizLine : ''}
+    </div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:22px;font-weight:700;letter-spacing:5px">거 래 명 세 표</div>
+    <div style="font-size:10px;color:#555;margin-top:5px">발행일: ${esc(d.date)} &nbsp;&nbsp; No. ${esc(d.ticket||'')}</div>
+  </div>
+</div>
+
+<!-- 공급자 / 공급받는자: 얇은 테두리, 배경색 없음 -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+  <div style="border:1px solid #bbb;padding:8px 11px">
+    <div style="font-size:9px;color:#888;font-weight:700;letter-spacing:1px;margin-bottom:4px">공급자</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:3px">${compName}</div>
+    <div style="font-size:10px;color:#444;line-height:1.65">사업자번호: ${compSno}<br>대표: ${compRep}${compTel ? ' &nbsp;|&nbsp; TEL: '+compTel : ''}</div>
+  </div>
+  <div style="border:1px solid #bbb;padding:8px 11px">
+    <div style="font-size:9px;color:#888;font-weight:700;letter-spacing:1px;margin-bottom:4px">공급받는자</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:3px">${esc(d.clientName)}</div>
+    <div style="font-size:10px;color:#444;line-height:1.65">담당: ${esc(d.charge||'')}${d.tel ? ' &nbsp;|&nbsp; TEL: '+esc(d.tel) : ''}</div>
+  </div>
+</div>
+
+<!-- 품목 표: 가로선만, 배경색 없음, 세로선 없음 -->
+<table style="table-layout:fixed">
+  <thead>
+    <tr style="border-top:1px solid #888;border-bottom:1px solid #888;height:22px">
+      <th style="width:5%;text-align:center">No</th>
+      <th style="width:34%;text-align:left;padding-left:5px">품목명</th>
+      <th style="width:8%;text-align:right;padding-right:4px">수량</th>
+      <th style="width:6%;text-align:center">단위</th>
+      <th style="width:11%;text-align:right;padding-right:4px">단가</th>
+      <th style="width:13%;text-align:right;padding-right:4px">공급가액</th>
+      <th style="width:10%;text-align:right;padding-right:4px">세액</th>
+      <th style="width:13%;text-align:right;padding-right:4px">합계</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${rowsHtml}
+    <tr style="border-top:1px solid #888;height:21px">
+      <td colspan="2" style="text-align:center;font-size:10.5px;font-weight:700">합 계</td>
+      <td style="text-align:right;padding:0 4px;font-weight:700">${totQtyStr}</td>
+      <td></td><td></td>
+      <td style="text-align:right;padding:0 4px;font-weight:700">${totAmtStr}</td>
+      <td style="text-align:right;padding:0 4px;font-weight:700">${totVatStr}</td>
+      <td style="text-align:right;padding:0 4px;font-weight:700">${totSumStr}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 합계·잔액 + 서명란 -->
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1.5px solid #111;padding-top:10px;margin-top:3px">
+  <div style="display:flex;gap:28px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:#555">
+      <span>공급자 확인</span>
+      <div style="width:72px;height:38px;border-bottom:1px solid #bbb"></div>
+      <span>(인)</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:#555">
+      <span>수령 확인</span>
+      <div style="width:72px;height:38px;border-bottom:1px solid #bbb"></div>
+      <span>(인)</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:10.5px;color:#444;line-height:2">
+      전일잔액 &nbsp; ${fmtN(d.prevBal)}원 &nbsp;&nbsp;
+      금일합계 &nbsp; ${fmtN(d.delivAmt)}원 &nbsp;&nbsp;
+      입금액 &nbsp; ${received > 0 ? received.toLocaleString('ko-KR') : '0'}원
+    </div>
+    <div style="font-size:17px;font-weight:700;margin-top:5px;border-top:1px solid #bbb;padding-top:5px">
+      잔 액 &nbsp; ${fmtN(d.totalBal)}원
+    </div>
+  </div>
+</div>
+
+<!-- 하단 문구 (환경설정 프린터 설정 → 기본명세서메모) -->
+${footer ? `<div style="margin-top:14px;border:1px solid #ccc;padding:8px 12px;font-size:10.5px;color:#333;white-space:pre-wrap;line-height:1.7">${footer}</div>` : ''}
+
 </body>
 </html>`;
     }
