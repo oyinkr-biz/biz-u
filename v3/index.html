@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.41 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.42 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.41 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.42 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.41</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.42</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -16497,26 +16497,18 @@ function doSaveHtml(){
 </head>
 <body>
 
-<!-- 헤더: 배경색 없음, 하단 가로선만 -->
-<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:8px">
-  <div>
-    <div style="font-size:15px;font-weight:700">${compName}</div>
-    <div style="font-size:9.5px;color:#444;margin-top:2px;line-height:1.6">
-      사업자번호: ${compSno}${compRep ? ' &nbsp;|&nbsp; 대표: '+compRep : ''}${compTel ? ' &nbsp;|&nbsp; TEL: '+compTel : ''}<br>
-      ${addrLine}${bizLine ? ' &nbsp;|&nbsp; '+bizLine : ''}
-    </div>
-  </div>
-  <div style="text-align:right">
-    <div style="font-size:20px;font-weight:700;letter-spacing:4px">거 래 명 세 표</div>
-    <div style="font-size:9.5px;color:#555;margin-top:3px">발행일: ${esc(d.date)} &nbsp;&nbsp; No. ${esc(d.ticket||'')}</div>
-  </div>
+<!-- 제목: 가운데 정렬 -->
+<div style="text-align:center;border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:8px">
+  <div style="font-size:22px;font-weight:700;letter-spacing:6px">거 래 명 세 표</div>
+  <div style="font-size:9.5px;color:#555;margin-top:3px">발행일: ${esc(d.date)} &nbsp;&nbsp; No. ${esc(d.ticket||'')}</div>
 </div>
 
 <!-- 공급자 / 공급받는자: 얇은 테두리, 배경색 없음 -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
   <div style="border:1px solid #bbb;padding:5px 9px">
-    <div style="font-size:8.5px;color:#888;font-weight:700;letter-spacing:1px;margin-bottom:3px">공급자</div>
-    <div style="font-size:9.5px;color:#444;line-height:1.65">사업자번호: ${compSno}<br>대표: ${compRep}${compTel ? ' &nbsp;|&nbsp; TEL: '+compTel : ''}</div>
+    <div style="font-size:8.5px;color:#888;font-weight:700;letter-spacing:1px;margin-bottom:2px">공급자</div>
+    <div style="font-size:12px;font-weight:700;margin-bottom:2px">${compName}</div>
+    <div style="font-size:9.5px;color:#444;line-height:1.65">사업자번호: ${compSno}<br>대표: ${compRep}${compTel ? ' &nbsp;|&nbsp; TEL: '+compTel : ''}${addrLine ? '<br>'+addrLine : ''}${bizLine ? '<br>'+bizLine : ''}</div>
   </div>
   <div style="border:1px solid #bbb;padding:5px 9px">
     <div style="font-size:8.5px;color:#888;font-weight:700;letter-spacing:1px;margin-bottom:2px">공급받는자</div>
