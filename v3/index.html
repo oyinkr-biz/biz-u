@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.55 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1842,7 +1842,7 @@
                 </div>
 
                 <!-- [NEW] 초기작업 Window -->
-                <div id="initial-setup-window" class="child-window window-hidden" style="width:580px">
+                <div id="initial-setup-window" class="child-window window-hidden" style="width:640px">
                     <header class="child-header-legacy draggable-header">
                         <div class="child-title-legacy"><i data-lucide="database" class="btn-icon"></i> 초기작업</div>
                         <div class="child-window-controls-legacy">
@@ -1858,17 +1858,13 @@
                                 <button id="init-close-btn" class="ex-btn-legacy dark-btn"><i data-lucide="log-out" class="btn-icon"></i>닫기(F10)</button>
                             </div>
                         </div>
-                        <!-- Tab label -->
-                        <div style="background:#e8ddd4;padding:0 4px">
-                            <span style="display:inline-block;background:#d4cfc8;border:1px solid #999;border-bottom:none;padding:3px 10px;font-size:11px;font-weight:bold;position:relative;top:1px">거래처 및 물품 초기작업</span>
+                        <!-- Tab buttons -->
+                        <div style="background:#c8c0b8;padding:3px 4px 0 4px;display:flex;gap:2px;align-items:flex-end">
+                            <button id="init-tab-buy"   style="background:#e8ddd4;border:1px solid #999;border-bottom:1px solid #e8ddd4;padding:3px 16px;font-size:11px;font-weight:bold;cursor:pointer;color:#000">매입처 초기잔액</button>
+                            <button id="init-tab-sell"  style="background:#d4cfc8;border:1px solid #999;border-bottom:none;padding:3px 16px;font-size:11px;cursor:pointer;color:#555">매출처 초기잔액</button>
+                            <button id="init-tab-stock" style="background:#d4cfc8;border:1px solid #999;border-bottom:none;padding:3px 16px;font-size:11px;cursor:pointer;color:#555">제품 초기재고</button>
                         </div>
-                        <div style="background:#e8ddd4;border:1px solid #aaa;padding:8px;font-size:11px">
-                            <!-- Radio buttons -->
-                            <div style="background:#f5f5f5;border:1px solid #aaa;padding:6px 10px;margin-bottom:8px;display:flex;gap:20px;align-items:center">
-                                <label style="display:flex;align-items:center;gap:4px;cursor:pointer"><input type="radio" name="init-type" value="buy" checked> 매입처 초기잔액</label>
-                                <label style="display:flex;align-items:center;gap:4px;cursor:pointer"><input type="radio" name="init-type" value="sell"> 매출처 초기잔액</label>
-                                <label style="display:flex;align-items:center;gap:4px;cursor:pointer"><input type="radio" name="init-type" value="stock"> 제품 초기재고</label>
-                            </div>
+                        <div style="background:#e8ddd4;border:1px solid #aaa;border-top:none;padding:8px;font-size:11px">
                             <!-- Form + Save button -->
                             <div style="display:flex;align-items:flex-start;gap:8px">
                                 <div style="flex:1;display:flex;flex-direction:column;gap:4px">
@@ -2110,7 +2106,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.55 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2645,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.55</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.56</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -12003,13 +11999,55 @@ function doSaveHtml(){
     <script>
     (function() {
         const API = window.location.origin + '/api';
-        let allRows = [];       // 서버에서 받은 전체 행 (항목 없으면 amount=0)
-        let shownRows = [];     // 필터 적용 후 화면에 표시된 행
-        let selRow = null;      // 현재 선택된 행 객체 {code, name, amount, Ivn_Ticket, Ivn_Date}
+
+        // 탭별 독립 상태
+        const tabState = {
+            buy:   { allRows: [], shownRows: [], selRow: null },
+            sell:  { allRows: [], shownRows: [], selRow: null },
+            stock: { allRows: [], shownRows: [], selRow: null }
+        };
+        let currentTab = 'buy';
 
         function $id(id) { return document.getElementById(id); }
-        function getType() { return document.querySelector('input[name="init-type"]:checked')?.value || 'buy'; }
-        function isStock() { return getType() === 'stock'; }
+        function isStock() { return currentTab === 'stock'; }
+        function getState() { return tabState[currentTab]; }
+
+        // ── 탭 전환 ──────────────────────────────────────────
+        function switchTab(type) {
+            currentTab = type;
+            ['buy', 'sell', 'stock'].forEach(t => {
+                const btn = $id('init-tab-' + t);
+                if (!btn) return;
+                if (t === type) {
+                    btn.style.background = '#e8ddd4';
+                    btn.style.fontWeight = 'bold';
+                    btn.style.color = '#000';
+                    btn.style.borderBottom = '1px solid #e8ddd4';
+                } else {
+                    btn.style.background = '#d4cfc8';
+                    btn.style.fontWeight = 'normal';
+                    btn.style.color = '#555';
+                    btn.style.borderBottom = 'none';
+                }
+            });
+            updateLabels();
+            const state = getState();
+            const selName = $id('init-sel-name');
+            if (selName) selName.textContent = state.selRow ? `[${state.selRow.code}] ${state.selRow.name}` : '—';
+            const amtEl = $id('init-amount');
+            if (amtEl) {
+                if (state.selRow) {
+                    const v = state.selRow.amount != null ? state.selRow.amount : 0;
+                    amtEl.value = isStock() ? String(v) : Number(v).toLocaleString('ko-KR');
+                } else {
+                    amtEl.value = '';
+                }
+            }
+            const filterEl = $id('init-client');
+            if (filterEl) filterEl.value = '';
+            state.shownRows = [...state.allRows];
+            renderGrid();
+        }
 
         // ── 라벨 전환 ─────────────────────────────────────────
         function updateLabels() {
@@ -12025,13 +12063,14 @@ function doSaveHtml(){
             if (ta) ta.textContent = s ? '수량' : '당일잔액';
         }
 
-        // ── 그리드 렌더 (shownRows 기반) ──────────────────────
+        // ── 그리드 렌더 ───────────────────────────────────────
         function renderGrid() {
             const tbody = $id('init-setup-grid-body');
             if (!tbody) return;
             const stock = isStock();
+            const state = getState();
             tbody.innerHTML = '';
-            shownRows.forEach((row, i) => {
+            state.shownRows.forEach((row, i) => {
                 const tr = document.createElement('tr');
                 tr.style.cssText = 'height:22px;cursor:pointer';
                 if (!row.Ivn_Ticket) tr.style.color = '#333';
@@ -12052,7 +12091,7 @@ function doSaveHtml(){
                 tr.addEventListener('click', () => {
                     tbody.querySelectorAll('tr').forEach(r => { r.style.background = ''; r.style.fontWeight = ''; });
                     tr.style.background = '#cce8ff'; tr.style.fontWeight = 'bold';
-                    selRow = row;
+                    state.selRow = row;
                     const selName = $id('init-sel-name');
                     if (selName) selName.textContent = `[${row.code}] ${row.name}`;
                     const amtEl = $id('init-amount');
@@ -12069,37 +12108,47 @@ function doSaveHtml(){
         // ── 필터 적용 ─────────────────────────────────────────
         function applyFilter() {
             const kw = ($id('init-client')?.value || '').toLowerCase().trim();
-            shownRows = kw
-                ? allRows.filter(r => (r.name || '').toLowerCase().includes(kw) || String(r.code || '').includes(kw))
-                : [...allRows];
+            const state = getState();
+            state.shownRows = kw
+                ? state.allRows.filter(r => (r.name || '').toLowerCase().includes(kw) || String(r.code || '').includes(kw))
+                : [...state.allRows];
             renderGrid();
         }
 
-        // ── DB 전체 조회 (full=true) ──────────────────────────
-        async function loadFromDB() {
-            const tbody = $id('init-setup-grid-body');
-            if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:8px">조회 중...</td></tr>';
+        // ── 단일 타입 조회 ────────────────────────────────────
+        async function loadType(type) {
+            const state = tabState[type];
+            if (type === currentTab) {
+                const tbody = $id('init-setup-grid-body');
+                if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:8px">조회 중...</td></tr>';
+            }
             try {
-                const res = await fetch(`${API}/init?type=${getType()}&full=true`).then(r => r.json());
-                if (!res.ok) { alert('조회 오류: ' + res.error); allRows = []; applyFilter(); return; }
-                allRows = res.data || [];
-                // 선택 행 유지 (코드로 찾기)
-                if (selRow) {
-                    const found = allRows.find(r => String(r.code) === String(selRow.code));
-                    selRow = found || null;
-                    const selName = $id('init-sel-name');
-                    if (selName) selName.textContent = selRow ? `[${selRow.code}] ${selRow.name}` : '—';
+                const res = await fetch(`${API}/init?type=${type}&full=true`).then(r => r.json());
+                state.allRows = res.ok ? (res.data || []) : [];
+                if (state.selRow) {
+                    const found = state.allRows.find(r => String(r.code) === String(state.selRow.code));
+                    state.selRow = found || null;
                 }
-                applyFilter();
+                state.shownRows = [...state.allRows];
+                if (type === currentTab) renderGrid();
             } catch(e) {
-                allRows = [];
-                if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#c00;padding:8px">서버 연결 오류</td></tr>';
+                state.allRows = []; state.shownRows = [];
+                if (type === currentTab) {
+                    const tbody = $id('init-setup-grid-body');
+                    if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#c00;padding:8px">서버 연결 오류</td></tr>';
+                }
             }
         }
 
-        // ── 저장 (PUT 수정 or POST 신규) ─────────────────────
+        // ── 전체 3탭 동시 로드 ────────────────────────────────
+        function loadFromDB() {
+            return Promise.all(['buy','sell','stock'].map(t => loadType(t)));
+        }
+
+        // ── 저장 ─────────────────────────────────────────────
         async function saveRow() {
-            if (!selRow) { alert('행을 먼저 클릭하여 선택하세요.'); return; }
+            const state = getState();
+            if (!state.selRow) { alert('행을 먼저 클릭하여 선택하세요.'); return; }
             const date = $id('init-date')?.value || new Date().toISOString().substring(0, 10);
             const amtRaw = ($id('init-amount')?.value || '').replace(/,/g, '').trim();
             if (amtRaw === '' || isNaN(Number(amtRaw))) {
@@ -12109,59 +12158,50 @@ function doSaveHtml(){
             const amount = Number(amtRaw);
             try {
                 let res;
-                if (selRow.Ivn_Ticket) {
-                    // 기존 항목 수정
-                    res = await fetch(`${API}/init/${selRow.Ivn_Ticket}`, {
+                if (state.selRow.Ivn_Ticket) {
+                    res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ type: getType(), date, amount })
+                        body: JSON.stringify({ type: currentTab, date, amount })
                     }).then(r => r.json());
                 } else {
-                    // 신규 등록
                     res = await fetch(`${API}/init`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ type: getType(), date, code: String(selRow.code), amount })
+                        body: JSON.stringify({ type: currentTab, date, code: String(state.selRow.code), amount })
                     }).then(r => r.json());
                 }
                 if (!res.ok) { alert('저장 오류: ' + res.error); return; }
-                await loadFromDB();
-                // 제품 초기재고 저장 시 실시간 현재고 캐시 갱신
-                if (getType() === 'stock') window._bizRefreshStock?.();
+                await loadType(currentTab);
+                if (currentTab === 'stock') window._bizRefreshStock?.();
             } catch(e) { alert('서버 연결 오류.'); }
         }
 
-        // ── 선택삭제 (0으로 초기화 = DB에서 해당 항목 삭제) ──
+        // ── 선택삭제 ──────────────────────────────────────────
         async function deleteSelected() {
-            if (!selRow) { alert('삭제할 행을 클릭하여 선택하세요.'); return; }
-            if (!selRow.Ivn_Ticket) { alert('저장된 데이터가 없습니다 (이미 0).'); return; }
-            if (!confirm(`[${selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
+            const state = getState();
+            if (!state.selRow) { alert('삭제할 행을 클릭하여 선택하세요.'); return; }
+            if (!state.selRow.Ivn_Ticket) { alert('저장된 데이터가 없습니다 (이미 0).'); return; }
+            if (!confirm(`[${state.selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
             try {
-                const res = await fetch(`${API}/init/${selRow.Ivn_Ticket}`, { method: 'DELETE' }).then(r => r.json());
+                const res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, { method: 'DELETE' }).then(r => r.json());
                 if (!res.ok) { alert('삭제 오류: ' + res.error); return; }
-                selRow = null;
+                state.selRow = null;
                 if ($id('init-sel-name')) $id('init-sel-name').textContent = '—';
                 if ($id('init-amount')) $id('init-amount').value = '';
-                await loadFromDB();
-                if (getType() === 'stock') window._bizRefreshStock?.();
+                await loadType(currentTab);
+                if (currentTab === 'stock') window._bizRefreshStock?.();
             } catch(e) { alert('서버 연결 오류.'); }
-        }
-
-        // ── 타입 전환 ─────────────────────────────────────────
-        function onTypeChange() {
-            selRow = null;
-            if ($id('init-client')) $id('init-client').value = '';
-            if ($id('init-amount')) $id('init-amount').value = '';
-            if ($id('init-sel-name')) $id('init-sel-name').textContent = '—';
-            updateLabels();
-            loadFromDB();
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const dateEl = $id('init-date');
             if (dateEl) dateEl.value = new Date().toISOString().substring(0, 10);
 
-            document.querySelectorAll('input[name="init-type"]').forEach(r => r.addEventListener('change', onTypeChange));
+            // 탭 버튼 클릭
+            ['buy','sell','stock'].forEach(t => {
+                $id('init-tab-' + t)?.addEventListener('click', () => switchTab(t));
+            });
 
             // 필터 입력
             $id('init-client')?.addEventListener('input', applyFilter);
@@ -12180,14 +12220,13 @@ function doSaveHtml(){
             $id('init-amount')?.addEventListener('input', e => {
                 if (typeof _fmtNumInput === 'function') _fmtNumInput(e.target);
             });
-            // Enter → 저장
             $id('init-amount')?.addEventListener('keydown', e => {
                 if (e.key === 'Enter') { e.preventDefault(); saveRow(); }
             });
 
             $id('init-save-btn')?.addEventListener('click', saveRow);
             $id('init-del-btn')?.addEventListener('click', deleteSelected);
-            $id('init-search-btn')?.addEventListener('click', loadFromDB);
+            $id('init-search-btn')?.addEventListener('click', () => loadFromDB());
             $id('init-close-btn')?.addEventListener('click', () => {
                 document.querySelector('#initial-setup-window .close-btn')?.click();
             });
