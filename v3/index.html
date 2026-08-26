@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.52 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.53 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.52 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.53 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.52</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.53</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7409,27 +7409,21 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 window._cpsLevel3    = level;
                 window._cpsPgIdx     = 0;
 
-                // Phase 2: 페이지 단위 렌더링 (500건/페이지) — tbody·cell·fmt·fmtDate 클로저 캡처
+                // Phase 2: 무한 스크롤 렌더링 (스크롤 내리면 500건씩 자동 추가)
                 const CPS_PG = 500;
                 const SUM_BG = 'background:#d8c8b8;border-top:2px solid #a09080;border-bottom:2px solid #a09080;font-weight:bold;';
                 const scell = (txt, right, extra='') =>
                     `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 4px;font-size:11px;${right?'text-align:right':''}${extra}">${txt}</td>`;
                 window._renderCpsPage = function() {
-                    const all = window._cpsAllProc;
-                    const lv  = window._cpsLevel3;
-                    const pg  = window._cpsPgIdx;
+                    const all     = window._cpsAllProc;
+                    const lv      = window._cpsLevel3;
+                    const pg      = window._cpsPgIdx;
                     const totalPg = Math.ceil(all.length / CPS_PG);
-                    const slice = all.slice(pg * CPS_PG, (pg + 1) * CPS_PG);
-                    const htmlParts = [];
-                    if (all.length > CPS_PG) {
-                        const prevBtn = pg > 0
-                            ? `<button onclick="window._cpsPgIdx--;window._renderCpsPage()" style="margin:0 4px;padding:1px 8px;font-size:11px;cursor:pointer">◀ 이전</button>`
-                            : `<span style="display:inline-block;margin:0 4px;padding:1px 8px;font-size:11px;color:#aaa">◀ 이전</span>`;
-                        const nextBtn = pg < totalPg - 1
-                            ? `<button onclick="window._cpsPgIdx++;window._renderCpsPage()" style="margin:0 4px;padding:1px 8px;font-size:11px;cursor:pointer">다음 ▶</button>`
-                            : `<span style="display:inline-block;margin:0 4px;padding:1px 8px;font-size:11px;color:#aaa">다음 ▶</span>`;
-                        htmlParts.push(`<tr><td colspan="38" style="background:#e8f0ff;color:#1a3a7a;padding:4px 8px;font-size:11px;font-weight:bold">전체 ${all.length.toLocaleString()}건 · ${pg+1}/${totalPg} 페이지 (${(pg*CPS_PG+1).toLocaleString()}~${Math.min((pg+1)*CPS_PG,all.length).toLocaleString()}건) ${prevBtn}${nextBtn}</td></tr>`);
-                    }
+                    const isMore  = pg < totalPg - 1;
+                    const loaded  = Math.min((pg + 1) * CPS_PG, all.length);
+                    const slice   = all.slice(pg * CPS_PG, (pg + 1) * CPS_PG);
+
+                    const rowParts = [];
                     let rowNum = pg * CPS_PG;
                     slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq}) => {
                         rowNum++;
@@ -7437,7 +7431,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         const rowFw    = lv === 3 ? 'font-weight:bold;' : '';
                         const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
                         if (lv === 3) {
-                            htmlParts.push(
+                            rowParts.push(
                                 `<tr style="background:${rowBg};${rowFw}">` +
                                 `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
                                 cell(fmtDate(r.Ivn_Date), false) +
@@ -7448,7 +7442,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 `</tr>`
                             );
                         } else {
-                            htmlParts.push(
+                            rowParts.push(
                                 `<tr style="background:${rowBg};${rowFw}">` +
                                 `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
                                 cell(fmtDate(r.Ivn_Date), false) +
@@ -7475,7 +7469,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     const unit = qty > 0 ? Math.round(amt / qty) : 0;
                                     const itemCode = t.Inot_Item || '';
                                     const itemName = t.Item_Name || itemCode;
-                                    htmlParts.push(
+                                    rowParts.push(
                                         `<tr style="background:#fff;">` +
                                         `<td style="border:1px solid #e8e8e8;padding:1px 3px"></td>` +
                                         cell(`  ${itemCode}`, false, ';color:#555;padding-left:12px') +
@@ -7490,7 +7484,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     );
                                 });
                             }
-                            htmlParts.push(
+                            rowParts.push(
                                 `<tr>` +
                                 `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 3px"></td>` +
                                 scell('', false) + scell('', false) +
@@ -7506,7 +7500,48 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             );
                         }
                     });
-                    tbody.innerHTML = htmlParts.join('');
+
+                    // 다음 데이터 유도 센티넬 행
+                    if (isMore) {
+                        const rem = all.length - loaded;
+                        rowParts.push(`<tr id="cps-sentinel"><td colspan="38" style="text-align:center;padding:10px;color:#334;font-size:11px;background:#f0f4ff">↓ 스크롤하면 ${Math.min(CPS_PG,rem).toLocaleString()}건 더 표시됩니다 (잔여 ${rem.toLocaleString()}건)</td></tr>`);
+                    }
+
+                    const statusTxt = all.length > CPS_PG
+                        ? `전체 ${all.length.toLocaleString()}건 · ${loaded.toLocaleString()}건 표시 중${isMore ? '' : ' ✓ 완료'}`
+                        : '';
+
+                    if (pg === 0) {
+                        let html = statusTxt ? `<tr id="cps-status-row"><td colspan="38" style="background:#e8f0ff;color:#1a3a7a;padding:3px 8px;font-size:11px;font-weight:bold">${statusTxt}</td></tr>` : '';
+                        html += rowParts.join('');
+                        tbody.innerHTML = html;
+                    } else {
+                        // 추가 페이지: 기존 센티넬 제거 후 새 행 이어붙이기
+                        const oldSentinel = tbody.querySelector('#cps-sentinel');
+                        if (oldSentinel) oldSentinel.remove();
+                        const statusRow = tbody.querySelector('#cps-status-row');
+                        if (statusRow && statusTxt) statusRow.cells[0].textContent = statusTxt;
+                        const tpl = document.createElement('template');
+                        tpl.innerHTML = rowParts.join('');
+                        tbody.appendChild(tpl.content);
+                    }
+
+                    // IntersectionObserver — 스크롤 컨테이너 기준
+                    if (window._cpsObserver) { window._cpsObserver.disconnect(); window._cpsObserver = null; }
+                    if (isMore) {
+                        const sentinel   = tbody.querySelector('#cps-sentinel');
+                        const scrollRoot = tbody.closest('table')?.parentElement || null;
+                        if (sentinel) {
+                            window._cpsObserver = new IntersectionObserver(entries => {
+                                if (entries[0].isIntersecting) {
+                                    window._cpsObserver.disconnect(); window._cpsObserver = null;
+                                    window._cpsPgIdx++;
+                                    window._renderCpsPage();
+                                }
+                            }, { root: scrollRoot, rootMargin: '80px' });
+                            window._cpsObserver.observe(sentinel);
+                        }
+                    }
                 };
                 window._renderCpsPage();
 
