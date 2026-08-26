@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.45 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.45 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.45</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.46</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3969,24 +3969,31 @@
 
                         if (status) status.textContent = `${rows.length}건`;
 
-                        // 클릭 → 하단 상세 / 더블클릭 → 매출등록
-                        upperBody.querySelectorAll('tr[data-ticket]').forEach(tr => {
-                            tr.addEventListener('mouseover', () => { if (!tr.classList.contains('gs-sel')) tr.style.background='#e8eef8'; });
-                            tr.addEventListener('mouseout',  () => { if (!tr.classList.contains('gs-sel')) tr.style.background=''; });
-                            tr.addEventListener('click', () => {
-                                upperBody.querySelectorAll('tr').forEach(r => {
-                                    r.classList.remove('gs-sel');
-                                    r.style.background=''; r.style.color='';
-                                });
+                        // 이벤트 위임 — tbody에 한 번만 등록 (대용량 데이터 성능 개선)
+                        if (!upperBody._gsEventsSetup) {
+                            upperBody._gsEventsSetup = true;
+                            upperBody.addEventListener('mouseover', ev => {
+                                const tr = ev.target.closest('tr[data-ticket]');
+                                if (tr && !tr.classList.contains('gs-sel')) tr.style.background = '#e8eef8';
+                            });
+                            upperBody.addEventListener('mouseout', ev => {
+                                const tr = ev.target.closest('tr[data-ticket]');
+                                if (tr && !tr.classList.contains('gs-sel')) tr.style.background = '';
+                            });
+                            upperBody.addEventListener('click', ev => {
+                                const tr = ev.target.closest('tr[data-ticket]');
+                                if (!tr) return;
+                                upperBody.querySelectorAll('tr').forEach(r => { r.classList.remove('gs-sel'); r.style.background=''; r.style.color=''; });
                                 tr.classList.add('gs-sel');
-                                tr.style.background='#000080'; tr.style.color='#fff';
+                                tr.style.background = '#000080'; tr.style.color = '#fff';
                                 window._gsSelectedClient = tr.dataset.client;
                                 loadDetail(tr.dataset.ticket);
                             });
-                            tr.addEventListener('dblclick', () => {
-                                if (window._openSalesAt) window._openSalesAt(tr.dataset.date, tr.dataset.client);
+                            upperBody.addEventListener('dblclick', ev => {
+                                const tr = ev.target.closest('tr[data-ticket]');
+                                if (tr && window._openSalesAt) window._openSalesAt(tr.dataset.date, tr.dataset.client);
                             });
-                        });
+                        }
 
                     } catch(e) {
                         if (upperBody) upperBody.innerHTML = `<tr><td colspan="12" style="text-align:center;color:#c00;padding:10px">오류: ${e.message}</td></tr>`;
