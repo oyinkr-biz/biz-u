@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.53 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.54 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.53 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.54 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.53</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.54</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3072,8 +3072,8 @@
                     extraBtns:[['계산서(단일)',''],['계산서(통합)',''],['거래명세서(기존)',''],['거래명세서(전체)','window.gsPrintAll()']],
                     panel:`<div style="color:#c00;font-weight:bold;text-align:center;margin-bottom:5px;font-size:11px">조회조건 입력</div>
                         <div class="f-row"><span class="l-label" style="width:68px">거래처</span><input id="gs-client-top" type="text" class="l-input" style="width:136px" autocomplete="off" list="gs-client-datalist"><datalist id="gs-client-datalist"></datalist></div>
-                        <div class="f-row"><span class="l-label" style="width:68px">거래일자</span><input id="gs-from" type="date" class="l-input" style="width:136px" value="${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}-01"></div>
-                        <div class="f-row"><span class="l-label" style="width:68px">~</span><input id="gs-to" type="date" class="l-input" style="width:136px" value="${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}-${String(new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate()).padStart(2,'0')}"></div>
+                        <div class="f-row"><span class="l-label" style="width:68px">거래일자</span><input id="gs-from" type="date" class="l-input" style="width:136px" value="${new Date().toISOString().slice(0,10)}"></div>
+                        <div class="f-row"><span class="l-label" style="width:68px">~</span><input id="gs-to" type="date" class="l-input" style="width:136px" value="${new Date().toISOString().slice(0,10)}"></div>
                         <div class="f-row"><span class="l-label" style="width:68px">거래구분</span><select id="gs-gubun" class="l-input" style="width:136px;background:#7fbfff;color:#00f"><option value="">전체</option><option value="1">매출</option><option value="2">매입</option><option value="3">반품(매출)</option><option value="4">반품(매입)</option></select></div>
                         <div class="f-row"><span class="l-label" style="width:68px">호차</span><select id="gs-sawon" class="l-input" style="width:136px"><option value="">전체</option><option value="11">1호차</option><option value="12">2호차</option><option value="13">3호차</option></select></div>
                         <div class="f-row"><span class="l-label" style="width:68px"></span><select id="gs-sort" class="l-input" style="width:136px"><option value="">코드순</option><option value="date">날짜순</option><option value="name">거래처명순</option></select></div>
@@ -9086,7 +9086,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8)+'01';
             const f = document.getElementById('cps2-date-from');
             const t = document.getElementById('cps2-date-to');
-            if(f) f.value = firstDay;
+            if(f) f.value = today;
             if(t) t.value = today;
             const cl = document.getElementById('cps2-client');
             if(cl) cl.value = '';
@@ -9835,7 +9835,7 @@ function doSaveHtml(){
             setTimeout(() => {
                 const f = document.getElementById('rp-date-from');
                 const t = document.getElementById('rp-date-to');
-                if (f && !f.value) f.value = firstDay;
+                if (f && !f.value) f.value = today;
                 if (t && !t.value) t.value = today;
                 window.runReceiptPrintSearch?.();
             }, 50);
@@ -10299,7 +10299,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cr-date-from');
             const t = document.getElementById('cr-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             const staffSel = document.getElementById('cr-staff');
             if (staffSel && staffSel.options.length <= 1) {
@@ -10412,7 +10412,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('vu-date-from');
             const t = document.getElementById('vu-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             const staffSel = document.getElementById('vu-staff');
             if (staffSel && staffSel.options.length <= 1) {
@@ -10436,7 +10436,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('inv-date-from');
             const t = document.getElementById('inv-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runInvPeriodSearch?.(), 100);
         });
@@ -10447,7 +10447,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('sm-date-from');
             const t = document.getElementById('sm-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runShipMarginSearch?.(), 80);
             const sc = document.getElementById('sm-client');
@@ -10474,7 +10474,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('psc-date-from');
             const t = document.getElementById('psc-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runPscSearch?.(), 80);
 
@@ -10499,7 +10499,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cat-date-from');
             const t = document.getElementById('cat-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
 
             // 분류 드롭다운 1회만 로드
@@ -10537,7 +10537,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cl-date-from');
             const t = document.getElementById('cl-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => {
                 window.runCashLedgerSearch?.();
@@ -10558,7 +10558,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0, 8) + '01';
             const f = document.getElementById('bi-date-from');
             const t = document.getElementById('bi-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             // 통장 드롭다운 최초 1회 채우기
             const sel = document.getElementById('bi-bank-sel');
@@ -10591,7 +10591,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('pl-date-from');
             const t = document.getElementById('pl-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runProfitLossSearch?.(), 50);
         });
@@ -10619,7 +10619,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('ci-date-from');
             const t = document.getElementById('ci-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runCustInoutSearch?.(), 80);
 
@@ -10639,7 +10639,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('tdh-from');
             const t = document.getElementById('tdh-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runTaxDeleteHistSearch?.(), 100);
         });
@@ -10649,7 +10649,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cnh-from');
             const t = document.getElementById('cnh-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runCustNameHistSearch?.(), 100);
         });
@@ -10659,7 +10659,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('iel-from');
             const t = document.getElementById('iel-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runInvenEditlogSearch?.(), 100);
         });
@@ -10669,7 +10669,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('dh-from');
             const t = document.getElementById('dh-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
             setTimeout(() => window.runDeleteHistSearch?.(), 100);
         });
@@ -10679,7 +10679,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('eh-date-from');
             const t = document.getElementById('eh-date-to');
-            if (f && !f.value) f.value = firstDay;
+            if (f && !f.value) f.value = today;
             if (t && !t.value) t.value = today;
 
             // 계정과목 드롭다운은 최초 1회만 로드
