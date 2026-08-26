@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2106,7 +2106,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2645,7 +2645,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.56</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.57</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -12116,6 +12116,8 @@ function doSaveHtml(){
         }
 
         // ── 단일 타입 조회 ────────────────────────────────────
+        // buy/sell: Client 테이블의 Client_Re(기초잔액) 사용 — 거래처등록 "잔액" 컬럼과 동일
+        // stock: Inven_Mast Gubun='4' 방식 유지
         async function loadType(type) {
             const state = tabState[type];
             if (type === currentTab) {
@@ -12123,13 +12125,28 @@ function doSaveHtml(){
                 if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:8px">조회 중...</td></tr>';
             }
             try {
-                const res = await fetch(`${API}/init?type=${type}&full=true`).then(r => r.json());
-                state.allRows = res.ok ? (res.data || []) : [];
+                let rows;
+                if (type === 'stock') {
+                    const res = await fetch(`${API}/init?type=stock&full=true`).then(r => r.json());
+                    rows = res.ok ? (res.data || []) : [];
+                } else {
+                    const gubun = type === 'buy' ? '0' : '1';
+                    const res = await fetch(`${API}/clients?gubun=${gubun}`).then(r => r.json());
+                    rows = (res.ok ? res.data : []).map(c => ({
+                        _isClient: true,
+                        code:       String(c.Client_ID || ''),
+                        name:       c.Client_Name || '',
+                        amount:     parseInt(c.Client_Re) || 0,
+                        Ivn_Date:   (c.Client_Day1 || '').substring(0, 10),
+                        Ivn_Ticket: null
+                    }));
+                }
+                state.allRows = rows;
                 if (state.selRow) {
-                    const found = state.allRows.find(r => String(r.code) === String(state.selRow.code));
+                    const found = rows.find(r => String(r.code) === String(state.selRow.code));
                     state.selRow = found || null;
                 }
-                state.shownRows = [...state.allRows];
+                state.shownRows = [...rows];
                 if (type === currentTab) renderGrid();
             } catch(e) {
                 state.allRows = []; state.shownRows = [];
@@ -12146,6 +12163,8 @@ function doSaveHtml(){
         }
 
         // ── 저장 ─────────────────────────────────────────────
+        // buy/sell: Client_Re / Client_Day1 업데이트
+        // stock: Inven_Mast 방식 유지
         async function saveRow() {
             const state = getState();
             if (!state.selRow) { alert('행을 먼저 클릭하여 선택하세요.'); return; }
@@ -12158,7 +12177,13 @@ function doSaveHtml(){
             const amount = Number(amtRaw);
             try {
                 let res;
-                if (state.selRow.Ivn_Ticket) {
+                if (currentTab !== 'stock') {
+                    res = await fetch(`${API}/clients/${state.selRow.code}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ Client_Re: amount, Client_Day1: date })
+                    }).then(r => r.json());
+                } else if (state.selRow.Ivn_Ticket) {
                     res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
@@ -12171,7 +12196,7 @@ function doSaveHtml(){
                         body: JSON.stringify({ type: currentTab, date, code: String(state.selRow.code), amount })
                     }).then(r => r.json());
                 }
-                if (!res.ok) { alert('저장 오류: ' + res.error); return; }
+                if (!res.ok) { alert('저장 오류: ' + (res.error || '알 수 없는 오류')); return; }
                 await loadType(currentTab);
                 if (currentTab === 'stock') window._bizRefreshStock?.();
             } catch(e) { alert('서버 연결 오류.'); }
@@ -12181,17 +12206,34 @@ function doSaveHtml(){
         async function deleteSelected() {
             const state = getState();
             if (!state.selRow) { alert('삭제할 행을 클릭하여 선택하세요.'); return; }
-            if (!state.selRow.Ivn_Ticket) { alert('저장된 데이터가 없습니다 (이미 0).'); return; }
-            if (!confirm(`[${state.selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
-            try {
-                const res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, { method: 'DELETE' }).then(r => r.json());
-                if (!res.ok) { alert('삭제 오류: ' + res.error); return; }
-                state.selRow = null;
-                if ($id('init-sel-name')) $id('init-sel-name').textContent = '—';
-                if ($id('init-amount')) $id('init-amount').value = '';
-                await loadType(currentTab);
-                if (currentTab === 'stock') window._bizRefreshStock?.();
-            } catch(e) { alert('서버 연결 오류.'); }
+            if (currentTab !== 'stock') {
+                if (!state.selRow.amount) { alert('설정된 잔액이 없습니다 (이미 0).'); return; }
+                if (!confirm(`[${state.selRow.name}] 기초잔액을 0으로 초기화하시겠습니까?`)) return;
+                try {
+                    const res = await fetch(`${API}/clients/${state.selRow.code}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ Client_Re: 0, Client_Day1: '' })
+                    }).then(r => r.json());
+                    if (!res.ok) { alert('초기화 오류: ' + (res.error || '')); return; }
+                    state.selRow = null;
+                    if ($id('init-sel-name')) $id('init-sel-name').textContent = '—';
+                    if ($id('init-amount')) $id('init-amount').value = '';
+                    await loadType(currentTab);
+                } catch(e) { alert('서버 연결 오류.'); }
+            } else {
+                if (!state.selRow.Ivn_Ticket) { alert('저장된 데이터가 없습니다 (이미 0).'); return; }
+                if (!confirm(`[${state.selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
+                try {
+                    const res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, { method: 'DELETE' }).then(r => r.json());
+                    if (!res.ok) { alert('삭제 오류: ' + res.error); return; }
+                    state.selRow = null;
+                    if ($id('init-sel-name')) $id('init-sel-name').textContent = '—';
+                    if ($id('init-amount')) $id('init-amount').value = '';
+                    await loadType(currentTab);
+                    window._bizRefreshStock?.();
+                } catch(e) { alert('서버 연결 오류.'); }
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -13817,15 +13859,19 @@ function doSaveHtml(){
                 // Normalize to YYYY-MM-DD for API
                 const beforeDate = todayStr.replace(/(\d{4})-?(\d{2})-?(\d{2})/, '$1-$2-$3');
 
-                // 전일잔액: Amt 테이블의 오늘 이전 마지막 Amt_Misu (정확한 누적잔액)
-                const [balR, todayR] = await Promise.all([
+                // 전일잔액: Amt_Misu(역사적 누적잔액) + Client_Re(초기작업에서 설정한 기초잔액)
+                const [balR, todayR, clR] = await Promise.all([
                     fetch(`${API}/amt/prev-bal?client=${clientId}&before=${beforeDate}`),
-                    fetch(`${API}/inven?client=${clientId}&from=${beforeDate}&to=${beforeDate}`)
+                    fetch(`${API}/inven?client=${clientId}&from=${beforeDate}&to=${beforeDate}`),
+                    fetch(`${API}/clients/${clientId}`)
                 ]);
                 const balJ   = await balR.json();
                 const todayJ = await todayR.json();
+                const clJ    = await clR.json();
 
-                const prevBal  = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
+                const amtMisu   = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
+                const clientRe  = parseInt(clJ.ok ? (clJ.data?.Client_Re ?? 0) : 0) || 0;
+                const prevBal   = amtMisu + clientRe;
                 const todayList = (todayJ.data || []).filter(row => String(row.Ivn_Gubun ?? '1') === curGubun);
 
                 let todayAmt = 0, lastDate = '';
