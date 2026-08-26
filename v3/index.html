@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.51 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.52 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2110,7 +2110,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.51 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.52 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2649,7 +2649,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.51</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.52</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7362,23 +7362,12 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 // 기간 내 기초잔액 → 가상 행으로 rows에 삽입
                 rows.sort((a, b) => String(a.Ivn_Date).localeCompare(String(b.Ivn_Date)));
 
-                // 대용량 방어: 3단계(제품포함)는 2000건, 1/2단계는 5000건 이내로 제한
-                const _MAX = level === 3 ? 2000 : 5000;
-                let _limitMsg = '';
-                if (rows.length > _MAX) {
-                    _limitMsg = `⚠ 전체 ${rows.length.toLocaleString()}건 중 최근 ${_MAX.toLocaleString()}건만 표시합니다. 기간을 좁혀 조회하세요.`;
-                    rows = rows.slice(-_MAX);
-                }
-
-                const htmlParts = [];
-                if (_limitMsg) htmlParts.push(`<tr><td colspan="38" style="background:#fff3cd;color:#856404;padding:4px 8px;font-size:11px;font-weight:bold">${_limitMsg}</td></tr>`);
-                const excelRows = [];   // DOM 대신 원본 데이터로 엑셀 구성
-                let rowNum = 0;
-
+                // Phase 1: 전체 잔액 계산 + 데이터 수집 (HTML 생성 없음 → 크래시 방지)
+                const excelRows = [];
+                const _proc = [];
                 rows.forEach(r => {
                     const cid   = String(r.Ivn_Client || '');
                     const cName = clientMap[cid] || cid;
-
                     const total    = num(r.Ivn_Total);
                     const dc       = num(r.Ivn_DC);
                     const cash     = num(r.Ivn_Cash);
@@ -7389,18 +7378,10 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const g2       = String(r.Ivn_soGubun || '0');
                     const effDir   = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
                     const amtSign  = effDir === '2' ? -1 : 1;
+                    const isReturn = g2 === '1';
                     const prevBal  = balMap[cid] || 0;
                     const curBal   = prevBal + amtSign * total - received - dc;
                     balMap[cid]    = curBal;
-                    rowNum++;
-
-                    const rowBg    = level === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
-                    const rowFw    = level === 3 ? 'font-weight:bold;' : '';
-                    const isReturn = g2 === '1';
-                    const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
-
-                    // 엑셀용 데이터 수집 — 인쇄 화면과 동일한 14컬럼 구조 (t=행타입: h헤더/p제품/s합계/1단일)
-                    // r.tran 중복 제거 (API JOIN으로 인한 중복 방어)
                     const tranUniq = [];
                     if (r.tran) {
                         const _seen = new Set();
@@ -7409,96 +7390,125 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             if (!_seen.has(k)) { _seen.add(k); tranUniq.push(t); }
                         });
                     }
+                    const rn = _proc.length + 1;
                     if (level === 3) {
-                        excelRows.push({t:'h', d:[rowNum, fmtDate(r.Ivn_Date), cName, '', '', '', '', '', '', '', '', '', '', '']});
+                        excelRows.push({t:'h', d:[rn, fmtDate(r.Ivn_Date), cName, '', '', '', '', '', '', '', '', '', '', '']});
                         tranUniq.forEach(t => {
                             const qty = num(t.Inot_Quty), amt = num(t.Inot_Amt);
                             excelRows.push({t:'p', d:['', t.Inot_Item||'', t.Item_Name||'', '', qty, qty>0?Math.round(amt/qty):0, amt, '', '', '', '', '', '', '']});
                         });
                         excelRows.push({t:'s', d:['', '', '', prevBal, 1, '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     } else {
-                        excelRows.push({t:'1', d:[rowNum, fmtDate(r.Ivn_Date), cName, prevBal, '', '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
+                        excelRows.push({t:'1', d:[rn, fmtDate(r.Ivn_Date), cName, prevBal, '', '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     }
-
-                    if (level === 3) {
-                        htmlParts.push(
-                            `<tr style="background:${rowBg};${rowFw}">` +
-                            `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
-                            cell(fmtDate(r.Ivn_Date), false) +
-                            cell(cName, false) +
-                            cell('', true) + cell('', true) + cell('', true) +
-                            cell('', true) + cell('', true) + cell('', true) +
-                            cell('', true) + cell('', true) + cell('', true) + cell('', true) +
-                            `</tr>`
-                        );
-                    } else {
-                        htmlParts.push(
-                            `<tr style="background:${rowBg};${rowFw}">` +
-                            `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
-                            cell(fmtDate(r.Ivn_Date), false) +
-                            cell(cName, false) +
-                            cell(fmt(prevBal), true) +
-                            cell('', true) +
-                            cell('', true) +
-                            cell(fmt(total), true, amtStyle) +
-                            cell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
-                            cell(dc ? fmt(dc) : '', true) +
-                            cell(fmt(total), true, amtStyle) +
-                            cell(fmt(cash), true) +
-                            cell(fmt(card), true) +
-                            cell(fmt(bank), true) +
-                            cell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
-                            `</tr>`
-                        );
-                    }
-
-                    // 3단계: 제품 상세 행 + 합계 행
-                    if (level === 3) {
-                        if (tranUniq.length > 0) {
-                            tranUniq.forEach(t => {
-                                const qty  = num(t.Inot_Quty);
-                                const amt  = num(t.Inot_Amt);
-                                const unit = qty > 0 ? Math.round(amt / qty) : 0;
-                                const itemCode = t.Inot_Item || '';
-                                const itemName = t.Item_Name || itemCode;
-                                htmlParts.push(
-                                    `<tr style="background:#fff;">` +
-                                    `<td style="border:1px solid #e8e8e8;padding:1px 3px"></td>` +
-                                    cell(`  ${itemCode}`, false, ';color:#555;padding-left:12px') +
-                                    cell(itemName, false, ';color:#333') +
-                                    cell('', true) +
-                                    cell(fmt(qty), true, ';color:#005') +
-                                    cell(fmt(unit), true) +
-                                    cell(fmt(amt), true) +
-                                    cell('', true) + cell('', true) + cell('', true) +
-                                    cell('', true) + cell('', true) + cell('', true) + cell('', true) +
-                                    `</tr>`
-                                );
-                            });
-                        }
-                        const SUM_BG = 'background:#d8c8b8;border-top:2px solid #a09080;border-bottom:2px solid #a09080;font-weight:bold;';
-                        const scell = (txt, right, extra='') =>
-                            `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 4px;font-size:11px;${right?'text-align:right':''}${extra}">${txt}</td>`;
-                        htmlParts.push(
-                            `<tr>` +
-                            `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 3px"></td>` +
-                            scell('', false) + scell('', false) +
-                            scell(fmt(prevBal), true, ';color:#555') +
-                            scell('', true) + scell('', true) +
-                            scell(fmt(total), true, amtStyle) +
-                            scell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
-                            scell(dc ? fmt(dc) : '', true) +
-                            scell(fmt(total), true, amtStyle) +
-                            scell(fmt(cash), true) + scell(fmt(card), true) + scell(fmt(bank), true) +
-                            scell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
-                            `</tr>`
-                        );
-                    }
+                    _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq});
                 });
 
-                window._cpsExcelRows = excelRows;  // 엑셀 내보내기용 캐시
+                window._cpsExcelRows = excelRows;
+                window._cpsAllProc   = _proc;
+                window._cpsLevel3    = level;
+                window._cpsPgIdx     = 0;
 
-                tbody.innerHTML = htmlParts.join('');
+                // Phase 2: 페이지 단위 렌더링 (500건/페이지) — tbody·cell·fmt·fmtDate 클로저 캡처
+                const CPS_PG = 500;
+                const SUM_BG = 'background:#d8c8b8;border-top:2px solid #a09080;border-bottom:2px solid #a09080;font-weight:bold;';
+                const scell = (txt, right, extra='') =>
+                    `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 4px;font-size:11px;${right?'text-align:right':''}${extra}">${txt}</td>`;
+                window._renderCpsPage = function() {
+                    const all = window._cpsAllProc;
+                    const lv  = window._cpsLevel3;
+                    const pg  = window._cpsPgIdx;
+                    const totalPg = Math.ceil(all.length / CPS_PG);
+                    const slice = all.slice(pg * CPS_PG, (pg + 1) * CPS_PG);
+                    const htmlParts = [];
+                    if (all.length > CPS_PG) {
+                        const prevBtn = pg > 0
+                            ? `<button onclick="window._cpsPgIdx--;window._renderCpsPage()" style="margin:0 4px;padding:1px 8px;font-size:11px;cursor:pointer">◀ 이전</button>`
+                            : `<span style="display:inline-block;margin:0 4px;padding:1px 8px;font-size:11px;color:#aaa">◀ 이전</span>`;
+                        const nextBtn = pg < totalPg - 1
+                            ? `<button onclick="window._cpsPgIdx++;window._renderCpsPage()" style="margin:0 4px;padding:1px 8px;font-size:11px;cursor:pointer">다음 ▶</button>`
+                            : `<span style="display:inline-block;margin:0 4px;padding:1px 8px;font-size:11px;color:#aaa">다음 ▶</span>`;
+                        htmlParts.push(`<tr><td colspan="38" style="background:#e8f0ff;color:#1a3a7a;padding:4px 8px;font-size:11px;font-weight:bold">전체 ${all.length.toLocaleString()}건 · ${pg+1}/${totalPg} 페이지 (${(pg*CPS_PG+1).toLocaleString()}~${Math.min((pg+1)*CPS_PG,all.length).toLocaleString()}건) ${prevBtn}${nextBtn}</td></tr>`);
+                    }
+                    let rowNum = pg * CPS_PG;
+                    slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq}) => {
+                        rowNum++;
+                        const rowBg    = lv === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
+                        const rowFw    = lv === 3 ? 'font-weight:bold;' : '';
+                        const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
+                        if (lv === 3) {
+                            htmlParts.push(
+                                `<tr style="background:${rowBg};${rowFw}">` +
+                                `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
+                                cell(fmtDate(r.Ivn_Date), false) +
+                                cell(cName, false) +
+                                cell('', true) + cell('', true) + cell('', true) +
+                                cell('', true) + cell('', true) + cell('', true) +
+                                cell('', true) + cell('', true) + cell('', true) + cell('', true) +
+                                `</tr>`
+                            );
+                        } else {
+                            htmlParts.push(
+                                `<tr style="background:${rowBg};${rowFw}">` +
+                                `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
+                                cell(fmtDate(r.Ivn_Date), false) +
+                                cell(cName, false) +
+                                cell(fmt(prevBal), true) +
+                                cell('', true) +
+                                cell('', true) +
+                                cell(fmt(total), true, amtStyle) +
+                                cell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
+                                cell(dc ? fmt(dc) : '', true) +
+                                cell(fmt(total), true, amtStyle) +
+                                cell(fmt(cash), true) +
+                                cell(fmt(card), true) +
+                                cell(fmt(bank), true) +
+                                cell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
+                                `</tr>`
+                            );
+                        }
+                        if (lv === 3) {
+                            if (tranUniq.length > 0) {
+                                tranUniq.forEach(t => {
+                                    const qty  = num(t.Inot_Quty);
+                                    const amt  = num(t.Inot_Amt);
+                                    const unit = qty > 0 ? Math.round(amt / qty) : 0;
+                                    const itemCode = t.Inot_Item || '';
+                                    const itemName = t.Item_Name || itemCode;
+                                    htmlParts.push(
+                                        `<tr style="background:#fff;">` +
+                                        `<td style="border:1px solid #e8e8e8;padding:1px 3px"></td>` +
+                                        cell(`  ${itemCode}`, false, ';color:#555;padding-left:12px') +
+                                        cell(itemName, false, ';color:#333') +
+                                        cell('', true) +
+                                        cell(fmt(qty), true, ';color:#005') +
+                                        cell(fmt(unit), true) +
+                                        cell(fmt(amt), true) +
+                                        cell('', true) + cell('', true) + cell('', true) +
+                                        cell('', true) + cell('', true) + cell('', true) + cell('', true) +
+                                        `</tr>`
+                                    );
+                                });
+                            }
+                            htmlParts.push(
+                                `<tr>` +
+                                `<td style="${SUM_BG}border-left:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:1px 3px"></td>` +
+                                scell('', false) + scell('', false) +
+                                scell(fmt(prevBal), true, ';color:#555') +
+                                scell('', true) + scell('', true) +
+                                scell(fmt(total), true, amtStyle) +
+                                scell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
+                                scell(dc ? fmt(dc) : '', true) +
+                                scell(fmt(total), true, amtStyle) +
+                                scell(fmt(cash), true) + scell(fmt(card), true) + scell(fmt(bank), true) +
+                                scell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
+                                `</tr>`
+                            );
+                        }
+                    });
+                    tbody.innerHTML = htmlParts.join('');
+                };
+                window._renderCpsPage();
 
             } catch(e) {
                 tbody.innerHTML = `<tr><td colspan="38" style="text-align:center;padding:8px;color:#c00">오류: ${e.message}</td></tr>`;
