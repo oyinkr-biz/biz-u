@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.64 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1877,6 +1877,7 @@
                                         <button id="init-client-btn" class="ex-btn-legacy" style="margin-left:2px;padding:1px 6px;min-width:auto;font-size:10px" title="전체 표시">전체</button>
                                     </div>
                                     <div class="f-row"><span id="init-sel-label" class="l-label" style="width:65px;color:#006">선택</span><span id="init-sel-name" style="font-size:11px;color:#006;font-weight:bold;line-height:20px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</span></div>
+                                    <div id="init-real-bal-row" class="f-row" style="display:none"><span class="l-label" style="width:65px;color:#555">실잔액</span><span id="init-real-bal" style="font-size:11px;color:#800000;font-weight:bold;line-height:20px;flex:1">—</span><button id="init-apply-bal-btn" class="ex-btn-legacy" style="padding:1px 6px;min-width:auto;font-size:10px;margin-left:2px" title="실잔액을 당일잔액에 적용">↑적용</button></div>
                                     <div class="f-row"><span id="init-label-amount" class="l-label" style="width:65px">당일잔액</span><input id="init-amount" type="text" class="l-input" style="width:150px;text-align:right" placeholder="행 선택 후 입력"></div>
                                 </div>
                                 <button id="init-save-btn" class="ex-btn-legacy" style="width:80px;height:52px;font-size:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:4px">
@@ -2106,7 +2107,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.64 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2645,7 +2646,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.63</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.64</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -12099,6 +12100,32 @@ function doSaveHtml(){
                         const v = row.amount != null ? row.amount : 0;
                         amtEl.value = (isStock() ? String(v) : Number(v).toLocaleString('ko-KR'));
                         amtEl.focus(); amtEl.select();
+                    }
+                    // 매입처/매출처: 실잔액(Amt_Misu) 조회
+                    if (!isStock()) {
+                        const realRow = $id('init-real-bal-row');
+                        const realEl  = $id('init-real-bal');
+                        if (realRow) realRow.style.display = 'none';
+                        if (realEl)  realEl.textContent = '조회중...';
+                        const today = new Date(); today.setDate(today.getDate()+1);
+                        const tomorrow = today.toISOString().substring(0,10).replace(/-/g,'');
+                        fetch(`${API}/amt/prev-bal?client=${row.code}&before=${tomorrow}`)
+                            .then(r => r.json()).then(j => {
+                                const bal = j.ok ? (j.data?.balance ?? 0) : 0;
+                                if (realEl)  realEl.textContent = Number(bal).toLocaleString('ko-KR') + ' 원';
+                                if (realRow) realRow.style.display = '';
+                                // 실잔액 적용 버튼
+                                const applyBtn = $id('init-apply-bal-btn');
+                                if (applyBtn) {
+                                    applyBtn.onclick = () => {
+                                        const a = $id('init-amount');
+                                        if (a) { a.value = Number(bal).toLocaleString('ko-KR'); a.focus(); a.select(); }
+                                    };
+                                }
+                            }).catch(() => {});
+                    } else {
+                        const realRow = $id('init-real-bal-row');
+                        if (realRow) realRow.style.display = 'none';
                     }
                 });
                 tbody.appendChild(tr);
