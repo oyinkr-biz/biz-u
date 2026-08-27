@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2106,7 +2106,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2645,7 +2645,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.75</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.76</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -5543,7 +5543,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 let _selIdx   = -1;
                 let _selNo    = null;
 
-                function _today() { return new Date().toISOString().substring(0, 10); }
+                function _today() { return _todayLocal(); }
                 function _fmtNum(n) { const v = parseFloat(n)||0; return v ? v.toLocaleString() : ''; }
                 function _parseNum(s) { return parseInt((s||'').toString().replace(/,/g,''))||0; }
 
@@ -5816,7 +5816,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 let _cashList = [], _selNo = null;
 
                 function _today() {
-                    return new Date().toISOString().slice(0, 10);
+                    return _todayLocal();
                 }
 
                 function _fmtNum(n) {
@@ -6541,7 +6541,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 let list = saGetCustomers();
                 list = list.map(c => {
                     if (!ids.includes(c.id)) return c;
-                    const d = new Date(c.expiryDate || new Date().toISOString().substring(0,10));
+                    const d = new Date(c.expiryDate || _todayLocal());
                     d.setMonth(d.getMonth() + months);
                     return { ...c, expiryDate: d.toISOString().substring(0,10) };
                 });
@@ -6596,7 +6596,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
             // 고객사 신규등록 폼
             function saResetRegForm() {
-                const today = new Date().toISOString().substring(0,10);
+                const today = _todayLocal();
                 const nextYear = new Date(Date.now() + 365*86400000).toISOString().substring(0,10);
                 const contract = document.getElementById('sa-reg-contract');
                 const expiry   = document.getElementById('sa-reg-expiry');
@@ -11167,7 +11167,7 @@ function doSaveHtml(){
                 if (!_ok) return;
             }
 
-            const today = new Date().toISOString().substring(0, 10);
+            const today = _todayLocal();
             const data = {
                 Client_Name:         document.getElementById('cust-name')?.value || '',
                 Client_sName:        document.getElementById('cust-taxname')?.value || '',
@@ -11217,7 +11217,7 @@ function doSaveHtml(){
                     const typeEl2 = document.getElementById('cust-type');
                     if (typeEl2) typeEl2.value = '1'; // 매출처
                     setField('cust-price-type', '이전단가');
-                    setField('cust-sdate', new Date().toISOString().substring(0, 10));
+                    setField('cust-sdate', _todayLocal());
                     document.getElementById('cust-name')?.focus();
                     _balCache = null; window.runCustRegSearch();
                 } else {
@@ -11359,7 +11359,7 @@ function doSaveHtml(){
                 const typeEl = document.getElementById('cust-type');
                 if (typeEl) typeEl.value = '1'; // 매출처
                 setField('cust-price-type', '이전단가');
-                setField('cust-sdate', new Date().toISOString().substring(0, 10)); // 오늘 날짜
+                setField('cust-sdate', _todayLocal()); // 오늘 날짜
                 // 전체 목록 기준 다음 코드 번호 계산
                 try {
                     const fresh = await window.api.clients.list({});
@@ -11461,7 +11461,7 @@ function doSaveHtml(){
                 const c = allClients.find(x => String(x.Client_ID) === String(selectedId));
                 document.getElementById('bal-adj-cname').textContent = c?.Client_Name || '';
                 const existDay = (c?.Client_Day1||'').substring(0,10);
-                document.getElementById('bal-adj-date').value = existDay || new Date().toISOString().substring(0,10);
+                document.getElementById('bal-adj-date').value = existDay || _todayLocal();
                 balAdjAmt.value = c?.Client_Re ? Number(c.Client_Re).toLocaleString('ko-KR') : '';
                 balModal.style.display = 'flex';
                 balAdjAmt.focus();
@@ -11709,7 +11709,7 @@ function doSaveHtml(){
         }
 
         function setItemNewDefaults() {
-            const today = new Date().toISOString().substring(0, 10);
+            const today = _todayLocal();
             setF('prod-sdate', today);
             const disEl2 = document.getElementById('prod-dis');
             if (disEl2) disEl2.checked = false;
@@ -11738,7 +11738,7 @@ function doSaveHtml(){
                 const codeEl = document.getElementById('prod-code');
                 if (!codeEl || !codeEl.value) { alert('신규 버튼을 먼저 눌러 코드를 확인하세요.'); return; }
             }
-            const today = new Date().toISOString().substring(0, 10);
+            const today = _todayLocal();
             const data = {
                 Item_Name:     name,
                 Item_OrgPric:  parseFloat(document.getElementById('prod-orgpric')?.value)||0,
@@ -11868,7 +11868,7 @@ function doSaveHtml(){
             const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            XLSX.writeFile(wb, '제품목록_' + new Date().toISOString().substring(0,10) + '.xlsx');
+            XLSX.writeFile(wb, '제품목록_' + _todayLocal() + '.xlsx');
         }
 
         // ── 제품 대/중/소분류 SELECT 옵션 로드 ──────────────
@@ -12190,7 +12190,7 @@ function doSaveHtml(){
         async function saveRow() {
             const state = getState();
             if (!state.selRow) { alert('행을 먼저 클릭하여 선택하세요.'); return; }
-            const date = $id('init-date')?.value || new Date().toISOString().substring(0, 10);
+            const date = $id('init-date')?.value || _todayLocal();
             const amtRaw = ($id('init-amount')?.value || '').replace(/,/g, '').trim();
             if (amtRaw === '' || isNaN(Number(amtRaw))) {
                 alert(isStock() ? '수량을 입력하세요.' : '당일잔액을 입력하세요.');
@@ -12260,7 +12260,7 @@ function doSaveHtml(){
 
         document.addEventListener('DOMContentLoaded', () => {
             const dateEl = $id('init-date');
-            if (dateEl) dateEl.value = new Date().toISOString().substring(0, 10);
+            if (dateEl) dateEl.value = _todayLocal();
 
             // 탭 버튼 클릭
             ['buy','sell','stock'].forEach(t => {
@@ -13342,7 +13342,7 @@ function doSaveHtml(){
             const csv = '﻿' + [h, ...rows].map(r => r.join(',')).join('\r\n');
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
-            a.download = `기본정보_${currentGroupName}_${new Date().toISOString().substring(0,10)}.csv`;
+            a.download = `기본정보_${currentGroupName}_${_todayLocal()}.csv`;
             a.click();
         }
 
@@ -15929,7 +15929,7 @@ function doSaveHtml(){
                 const c = allClients.find(x => String(x.Client_ID) === String(currentClientId));
                 $id('sbm-cname').textContent = c?.Client_Name || '';
                 const existDay = (c?.Client_Day1||'').substring(0,10);
-                $id('sbm-date').value = existDay || new Date().toISOString().substring(0,10);
+                $id('sbm-date').value = existDay || _todayLocal();
                 sbmAmt.value = c?.Client_Re ? Number(c.Client_Re).toLocaleString('ko-KR') : '';
                 salesBalModal.style.display = 'flex';
                 sbmAmt.focus(); sbmAmt.select();
@@ -15982,7 +15982,7 @@ function doSaveHtml(){
             const lossModal = $id('loss-modal');
 
             function _lossToday() {
-                return new Date().toISOString().substring(0, 10);
+                return _todayLocal();
             }
 
             function _buildLossRow(idx) {
@@ -18215,7 +18215,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         const dlg = document.getElementById('data-delete-dialog');
 
         function openDDlg() {
-            const today = new Date().toISOString().substring(0,10);
+            const today = _todayLocal();
             ['ddlg-inven-from','ddlg-inven-to','ddlg-tax-from','ddlg-tax-to',
              'ddlg-log-from','ddlg-log-to','ddlg-modclient-from','ddlg-modclient-to',
              'ddlg-stock-from','ddlg-stock-to'].forEach(id => {
