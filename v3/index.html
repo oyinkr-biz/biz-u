@@ -23,7 +23,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.0.85 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.01 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -54,6 +54,7 @@
                         <li id="open-category-status">분류별 매입/매출 현황</li>
                         <li id="open-cust-period-status">거래처 기간별 매입/매출 현황</li>
                         <li id="open-purchase-sales-compare">매입매출 비교현황 조회</li>
+                        <li id="open-sales-rank">기간별 매출 순위 현황</li>
                         <li class="divider"></li>
                         <li id="open-cust-inout-status">거래처 입출금 현황</li>
                         <li id="open-client-receivable">매출처 미수금 현황</li>
@@ -924,7 +925,6 @@
                                 <button id="btn-check-update" class="ex-btn-legacy" style="background:#e8f0e8">업데이트</button>
                                 <span id="env-update-msg" style="font-size:10px;color:#0060cc"></span>
                                 <button id="settings-save-close-btn" class="ex-btn-legacy">저 장</button>
-                                <button id="settings-close-btn" class="ex-btn-legacy close close-btn">닫 기</button>
                             </div>
                         </div>
                         <!-- Tab bar -->
@@ -1594,7 +1594,6 @@
                             <button id="tax-btn-delete" class="ex-btn-legacy" style="color:#c00">삭 제</button>
                             <button class="ex-btn-legacy">전자세금 전송</button>
                             <button class="ex-btn-legacy">대량 액셀</button>
-                            <button class="ex-btn-legacy dark-btn" style="margin-left:auto">당 기(F10)</button>
                         </div>
                         <!-- 종류 탭 -->
                         <div id="tax-type-tab-bar" style="background:#d4d0c8;border:1px solid #aaa;border-top:none;display:flex;gap:0">
@@ -2108,7 +2107,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.0.85 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.01 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2647,7 +2646,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.0.85</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.01</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -2680,6 +2679,21 @@
         }).catch(() => { window._APP_VERSION = '2.0.44'; window._IS_PACKAGED = false; });
 
         document.addEventListener('DOMContentLoaded', () => {
+            // 메뉴 클릭으로만 드롭다운 열기
+            document.querySelectorAll('.menu-item-legacy').forEach(item => {
+                item.addEventListener('click', e => {
+                    const isOpen = item.classList.contains('open');
+                    document.querySelectorAll('.menu-item-legacy.open').forEach(o => o.classList.remove('open'));
+                    if (!isOpen) item.classList.add('open');
+                    e.stopPropagation();
+                });
+            });
+            document.addEventListener('mousedown', e => {
+                if (!e.target.closest('.menu-item-legacy')) {
+                    document.querySelectorAll('.menu-item-legacy.open').forEach(o => o.classList.remove('open'));
+                }
+            }, true);
+
             // 방어: 로그인 폼 항상 활성화 (로그아웃 재로드 후에도)
             ['login-id', 'login-pw', 'login-btn'].forEach(id => {
                 const el = document.getElementById(id);
@@ -2802,6 +2816,12 @@
             const taskbar = document.getElementById('mdi-taskbar');
             let topZIndex = 1000;
             let isDragging = false;
+            let _dragCleanup = null;
+            // 드래그 중 브라우저 포커스 이탈 → 드래그 강제 해제 (마우스업 누락 방지)
+            window.addEventListener('blur', () => {
+                isDragging = false;
+                if (_dragCleanup) { _dragCleanup(); _dragCleanup = null; }
+            });
 
             // 플로팅 팝업 전체 제거 (창 전환/포커스 시 잔류 팝업 차단 방지)
             function _clearAllPopups() {
@@ -2994,10 +3014,16 @@
                         
                         const onMouseUp = () => {
                             isDragging = false;
+                            _dragCleanup = null;
                             document.removeEventListener('mousemove', onMouseMove);
                             document.removeEventListener('mouseup', onMouseUp);
                         };
 
+                        if (_dragCleanup) _dragCleanup(); // 이전 드래그 잔여 리스너 제거
+                        _dragCleanup = () => {
+                            document.removeEventListener('mousemove', onMouseMove);
+                            document.removeEventListener('mouseup', onMouseUp);
+                        };
                         document.addEventListener('mousemove', onMouseMove);
                         document.addEventListener('mouseup', onMouseUp);
                     });
@@ -3170,6 +3196,34 @@
                     upperCols:['거래처코드','거래처명','거래일자','전일잔액','매입금액','매출금액','입금금액','현잔액','할인금액','비고'],
                     lowerCols:['날짜','구분','제품명','수량','단가','금액','입금액','비고']
                 },
+                'sales-rank': {
+                    width:'760px', height:'560px', layout:'A',
+                    searchFn:'window.runSalesRankSearch', excelFn:'window.runSalesRankExcel',
+                    cols:['구분','거래처명','금액','수량','순위'],
+                    colWidths:[82,200,120,80,50],
+                    colClasses:['center','','right','right','center'],
+                    fillWidth:true,
+                    filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:4px 8px;display:flex;align-items:center;gap:6px;font-size:11px;flex-wrap:wrap">
+                        <span class="l-label" style="min-width:30px">기간</span>
+                        <input id="sr-date-from" type="date" class="l-input" style="width:112px">
+                        <span style="margin:0 2px">~</span>
+                        <input id="sr-date-to" type="date" class="l-input" style="width:112px">
+                        <span class="l-label" style="min-width:30px">구분</span>
+                        <select id="sr-gubun" class="l-input" style="width:68px;background:#7fbfff;color:#00f">
+                            <option value="1">매출</option>
+                            <option value="2">매입</option>
+                            <option value="">전체</option>
+                        </select>
+                        <span class="l-label" style="min-width:30px">순위</span>
+                        <input id="sr-limit" type="text" class="l-input" style="width:36px" value="9999">
+                        <select id="sr-mode" class="l-input" style="width:72px">
+                            <option value="client">업체별</option>
+                            <option value="item">상품별</option>
+                            <option value="date">일자별</option>
+                            <option value="weekday">요일별</option>
+                        </select>
+                    </div>`
+                },
                 'cust-period-status': {
                     width:'1000px', layout:'A', searchFn:'window.runCpsSearch', excelFn:'window.runCpsExcel', printFn:'window.runCpsPrint',
                     filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:3px 5px;display:flex;flex-direction:column;gap:2px;font-size:11px">
@@ -3254,7 +3308,7 @@
                     cols:['주차/월','구분','월요일','화요일','수요일','목요일','금요일','토요일','일요일','합계']
                 },
                 'cust-inout-status': {
-                    width:'1000px', layout:'A', fillWidth:true, searchFn:'window.runCustInoutSearch', excelFn:'window.runCustInoutExcel',
+                    width:'1120px', layout:'A', fillWidth:true, searchFn:'window.runCustInoutSearch', excelFn:'window.runCustInoutExcel',
                     filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:3px 5px;display:flex;flex-direction:column;gap:2px;font-size:11px">
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label">거래일자</span><input id="ci-date-from" type="date" class="l-input" style="width:110px"> ~ <input id="ci-date-to" type="date" class="l-input" style="width:110px">
@@ -3269,7 +3323,7 @@
                         </div>
                     </div>`,
                     cols:['일자','거래처명','총수량','예금주명','거래금액','할인금액','현금금액','카드금액','통장금액','어음금액','입금액','출금액'],
-                    colWidths:[66,130,40,70,85,60,85,85,85,85,85,85],
+                    colWidths:[88,150,42,72,88,62,88,88,88,88,88,88],
                     colClasses:[null,null,null,null,null,'ci-emph','ci-emph','ci-emph','ci-emph','ci-emph','ci-emph','ci-emph']
                 },
                 'client-receivable': {
@@ -3346,7 +3400,7 @@
                     colWidths:[85,80,95,60,60,60,60,60,120]
                 },
 'profit-loss': {
-                    width:'870px', layout:'A',
+                    width:'1060px', layout:'A', fillWidth:true,
                     searchFn:'window.runProfitLossSearch', excelFn:'window.runProfitLossExcel',
                     filter:`<span class="l-label">거래일자</span>
                         <input id="pl-date-from" type="date" class="l-input" style="width:112px">
@@ -3355,7 +3409,7 @@
                         <span class="l-label">조회구분</span>
                         <select id="pl-mode" class="l-input" style="width:80px"><option value="day">일별조회</option><option value="month">월별조회</option></select>`,
                     cols:['일자','매출금액','매출수량','매입금액','매입수량','매출총이익','소계','지출금액','영업이익'],
-                    colWidths:[93,95,68,95,68,93,61,83,93]
+                    colWidths:[93,110,68,110,68,110,70,95,110]
                 },
                 'ship-margin': {
                     width:'950px', layout:'A', searchFn:'window.runShipMarginSearch', excelFn:'window.runShipMarginExcel',
@@ -4801,6 +4855,9 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     if (targetId === 'tab-bizinfo' && typeof loadBizInfo === 'function') {
                         loadBizInfo();
                     }
+                    if (targetId === 'tab-bank' && typeof window._loadBanks === 'function') {
+                        window._loadBanks();
+                    }
                 });
             }
 
@@ -4862,6 +4919,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         }
                     } catch(e) { showMsg('통장 목록 로드 실패', true); }
                 }
+                window._loadBanks = loadBanks;
 
                 $('sbank-new-btn')?.addEventListener('click', async () => {
                     _bankEditCode = null;
@@ -5404,10 +5462,14 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const hw = $s('sms-history-window');
                     if (!hw) return;
                     hw.classList.remove('window-hidden');
+                    hw.classList.remove('minimized'); // 자동 최소화 상태 해제
                     hw.style.left = '100px'; hw.style.top = '80px';
                     loadSmsHistory();
-                    if (window._initWindow) window._initWindow('sms-history-window', null);
-                    if (window._bringToFront) window._bringToFront('sms-history-window');
+                    if (!hw.dataset.initDone && window._initWindow) {
+                        window._initWindow('sms-history-window', null); // 최초 1회만 초기화
+                        hw.dataset.initDone = '1';
+                    }
+                    if (window._bringToFront) window._bringToFront(hw); // DOM 요소 전달 (문자열 X)
                 }
 
                 // ── 이벤트 바인딩 ──
@@ -9963,6 +10025,66 @@ function doSaveHtml(){
         };
         window.runPscExcel = function() { window.runGenericExcel('purchase-sales-compare'); };
 
+        // ── 기간별 매출 순위 현황 ────────────────────────────────────────
+        (function() {
+            const MODE_LABEL = { client:'거래처명', item:'상품명', date:'날짜', weekday:'요일' };
+
+            function getParams() {
+                return {
+                    from:  document.getElementById('sr-date-from')?.value || '',
+                    to:    document.getElementById('sr-date-to')?.value   || '',
+                    gubun: document.getElementById('sr-gubun')?.value     || '1',
+                    limit: document.getElementById('sr-limit')?.value     || '20',
+                    mode:  document.getElementById('sr-mode')?.value      || 'client'
+                };
+            }
+
+            function fmt(n) { return n == null ? '' : Number(n).toLocaleString('ko-KR'); }
+            function fmtQty(n) { return n == null ? '' : Number(n).toLocaleString('ko-KR', {minimumFractionDigits:0, maximumFractionDigits:2}); }
+
+            window.runSalesRankSearch = async function() {
+                const tbody = document.getElementById('sales-rank-grid-body');
+                if (!tbody) return;
+                const p = getParams();
+                // 거래처명 컬럼 헤더 업데이트 (th:nth-child(3) = 구분 다음 열)
+                const thName = document.querySelector('#sales-rank-window thead th:nth-child(3)');
+                if (thName) thName.textContent = MODE_LABEL[p.mode] || '거래처명';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>';
+                try {
+                    const qs = new URLSearchParams({ from: p.from, to: p.to, gubun: p.gubun, limit: p.limit, mode: p.mode });
+                    const res = await fetch(`${window.location.origin}/api/sales-rank?${qs}`);
+                    const d = await res.json();
+                    if (!d.ok) { tbody.innerHTML = `<tr><td colspan="6" style="color:red;text-align:center;padding:8px">${d.error||'오류'}</td></tr>`; return; }
+                    const rows = d.data || [];
+                    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:8px;color:#999">데이터 없음</td></tr>'; return; }
+                    tbody.innerHTML = rows.map((r, idx) => `<tr>
+                        <td class="center" style="font-size:10px;color:#888">${idx+1}</td>
+                        <td class="center" style="font-size:11px">${r.period||''}</td>
+                        <td style="font-size:11px">${r.name||''}</td>
+                        <td class="right" style="font-size:11px">${fmt(r.amt)}</td>
+                        <td class="right" style="font-size:11px">${fmtQty(r.qty)}</td>
+                        <td class="center" style="font-size:11px;font-weight:bold;color:${r.rank<=3?'#c00':'#333'}">${r.rank}</td>
+                    </tr>`).join('');
+                } catch(e) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="color:red;text-align:center;padding:8px">서버 오류: ${e.message}</td></tr>`;
+                }
+            };
+
+            window.runSalesRankExcel = function() { window.runGenericExcel('sales-rank'); };
+
+            // 창 열릴 때: 오늘~오늘 초기화 + 업체별 초기화 + 자동 조회
+            document.getElementById('open-sales-rank')?.addEventListener('click', () => {
+                const today = typeof _todayLocal === 'function' ? _todayLocal() : new Date().toISOString().slice(0,10);
+                const f = document.getElementById('sr-date-from');
+                const t = document.getElementById('sr-date-to');
+                const m = document.getElementById('sr-mode');
+                if (f) f.value = today;
+                if (t) t.value = today;
+                if (m) m.value = 'client';
+                setTimeout(() => window.runSalesRankSearch?.(), 50);
+            });
+        })();
+
         // ── 분류별 매입/매출 현황 조회 ─────────────────────────────────
         window._catCat1Data = [];
         window._catCat2Data = [];
@@ -10119,6 +10241,7 @@ function doSaveHtml(){
 
                 const res  = await fetch(window.location.origin + url);
                 const json = await res.json();
+                if (!json.ok) { tbody.innerHTML = `<tr><td colspan="13" style="text-align:center;padding:8px;color:#c00">서버 오류: ${json.error||'알 수 없는 오류'}</td></tr>`; return; }
                 const rows = json.data || [];
 
                 const COLS    = 13;
@@ -10552,12 +10675,12 @@ function doSaveHtml(){
 
         // 통장조회 창 열릴 때 날짜 초기값 + 통장 드롭다운 + 자동 조회
         document.getElementById('open-bank-inquiry')?.addEventListener('click', () => {
-            const today    = new Date().toISOString().slice(0, 10);
+            const today    = typeof _todayLocal === 'function' ? _todayLocal() : new Date().toISOString().slice(0, 10);
             const firstDay = today.slice(0, 8) + '01';
             const f = document.getElementById('bi-date-from');
             const t = document.getElementById('bi-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             // 통장 드롭다운 최초 1회 채우기
             const sel = document.getElementById('bi-bank-sel');
             if (sel && sel.options.length <= 1) {
@@ -10617,8 +10740,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('ci-date-from');
             const t = document.getElementById('ci-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = today;
+            if (t) t.value = today;
             setTimeout(() => window.runCustInoutSearch?.(), 80);
 
             const ci = document.getElementById('ci-client');
@@ -12684,6 +12807,8 @@ function doSaveHtml(){
                 const activeTab = document.querySelector('#settings-tabs button.tab-active')?.dataset?.tab;
                 if (activeTab === 'tab-bizinfo') {
                     saveBizInfo();
+                } else if (activeTab === 'tab-env') {
+                    window._saveThermalSettings?.(); // 출고반올림 등 환경설정 저장
                 } else {
                     const v = (document.getElementById('settings-phone')?.value || '').trim();
                     localStorage.setItem(LS_KEY, v); // 레거시 호환 유지
@@ -14453,10 +14578,20 @@ function doSaveHtml(){
                 inp.addEventListener('input', () => { _fmtNumInput(inp); calcRowAmt(parseInt(inp.dataset.row)); });
                 inp.addEventListener('blur',  () => { const v=parseNum(inp.value); inp.value=v?Number(v).toLocaleString('ko-KR'):''; calcRowAmt(parseInt(inp.dataset.row)); });
                 inp.addEventListener('keydown', e => {
-                    if (e.key !== 'Enter') return;
-                    e.preventDefault();
                     const row = parseInt(inp.dataset.row);
-                    $qry(`.g-price[data-row="${row}"]`)?.focus();
+                    if (e.key === 'Enter' || e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        $qry(`.g-price[data-row="${row}"]`)?.focus();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        $qry(`.g-name[data-row="${row}"]`)?.focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (row > 1) $qry(`.g-qty[data-row="${row - 1}"]`)?.focus();
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        $qry(`.g-qty[data-row="${row + 1}"]`)?.focus();
+                    }
                 });
             });
 
@@ -14514,11 +14649,39 @@ function doSaveHtml(){
                     calcRowAmt(parseInt(inp.dataset.row));
                 });
                 inp.addEventListener('keydown', e => {
-                    if (e.key !== 'Enter') return;
-                    e.preventDefault();
                     const row = parseInt(inp.dataset.row);
-                    const next = $qry(`.g-code[data-row="${row + 1}"]`);
-                    if (next) next.focus();
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (!parseNum(inp.value)) return; // 단가 없으면 그대로
+                        const next = $qry(`.g-code[data-row="${row + 1}"]`);
+                        if (next) next.focus();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        $qry(`.g-qty[data-row="${row}"]`)?.focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (row > 1) $qry(`.g-price[data-row="${row - 1}"]`)?.focus();
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        $qry(`.g-price[data-row="${row + 1}"]`)?.focus();
+                    }
+                });
+            });
+
+            // 제품명(g-name): 화살표 키 → 수량/행 이동
+            $qryAll('.g-name').forEach(inp => {
+                inp.addEventListener('keydown', e => {
+                    const row = parseInt(inp.dataset.row);
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        $qry(`.g-qty[data-row="${row}"]`)?.focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (row > 1) $qry(`.g-name[data-row="${row - 1}"]`)?.focus();
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        $qry(`.g-name[data-row="${row + 1}"]`)?.focus();
+                    }
                 });
             });
         }
@@ -14821,11 +14984,11 @@ function doSaveHtml(){
             const truncMode = window._bizTruncMode || 'none';
             let truncAmt = totalAmt;
             if (truncThreshold > 0 && truncMode === 'round') {
-                const roundUnit = truncThreshold * 2;
+                const roundUnit = 1000; // 1,000원 단위
                 const remainder = totalAmt % roundUnit;
                 truncAmt = remainder >= truncThreshold
-                    ? totalAmt + (roundUnit - remainder)
-                    : totalAmt - remainder;
+                    ? totalAmt + (roundUnit - remainder)  // 절상
+                    : totalAmt - remainder;               // 절사
             }
             setFieldVal('ivn-delivery-amt', truncAmt);
             setFieldVal('ivn-supply-amt',   truncThreshold > 0 && truncMode === 'round' ? truncAmt - tax : supply);
