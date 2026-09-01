@@ -137,7 +137,7 @@ body {
     padding: 1px;
 }
 
-.menu-item-legacy:hover .dropdown-legacy {
+.menu-item-legacy.open .dropdown-legacy {
     display: block;
 }
 
