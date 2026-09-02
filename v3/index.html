@@ -9770,8 +9770,8 @@ function doSaveHtml(){
                     const today = _todayLocal();
                     const f = document.getElementById('tax-date-from');
                     const t = document.getElementById('tax-date-to');
-                    if (f && !f.value) f.value = today.slice(0,8)+'01';
-                    if (t && !t.value) t.value = today;
+                    if (f) f.value = today.slice(0,8)+'01';
+                    if (t) t.value = today;
                     _taxShowList();
                     _taxBindButtons();
                     window._taxSearch?.();
@@ -9905,8 +9905,8 @@ function doSaveHtml(){
             setTimeout(() => {
                 const f = document.getElementById('rp-date-from');
                 const t = document.getElementById('rp-date-to');
-                if (f && !f.value) f.value = today;
-                if (t && !t.value) t.value = today;
+                if (f) f.value = firstDay;
+                if (t) t.value = today;
                 window.runReceiptPrintSearch?.();
             }, 50);
         });
@@ -10425,8 +10425,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cr-date-from');
             const t = document.getElementById('cr-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             const staffSel = document.getElementById('cr-staff');
             if (staffSel && staffSel.options.length <= 1) {
                 try {
@@ -10533,8 +10533,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('vu-date-from');
             const t = document.getElementById('vu-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             const staffSel = document.getElementById('vu-staff');
             if (staffSel && staffSel.options.length <= 1) {
                 try {
@@ -10557,8 +10557,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('inv-date-from');
             const t = document.getElementById('inv-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runInvPeriodSearch?.(), 100);
         });
 
@@ -10568,8 +10568,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('sm-date-from');
             const t = document.getElementById('sm-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runShipMarginSearch?.(), 80);
             const sc = document.getElementById('sm-client');
             if (sc && !sc._smBound) {
@@ -10595,8 +10595,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('psc-date-from');
             const t = document.getElementById('psc-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runPscSearch?.(), 80);
 
             const pc = document.getElementById('psc-client');
@@ -10620,8 +10620,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cat-date-from');
             const t = document.getElementById('cat-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
 
             // 분류 드롭다운 1회만 로드
             const sel1 = document.getElementById('cat-cat1');
@@ -10658,8 +10658,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cl-date-from');
             const t = document.getElementById('cl-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => {
                 window.runCashLedgerSearch?.();
                 const cl = document.getElementById('cl-client');
@@ -10712,8 +10712,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('pl-date-from');
             const t = document.getElementById('pl-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runProfitLossSearch?.(), 50);
         });
 
@@ -10760,8 +10760,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('tdh-from');
             const t = document.getElementById('tdh-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runTaxDeleteHistSearch?.(), 100);
         });
 
@@ -10770,8 +10770,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('cnh-from');
             const t = document.getElementById('cnh-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runCustNameHistSearch?.(), 100);
         });
 
@@ -10780,9 +10780,10 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('iel-from');
             const t = document.getElementById('iel-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
-            setTimeout(() => window.runInvenEditlogSearch?.(), 100);
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
+            const tbody = document.getElementById('inven-editlog-grid-body');
+            if (tbody) tbody.innerHTML = '';
         });
 
         document.getElementById('open-delete-history')?.addEventListener('click', () => {
@@ -10790,8 +10791,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('dh-from');
             const t = document.getElementById('dh-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
             setTimeout(() => window.runDeleteHistSearch?.(), 100);
         });
 
@@ -10800,8 +10801,8 @@ function doSaveHtml(){
             const firstDay = today.slice(0,8) + '01';
             const f = document.getElementById('eh-date-from');
             const t = document.getElementById('eh-date-to');
-            if (f && !f.value) f.value = today;
-            if (t && !t.value) t.value = today;
+            if (f) f.value = firstDay;
+            if (t) t.value = today;
 
             // 계정과목 드롭다운은 최초 1회만 로드
             const sel = document.getElementById('eh-account');
