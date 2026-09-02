@@ -10679,7 +10679,7 @@ function doSaveHtml(){
             const firstDay = today.slice(0, 8) + '01';
             const f = document.getElementById('bi-date-from');
             const t = document.getElementById('bi-date-to');
-            if (f) f.value = today;
+            if (f) f.value = firstDay;
             if (t) t.value = today;
             // 통장 드롭다운 최초 1회 채우기
             const sel = document.getElementById('bi-bank-sel');
