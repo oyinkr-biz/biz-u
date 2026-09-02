@@ -8915,8 +8915,8 @@ function doSaveHtml(){
             const client = (document.getElementById('bi-client')?.value   || '').trim();
             try {
                 let url = window.location.origin + '/api/bank/transactions?';
-                if (from)   url += `from=${from.replace(/-/g, '')}&`;
-                if (to)     url += `to=${to.replace(/-/g, '')}&`;
+                if (from)   url += `from=${from}&`;
+                if (to)     url += `to=${to}&`;
                 if (bank)   url += `bank=${encodeURIComponent(bank)}&`;
                 if (gubun)  url += `gubun=${gubun}&`;
                 if (client) url += `client=${encodeURIComponent(client)}&`;
