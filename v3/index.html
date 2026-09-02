@@ -9770,7 +9770,7 @@ function doSaveHtml(){
                     const today = _todayLocal();
                     const f = document.getElementById('tax-date-from');
                     const t = document.getElementById('tax-date-to');
-                    if (f) f.value = today;
+                    if (f) f.value = today.slice(0,8)+'01';
                     if (t) t.value = today;
                     _taxShowList();
                     _taxBindButtons();
