@@ -19,11 +19,145 @@
 
 <body>
     <div class="app-container legacy-shell" id="main-app" style="display: none;">
+        <!-- 우측 고정 메모장 3개 — 독립된 패널이라 여러 개 동시에 펼쳐서 나란히 볼 수 있음 (2026-09 시범) -->
+        <div id="side-note-tab-0" class="side-note-tabhandle" data-idx="0" title="메모1 열기/닫기" style="position:fixed;top:26%;right:0;transform:translateY(-50%);z-index:5010;background:#f0c419;border:1px solid #a88300;border-right:none;border-radius:6px 0 0 6px;padding:9px 4px;font-size:11px;font-weight:bold;color:#4a3800;cursor:pointer;writing-mode:vertical-rl;text-orientation:mixed;box-shadow:-2px 2px 6px rgba(0,0,0,.25);user-select:none">📝 메모1</div>
+        <div id="side-note-tab-1" class="side-note-tabhandle" data-idx="1" title="메모2 열기/닫기" style="position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:5010;background:#f0c419;border:1px solid #a88300;border-right:none;border-radius:6px 0 0 6px;padding:9px 4px;font-size:11px;font-weight:bold;color:#4a3800;cursor:pointer;writing-mode:vertical-rl;text-orientation:mixed;box-shadow:-2px 2px 6px rgba(0,0,0,.25);user-select:none">📝 메모2</div>
+        <div id="side-note-tab-2" class="side-note-tabhandle" data-idx="2" title="메모3 열기/닫기" style="position:fixed;top:74%;right:0;transform:translateY(-50%);z-index:5010;background:#f0c419;border:1px solid #a88300;border-right:none;border-radius:6px 0 0 6px;padding:9px 4px;font-size:11px;font-weight:bold;color:#4a3800;cursor:pointer;writing-mode:vertical-rl;text-orientation:mixed;box-shadow:-2px 2px 6px rgba(0,0,0,.25);user-select:none">📝 메모3</div>
+
+        <div id="side-note-panel-0" class="side-note-panel" data-idx="0" style="position:fixed;top:0;right:-260px;width:260px;height:100vh;background:#fffde7;box-shadow:-3px 0 10px rgba(0,0,0,.3);z-index:5001;display:flex;flex-direction:column">
+            <div class="side-note-resizer" data-idx="0" title="드래그해서 폭 조절" style="position:absolute;left:-3px;top:0;width:6px;height:100%;cursor:col-resize;z-index:5002"></div>
+            <div style="background:#f0c419;color:#4a3800;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:13px;border-left:2px solid #a88300">
+                <span>📝 메모 1</span>
+                <button class="side-note-closebtn" data-idx="0" style="background:none;border:none;font-size:15px;cursor:pointer;color:#4a3800;line-height:1">✕</button>
+            </div>
+            <textarea class="side-note-text" data-idx="0" placeholder="시세, 할 일, 참고사항 등 자유롭게 적어두세요..." style="flex:1;overflow-y:auto;border:none;border-left:2px solid #a88300;resize:none;padding:10px;font-size:13px;line-height:1.5;background:transparent;font-family:inherit"></textarea>
+            <div class="side-note-saved" data-idx="0" style="font-size:10px;color:#888;padding:2px 10px 6px;text-align:right;border-left:2px solid #a88300"></div>
+        </div>
+        <div id="side-note-panel-1" class="side-note-panel" data-idx="1" style="position:fixed;top:0;right:-260px;width:260px;height:100vh;background:#fffde7;box-shadow:-3px 0 10px rgba(0,0,0,.3);z-index:5001;display:flex;flex-direction:column">
+            <div class="side-note-resizer" data-idx="1" title="드래그해서 폭 조절" style="position:absolute;left:-3px;top:0;width:6px;height:100%;cursor:col-resize;z-index:5002"></div>
+            <div style="background:#f0c419;color:#4a3800;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:13px;border-left:2px solid #a88300">
+                <span>📝 메모 2</span>
+                <button class="side-note-closebtn" data-idx="1" style="background:none;border:none;font-size:15px;cursor:pointer;color:#4a3800;line-height:1">✕</button>
+            </div>
+            <textarea class="side-note-text" data-idx="1" placeholder="시세, 할 일, 참고사항 등 자유롭게 적어두세요..." style="flex:1;overflow-y:auto;border:none;border-left:2px solid #a88300;resize:none;padding:10px;font-size:13px;line-height:1.5;background:transparent;font-family:inherit"></textarea>
+            <div class="side-note-saved" data-idx="1" style="font-size:10px;color:#888;padding:2px 10px 6px;text-align:right;border-left:2px solid #a88300"></div>
+        </div>
+        <div id="side-note-panel-2" class="side-note-panel" data-idx="2" style="position:fixed;top:0;right:-260px;width:260px;height:100vh;background:#fffde7;box-shadow:-3px 0 10px rgba(0,0,0,.3);z-index:5001;display:flex;flex-direction:column">
+            <div class="side-note-resizer" data-idx="2" title="드래그해서 폭 조절" style="position:absolute;left:-3px;top:0;width:6px;height:100%;cursor:col-resize;z-index:5002"></div>
+            <div style="background:#f0c419;color:#4a3800;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:13px;border-left:2px solid #a88300">
+                <span>📝 메모 3</span>
+                <button class="side-note-closebtn" data-idx="2" style="background:none;border:none;font-size:15px;cursor:pointer;color:#4a3800;line-height:1">✕</button>
+            </div>
+            <textarea class="side-note-text" data-idx="2" placeholder="시세, 할 일, 참고사항 등 자유롭게 적어두세요..." style="flex:1;overflow-y:auto;border:none;border-left:2px solid #a88300;resize:none;padding:10px;font-size:13px;line-height:1.5;background:transparent;font-family:inherit"></textarea>
+            <div class="side-note-saved" data-idx="2" style="font-size:10px;color:#888;padding:2px 10px 6px;text-align:right;border-left:2px solid #a88300"></div>
+        </div>
+        <script>
+        (function() {
+            const N = 3;
+            const MIN_W = 180, MAX_W = 520, DEFAULT_W = 260;
+            const OPEN_KEY  = 'biz_side_note_open_v2';    // [bool,bool,bool]
+            const TEXT_KEY  = 'biz_side_note_text_v2';    // [str,str,str]
+            const WIDTH_KEY = 'biz_side_note_width_v1';   // [num,num,num]
+            const panels    = [0,1,2].map(i => document.getElementById('side-note-panel-' + i));
+            const texts     = Array.from(document.querySelectorAll('.side-note-text'));
+            const saveds    = Array.from(document.querySelectorAll('.side-note-saved'));
+            const tabs      = Array.from(document.querySelectorAll('.side-note-tabhandle'));
+            const resizers  = Array.from(document.querySelectorAll('.side-note-resizer'));
+
+            let openState = [false, false, false];
+            let content   = ['', '', ''];
+            let widths    = [DEFAULT_W, DEFAULT_W, DEFAULT_W];
+            try {
+                const o = JSON.parse(localStorage.getItem(OPEN_KEY) || 'null');
+                if (Array.isArray(o) && o.length === N) openState = o;
+                const w = JSON.parse(localStorage.getItem(WIDTH_KEY) || 'null');
+                if (Array.isArray(w) && w.length === N) widths = w;
+                const t = JSON.parse(localStorage.getItem(TEXT_KEY) || 'null');
+                if (Array.isArray(t) && t.length === N) content = t;
+                else {
+                    // 구버전(탭식) 메모 내용 있으면 이어받기
+                    const oldTabs = JSON.parse(localStorage.getItem('biz_side_note_tabs_v1') || 'null');
+                    if (oldTabs && Array.isArray(oldTabs.tabs)) content = oldTabs.tabs.slice(0, N);
+                    else {
+                        const old = localStorage.getItem('biz_side_note_v1');
+                        if (old) content[0] = old;
+                    }
+                }
+            } catch(e) {}
+
+            texts.forEach((t, i) => { t.value = content[i] || ''; });
+            panels.forEach((p, i) => { p.style.width = widths[i] + 'px'; });
+
+            function persistOpen()  { try { localStorage.setItem(OPEN_KEY, JSON.stringify(openState)); } catch(e) {} }
+            function persistText()  { try { localStorage.setItem(TEXT_KEY, JSON.stringify(content)); } catch(e) {} }
+            function persistWidth() { try { localStorage.setItem(WIDTH_KEY, JSON.stringify(widths)); } catch(e) {} }
+
+            // 열린 패널들을 번호 순서대로(1이 오른쪽 끝, 큰 번호일수록 안쪽) 빈틈없이 붙여서 배치
+            function layout() {
+                for (let i = 0; i < N; i++) {
+                    panels[i].style.width = widths[i] + 'px';
+                    if (!openState[i]) { panels[i].style.right = -widths[i] + 'px'; continue; }
+                    let after = 0;
+                    for (let j = i + 1; j < N; j++) if (openState[j]) after += widths[j];
+                    panels[i].style.right = after + 'px';
+                }
+            }
+            function setOpen(i, v) { openState[i] = v; layout(); persistOpen(); }
+
+            tabs.forEach(btn => {
+                const i = parseInt(btn.dataset.idx, 10);
+                btn.addEventListener('click', () => setOpen(i, !openState[i]));
+            });
+            document.querySelectorAll('.side-note-closebtn').forEach(btn => {
+                const i = parseInt(btn.dataset.idx, 10);
+                btn.addEventListener('click', () => setOpen(i, false));
+            });
+
+            // 폭 조절 (왼쪽 가장자리 드래그)
+            resizers.forEach(handle => {
+                const i = parseInt(handle.dataset.idx, 10);
+                handle.addEventListener('mousedown', e => {
+                    e.preventDefault();
+                    const startX = e.clientX;
+                    const startW = widths[i];
+                    function onMove(ev) {
+                        let w = startW - (ev.clientX - startX); // 왼쪽으로 끌면 넓어짐
+                        if (w < MIN_W) w = MIN_W;
+                        if (w > MAX_W) w = MAX_W;
+                        widths[i] = w;
+                        layout();
+                    }
+                    function onUp() {
+                        document.removeEventListener('mousemove', onMove);
+                        document.removeEventListener('mouseup', onUp);
+                        persistWidth();
+                    }
+                    document.addEventListener('mousemove', onMove);
+                    document.addEventListener('mouseup', onUp);
+                });
+            });
+
+            let timers = {};
+            texts.forEach((t, i) => {
+                t.addEventListener('input', () => {
+                    clearTimeout(timers[i]);
+                    timers[i] = setTimeout(() => {
+                        content[i] = t.value;
+                        persistText();
+                        const now = new Date();
+                        saveds[i].textContent = '저장됨 ' + now.toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
+                    }, 400);
+                });
+            });
+
+            layout();
+        })();
+        </script>
         <!-- Parent Window Title Bar (Matches Excel 100%) -->
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.11 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2107,7 +2241,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.11 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2646,7 +2780,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.11</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.12</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
