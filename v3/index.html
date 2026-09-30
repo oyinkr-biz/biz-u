@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.18 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.18 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2862,7 +2862,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.18</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.19</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3464,7 +3464,7 @@
                         </div>
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label" style="min-width:52px">조회구분</span>
-                            <select class="l-input" style="width:148px"><option value="1">1단계 — 날짜별 금액</option><option value="2">2단계 — 거래처별 합계</option><option value="3" selected>3단계 — 상세내역</option></select>
+                            <select class="l-input" style="width:148px"><option value="1">1단계 — 날짜별 금액</option><option value="2">2단계 — 월별 합계</option><option value="3" selected>3단계 — 상세내역</option></select>
                             <span class="l-label" style="min-width:28px">담당</span>
                             <input type="text" class="l-input" style="width:80px">
                             <span class="l-label" style="min-width:46px">제품코드</span>
@@ -7564,6 +7564,9 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             const level     = levelSel ? parseInt(levelSel.value) : 3;
             const tbody     = document.getElementById('cust-period-status-grid-body');
             if (!tbody) return;
+            // 2단계(월별 합계)일 때는 '거래일자' 헤더를 '년월'로 표시
+            const thDate = document.querySelector('#cust-period-status-window thead th:nth-child(2)');
+            if (thDate) thDate.textContent = level === 2 ? '년월' : '거래일자';
 
             tbody.innerHTML = '<tr><td colspan="38" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>';
 
@@ -7693,8 +7696,58 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq});
                 });
 
-                window._cpsExcelRows = excelRows;
-                window._cpsAllProc   = _proc;
+                // 2단계(월별 합계): 거래처+연월 단위로 묶어서 그 달 시작/끝 잔액과 합계금액을 보여줌
+                let finalProc = _proc, finalExcelRows = excelRows;
+                if (level === 2) {
+                    const _ymOf = d => String(d || '').replace(/-/g, '').slice(0, 6); // 'YYYYMM'
+                    const groups = new Map();
+                    const order  = [];
+                    _proc.forEach(p => {
+                        const cid = String(p.r.Ivn_Client || '');
+                        const ym  = _ymOf(p.r.Ivn_Date);
+                        const key = cid + '|' + ym;
+                        let g = groups.get(key);
+                        if (!g) {
+                            g = {
+                                cName: p.cName, ym,
+                                prevBal: p.prevBal,          // 그 달 첫 거래 시점의 월초 잔액
+                                curBal: p.curBal,
+                                sumTotal: 0, sumReturn: 0, sumDc: 0,
+                                sumCash: 0, sumBank: 0, sumCard: 0, sumReceived: 0,
+                                dirCount: { '1': 0, '2': 0 },
+                            };
+                            groups.set(key, g);
+                            order.push(key);
+                        }
+                        g.sumTotal    += p.total;
+                        if (p.isReturn) g.sumReturn += p.total;
+                        g.sumDc       += p.dc;
+                        g.sumCash     += p.cash;
+                        g.sumBank     += p.bank;
+                        g.sumCard     += p.card;
+                        g.sumReceived += p.received;
+                        g.dirCount[p.effDir] = (g.dirCount[p.effDir] || 0) + 1;
+                        g.curBal = p.curBal; // 마지막 거래 값으로 계속 갱신 → 결국 월말 잔액이 남음
+                    });
+                    finalProc = order.map((k, i) => {
+                        const g = groups.get(k);
+                        const effDir = g.dirCount['2'] > g.dirCount['1'] ? '2' : '1';
+                        return {
+                            ymLabel: `${g.ym.slice(0,4)}-${g.ym.slice(4,6)}`,
+                            cName: g.cName, effDir,
+                            prevBal: g.prevBal, curBal: g.curBal,
+                            sumTotal: g.sumTotal, sumReturn: g.sumReturn, sumDc: g.sumDc,
+                            sumCash: g.sumCash, sumBank: g.sumBank, sumCard: g.sumCard, sumReceived: g.sumReceived,
+                        };
+                    });
+                    finalExcelRows = finalProc.map((g, i) => ({t:'1', d:[
+                        i+1, g.ymLabel, g.cName, g.prevBal, '', '',
+                        g.sumTotal, g.sumReturn || 0, g.sumDc, g.sumReceived, g.sumCash, g.sumCard, g.sumBank, g.curBal
+                    ]}));
+                }
+
+                window._cpsExcelRows = finalExcelRows;
+                window._cpsAllProc   = finalProc;
                 window._cpsLevel3    = level;
                 window._cpsPgIdx     = 0;
 
@@ -7714,7 +7767,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                     const rowParts = [];
                     let rowNum = pg * CPS_PG;
-                    slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq}) => {
+                    slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq,
+                                     ymLabel, sumTotal, sumReturn, sumDc, sumCash, sumBank, sumCard, sumReceived}) => {
                         rowNum++;
                         const rowBg    = lv === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
                         const rowFw    = lv === 3 ? 'font-weight:bold;' : '';
@@ -7728,6 +7782,26 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 cell('', true) + cell('', true) + cell('', true) +
                                 cell('', true) + cell('', true) + cell('', true) +
                                 cell('', true) + cell('', true) + cell('', true) + cell('', true) +
+                                `</tr>`
+                            );
+                        } else if (lv === 2) {
+                            // 월별 합계 행 — 개별 거래가 아니라 그 달 전체를 하나로 묶은 값
+                            rowParts.push(
+                                `<tr style="background:${rowBg};font-weight:bold">` +
+                                `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
+                                cell(ymLabel, false) +
+                                cell(cName, false) +
+                                cell(fmt(prevBal), true) +
+                                cell('', true) +
+                                cell('', true) +
+                                cell(fmt(sumTotal), true, effDir === '2' ? ';color:#c00' : '') +
+                                cell(sumReturn ? fmt(sumReturn) : '', true, ';color:#b85c00') +
+                                cell(sumDc ? fmt(sumDc) : '', true) +
+                                cell(fmt(sumTotal), true, effDir === '2' ? ';color:#c00' : '') +
+                                cell(fmt(sumCash), true) +
+                                cell(fmt(sumCard), true) +
+                                cell(fmt(sumBank), true) +
+                                cell(fmt(curBal), true, curBal > 0 ? ';color:#c00' : '') +
                                 `</tr>`
                             );
                         } else {
