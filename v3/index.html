@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2838,6 +2838,26 @@
                                     <label style="width:90px;color:#555;flex-shrink:0">원격 경로</label>
                                     <input id="sa-ftp-path" type="text" style="flex:1;padding:3px 6px;border:1px solid #aaa;font-size:11px" placeholder="/backup" autocomplete="off">
                                 </div>
+                                <div style="font-size:11px;color:#666;margin-top:10px;margin-bottom:4px;padding-left:98px">— FTP 자동 전송 2 (선택) —</div>
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <label style="width:90px;color:#555;flex-shrink:0">FTP 호스트</label>
+                                    <input id="sa-ftp2-host" type="text" style="flex:1;padding:3px 6px;border:1px solid #aaa;font-size:11px" placeholder="ftp.example.com" autocomplete="off">
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <label style="width:90px;color:#555;flex-shrink:0">포트</label>
+                                    <input id="sa-ftp2-port" type="number" style="width:70px;padding:3px 6px;border:1px solid #aaa;font-size:11px" placeholder="21" value="21">
+                                    <label style="color:#555;margin-left:12px">사용자명</label>
+                                    <input id="sa-ftp2-user" type="text" style="flex:1;padding:3px 6px;border:1px solid #aaa;font-size:11px" placeholder="사용자명" autocomplete="off">
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <label style="width:90px;color:#555;flex-shrink:0">비밀번호</label>
+                                    <input id="sa-ftp2-pass" type="password" style="flex:1;padding:3px 6px;border:1px solid #aaa;font-size:11px" autocomplete="new-password">
+                                    <button onclick="(function(b){const i=document.getElementById('sa-ftp2-pass');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'👁':'🙈'})(this)" style="padding:2px 6px;font-size:11px;border:1px solid #aaa;background:#e8e8e8;cursor:pointer">👁</button>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <label style="width:90px;color:#555;flex-shrink:0">원격 경로</label>
+                                    <input id="sa-ftp2-path" type="text" style="flex:1;padding:3px 6px;border:1px solid #aaa;font-size:11px" placeholder="/backup" autocomplete="off">
+                                </div>
                                 <div style="display:flex;justify-content:flex-end;margin-top:4px">
                                     <button id="sa-backup-save-btn" onclick="window._saveBackupConfig()" style="padding:3px 14px;background:#004499;color:#fff;border:1px outset #6688bb;font-size:12px;cursor:pointer;font-weight:bold">저장</button>
                                 </div>
@@ -2862,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.19</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.20</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7094,6 +7114,12 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         if ($('sa-ftp-user')) $('sa-ftp-user').value = f.user || '';
                         if ($('sa-ftp-pass')) $('sa-ftp-pass').value = f.pass || '';
                         if ($('sa-ftp-path')) $('sa-ftp-path').value = f.path || '';
+                        const f2 = d.ftp2 || {};
+                        if ($('sa-ftp2-host')) $('sa-ftp2-host').value = f2.host || '';
+                        if ($('sa-ftp2-port')) $('sa-ftp2-port').value = f2.port || '21';
+                        if ($('sa-ftp2-user')) $('sa-ftp2-user').value = f2.user || '';
+                        if ($('sa-ftp2-pass')) $('sa-ftp2-pass').value = f2.pass || '';
+                        if ($('sa-ftp2-path')) $('sa-ftp2-path').value = f2.path || '';
                     } catch(e) {}
                     // SMS 설정 로드
                     try {
@@ -7167,11 +7193,18 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         pass: $('sa-ftp-pass')?.value || '',
                         path: ($('sa-ftp-path')?.value || '').trim()
                     };
+                    const ftp2 = {
+                        host: ($('sa-ftp2-host')?.value || '').trim(),
+                        port: ($('sa-ftp2-port')?.value || '21').trim(),
+                        user: ($('sa-ftp2-user')?.value || '').trim(),
+                        pass: $('sa-ftp2-pass')?.value || '',
+                        path: ($('sa-ftp2-path')?.value || '').trim()
+                    };
                     try {
                         const r = await fetch('/api/backup/config', {
                             method: 'POST',
                             headers: {'Content-Type':'application/json'},
-                            body: JSON.stringify({ path, ftp })
+                            body: JSON.stringify({ path, ftp, ftp2 })
                         });
                         const j = await r.json();
                         if (j.ok) _showMsg('sa-backup-msg', '✅ 저장되었습니다.', true);
