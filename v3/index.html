@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.25 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.26 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -439,9 +439,7 @@
                                     <input type="text" id="ivn-today-sum" class="l-input w100 right bg-orange" readonly>
                                 </div>
                                 <div class="f-row">
-                                    <span class="l-label">판매담당</span>
-                                    <div class="l-combos"><input type="text" id="ivn-sawon" value="관리자" class="l-input w60"> <button
-                                            class="l-btn-v">▼</button></div>
+                                    <input id="ivn-bank-search-input" type="text" placeholder="은행검색" title="거래처명·예금주·예금주2·은행명·계좌번호 검색" style="width:90px;padding:1px 5px;font-size:11px;border:1px solid #1a3f5f;background:#eaf0f8;font-family:inherit">
                                     <span class="l-label" id="lbl-return-amt">총반품금액</span>
                                     <input type="text" id="ivn-return-amt" class="l-input w100 right" readonly>
                                     <span class="l-label">할인금액</span>
@@ -475,38 +473,24 @@
                             </div>
                         </div>
 
-                        <!-- Filter bar -->
-                        <div style="background:#e8ddd4;border:1px solid #aaa;border-bottom:none;padding:2px 5px;display:flex;align-items:center;gap:6px;font-size:11px">
-                            <input id="ivn-bank-search-input" type="text" placeholder="은행검색" title="거래처명·예금주·예금주2·은행명·계좌번호 검색" style="width:90px;padding:1px 5px;font-size:11px;border:1px solid #1a3f5f;background:#eaf0f8;font-family:inherit">
-                            <span style="margin-left:auto">동시내역</span>
-                            <select id="side-period" class="l-input" style="width:65px">
-                                <option value="1">1개월</option>
-                                <option value="2">2개월</option>
-                                <option value="3" selected>3개월</option>
-                                <option value="6">6개월</option>
-                                <option value="12">12개월</option>
-                            </select>
-                            <button id="side-history-btn" class="ex-btn-legacy" style="margin-left:4px">조회</button>
-                            <button class="ex-btn-legacy side-stmt-btn">거래명세서</button>
-                            <button class="ex-btn-legacy side-rcpt-btn">거래영수증</button>
-                        </div>
+                        <select id="side-period" style="display:none"><option value="3" selected>3</option></select>
                         <!-- Grids Middle Layer -->
                         <div class="excel-grids-mid">
                             <div class="main-grid-80">
-                                <table class="legacy-table">
+                                <table class="legacy-table" id="sales-item-grid-table">
                                     <thead>
                                         <tr>
                                             <th width="30"></th>
                                             <th width="45" style="font-size:9px;white-space:nowrap">제품코드</th>
-                                            <th>제품명</th>
-                                            <th width="55" style="color:#06c">현재고</th>
-                                            <th width="50">중량</th>
+                                            <th width="130">제품명</th>
+                                                            <th width="50">중량</th>
                                             <th width="40">수량</th>
                                             <th width="40">단위</th>
                                             <th width="80">단가</th>
                                             <th width="70">부가세액</th>
                                             <th width="100">총금액</th>
                                             <th width="100">비고</th>
+                                            <th width="90">이력번호</th>
                                         </tr>
                                     </thead>
                                     <tbody id="excel-grid-body"></tbody>
@@ -543,18 +527,18 @@
                                 </table>
                                 </div>
                                 <!-- 거래내역 미니 팝업 -->
-                                <div class="side-day-popup" style="display:none;position:absolute;z-index:500;background:#fff;border:2px outset #aaa;box-shadow:2px 2px 6px rgba(0,0,0,.35);min-width:260px;max-width:340px;font-size:10px">
+                                <div class="side-day-popup" style="display:none;position:absolute;z-index:500;background:#fff;border:2px outset #aaa;box-shadow:2px 2px 6px rgba(0,0,0,.35);min-width:280px;max-width:360px;font-size:10px">
                                     <div class="side-day-popup-hdr" style="background:#336;color:#fff;font-weight:bold;padding:3px 6px;display:flex;justify-content:space-between;align-items:center;cursor:default">
                                         <span class="side-day-popup-title"></span>
                                         <button class="side-day-popup-close" style="background:none;border:none;color:#fff;font-size:13px;cursor:pointer;padding:0 2px;line-height:1">✕</button>
                                     </div>
-                                    <div class="side-day-popup-body" style="padding:4px 0;max-height:200px;overflow-y:auto">
+                                    <div class="side-day-popup-body" style="padding:4px 0;max-height:220px;overflow-y:auto">
                                         <table style="width:100%;border-collapse:collapse">
                                             <thead><tr style="background:#eee">
-                                                <th style="padding:2px 4px;text-align:left;font-weight:bold">제품명</th>
-                                                <th style="padding:2px 4px;text-align:right;font-weight:bold">수량</th>
-                                                <th style="padding:2px 4px;text-align:right;font-weight:bold">단가</th>
+                                                <th style="padding:2px 4px;text-align:left;font-weight:bold">전표</th>
                                                 <th style="padding:2px 4px;text-align:right;font-weight:bold">금액</th>
+                                                <th style="padding:2px 4px;text-align:center;font-weight:bold">영수증</th>
+                                                <th style="padding:2px 4px;text-align:center;font-weight:bold">명세서</th>
                                             </tr></thead>
                                             <tbody class="side-day-popup-rows"></tbody>
                                         </table>
@@ -929,6 +913,7 @@
                                     <tr style="height:22px"><td style="text-align:right;padding-right:6px">등록일자</td><td><input id="prod-sdate" type="date" style="width:155px;border:1px solid #aaa;font-size:11px;padding:1px 3px"></td></tr>
                                     <tr style="height:22px"><td style="text-align:right;padding-right:6px">부 가 세</td><td><select id="prod-vat" style="width:155px;border:1px solid #aaa;font-size:11px;font-family:inherit"><option value="미포함" style="font-size:11px;font-family:inherit">미포함</option><option value="과세" style="font-size:11px;font-family:inherit">과세</option><option value="면세" style="font-size:11px;font-family:inherit">면세</option></select></td></tr>
                                     <tr style="height:22px"><td style="text-align:right;padding-right:6px">단 위</td><td><input id="prod-size1" type="text" style="width:155px;border:1px solid #aaa;font-size:11px;padding:1px 3px"></td></tr>
+                                    <tr style="height:22px"><td style="text-align:right;padding-right:6px">이력번호</td><td><input id="prod-traceno" type="text" style="width:155px;border:1px solid #aaa;font-size:11px;padding:1px 3px"></td></tr>
                                 </table>
                             </div>
                             <!-- 3열: 사용구분 + 바코드 + 비고 -->
@@ -1002,6 +987,7 @@
                                         <th style="min-width:60px;width:60px">E단가</th>
                                         <th style="min-width:90px;width:90px">바코드</th>
                                         <th style="min-width:80px;width:80px">이미지경로</th>
+                                        <th style="min-width:90px;width:90px">이력번호</th>
                                     </tr>
                                 </thead>
                                 <tbody id="product-reg-grid-body"></tbody>
@@ -2323,7 +2309,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.25 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.26 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2868,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.25</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.26</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -12094,7 +12080,8 @@ function doSaveHtml(){
                     <td style="text-align:right;">${fmtNum(item.Item_Amt4)}</td>
                     <td style="text-align:right;">${fmtNum(item.Item_Amt5)}</td>
                     <td>${item.Item_Color||''}</td>
-                    <td></td>`;
+                    <td></td>
+                    <td>${item.Item_TraceNo||''}</td>`;
                 tr.addEventListener('click', () => fillItemForm(item));
                 const _cb = tr.querySelector('.grid-stock-cb');
                 _cb.checked = (item.Item_Stock == 1);
@@ -12124,6 +12111,7 @@ function doSaveHtml(){
             setF('prod-gubun3',   item.Item_Gubun3);
             setF('prod-size',     item.Item_Size);
             setF('prod-size1',    item.Item_Size1);
+            setF('prod-traceno',  item.Item_TraceNo);
             setF('prod-color',    item.Item_Color);
             setF('prod-stockqty', item.Item_StockQty);
             setF('prod-sdate',    (item.Item_sDate||'').substring(0,10));
@@ -12157,7 +12145,7 @@ function doSaveHtml(){
             ['prod-code','prod-name','prod-orgpric','prod-amt',
              'prod-amt1','prod-amt2','prod-amt3','prod-amt4','prod-amt5',
              'prod-gubun1','prod-gubun3',
-             'prod-size','prod-size1','prod-color','prod-stockqty','prod-sdate',
+             'prod-size','prod-size1','prod-traceno','prod-color','prod-stockqty','prod-sdate',
              'prod-inqty','prod-outcode'].forEach(id => setF(id, ''));
             const disEl = document.getElementById('prod-dis');
             if (disEl) disEl.checked = false;
@@ -12224,6 +12212,7 @@ function doSaveHtml(){
                 Item_Stock:    document.getElementById('prod-stock')?.checked ? 1 : 0,
                 Item_Size:     document.getElementById('prod-size')?.value||'',
                 Item_Size1:    document.getElementById('prod-size1')?.value||'',
+                Item_TraceNo:  document.getElementById('prod-traceno')?.value||'',
                 Item_Color:    document.getElementById('prod-color')?.value||'',
                 Item_StockQty: parseFloat(document.getElementById('prod-stockqty')?.value)||0,
                 Item_sDate:    document.getElementById('prod-sdate')?.value || today,
@@ -12307,7 +12296,7 @@ function doSaveHtml(){
             const headers = ['제품명','제품코드','매입단가','매출단가','등록일자','단위','재고여부',
                              '대분류','중분류','소분류','중량','비고','단종여부','적정재고',
                              '매입여부','매입단위수량','매출연결제품코드','부가세',
-                             'A단가','B단가','C단가','D단가','E단가','바코드','이미지경로'];
+                             'A단가','B단가','C단가','D단가','E단가','바코드','이미지경로','이력번호'];
             const rows = allItems.map(i => [
                 i.Item_Name||'',
                 i.Item_Code||'',
@@ -12333,7 +12322,8 @@ function doSaveHtml(){
                 parseFloat(i.Item_Amt4)||0,
                 parseFloat(i.Item_Amt5)||0,
                 i.Item_Color||'',
-                ''
+                '',
+                i.Item_TraceNo||''
             ]);
             const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
             const wb = XLSX.utils.book_new();
@@ -14884,11 +14874,6 @@ function doSaveHtml(){
                 const itemVatType = (itemObj?._vatType || '').trim();
                 // VAT구분 미설정 시 '과세' 기본 처리 (대부분 도소매 제품은 과세)
                 const effectiveVatType = itemVatType || '과세';
-                // 실시간 현재고
-                const curStkRaw = rd.Inot_Item != null && rd.Inot_Item !== ''
-                    ? (allCurStock[String(rd.Inot_Item)] ?? '') : '';
-                const curStkVal = curStkRaw !== '' && Number(curStkRaw) < 0 ? '' : curStkRaw;
-                const curStkColor = '#06c';
                 // 과세/미포함 모두 Inot_Amt는 부가세 포함 gross 금액으로 저장
                 const vatNum = rdAmt > 0 && isTaxBill
                     ? ((effectiveVatType === '과세' || effectiveVatType === '미포함')
@@ -14905,9 +14890,6 @@ function doSaveHtml(){
                     <td style="padding:0"><input type="text" class="grid-cell g-name" data-row="${i}"
                         value="${rd._itemName || ''}"
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px;background:#f9f9f9" readonly></td>
-                    <td style="padding:0"><input type="text" class="grid-cell g-stock" data-row="${i}"
-                        value="${curStkVal !== '' ? Number(curStkVal).toLocaleString('ko-KR') : ''}"
-                        style="width:100%;border:none;font-size:11px;font-weight:bold;color:${curStkColor};padding:1px 3px;text-align:right;background:#eaf4ff" readonly tabindex="-1"></td>
                     <td style="padding:0"><input type="text" class="grid-cell g-size" data-row="${i}"
                         value="${rd.Inot_Size ? Number(rd.Inot_Size).toLocaleString('ko-KR') : ''}"
                         tabindex="-1"
@@ -14929,6 +14911,9 @@ function doSaveHtml(){
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px;text-align:right;background:#fff8e1"></td>
                     <td style="padding:0"><input type="text" class="grid-cell g-memo" data-row="${i}"
                         value="${rd.Inot_Bigo || ''}"
+                        style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px"></td>
+                    <td style="padding:0"><input type="text" class="grid-cell g-traceno" data-row="${i}"
+                        value="${rd.Inot_TraceNo || ''}"
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px"></td>
                 `;
                 tbody.appendChild(tr);
@@ -15081,7 +15066,7 @@ function doSaveHtml(){
         }
 
         function clearGridRow(row) {
-            ['g-code','g-name','g-size','g-qty','g-unit','g-price','g-vat','g-amt','g-memo'].forEach(cls => {
+            ['g-code','g-name','g-size','g-qty','g-unit','g-price','g-vat','g-amt','g-memo','g-traceno'].forEach(cls => {
                 const el = $qry(`.${cls}[data-row="${row}"]`);
                 if (el) el.value = '';
             });
@@ -15117,14 +15102,7 @@ function doSaveHtml(){
             set('g-code',  item.Item_Code);
             set('g-name',  item.Item_Name  || '');
             set('g-unit',  item.Item_Size1 || '');
-
-            // 실시간 현재고 표시
-            const stkEl = $qry(`.g-stock[data-row="${row}"]`);
-            if (stkEl) {
-                const sv = allCurStock[String(item.Item_Code)] ?? '';
-                stkEl.value = sv !== '' && Number(sv) >= 0 ? Number(sv).toLocaleString('ko-KR') : '';
-                stkEl.style.color = (sv !== '' && Number(sv) < 0) ? '#c00' : '#06c';
-            }
+            set('g-traceno', item.Item_TraceNo || '');
 
             const price = getClientItemPrice(item);
             set('g-price', price > 0 ? fmt(price) : '');
@@ -15135,7 +15113,10 @@ function doSaveHtml(){
             calcRowAmt(row);
             renderStockPanel();
             const sizeEl = $qry(`.g-size[data-row="${row}"]`);
-            if (sizeEl) sizeEl.value = '';
+            if (sizeEl) {
+                const sz = parseFloat(item.Item_Size || 0);
+                sizeEl.value = sz > 0 ? sz.toLocaleString('ko-KR') : '';
+            }
             $qry(`.g-qty[data-row="${row}"]`)?.focus();
         }
 
@@ -15413,11 +15394,15 @@ function doSaveHtml(){
             const amtSign  = effDir === '2' ? -1 : 1;
             const totalBal = prevBal + todayOther + amtSign * (truncAmt - cash - bank - card - dc);
             const tbEl = $id('ivn-total-bal');
-            if (tbEl) tbEl.value = totalBal !== 0 ? totalBal.toLocaleString('ko-KR') : '0';
+            if (tbEl) {
+                tbEl.value = totalBal !== 0 ? totalBal.toLocaleString('ko-KR') : '0';
+                // 받을돈(양수)=청색, 줄돈(음수)=적색
+                tbEl.style.color = totalBal > 0 ? '#0000cc' : totalBal < 0 ? '#c00' : '';
+            }
 
             // 반품: 주황색, 매입방향: 빨간색
             const amtColor = g2 === '1' ? '#b85c00' : (effDir === '2' ? '#c00' : '');
-            ['ivn-delivery-amt','ivn-supply-amt','ivn-tax-amt','ivn-total-bal'].forEach(id => {
+            ['ivn-delivery-amt','ivn-supply-amt','ivn-tax-amt'].forEach(id => {
                 const el = $id(id); if (el) el.style.color = amtColor;
             });
         }
@@ -15533,13 +15518,12 @@ function doSaveHtml(){
                         </tr>`;
                     }
                     cumBal += x.panMae - x.ipGeum;
-                    const balClr = cumBal > 0 ? '#c00' : cumBal < 0 ? '#00a' : '#000';
-                    return `<tr style="height:18px">
+                    return `<tr style="height:18px;cursor:pointer" data-date="${x.fullDate}" title="클릭하면 이 날짜 전표를 불러옵니다">
                         <td style="font-size:10px;padding:1px 3px">${x.dateStr}</td>
                         <td style="font-size:10px;padding:1px 2px"></td>
                         <td style="font-size:10px;padding:1px 3px;text-align:right">${x.panMae > 0 ? fmt(x.panMae) : ''}</td>
                         <td style="font-size:10px;padding:1px 3px;text-align:right">${x.ipGeum > 0 ? fmt(x.ipGeum) : ''}</td>
-                        <td style="font-size:10px;padding:1px 3px;text-align:right;color:${balClr}">${cumBal !== 0 ? fmt(cumBal) : '0'}</td>
+                        <td style="font-size:10px;padding:1px 3px;text-align:right;color:#000">${cumBal !== 0 ? fmt(cumBal) : '0'}</td>
                     </tr>`;
                 });
 
@@ -15825,6 +15809,7 @@ function doSaveHtml(){
                 const size  = parseNum(tr.querySelector('.g-size')?.value);
                 const unit  = tr.querySelector('.g-unit')?.value || '';
                 const memo  = tr.querySelector('.g-memo')?.value || '';
+                const traceno = tr.querySelector('.g-traceno')?.value || '';
                 const gong  = amt > 0 ? Math.round(amt / 1.1) : 0;
 
                 tran.push({
@@ -15844,6 +15829,7 @@ function doSaveHtml(){
                     Inot_sSawon:    0,
                     Inot_TicketNo:  null,
                     Inot_Bigo:      memo || null,
+                    Inot_TraceNo:   traceno || null,
                     Inot_IvnGubun:  gubun,
                     Inot_Size:      size || 0,
                     Inot_dSawon:    0,
@@ -16988,7 +16974,7 @@ function doSaveHtml(){
                 else window._printReceipt(sfx);
             });
 
-            // ── ① 거래내역 행 클릭 → 미니 팝업 ──
+            // ── ① 거래내역 행 클릭 → 매출등록 폼은 그대로 두고, 그날 전표 목록+출력 버튼을 미니팝업으로 ──
             const $sideBody = $id('excel-side-grid-body');
             const $popup    = $qry('.side-day-popup');
             if ($sideBody && $popup) {
@@ -16999,65 +16985,150 @@ function doSaveHtml(){
 
                 function hideDayPopup() { $popup.style.display = 'none'; }
 
+                // 전표 1건 데이터를 폼을 건드리지 않고 출력용 데이터로 변환
+                async function _buildPrintDataForTicket(ticket, date, gubun) {
+                    const r = await fetch(`${API}/inven/${ticket}`);
+                    const j = await r.json();
+                    if (!j.ok || !j.data) throw new Error('전표를 찾을 수 없습니다.');
+                    const m    = j.data.mast || {};
+                    const tran = j.data.tran  || [];
+                    const rows = tran.map((r2, idx) => {
+                        const item = allItems.find(x => String(x.Item_Code) === String(r2.Inot_Item));
+                        return {
+                            no:    idx + 1,
+                            name:  item ? item.Item_Name : String(r2.Inot_Item || ''),
+                            size:  String(r2.Inot_Size  || ''),
+                            qty:   String(r2.Inot_Quty  || ''),
+                            unit:  String(r2.Inot_Size1 || ''),
+                            price: String(r2.Inot_Unit  || ''),
+                            vat:   '',
+                            amt:   String(r2.Inot_Amt   || ''),
+                            memo:  r2.Inot_Bigo || '',
+                            traceno: r2.Inot_TraceNo || '',
+                        };
+                    });
+                    const client = allClients.find(c => String(c.Client_ID) === String(m.Ivn_Client));
+                    return {
+                        date:       m.Ivn_Date  || date || '',
+                        time:       m.Ivn_Time  || '',
+                        ticket:     String(m.Ivn_Ticket || ticket || ''),
+                        gubun:      m.Ivn_Gubun || gubun || '1',
+                        clientName: client ? (client.Client_Name || '') : String(m.Ivn_Client || ''),
+                        charge:     client ? (client.Client_Charge || '') : '',
+                        tel:        client ? (client.Client_Tel    || '') : '',
+                        delivAmt:   String(m.Ivn_Total || ''),
+                        supplyAmt:  String(m.Ivn_Amt   || ''),
+                        taxAmt:     String(m.Ivn_Tax   || ''),
+                        dc:         String(m.Ivn_DC    || ''),
+                        cash:       String(m.Ivn_Cash  || ''),
+                        bank:       String(m.Ivn_Bank  || ''),
+                        card:       String(m.Ivn_Card  || ''),
+                        prevBal:    '',
+                        totalBal:   '',
+                        rows,
+                    };
+                }
+
                 $popClose.addEventListener('click', hideDayPopup);
                 document.addEventListener('click', e => {
-                    if ($popup.style.display !== 'none' && !$popup.contains(e.target) && !e.target.closest('tr[data-ticket]')) {
+                    if ($popup.style.display !== 'none' && !$popup.contains(e.target) && !e.target.closest('tr[data-date]')) {
                         hideDayPopup();
                     }
                 });
 
                 $sideBody.addEventListener('click', async e => {
-                    const tr = e.target.closest('tr[data-ticket]');
+                    const tr = e.target.closest('tr[data-date]');
                     if (!tr) return;
-                    const ticket = parseInt(tr.dataset.ticket);
-                    const date   = tr.dataset.date || '';
-                    if (!ticket) return;
+                    const date = tr.dataset.date || '';
+                    if (!date || !currentClientId) return;
 
                     // 같은 행 재클릭 → 닫기
-                    if ($popup.style.display !== 'none' && $popup.dataset.ticket === String(ticket)) {
+                    if ($popup.style.display !== 'none' && $popup.dataset.date === date) {
                         hideDayPopup(); return;
                     }
-                    $popup.dataset.ticket = String(ticket);
 
-                    // 팝업 위치: 행 근처 (side panel 기준 absolute)
+                    let tickets = [];
+                    try {
+                        const r = await fetch(`${API}/inven?client=${currentClientId}&from=${date}&to=${date}`);
+                        const j = await r.json();
+                        tickets = (j.data || []).filter(x => String(x.Ivn_Gubun || '1') !== '5');
+                    } catch(err) {}
+
+                    $popup.dataset.date = date;
                     const trRect  = tr.getBoundingClientRect();
                     const panRect = $qry('.side-history-20')?.getBoundingClientRect() || trRect;
-                    $popup.style.top  = (trRect.bottom - panRect.top + 2) + 'px';
-                    $popup.style.left = '0px';
+                    $popup.style.top   = (trRect.bottom - panRect.top + 2) + 'px';
+                    $popup.style.left  = '0px';
                     $popup.style.right = '0px';
                     $popup.style.display = 'block';
-
-                    $popTitle.textContent = `${date.substring(5).replace('-','/')} 전표 #${ticket} 내역`;
-                    $popRows.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:6px;color:#999">조회 중...</td></tr>';
                     $popFooter.textContent = '';
 
-                    try {
-                        const r = await fetch(`${API}/inven/${ticket}`);
-                        const j = await r.json();
-                        if (!j.ok || !j.data) throw new Error('데이터 없음');
-                        const tran = j.data.tran || [];
-                        if (!tran.length) {
-                            $popRows.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:6px;color:#999">품목 없음</td></tr>';
-                            return;
+                    if (tickets.length === 0) {
+                        $popTitle.textContent = `${date.substring(5).replace('-','/')} 전표 내역`;
+                        $popRows.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:6px;color:#999">전표 없음</td></tr>';
+                        return;
+                    }
+
+                    $popTitle.textContent = `${date.substring(5).replace('-','/')} 전표 ${tickets.length}건`;
+                    $popRows.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:6px;color:#999">조회 중...</td></tr>`;
+
+                    // 티켓별로 품목 내역까지 1회 조회해서 캐싱(출력 버튼에서 재사용)
+                    const ticketData = [];
+                    for (const t of tickets) {
+                        const ticket = t.Ivn_Ticket;
+                        const g = String(t.Ivn_Gubun || '1');
+                        try {
+                            const preData = await _buildPrintDataForTicket(ticket, date, g);
+                            ticketData.push({ ticket, gubun: g, total: t.Ivn_Total, preData });
+                        } catch(err) {
+                            ticketData.push({ ticket, gubun: g, total: t.Ivn_Total, preData: null });
                         }
-                        let total = 0;
-                        $popRows.innerHTML = tran.map(t => {
-                            const amt = parseFloat(t.Inot_Amt || 0);
-                            total += amt;
-                            const name = t._itemName || t.Inot_Item || '';
-                            const qty  = parseFloat(t.Inot_Cnt || 0);
-                            const price= parseFloat(t.Inot_Price || 0);
-                            return `<tr style="border-bottom:1px solid #eee">
-                                <td style="padding:2px 4px">${name}</td>
-                                <td style="padding:2px 4px;text-align:right">${qty || ''}</td>
-                                <td style="padding:2px 4px;text-align:right">${price ? price.toLocaleString('ko-KR') : ''}</td>
-                                <td style="padding:2px 4px;text-align:right">${amt ? amt.toLocaleString('ko-KR') : ''}</td>
+                    }
+
+                    $popRows.innerHTML = ticketData.map(td => {
+                        const label = td.gubun === '1' ? '매출' : td.gubun === '2' ? '매입' : td.gubun;
+                        const hdr = `<tr style="background:#eef2fa;border-top:1px solid #ccd" data-ticket="${td.ticket}">
+                            <td style="padding:2px 4px;font-weight:bold">#${td.ticket} (${label})</td>
+                            <td style="padding:2px 4px;text-align:right;font-weight:bold">${parseFloat(td.total||0).toLocaleString('ko-KR')}원</td>
+                            <td style="padding:2px 4px;text-align:center"><button class="pop-print-receipt" style="font-size:10px;padding:1px 5px;cursor:pointer">영수증</button></td>
+                            <td style="padding:2px 4px;text-align:center"><button class="pop-print-stmt" style="font-size:10px;padding:1px 5px;cursor:pointer">명세서</button></td>
+                        </tr>`;
+                        const items = (td.preData?.rows || []).map(r => {
+                            const qty = r.qty ? `${r.qty}${r.unit||''}` : '';
+                            const price = r.price ? Number(r.price).toLocaleString('ko-KR') : '';
+                            const amt = r.amt ? Number(r.amt).toLocaleString('ko-KR') : '';
+                            return `<tr style="border-bottom:1px solid #f0f0f0">
+                                <td colspan="2" style="padding:1px 4px 1px 14px;color:#444">${r.name}${qty ? ' <span style=\"color:#888\">x '+qty+'</span>' : ''}</td>
+                                <td colspan="2" style="padding:1px 4px;text-align:right;color:#444">${price ? price+' = ' : ''}${amt}</td>
                             </tr>`;
                         }).join('');
-                        $popFooter.textContent = '합계: ' + total.toLocaleString('ko-KR') + '원';
-                    } catch(err) {
-                        $popRows.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:6px;color:#c00">조회 실패</td></tr>';
-                    }
+                        return hdr + items;
+                    }).join('');
+
+                    $popRows.querySelectorAll('.pop-print-receipt').forEach(btn => {
+                        btn.addEventListener('click', async ev => {
+                            ev.stopPropagation();
+                            const ticket = parseInt(btn.closest('tr[data-ticket]').dataset.ticket);
+                            const td = ticketData.find(x => x.ticket === ticket);
+                            if (!td?.preData) { await window._bizAlert('전표 데이터를 불러오지 못했습니다.'); return; }
+                            btn.disabled = true; btn.textContent = '...';
+                            try { await window._printReceipt('', td.preData); }
+                            catch(err) { await window._bizAlert('출력 실패: ' + (err.message||err)); }
+                            btn.disabled = false; btn.textContent = '영수증';
+                        });
+                    });
+                    $popRows.querySelectorAll('.pop-print-stmt').forEach(btn => {
+                        btn.addEventListener('click', async ev => {
+                            ev.stopPropagation();
+                            const ticket = parseInt(btn.closest('tr[data-ticket]').dataset.ticket);
+                            const td = ticketData.find(x => x.ticket === ticket);
+                            if (!td?.preData) { await window._bizAlert('전표 데이터를 불러오지 못했습니다.'); return; }
+                            btn.disabled = true; btn.textContent = '...';
+                            try { await window._printStatement('', td.preData); }
+                            catch(err) { await window._bizAlert('출력 실패: ' + (err.message||err)); }
+                            btn.disabled = false; btn.textContent = '명세서';
+                        });
+                    });
                 });
             }
         } // end _bindEvents
@@ -17202,6 +17273,7 @@ function doSaveHtml(){
                     vat:   tr.querySelector('.g-vat')?.value?.trim()   || '',
                     amt:   tr.querySelector('.g-amt')?.value?.trim()   || '',
                     memo:  tr.querySelector('.g-memo')?.value?.trim()  || '',
+                    traceno: tr.querySelector('.g-traceno')?.value?.trim() || '',
                 });
             });
         }
@@ -17338,7 +17410,7 @@ function doSaveHtml(){
 
         const C = 'border-bottom:1px solid #e0e0e0;font-size:10.5px';
         const rowsHtml = padded.map((r, i) => {
-            if (!r.name) return `<tr style="height:16px"><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td></tr>`;
+            if (!r.name) return `<tr style="height:16px"><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td><td style="${C}"></td></tr>`;
             const rowAmt = parseInt((r.amt||'').toString().replace(/,/g,''))||0;
             const rowVat = parseInt((r.vat||'').toString().replace(/,/g,''))||0;
             return `<tr style="height:16px">
@@ -17350,6 +17422,7 @@ function doSaveHtml(){
                 <td style="${C};text-align:right;padding:0 3px">${fmtN(r.amt)}</td>
                 <td style="${C};text-align:right;padding:0 3px">${fmtN(r.vat)}</td>
                 <td style="${C};text-align:right;padding:0 3px">${(rowAmt+rowVat) ? (rowAmt+rowVat).toLocaleString('ko-KR') : ''}</td>
+                <td style="${C};text-align:center;font-size:9.5px">${esc(r.traceno||'')}</td>
             </tr>`;
         }).join('');
 
@@ -17397,13 +17470,14 @@ function doSaveHtml(){
   <thead>
     <tr style="border-top:1px solid #888;border-bottom:1px solid #888;height:18px">
       <th style="width:5%;text-align:center;font-size:10px">No</th>
-      <th style="width:34%;text-align:left;padding-left:4px;font-size:10px">품목명</th>
+      <th style="width:28%;text-align:left;padding-left:4px;font-size:10px">품목명</th>
       <th style="width:8%;text-align:right;padding-right:3px;font-size:10px">수량</th>
       <th style="width:6%;text-align:center;font-size:10px">단위</th>
       <th style="width:11%;text-align:right;padding-right:3px;font-size:10px">단가</th>
       <th style="width:13%;text-align:right;padding-right:3px;font-size:10px">공급가액</th>
       <th style="width:10%;text-align:right;padding-right:3px;font-size:10px">세액</th>
       <th style="width:13%;text-align:right;padding-right:3px;font-size:10px">합계</th>
+      <th style="width:6%;text-align:center;font-size:10px">이력번호</th>
     </tr>
   </thead>
   <tbody>
@@ -17415,6 +17489,7 @@ function doSaveHtml(){
       <td style="text-align:right;padding:0 3px;font-weight:700;font-size:10px">${totAmtStr}</td>
       <td style="text-align:right;padding:0 3px;font-weight:700;font-size:10px">${totVatStr}</td>
       <td style="text-align:right;padding:0 3px;font-weight:700;font-size:10px">${totSumStr}</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
