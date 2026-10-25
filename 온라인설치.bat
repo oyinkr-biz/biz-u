@@ -19,6 +19,10 @@ if not exist "%SETUP_OUT%" (
 )
 
 echo.
+echo Closing BizTech...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-Process | Where-Object { $_.Path -and $_.Path -like '*biztech*' } | Stop-Process -Force -ErrorAction SilentlyContinue"
+timeout /t 2 /nobreak >nul
+
 echo Running installer...
 start /wait "" "%SETUP_OUT%"
 del "%SETUP_OUT%" 2>nul
