@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.31 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.32 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2308,7 +2308,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.31 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.32 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2867,7 +2867,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.31</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.32</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14392,11 +14392,8 @@ function doSaveHtml(){
                 const todayJ = await todayR.json();
                 const clJ    = await clR.json();
 
-                const amtMisu   = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
-                const reRaw     = parseInt(clJ.ok ? (clJ.data?.Client_Re ?? 0) : 0) || 0;
-                // boolean(0/1/-1) 무시, 100 이상이면 초기잔액으로 사용 (override)
-                const clientRe  = Math.abs(reRaw) > 99 ? reRaw : 0;
-                const prevBal   = clientRe !== 0 ? clientRe : amtMisu;
+                // 기초잔액(잔액수정)은 서버 prev-bal이 입력날짜 이후 거래까지 반영해서 계산함
+                const prevBal   = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
                 const todayList = (todayJ.data || []).filter(row => String(row.Ivn_Gubun ?? '1') === curGubun);
 
                 let todayAmt = 0, lastDate = '';
@@ -15494,8 +15491,8 @@ function doSaveHtml(){
                 dayRows.push(...limitedDays);
                 dayRows.sort((a, b) => (a.fullDate || '').localeCompare(b.fullDate || ''));
 
-                // 표시되는 가장 오래된 날짜 직전 Amt_Misu를 시작잔액으로 사용
-                const seedDate = dayRows.filter(x => !x._isInit)[0]?.fullDate || fromDate;
+                // 표시되는 가장 오래된 날짜 직전 잔액을 시작잔액으로 사용 (그 전 기초잔액은 서버가 반영)
+                const seedDate = dayRows[0]?.fullDate || fromDate;
                 const balR = await fetch(`${API}/amt/prev-bal?client=${clientId}&before=${seedDate}`);
                 const balJ = await balR.json();
 
@@ -15509,7 +15506,7 @@ function doSaveHtml(){
 
                 const renderedRows = dayRows.map(x => {
                     if (x._isInit) {
-                        cumBal += x.amt;
+                        cumBal = x.amt;   // 기초잔액 = 그날 시작 잔액 (이전 누적에 더하지 않음)
                         return `<tr style="height:18px;background:#fffde7">
                             <td style="font-size:10px;padding:1px 3px;color:#7a6000">${x.dateStr}</td>
                             <td style="font-size:10px;padding:1px 3px;text-align:right;color:#7a6000;font-weight:bold" colspan="3">기초잔액</td>
@@ -16915,22 +16912,10 @@ function doSaveHtml(){
                     // 전일잔액 계산 (loadClientBalance 로직, 날짜 기준)
                     let prevBal = 0;
                     try {
-                        const br = await fetch(`${API}/inven?client=${clientId}&gubun=1`);
+                        // 매출등록 화면 전일잔액과 같은 계산 (기초잔액 입력날짜 이후 거래 반영)
+                        const br = await fetch(`${API}/amt/prev-bal?client=${clientId}&before=${dateStr}`);
                         const bj = await br.json();
-                        const initBal  = parseInt(c?.Client_Re || 0);
-                        const initDate = (c?.Client_Day1 || '').substring(0, 10);
-                        if (initBal && (!initDate || initDate < dateStr)) prevBal += initBal;
-                        (bj.data || []).forEach(row => {
-                            const d = (row.Ivn_Date || '').substring(0, 10);
-                            if (d >= dateStr) return;
-                            const a  = parseNum(row.Ivn_Total);
-                            const g1 = String(row.Ivn_Gubun   || '1');
-                            const g2 = String(row.Ivn_soGubun || '0');
-                            const eff  = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
-                            const asgn = eff === '2' ? -1 : 1;
-                            prevBal += asgn * a - parseNum(row.Ivn_Cash) - parseNum(row.Ivn_Bank)
-                                                - parseNum(row.Ivn_Card) - parseNum(row.Ivn_DC);
-                        });
+                        prevBal = bj.ok ? (bj.data?.balance ?? 0) : 0;
                     } catch(e) { /* prevBal = 0 */ }
 
                     const totalBal = prevBal + totalAmt - cashN - bankN - cardN - dcN;
