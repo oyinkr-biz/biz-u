@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.50 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.51 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2309,7 +2309,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.50 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.51 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2868,7 +2868,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.50</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.51</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14018,6 +14018,22 @@ function doSaveHtml(){
             try { inp.setSelectionRange(newPos, newPos); } catch(_) {}
         }
 
+        // 잔액칸: 실제값은 data-val에 보관, 매입 화면에서는 마이너스 없이 적색으로 표시
+        function _setBalField(id, v, colorAlways) {
+            const el = $id(id);
+            if (!el) return;
+            el.dataset.val = String(v);
+            const pur   = $id('ivn-gubun')?.value === '2';
+            const shown = pur ? Math.abs(v) : v;
+            el.value = shown !== 0 ? shown.toLocaleString('ko-KR') : '0';
+            el.style.color = (pur || colorAlways) ? (v > 0 ? '#0000cc' : v < 0 ? '#c00' : '') : '';
+        }
+        function _getBalField(id) {
+            const el = $id(id);
+            if (!el) return 0;
+            return (el.dataset.val != null && el.dataset.val !== '') ? Number(el.dataset.val) : parseNum(el.value);
+        }
+
         function setFieldVal(id, v) {
             const el = $id(id);
             if (!el) return;
@@ -14244,7 +14260,7 @@ function doSaveHtml(){
             ['ivn-client-name','ivn-client-code','ivn-write-client','ivn-bankname','ivn-charge',
              'ivn-tel','ivn-hp','ivn-fax','ivn-prev-bal','ivn-last-date',
              'ivn-received','ivn-today-sum','ivn-total-bal','ivn-return-amt','ivn-dc','ivn-memo'
-            ].forEach(id => { const el = $id(id); if (el) el.value = ''; });
+            ].forEach(id => { const el = $id(id); if (el) { el.value = ''; delete el.dataset.val; } });
             // 거래처 색상 리셋
             const _nc = $id('ivn-client-name');
             if (_nc) { _nc.style.color = ''; _nc.style.fontWeight = ''; }
@@ -14429,9 +14445,9 @@ function doSaveHtml(){
                     todayNet += (eff === '2' ? -1 : 1) * net;
                 });
 
-                setV('ivn-prev-bal',  prevBal  !== 0 ? prevBal.toLocaleString('ko-KR')  : '0');
+                _setBalField('ivn-prev-bal', prevBal);
                 setV('ivn-last-date', lastDate ? lastDate.replace(/(\d{4})-?(\d{2})-?(\d{2})/, '$1-$2-$3') : '');
-                setV('ivn-today-sum', todayAmt !== 0 ? todayAmt.toLocaleString('ko-KR') : '0');
+                _setBalField('ivn-today-sum', todayAmt);
 
                 clientTodaySum = todayNet;
                 calcTotals();
@@ -15408,18 +15424,14 @@ function doSaveHtml(){
             const g2 = $id('ivn-gubun2')?.value;
             const effDir = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
 
-            const prevBal  = parseNum($id('ivn-prev-bal')?.value);
+            const prevBal  = _getBalField('ivn-prev-bal');
             // 금일 다른 전표의 누계를 포함해야 수금전표(납품없음) 등에서 정확한 총잔액 표시
             const todayOther = clientTodaySum || 0;
             // 매입(effDir=2): 음수 잔액(미지급), 반품(effDir=1): 양수. Windows BizTech 동일.
             const amtSign  = effDir === '2' ? -1 : 1;
             const totalBal = prevBal + todayOther + amtSign * (truncAmt - cash - bank - card - dc);
-            const tbEl = $id('ivn-total-bal');
-            if (tbEl) {
-                tbEl.value = totalBal !== 0 ? totalBal.toLocaleString('ko-KR') : '0';
-                // 받을돈(양수)=청색, 줄돈(음수)=적색
-                tbEl.style.color = totalBal > 0 ? '#0000cc' : totalBal < 0 ? '#c00' : '';
-            }
+            // 받을돈(양수)=청색, 줄돈(음수)=적색 (매입 화면은 마이너스 없이 적색)
+            _setBalField('ivn-total-bal', totalBal, true);
 
             // 반품: 주황색, 매입방향: 빨간색
             const amtColor = g2 === '1' ? '#b85c00' : (effDir === '2' ? '#c00' : '');
@@ -15622,7 +15634,7 @@ function doSaveHtml(){
                 const thisSales = monthly[thisYM]?.sales || 0;
                 const prevSales = monthly[prevYM]?.sales || 0;
                 const client    = allClients.find(x => String(x.Client_ID) === String(clientId));
-                const curBal    = parseFloat($id('ivn-total-bal')?.value?.replace(/,/g,'') || 0);
+                const curBal    = _getBalField('ivn-total-bal');
 
                 if ($summary) {
                     const diff = thisSales - prevSales;
@@ -16061,10 +16073,12 @@ function doSaveHtml(){
             // 매입/매출에 따라 레이블 변경
             const isPurchase = v === '2';
             const _setLbl = (id, text) => { const el = $id(id); if (el) el.textContent = text; };
-            _setLbl('lbl-prev-bal',  isPurchase ? '이전미지급' : '전일잔액');
+            _setLbl('lbl-prev-bal',  isPurchase ? '이전잔액'   : '전일잔액');
             _setLbl('lbl-received',  isPurchase ? '지급금액'   : '입금금액');
             _setLbl('lbl-today-sum', isPurchase ? '금일매입'   : '금일합계');
-            _setLbl('lbl-total-bal', isPurchase ? '총미지급'   : '총잔액');
+            _setLbl('lbl-total-bal', '총잔액');
+            // 처리구분이 바뀌면 이전잔액 표시(부호·색)도 다시 맞춤
+            if ($id('ivn-prev-bal')?.dataset.val) _setBalField('ivn-prev-bal', _getBalField('ivn-prev-bal'));
             _setLbl('lbl-return-amt',isPurchase ? '총반품금액' : '총반품금액');
 
             // 거래처가 이미 선택된 경우 해당 구분의 잔액 재조회
