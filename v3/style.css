@@ -718,13 +718,14 @@ body {
 }
 
 .main-grid-80 {
-    width: 723px;
-    overflow: scroll; 
-    border-bottom: 1px solid #888; 
+    flex: 0 1 723px; /* 창이 좁으면 품목표가 줄고(가로 스크롤) 거래내역 폭은 유지 */
+    min-width: 0;
+    overflow: scroll;
+    border-bottom: 1px solid #888;
 }
 
 .side-history-20 {
-    flex: 1;
+    flex: 1 0 300px;
     overflow: scroll;
     border-left: 1px solid #888;
     background: #fff;
@@ -803,6 +804,7 @@ body {
 .legacy-table-side tbody td {
     font-weight: bold;
     color: #111;
+    white-space: nowrap;
 }
 
 .side-tab-bar button {
