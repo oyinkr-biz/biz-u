@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2309,7 +2309,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2868,7 +2868,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.59</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.60</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -16894,8 +16894,8 @@ function doSaveHtml(){
                 const printSnap = _collectPrintData(sfx);
                 const saved = await saveEntry();
                 if (saved === false) return;   // 저장 안 함(금일자료 아님 → 아니요 등): 화면·커서 그대로
-                if (gubun === '1') window._printReceipt(sfx, printSnap);
-                $id('ivn-client-name')?.focus();
+                if (gubun === '1') await window._printReceipt(sfx, printSnap);
+                $id('ivn-client-name')?.focus();   // 출력이 끝난 뒤 거래처 입력칸으로
             });
             $id('sales-f9-btn')?.addEventListener('click', async () => {
                 const prtChkEl = $id('prt-range-chk');
@@ -17410,6 +17410,7 @@ function doSaveHtml(){
             go();
         }
     }
+    window._focusClientAfterPrint = _focusClientAfterPrint;
 
     // ── F9: 거래명세서 (A4 프린터) ────────────────────────────────
     window._printStatement = async function(sfx = '', preData = null) {
@@ -18032,6 +18033,9 @@ ${show_tkt&&d.ticket?`<div class="r" style="font-size:9pt">일련번호:${esc(d.
         function closePreview() {
             const ov = document.getElementById('receipt-preview-overlay');
             if (ov) ov.style.display = 'none';
+            // 명세서(F9)와 같이: 미리보기 닫히면 매출등록 거래처 입력칸으로
+            const cn = document.getElementById('ivn-client-name');
+            if (cn) { cn.focus(); try { cn.select(); } catch(_) {} }
         }
         if (id === 'receipt-preview-close') { closePreview(); return; }
         if (id === 'receipt-preview-overlay') { closePreview(); return; }
@@ -18064,13 +18068,16 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
 </style></head><body>${bodyHtml}
 <script>window.onload=function(){document.fonts.ready.then(function(){requestAnimationFrame(function(){requestAnimationFrame(function(){var rc=document.querySelector('.rc');var h=Math.ceil((rc?rc.getBoundingClientRect().height:document.body.getBoundingClientRect().height))+16;if(h<320)h=320;/* 80mm≈302px; 이하면 브라우저가 landscape로 전환해 90도 회전 발생 */var s=document.createElement('style');s.textContent='@page{size:80mm '+h+'px;margin:0}';document.head.appendChild(s);setTimeout(function(){window.print();window.close();},200);});});});}<\/script>
 </body></html>`;
+            closePreview();
             if (window.electronAPI?.openPrintWindow) {
-                window.electronAPI.openPrintWindow(html);
+                await window.electronAPI.openPrintWindow(html);
+                window._focusClientAfterPrint?.('', null);   // 인쇄창 닫히고 돌아오면 거래처 입력칸
             } else {
                 const pw = window.open('', '_blank', 'width=440,height=700,menubar=no,toolbar=no,location=no');
                 if (!pw) { alert('팝업이 차단되었습니다. 브라우저 팝업 허용 후 다시 시도하세요.'); return; }
                 pw.document.write(html);
                 pw.document.close();
+                window._focusClientAfterPrint?.('', pw);
             }
             return;
         }
