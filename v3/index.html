@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.66 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.67 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1288,8 +1288,8 @@
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">[ 거래명세서 출력양식 ]</legend>
-                                        <label style="margin-right:10px"><input type="radio" name="env-sf" checked> 양식지출력</label>
-                                        <label><input type="radio" name="env-sf"> 공백지출력</label>
+                                        <label style="margin-right:10px"><input type="radio" name="env-sf" id="env-sf-1" value="1" checked> 기본형</label>
+                                        <label><input type="radio" name="env-sf" id="env-sf-2" value="2"> 보관용 2단</label>
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">[ 금액에서 엔터키 입력시 ]</legend>
@@ -2309,7 +2309,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.66 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.67 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2868,7 +2868,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.66</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.67</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -17564,7 +17564,127 @@ function doSaveHtml(){
         }
     };
 
+    // ── 거래명세표 "보관용 2단" 양식 (예전 프로그램 방식: 위 공급자 보관용/빨강, 아래 공급받는자 보관용/파랑) ──
+    function _buildStatementHtml2(d, comp, cfg = {}) {
+        const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const num  = v => parseFloat(String(v||0).replace(/,/g,'')) || 0;
+        const fmtN = v => { const n = Math.round(num(v)); return n ? n.toLocaleString('ko-KR') : ''; };
+        const fmtZ = v => Math.round(num(v)).toLocaleString('ko-KR');   // 0도 표시
+        const ROWS = 12;   // 한 장(2단)에 들어가는 품목 줄 수
+
+        const rows = (d.rows || []).filter(r => r && r.name);
+        const pages = [];
+        for (let i = 0; i < Math.max(1, rows.length); i += ROWS) pages.push(rows.slice(i, i + ROWS));
+
+        const totQty = rows.reduce((s, r) => s + num(r.size || r.qty), 0);
+        const totAmt = rows.reduce((s, r) => s + num(r.amt), 0);
+        const totVat = rows.reduce((s, r) => s + num(r.vat), 0);
+        const prevN  = num(d.prevBal), delivN = num(d.delivAmt);
+        const recvN  = num(d.cash) + num(d.bank) + num(d.card);
+        const footer = esc(cfg.thermal_footer || '');
+
+        const co = {
+            sno:  esc(comp.Co_sNo || ''), name: esc(comp.Co_Name || ''), rep: esc(comp.Co_Header || ''),
+            addr: esc(((comp.Co_Addr || '') + ' ' + (comp.Co_Addr1 || '')).trim()),
+            biz:  esc(comp.Co_Business || ''), item: esc(comp.Co_Item || ''), tel: esc(comp.Co_STel || ''),
+        };
+
+        const copy = (pageRows, pageNo, label, clr) => {
+            const B = `border:1px solid ${clr}`;
+            const L = `${B};color:${clr};text-align:center;white-space:nowrap;padding:1px 2px`;   // 항목 이름 칸
+            const V = `${B};padding:1px 4px`;                                                     // 값 칸
+            const itemRows = [];
+            for (let i = 0; i < ROWS; i++) {
+                const r = pageRows[i];
+                const qty = r ? (r.size && num(r.size) ? r.size : r.qty) : '';
+                itemRows.push(`<tr style="height:19px">
+                    <td style="${V};text-align:center">${r ? (pageNo * ROWS + i + 1) : ''}</td>
+                    <td style="${V}" colspan="2">${r ? esc(r.name) : ''}</td>
+                    <td style="${V};text-align:right">${r ? esc(qty) : ''}</td>
+                    <td style="${V};text-align:center">${r ? esc(r.unit || '') : ''}</td>
+                    <td style="${V};text-align:right">${r ? fmtN(r.price) : ''}</td>
+                    <td style="${V};text-align:right">${r ? fmtN(r.amt) : ''}</td>
+                    <td style="${V};text-align:right">${r ? fmtN(r.vat) : ''}</td>
+                    <td style="${V};text-align:right">${r ? fmtN(num(r.amt) + num(r.vat)) : ''}</td>
+                </tr>`);
+            }
+            return `<div class="cp">
+  <div style="text-align:right;color:${clr};font-size:12px;font-weight:bold">(${label})</div>
+  <table style="table-layout:fixed">
+    <colgroup><col style="width:44%"><col style="width:5%"><col style="width:12%"><col style="width:15%"><col style="width:9%"><col style="width:15%"></colgroup>
+    <tr>
+      <td rowspan="5" style="${B};padding:4px 8px;vertical-align:top">
+        <div style="color:${clr};font-size:24px;font-weight:bold;letter-spacing:2px;white-space:nowrap">거래명세표<span style="font-size:13px;letter-spacing:0"> ( ${label.replace('보관용','')} 보관용 )</span></div>
+        <div style="margin-top:6px;font-size:13px"><span style="color:${clr}">거래일:</span> <b>${esc(d.date || '')}</b></div>
+        <div style="font-size:15px"><span style="color:${clr};font-size:13px">거래처:</span> <b>${esc(d.clientName || '')}</b></div>
+        <div style="font-size:13px"><span style="color:${clr}">주 소:</span> ${esc(d.clientAddr || '')}</div>
+      </td>
+      <td rowspan="5" style="${L};writing-mode:vertical-lr;letter-spacing:6px;font-weight:bold">공급자</td>
+      <td style="${L}">등록번호</td><td style="${V};text-align:center"><b>${co.sno}</b></td><td style="${L}">성명</td><td style="${V};text-align:center"><b>${co.rep}</b></td>
+    </tr>
+    <tr><td style="${L}">상 호</td><td style="${V}" colspan="3"><b>${co.name}</b></td></tr>
+    <tr><td style="${L}">사업장주소</td><td style="${V};font-size:11px" colspan="3">${co.addr}</td></tr>
+    <tr><td style="${L}">업 태</td><td style="${V};text-align:center">${co.biz}</td><td style="${L}">종목</td><td style="${V};text-align:center">${co.item}</td></tr>
+    <tr><td style="${L}">담 당</td><td style="${V}"></td><td style="${L}">전화</td><td style="${V};text-align:center">${co.tel}</td></tr>
+  </table>
+  <table style="table-layout:fixed;margin-top:-1px">
+    <colgroup><col style="width:5%"><col style="width:27%"><col style="width:6%"><col style="width:8%"><col style="width:6%"><col style="width:11%"><col style="width:13%"><col style="width:10%"><col style="width:14%"></colgroup>
+    <tr style="height:20px">
+      <td style="${L}">No.</td><td style="${L}" colspan="2">품 목</td><td style="${L}">수량</td><td style="${L}">단위</td>
+      <td style="${L}">단 가</td><td style="${L}">공급가액</td><td style="${L}">세 액</td><td style="${L}">합 계</td>
+    </tr>
+    ${itemRows.join('')}
+    <tr style="height:20px">
+      <td style="${V}" colspan="3"></td><td style="${V};text-align:right"><b>${totQty ? (Math.round(totQty * 100) / 100).toLocaleString('ko-KR') : ''}</b></td>
+      <td style="${V}" colspan="2"></td><td style="${V};text-align:right"><b>${fmtN(totAmt)}</b></td>
+      <td style="${V};text-align:right"><b>${fmtN(totVat)}</b></td><td style="${V};text-align:right"><b>${fmtN(totAmt + totVat)}</b></td>
+    </tr>
+  </table>
+  <table style="table-layout:fixed;margin-top:-1px">
+    <colgroup><col style="width:17%"><col style="width:17%"><col style="width:19%"><col style="width:16%"><col style="width:19%"><col style="width:12%"></colgroup>
+    <tr><td style="${L}">합 계</td><td style="${L}">전잔액</td><td style="${L}">전잔액+합계</td><td style="${L}">입 금</td><td style="${L}">현잔액</td><td style="${L}" rowspan="2">인수자</td></tr>
+    <tr style="height:22px;font-size:14px;font-weight:bold">
+      <td style="${V};text-align:center">${fmtZ(delivN)}</td><td style="${V};text-align:center">${fmtZ(prevN)}</td>
+      <td style="${V};text-align:center">${fmtZ(prevN + delivN)}</td><td style="${V};text-align:center">${recvN ? fmtZ(recvN) : ''}</td>
+      <td style="${V};text-align:center">${fmtZ(num(d.totalBal))}</td>
+    </tr>
+  </table>
+  ${footer ? `<div style="font-size:13px;font-weight:bold;margin-top:3px">${footer}</div>` : ''}
+</div>`;
+        };
+
+        const body = pages.map((pr, pi) => `<div class="pg">
+  <div style="text-align:center;font-size:12px;margin-bottom:2px">${pi + 1} / ${pages.length}</div>
+  ${copy(pr, pi, '공급자보관용', '#e00000')}
+  <div style="border-top:1px dashed #999;margin:10px 0 8px"></div>
+  ${copy(pr, pi, '공급받는자보관용', '#1a5fb4')}
+</div>`).join('');
+
+        return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>${esc(d.clientName || '거래명세표')}</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-size:12.5px;color:#000;font-weight:600}
+  table{border-collapse:collapse;width:100%}
+  td{overflow:hidden}
+  .pg{page-break-after:always}
+  .pg:last-child{page-break-after:auto}
+  @page{size:A4 portrait;margin:8mm 10mm}
+  @media print{button{display:none}}
+</style>
+</head>
+<body>
+${body}
+</body>
+</html>`;
+    }
+
     function _buildStatementHtml(d, comp, cfg = {}) {
+        // 환경설정 [거래명세서 출력양식] = 보관용 2단 이면 예전 양식으로
+        if (String(cfg.stmt_layout || '') === '2') return _buildStatementHtml2(d, comp, cfg);
         const fmtN = v => { const n = parseInt((v||'').toString().replace(/,/g,'')); return (isNaN(n)||n===0) ? '' : n.toLocaleString('ko-KR'); };
         const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
@@ -18315,6 +18435,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             trunc_mode:     g('env-trunc-mode')?.value || 'none',
             trunc_unit:     parseInt(g('env-trunc-unit')?.value || 0) || 0,
             decimal_places: parseInt(g('env-decimal')?.value ?? 2) || 0,
+            stmt_layout:    g('env-sf-2')?.checked ? '2' : '1',   // 거래명세서 출력양식: 1=기본형, 2=보관용 2단
         };
         const _showSaveToast = (ok, msg) => {
             const btn = document.getElementById('env-settings-save-btn');
@@ -18393,6 +18514,10 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             if (s.decimal_places !== undefined) {
                 window._bizDecimals = Number(s.decimal_places);
                 if (g('env-decimal')) g('env-decimal').value = String(s.decimal_places);
+            }
+            if (s.stmt_layout !== undefined) {
+                if (g('env-sf-1')) g('env-sf-1').checked = String(s.stmt_layout) !== '2';
+                if (g('env-sf-2')) g('env-sf-2').checked = String(s.stmt_layout) === '2';
             }
             // A4 프린터 설정 로드
             if (s.a4_printer !== undefined && g('env-a4-printer')) {
