@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.68 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.69 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -515,16 +515,17 @@
                                     </thead>
                                     <tbody id="excel-side-grid-body"></tbody>
                                 </table>
-                                <div style="margin-top:4px;font-size:10px;font-weight:bold;background:#e0e8ff;padding:2px;border:1px solid #aaa">제품/남은수량</div>
-                                <table class="legacy-table-side" style="font-size:10px">
+                                <div id="item-hist-title" style="margin-top:4px;font-size:11px;font-weight:bold;background:#e0e8ff;padding:2px 4px;border:1px solid #aaa;white-space:nowrap;overflow:hidden">최근거래 (제품 선택 시 표시)</div>
+                                <table class="legacy-table-side" style="font-size:11px">
                                     <thead>
                                         <tr>
-                                            <th>품명</th>
-                                            <th width="60">판매수</th>
-                                            <th width="60">남은수량</th>
+                                            <th>거래일자</th>
+                                            <th width="44">품번</th>
+                                            <th>최근단가</th>
+                                            <th width="54">수량</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="excel-stock-grid-body"></tbody>
+                                    <tbody id="item-hist-body"></tbody>
                                 </table>
                                 </div>
                                 <!-- 거래내역 미니 팝업 -->
@@ -2309,7 +2310,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.68 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.69 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2868,7 +2869,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.68</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.69</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14291,6 +14292,7 @@ function doSaveHtml(){
             if (tbody) tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;font-size:10px">거래처 선택 후 조회</td></tr>';
             const stk = $id('excel-stock-grid-body');
             if (stk) stk.innerHTML = '';
+            clearItemHistory();
             const _dayPop = $qry('.side-day-popup');
             if (_dayPop) _dayPop.style.display = 'none';
         }
@@ -14990,6 +14992,15 @@ function doSaveHtml(){
 
         // ── 그리드 이벤트 ─────────────────────────────────────
         function bindGridEvents() {
+            // 품목 줄의 칸으로 커서가 가면 그 제품의 최근거래 표시 (tbody는 유지되므로 1번만 연결)
+            const _gb = $id('excel-grid-body');
+            if (_gb && !_gb._histBound) {
+                _gb._histBound = true;
+                _gb.addEventListener('focusin', e => {
+                    const r = e.target?.dataset?.row;
+                    if (r != null && r !== '') loadItemHistory(parseInt(r));
+                });
+            }
             // 제품코드: 포커스/클릭 → 전체목록, 타이핑 → 실시간 필터, 방향키/Enter/ESC
             $qryAll('.g-code').forEach(inp => {
                 const row = parseInt(inp.dataset.row);
@@ -15195,9 +15206,48 @@ function doSaveHtml(){
                 sizeEl.value = sz > 0 ? sz.toLocaleString('ko-KR') : '';
             }
             $qry(`.g-qty[data-row="${row}"]`)?.focus();
+            loadItemHistory(row);
         }
 
-        // ── 제품/남은수량 패널 ────────────────────────────────
+        // ── 우측 '최근거래' 패널: 이 거래처와 선택한 제품의 최근 거래일자·단가·수량 ──
+        let _itemHistKey = '';
+        function clearItemHistory() {
+            _itemHistKey = '';
+            const body = $id('item-hist-body'), title = $id('item-hist-title');
+            if (body)  body.innerHTML = '';
+            if (title) title.textContent = '최근거래 (제품 선택 시 표시)';
+        }
+        async function loadItemHistory(row) {
+            const body = $id('item-hist-body'), title = $id('item-hist-title');
+            if (!body) return;
+            const code = $qry(`.g-code[data-row="${row}"]`)?.value?.trim();
+            if (!code || !currentClientId) return;
+            const gubun = $id('ivn-gubun')?.value === '2' ? '2' : '1';   // 매출=1, 매입=2
+            const key = `${currentClientId}|${code}|${gubun}`;
+            if (key === _itemHistKey) return;
+            _itemHistKey = key;
+            const name = $qry(`.g-name[data-row="${row}"]`)?.value || code;
+            if (title) title.textContent = `최근거래 - ${name}`;
+            const td = 'font-size:11px;padding:1px 3px';
+            body.innerHTML = `<tr><td colspan="4" style="${td};text-align:center;color:#999">조회 중...</td></tr>`;
+            try {
+                const j = await fetch(`${API}/clients/${currentClientId}/item-history?item=${encodeURIComponent(code)}&gubun=${gubun}`).then(r => r.json());
+                if (key !== _itemHistKey) return;   // 그 사이 다른 제품 선택
+                const rows = j.data || [];
+                const q = r => { const v = parseFloat(r.qty) || parseFloat(r.size) || 0; return v ? v.toLocaleString('ko-KR', { maximumFractionDigits: 2 }) : ''; };
+                body.innerHTML = rows.length ? rows.map(r => `<tr>
+                        <td style="${td}">${String(r.date || '').substring(0, 10)}</td>
+                        <td style="${td};text-align:center">${r.item ?? ''}</td>
+                        <td style="${td};text-align:right">${parseFloat(r.price) ? Math.round(r.price).toLocaleString('ko-KR') : '0'}</td>
+                        <td style="${td};text-align:right">${q(r)}</td>
+                    </tr>`).join('')
+                    : `<tr><td colspan="4" style="${td};text-align:center;color:#999">이 거래처와 거래 내역 없음</td></tr>`;
+            } catch(e) {
+                body.innerHTML = `<tr><td colspan="4" style="${td};text-align:center;color:#c00">조회 실패</td></tr>`;
+            }
+        }
+
+        // ── 제품/남은수량 패널 (화면에서 제거됨 — 요소가 없으면 아무것도 안 함) ──
         function renderStockPanel() {
             const tbody = $id('excel-stock-grid-body');
             if (!tbody) return;
