@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.75</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.76</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -16342,7 +16342,7 @@ function doSaveHtml(){
                     const pr = await fetch(`${API}/print/receipt`, {
                         method:  'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body:    JSON.stringify({ ...printData, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint }),
+                        body:    JSON.stringify({ ...(await window._receiptSerialData(printData)), print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint }),
                     });
                     const pj = await pr.json();
                     if (pj.ok) { okCnt++; } else { failCnt++; }
@@ -18276,7 +18276,24 @@ ${show_tkt&&d.ticket?`<div class="r" style="font-size:9pt">일련번호:${esc(d.
 </div>`;
     };
 
+    // 영수증 일련번호: 전표번호(계속 증가) 대신 "그날 같은 구분(매출/매입) 전표 중 몇 번째"로 표시 → 날 바뀌면 1부터
+    // (전표번호 자체는 그대로 — 재발행 표시 등은 원래 번호 _origTicket 으로 판단)
+    window._receiptSerialData = async function(d) {
+        if (!d || d._serialDone) return d;
+        const t = String(d.ticket || ''), date = String(d.date || '').substring(0, 10);
+        if (!t || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return d;
+        try {
+            const j = await fetch(`/api/inven?from=${date}&to=${date}&slim=1`).then(r => r.json());
+            const g = String(d.gubun || '1');
+            const list = [...new Set((j.data || []).filter(x => String(x.Ivn_Gubun ?? '1') === g)
+                .map(x => parseInt(x.Ivn_Ticket)).filter(Boolean))].sort((a, b) => a - b);
+            const serial = t.split(',').map(s => { const i = list.indexOf(parseInt(s)); return i >= 0 ? String(i + 1) : s; }).join(',');
+            return { ...d, ticket: serial, _origTicket: t, _serialDone: true };
+        } catch(e) { return d; }
+    };
+
     window._showReceiptPreview = async function(d) {
+        d = await window._receiptSerialData(d);
         let comp = {}, settings = {};
         try { const cj = await fetch('/api/company').then(r=>r.json()); comp = cj.data||{}; } catch(e){}
         try { const sj = await fetch('/api/settings').then(r=>r.json()); settings = sj.data||{}; } catch(e){}
@@ -18439,9 +18456,10 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         if (f7btn) { f7btn.textContent = '출력중...'; f7btn.disabled = true; }
 
         // 재발행 여부 판단
-        const printKey  = `biz_printed_${d.ticket}`;
+        const printKey  = `biz_printed_${d._origTicket || d.ticket}`;
         const isReprint = !!localStorage.getItem(printKey);
         localStorage.setItem(printKey, '1');
+        d = await window._receiptSerialData(d);   // 영수증 일련번호 = 그날 몇 번째 전표 (매일 1부터)
 
         // 회사 정보 fetch
         let comp = {};
