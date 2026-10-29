@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.82 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.83 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.82 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.83 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.82</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.83</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14485,7 +14485,7 @@ function doSaveHtml(){
 
                 let todayAmt = 0, lastDate = '';
                 todayList.forEach(row => {
-                    const amt = (parseNum(row.Ivn_Total) || 0) - (parseNum(row.Ivn_DC) || 0);   // 할인 후 금액
+                    const amt = parseNum(row.Ivn_Total) || 0;   // 금일합계 = 오늘 판매금 (할인·입금은 총잔액에서 따로 빠짐, 거래내역 판매금과 같은 기준)
                     const d   = row.Ivn_Date || '';
                     if (!lastDate || d > lastDate) lastDate = d;
                     const g2  = String(row.Ivn_soGubun || '0');
@@ -15664,14 +15664,11 @@ function doSaveHtml(){
                     const xg2 = String(x.Ivn_soGubun || '0');
                     const xEff = xg2 === '2' ? (xg1 === '1' ? '2' : '1') : xg1;
                     const xSign = xEff === '2' ? -1 : 1;
-                    // 판매금은 할인 후 금액, 할인 칸은 참고용 표시 (잔액 = 판매(할인후) - 입금)
-                    const amt  = xSign * (parseFloat(x.Ivn_Total || 0) - parseFloat(x.Ivn_DC || 0));
-                    const paid = parseFloat(x.Ivn_Cash || 0) + parseFloat(x.Ivn_Bank || 0)
-                               + parseFloat(x.Ivn_Card || 0);
-                    d.dc += xSign * parseFloat(x.Ivn_DC || 0);
-                    const net = amt - xSign * paid;
-                    if (net > 0) d.panMae += net;
-                    else if (net < 0) d.ipGeum += (-net);
+                    // 판매금·입금액·할인을 상계하지 않고 각각 표시 (잔액 = 판매금 - 입금액 - 할인)
+                    // 예전엔 전표마다 판매-입금을 상계해서 판매금이 줄어 보이거나 입금액에 할인이 섞여 보였음
+                    d.panMae += xSign * parseFloat(x.Ivn_Total || 0);
+                    d.ipGeum += xSign * (parseFloat(x.Ivn_Cash || 0) + parseFloat(x.Ivn_Bank || 0) + parseFloat(x.Ivn_Card || 0));
+                    d.dc     += xSign * parseFloat(x.Ivn_DC || 0);
                 });
 
                 // 날짜 ASC 정렬 후 최근 months*31일만 표시 (과다 데이터 방지)
@@ -15708,15 +15705,15 @@ function doSaveHtml(){
                             <td style="font-size:11px;padding:1px 3px;text-align:right;color:#7a6000;font-weight:bold">${fmt(x.amt)}</td>
                         </tr>`;
                     }
-                    cumBal += x.panMae - x.ipGeum;
+                    cumBal += x.panMae - x.ipGeum - x.dc;
                     // 그날 전표가 한 호차뿐이면 호차 표시, 여러 호차가 섞이면 빈칸
                     const sw = x.sawons.size === 1 ? [...x.sawons][0] : 0;
                     return `<tr style="height:20px;cursor:pointer" data-date="${x.fullDate}" title="클릭하면 이 날짜 전표를 불러옵니다">
                         <td style="font-size:11px;padding:1px 3px">${x.dateStr}</td>
                         <td style="font-size:11px;padding:1px 2px;text-align:center;color:${window._sawonClr(sw)};background:${window._sawonBg(sw)}">${window._sawonLabel(sw)}</td>
-                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.panMae > 0 ? fmt(x.panMae) : ''}</td>
-                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.ipGeum > 0 ? fmt(x.ipGeum) : ''}</td>
-                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.dc !== 0 ? fmt(x.dc) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.panMae ? fmt(Math.abs(x.panMae)) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.ipGeum ? fmt(Math.abs(x.ipGeum)) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right">${x.dc ? fmt(Math.abs(x.dc)) : ''}</td>
                         <td style="font-size:11px;padding:1px 3px;text-align:right;color:#000">${cumBal !== 0 ? fmt(cumBal) : '0'}</td>
                     </tr>`;
                 });
