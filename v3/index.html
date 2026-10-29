@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.89 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.90 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.89 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.90 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.89</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.90</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -15715,13 +15715,17 @@ function doSaveHtml(){
                 rawList.forEach(x => {
                     const fd = (x.Ivn_Date || '').substring(0, 10);
                     const ds = (x.Ivn_Date || '').substring(5).replace(/-/g, '/');
-                    if (!dayMap.has(fd)) dayMap.set(fd, { dateStr: ds, fullDate: fd, panMae: 0, ipGeum: 0, dc: 0, sawons: new Set() });
-                    const d = dayMap.get(fd);
-                    if (parseInt(x.Ivn_Sawon) >= 11) d.sawons.add(parseInt(x.Ivn_Sawon));
                     const xg1 = String(x.Ivn_Gubun || '1');
                     const xg2 = String(x.Ivn_soGubun || '0');
                     const xEff = xg2 === '2' ? (xg1 === '1' ? '2' : '1') : xg1;
                     const xSign = xEff === '2' ? -1 : 1;
+                    // 매출 거래처의 매입(또는 매입 거래처의 매출)은 같은 날이라도 따로 한 줄로 표시
+                    // (처리구분 두 번째 칸으로 바꿔 잡은 전표)
+                    const isPur = xg2 === '2';
+                    const key = fd + (isPur ? '|x' : '');
+                    if (!dayMap.has(key)) dayMap.set(key, { dateStr: ds, fullDate: fd, isPur, eff: xEff, panMae: 0, ipGeum: 0, dc: 0, sawons: new Set() });
+                    const d = dayMap.get(key);
+                    if (parseInt(x.Ivn_Sawon) >= 11) d.sawons.add(parseInt(x.Ivn_Sawon));
                     // 판매금·입금액·할인을 상계하지 않고 각각 표시 (잔액 = 판매금 - 입금액 - 할인)
                     // 예전엔 전표마다 판매-입금을 상계해서 판매금이 줄어 보이거나 입금액에 할인이 섞여 보였음
                     d.panMae += xSign * parseFloat(x.Ivn_Total || 0);
@@ -15730,7 +15734,7 @@ function doSaveHtml(){
                 });
 
                 // 날짜 ASC 정렬 후 최근 months*31일만 표시 (과다 데이터 방지)
-                const allDaySorted = Array.from(dayMap.values()).sort((a, b) => a.fullDate.localeCompare(b.fullDate));
+                const allDaySorted = Array.from(dayMap.values()).sort((a, b) => a.fullDate.localeCompare(b.fullDate) || (a.isPur - b.isPur));
                 const maxDays = months * 31;
                 const limitedDays = allDaySorted.slice(-maxDays); // 최신 N일만
                 const dayRows = [];
@@ -15739,7 +15743,7 @@ function doSaveHtml(){
                     dayRows.push({ _isInit: true, dateStr: initDate.substring(5).replace('-', '/'), fullDate: initDate, amt: initBal });
                 }
                 dayRows.push(...limitedDays);
-                dayRows.sort((a, b) => (a.fullDate || '').localeCompare(b.fullDate || ''));
+                dayRows.sort((a, b) => (a.fullDate || '').localeCompare(b.fullDate || '') || ((a.isPur ? 1 : 0) - (b.isPur ? 1 : 0)));
 
                 // 표시되는 가장 오래된 날짜 직전 잔액을 시작잔액으로 사용 (그 전 기초잔액은 서버가 반영)
                 const seedDate = dayRows[0]?.fullDate || fromDate;
@@ -15764,6 +15768,17 @@ function doSaveHtml(){
                         </tr>`;
                     }
                     cumBal += x.panMae - x.ipGeum - x.dc;
+                    if (x.isPur) {
+                        // 바꿔 잡은 전표(매출처의 매입 등): 호 칸에 구분 표시, 금액은 빨간색
+                        return `<tr style="height:20px;cursor:pointer;background:#fff0f0" data-date="${x.fullDate}" title="클릭하면 이 날짜 전표를 불러옵니다">
+                        <td style="font-size:11px;padding:1px 3px">${x.dateStr}</td>
+                        <td style="font-size:10px;padding:1px 1px;text-align:center;color:#c00;font-weight:bold">${x.eff === '2' ? '매입' : '매출'}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right;color:#c00">${x.panMae ? fmt(Math.abs(x.panMae)) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right;color:#c00">${x.ipGeum ? fmt(Math.abs(x.ipGeum)) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right;color:#c00">${x.dc ? fmt(Math.abs(x.dc)) : ''}</td>
+                        <td style="font-size:11px;padding:1px 3px;text-align:right;color:#000">${cumBal !== 0 ? fmt(cumBal) : '0'}</td>
+                    </tr>`;
+                    }
                     // 그날 전표가 한 호차뿐이면 호차 표시, 여러 호차가 섞이면 빈칸
                     const sw = x.sawons.size === 1 ? [...x.sawons][0] : 0;
                     return `<tr style="height:20px;cursor:pointer" data-date="${x.fullDate}" title="클릭하면 이 날짜 전표를 불러옵니다">
@@ -17373,18 +17388,20 @@ function doSaveHtml(){
                     for (const t of tickets) {
                         const ticket = t.Ivn_Ticket;
                         const g = String(t.Ivn_Gubun || '1');
+                        // 처리구분 두 번째 칸(매입/매출 바꿔 잡음)까지 반영한 실제 구분
+                        const eff = String(t.Ivn_soGubun || '0') === '2' ? (g === '1' ? '2' : g === '2' ? '1' : g) : g;
                         try {
                             const preData = await _buildPrintDataForTicket(ticket, date, g);
-                            ticketData.push({ ticket, gubun: g, total: t.Ivn_Total, preData });
+                            ticketData.push({ ticket, gubun: eff, total: t.Ivn_Total, preData });
                         } catch(err) {
-                            ticketData.push({ ticket, gubun: g, total: t.Ivn_Total, preData: null });
+                            ticketData.push({ ticket, gubun: eff, total: t.Ivn_Total, preData: null });
                         }
                     }
 
                     $popRows.innerHTML = ticketData.map(td => {
                         const label = td.gubun === '1' ? '매출' : td.gubun === '2' ? '매입' : td.gubun;
-                        const hdr = `<tr style="background:#eef2fa;border-top:1px solid #ccd" data-ticket="${td.ticket}">
-                            <td style="padding:2px 4px;font-weight:bold">#${td.ticket} (${label})</td>
+                        const hdr = `<tr style="background:${td.gubun === '2' ? '#fff0f0' : '#eef2fa'};border-top:1px solid #ccd" data-ticket="${td.ticket}">
+                            <td style="padding:2px 4px;font-weight:bold${td.gubun === '2' ? ';color:#c00' : ''}">#${td.ticket} (${label})</td>
                             <td style="padding:2px 4px;text-align:right;font-weight:bold">${parseFloat(td.total||0).toLocaleString('ko-KR')}원</td>
                             <td style="padding:2px 4px;text-align:center"><button class="pop-print-receipt" style="font-size:10px;padding:1px 5px;cursor:pointer">영수증</button></td>
                             <td style="padding:2px 4px;text-align:center"><button class="pop-print-stmt" style="font-size:10px;padding:1px 5px;cursor:pointer">명세서</button></td>
