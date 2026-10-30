@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.92 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.93 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.92 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.93 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.92</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.93</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -15020,10 +15020,32 @@ function doSaveHtml(){
             if (!tbody) return;
             tbody.innerHTML = '';
 
-            const isTaxBill = $qry(`input[name="${TAXNAME}"]:checked`)?.value === '1';
+            // 기본 15줄, 품목이 더 많은 전표는 품목 수 + 빈 줄 1개 (마지막 줄로 가면 줄이 계속 늘어남)
+            const n = Math.max(GRID_ROWS, (tranRows?.length || 0) + 1);
+            for (let i = 0; i < n; i++) tbody.appendChild(_buildGridRow(i, (tranRows && tranRows[i]) ? tranRows[i] : {}));
 
-            for (let i = 0; i < GRID_ROWS; i++) {
-                const rd = (tranRows && tranRows[i]) ? tranRows[i] : {};
+            bindGridEvents();
+            calcTotals();
+            renderStockPanel();
+        }
+
+        // 현재 품목 줄 수 (기본 15줄 + 입력하면서 늘어난 줄)
+        function gridRowCount() {
+            return $id('excel-grid-body')?.rows.length || GRID_ROWS;
+        }
+
+        // 마지막 줄에 커서가 가면 빈 줄 1개 추가 → 20개·30개도 계속 입력
+        function _appendGridRow() {
+            const tbody = $id('excel-grid-body');
+            if (!tbody) return;
+            const tr = _buildGridRow(tbody.rows.length, {});
+            tbody.appendChild(tr);
+            bindGridEvents(tr);
+        }
+
+        function _buildGridRow(i, rd) {
+            const isTaxBill = $qry(`input[name="${TAXNAME}"]:checked`)?.value === '1';
+            {
                 const tr = document.createElement('tr');
                 tr.dataset.row = i;
                 tr.style.height = '20px';
@@ -15075,23 +15097,25 @@ function doSaveHtml(){
                         value="${rd.Inot_TraceNo || ''}"
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px"></td>
                 `;
-                tbody.appendChild(tr);
+                return tr;
             }
-
-            bindGridEvents();
-            calcTotals();
-            renderStockPanel();
         }
 
         // ── 그리드 이벤트 ─────────────────────────────────────
-        function bindGridEvents() {
+        // scope: 새로 추가한 줄(tr)만 연결할 때 넘김 (없으면 전체 줄)
+        function bindGridEvents(scope) {
+            const $qryAll = sel => scope ? [...scope.querySelectorAll(sel)] : [...($win?.querySelectorAll(sel) || [])];
             // 품목 줄의 칸으로 커서가 가면 그 제품의 최근거래 표시 (tbody는 유지되므로 1번만 연결)
             const _gb = $id('excel-grid-body');
             if (_gb && !_gb._histBound) {
                 _gb._histBound = true;
                 _gb.addEventListener('focusin', e => {
                     const r = e.target?.dataset?.row;
-                    if (r != null && r !== '') loadItemHistory(parseInt(r));
+                    if (r != null && r !== '') {
+                        loadItemHistory(parseInt(r));
+                        // 마지막 줄이면 아래에 빈 줄 추가
+                        if (parseInt(r) >= _gb.rows.length - 1) _appendGridRow();
+                    }
                 });
             }
             // 제품코드: 포커스/클릭 → 전체목록, 타이핑 → 실시간 필터, 방향키/Enter/ESC
@@ -16349,7 +16373,7 @@ function doSaveHtml(){
             fetch(API + '/items').then(r => r.json()).then(j => {
                 if (!j.data) return;
                 allItems = j.data;
-                for (let i = 0; i < GRID_ROWS; i++) {
+                for (let i = 0; i < gridRowCount(); i++) {
                     const codeEl = $qry(`.g-code[data-row="${i}"]`);
                     if (codeEl?.value?.trim()) calcRowAmt(i);
                 }
@@ -16786,7 +16810,7 @@ function doSaveHtml(){
             // 과세구분 변경 → 행별 부가세액 + 합계 재계산
             $qryAll(`input[name="${TAXNAME}"]`).forEach(r => {
                 r.addEventListener('change', () => {
-                    for (let i = 0; i < GRID_ROWS; i++) {
+                    for (let i = 0; i < gridRowCount(); i++) {
                         if ($qry(`.g-code[data-row="${i}"]`)?.value?.trim()) calcRowAmt(i);
                     }
                     calcTotals();
