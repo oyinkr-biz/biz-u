@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.98 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.1.99 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2323,7 +2323,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.98 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.1.99 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2882,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.98</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.1.99</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14374,7 +14374,21 @@ function doSaveHtml(){
         }
 
         // ── 거래처 클리어 ─────────────────────────────────────
+        // 매출등록 창이 여러 개일 때 구분되게 창 제목·아래 작업표시줄에 거래처 이름 표시 (길면 앞 5자)
+        function _setWinClientLabel(name) {
+            const t = $id('sales-title');
+            if (!t) return;
+            if (!t.dataset.base) t.dataset.base = '매출등록';
+            const nm = (name || '').trim();
+            const short = nm.length > 5 ? nm.slice(0, 5) + '…' : nm;
+            t.textContent = short ? `${t.dataset.base} - ${short}` : t.dataset.base;
+            t.title = nm;
+            if (window._updateTaskbar) window._updateTaskbar();
+        }
+        _setWinClientLabel('');   // 새 창은 앞 창 제목(거래처명)을 복제해 오므로 처음엔 비움
+
         function clearClientInfo() {
+            _setWinClientLabel('');
             _releaseSalesLock();
             ['ivn-client-name','ivn-client-code','ivn-write-client','ivn-bankname','ivn-charge',
              'ivn-tel','ivn-hp','ivn-fax','ivn-prev-bal','ivn-last-date',
@@ -14421,6 +14435,7 @@ function doSaveHtml(){
                 if ($id('ivn-hp'))           $id('ivn-hp').value            = c.Client_HTel    || '';
                 if ($id('ivn-fax'))          $id('ivn-fax').value           = c.Client_OTel    || '';
                 if ($id('ivn-memo'))         $id('ivn-memo').value          = c.Client_Memo    || '';
+                _setWinClientLabel(c.Client_Name);
                 // 미니 은행정보 패널
                 // 거래처 색상 반영
                 const _CMAP_SL = { 'B': '#0000cc', 'blue': '#0000cc', 'R': '#cc0000', 'red': '#cc0000' };
@@ -14436,6 +14451,7 @@ function doSaveHtml(){
                 currentClientId = null;
                 ['ivn-client-name','ivn-client-code','ivn-write-client','ivn-bankname','ivn-charge','ivn-tel','ivn-hp','ivn-fax']
                     .forEach(id => { const el = $id(id); if (el) el.value = ''; });
+                _setWinClientLabel('');
                 return;
             }
             _salesLockedClientId = clientId;
