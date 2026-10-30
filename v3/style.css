@@ -837,6 +837,10 @@ body {
     width: auto;
 }
 
+/* 매출등록 품목표: ⚙ 설정으로 비고(10번째)·이력번호(11번째) 칸 숨기기 */
+.legacy-table.hide-memo  tr > :nth-child(10),
+.legacy-table.hide-trace tr > :nth-child(11) { display: none; }
+
 .excel-bottom-summary {
     display: flex;
     justify-content: flex-start;
