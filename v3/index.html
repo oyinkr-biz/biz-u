@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1188,15 +1188,11 @@
                                     <button id="users-cancel-btn" class="ex-btn-legacy" style="padding:1px 8px">취소</button>
                                 </div>
                             </div>
-                            <!-- 사용 허가 (총괄관리자 설정) + 활성화 키 -->
-                            <div style="background:#f5f2e8;border:1px solid #bba;padding:5px 8px;font-size:11px">
-                                <div style="font-weight:bold;color:#663;margin-bottom:3px">▶ 사용 허가 <span id="lic-feature-info" style="font-weight:normal;color:#333;margin-left:6px"></span></div>
-                                <div style="display:flex;gap:4px;align-items:center">
-                                    <span style="white-space:nowrap">활성화 키</span>
-                                    <input id="lic-key-input" class="l-input" style="width:150px;text-transform:uppercase" placeholder="예) BT23-1A2B3C4D">
-                                    <button id="lic-key-apply" class="ex-btn-legacy" style="background:#cde;padding:1px 8px">적용</button>
-                                    <button id="lic-sync-btn" class="ex-btn-legacy" style="padding:1px 8px" title="인터넷으로 총괄관리자 설정을 다시 받아옵니다">설정 새로받기</button>
-                                </div>
+                            <!-- 사용 허가 (총괄관리자·BizManager 설정, 로그인할 때 인터넷으로 받아 적용) -->
+                            <div style="background:#f5f2e8;border:1px solid #bba;padding:5px 8px;font-size:11px;display:flex;align-items:center;gap:6px">
+                                <span style="font-weight:bold;color:#663">▶ 사용 허가</span>
+                                <span id="lic-feature-info" style="color:#333;flex:1"></span>
+                                <button id="lic-sync-btn" class="ex-btn-legacy" style="padding:1px 8px" title="인터넷으로 총괄관리자 설정을 다시 받아옵니다">설정 새로받기</button>
                             </div>
                             <!-- 숨김: settings-acc-grid-body, settings-perm-grid-body (레거시 호환) -->
                             <div style="display:none"><table><tbody id="settings-acc-grid-body"></tbody></table></div>
@@ -2334,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2562,13 +2558,6 @@
                                     <label><input type="checkbox" class="sa-reg-veh" value="1"> 1호차</label>
                                     <label><input type="checkbox" class="sa-reg-veh" value="2"> 2호차</label>
                                     <label><input type="checkbox" class="sa-reg-veh" value="3"> 3호차</label>
-                                </td>
-                            </tr>
-                            <tr style="height:26px">
-                                <td style="padding:3px;font-weight:bold">활성화 키</td>
-                                <td style="padding:3px;font-size:11px">
-                                    <button id="sa-reg-key-btn" class="ex-btn-legacy" style="padding:1px 8px" title="인터넷이 안 되는 매장용 — 사업자번호·위 설정으로 키를 만듭니다">키 만들기</button>
-                                    <input id="sa-reg-key" type="text" readonly style="width:150px;padding:2px;border:1px solid #888;font-family:Consolas,monospace;font-weight:bold" title="클릭하면 복사">
                                 </td>
                             </tr>
                             <tr style="height:26px">
@@ -2920,7 +2909,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.14</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.15</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -6941,7 +6930,6 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const v = (c?.vehicles == null || c.vehicles === 'all') ? 'all' : String(c.vehicles);
                 const all = document.getElementById('sa-reg-veh-all'); if (all) all.checked = v === 'all';
                 document.querySelectorAll('.sa-reg-veh').forEach(cb => { cb.checked = v !== 'all' && v.split(',').includes(cb.value); cb.disabled = v === 'all'; });
-                const k = document.getElementById('sa-reg-key'); if (k) k.value = '';
             }
             document.getElementById('sa-reg-veh-all')?.addEventListener('change', e => {
                 document.querySelectorAll('.sa-reg-veh').forEach(cb => { cb.disabled = e.target.checked; if (e.target.checked) cb.checked = false; });
@@ -6954,24 +6942,6 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     body: JSON.stringify({ max_pcs: f.maxPcs, vehicles: f.vehicles })
                 }).catch(() => {});
             }
-            // 활성화 키 — 서버(server.py _feature_key_hash)와 같은 계산: BT{PC수}{차량코드}-{SHA256 앞 8자리}
-            async function _saMakeFeatureKey(bizno, f) {
-                const digits = String(bizno || '').replace(/\D/g, '');
-                const vcode = f.vehicles === 'all' ? 'F'
-                    : String(f.vehicles.split(',').filter(Boolean).reduce((m, n) => m | (1 << (parseInt(n) - 1)), 0));
-                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`biztech-feature-key-2026|${digits}|${f.maxPcs}|${vcode}`));
-                const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 8).toUpperCase();
-                return `BT${f.maxPcs}${vcode}-${hex}`;
-            }
-            document.getElementById('sa-reg-key-btn')?.addEventListener('click', async () => {
-                const bizno = document.getElementById('sa-reg-bizno')?.value.trim();
-                if (!bizno) { alert('사업자번호를 먼저 입력하세요. (키는 그 매장 사업자번호에서만 동작합니다)'); return; }
-                const key = await _saMakeFeatureKey(bizno, _saReadFeatures());
-                const el = document.getElementById('sa-reg-key');
-                if (el) { el.value = key; el.select(); }
-                navigator.clipboard?.writeText(key).catch(() => {});
-            });
-            document.getElementById('sa-reg-key')?.addEventListener('click', e => { e.target.select(); navigator.clipboard?.writeText(e.target.value).catch(() => {}); });
 
             // BizManager에서 만료일 읽어와 localStorage 갱신 (수동 버튼)
             async function _bmSyncExpiry() {
@@ -13258,7 +13228,7 @@ function doSaveHtml(){
                     const fi = document.getElementById('lic-feature-info');
                     if (fi) {
                         const vtxt = feat.vehicles === 'all' ? '제한 없음' : (feat.vehicles ? feat.vehicles.split(',').map(n => n + '호차').join('·') + '만' : '사용 안 함');
-                        const src = feat.source === 'remote' ? ' (총괄관리자 원격 설정)' : feat.source === 'key' ? ' (활성화 키)' : '';
+                        const src = feat.source === 'remote' ? ' (총괄관리자 설정)' : '';
                         fi.textContent = `동시 사용 PC: ${feat.max_pcs ? feat.max_pcs + '대' : '제한 없음'} / 차량 계정: ${vtxt}${src}`;
                     }
                     const _pws2 = (() => { try { return JSON.parse(localStorage.getItem('biztech_sa_passwords') || '{}'); } catch(e) { return {}; } })();
@@ -13297,18 +13267,7 @@ function doSaveHtml(){
                 if (title) title.textContent = '신규 등록';
             }
             document.getElementById('users-cancel-btn')?.addEventListener('click', _clearUsersForm);
-            // 활성화 키 적용 / 원격 설정 다시 받기
-            document.getElementById('lic-key-apply')?.addEventListener('click', async () => {
-                const key = (document.getElementById('lic-key-input')?.value || '').trim();
-                if (!key) { await window._bizAlert('총괄관리자에게 받은 활성화 키를 입력하세요.'); return; }
-                try {
-                    const j = await fetch('/api/license/apply-key', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ key }) }).then(r => r.json());
-                    if (!j.ok) { await window._bizAlert(j.error || '키 적용 실패'); return; }
-                    document.getElementById('lic-key-input').value = '';
-                    await window._bizAlert('활성화 키가 적용되었습니다.');
-                } catch(e) { await window._bizAlert('키 적용 오류: ' + e.message); }
-                await loadUsersGrid();
-            });
+            // 원격(총괄관리자·BizManager) 사용 허가 다시 받기
             document.getElementById('lic-sync-btn')?.addEventListener('click', async () => {
                 try {
                     const j = await fetch('/api/license/sync-features', { method:'POST' }).then(r => r.json());
