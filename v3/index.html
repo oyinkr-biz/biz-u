@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2908,7 +2908,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.19</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.20</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -13402,28 +13402,30 @@ function doSaveHtml(){
                 }
             });
 
+            // [업데이트] — 온라인업데이트와 같은 저장소에서 받아 프로그램 안에서 업데이트
+            // (예전엔 옛 저장소를 봐서 새 버전이 있어도 항상 '최신 버전'으로 나왔음)
             document.getElementById('btn-check-update')?.addEventListener('click', async () => {
                 const btn = document.getElementById('btn-check-update');
                 const msg = document.getElementById('env-update-msg');
                 btn.disabled = true;
+                const orig = btn.textContent;
                 btn.textContent = '확인 중...';
-                msg.style.color = '#555';
-                msg.textContent = '';
+                if (msg) { msg.style.color = '#555'; msg.textContent = ''; }
                 try {
-                    if (window.electronAPI?.checkUpdate) {
-                        await window.electronAPI.checkUpdate();
-                        msg.textContent = '최신 버전입니다.';
-                        msg.style.color = '#2a7a2a';
-                    } else {
-                        msg.textContent = '(데스크톱 앱에서만 사용 가능)';
-                        msg.style.color = '#aa5500';
+                    const c = await fetch('/api/update/check').then(r => r.json());
+                    if (!c.ok) throw new Error(c.error || '확인 실패');
+                    if (!c.data.newer) {
+                        if (msg) { msg.textContent = `최신 버전입니다. (v${c.data.current})`; msg.style.color = '#2a7a2a'; }
+                        else await window._bizAlert(`최신 버전입니다. (v${c.data.current})`);
+                    } else if (await window._bizConfirm(`새 버전이 있습니다.\n\n현재 v${c.data.current} → 최신 v${c.data.latest}\n\n지금 업데이트할까요? (잠시 후 자동으로 다시 시작됩니다)`)) {
+                        await window._bizRunUpdate();
                     }
                 } catch(e) {
-                    msg.textContent = '오류: ' + e.message;
-                    msg.style.color = '#cc0000';
+                    if (msg) { msg.textContent = '오류: ' + e.message; msg.style.color = '#cc0000'; }
+                    else await window._bizAlert('업데이트 오류: ' + e.message);
                 }
                 btn.disabled = false;
-                btn.textContent = '업데이트 확인';
+                btn.textContent = orig;
             });
 
             // 저장 (활성 탭에 따라 분기)
@@ -13652,6 +13654,39 @@ function doSaveHtml(){
         attachPhoneFmt('bi-sno', fmtBizNo);
     });
 
+    // ── 프로그램 안에서 업데이트 실행: 받기 → 서버만 다시 켜기 → 화면 새로고침 ──
+    window._bizRunUpdate = async function(reasonMsg) {
+        const ov = document.createElement('div');
+        ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999999;display:flex;align-items:center;justify-content:center';
+        ov.innerHTML = `<div style="background:#fff;border:2px solid #000080;padding:22px 30px;font-size:15px;font-weight:bold;text-align:center;line-height:1.7">
+            ${reasonMsg ? reasonMsg + '<br>' : ''}🔄 최신 버전을 받는 중입니다…<br><span style="font-size:12px;color:#666;font-weight:normal">1~2분 걸릴 수 있습니다. 끄지 마세요.</span></div>`;
+        document.body.appendChild(ov);
+        try {
+            const r = await fetch('/api/update/apply', { method: 'POST' }).then(x => x.json());
+            if (!r.ok) throw new Error(r.error || '업데이트 실패');
+            if (!r.data.updated) { ov.remove(); return { updated: false, current: r.data.current }; }
+            ov.firstElementChild.innerHTML = `✅ v${r.data.to} 업데이트 완료<br><span style="font-size:12px;color:#666;font-weight:normal">프로그램을 다시 시작합니다…</span>`;
+            if (window.electronAPI?.restartServer) {
+                await window.electronAPI.restartServer();
+                // 새 서버가 뜰 때까지 기다린 뒤 화면 새로고침 (다시 로그인)
+                for (let i = 0; i < 30; i++) {
+                    await new Promise(res => setTimeout(res, 1000));
+                    try { if ((await fetch('/api/health', { cache: 'no-store' })).ok) break; } catch(_) {}
+                }
+                window._intentionalExit = true;
+                location.reload();
+            } else {
+                ov.remove();
+                await window._bizAlert(`v${r.data.to} 업데이트 완료.\nBizTech를 껐다가 다시 켜 주세요.`);
+            }
+            return { updated: true, to: r.data.to };
+        } catch(e) {
+            ov.remove();
+            await window._bizAlert('업데이트 실패: ' + e.message + '\n온라인업데이트.bat으로 다시 시도해 주세요.');
+            return { updated: false, error: e.message };
+        }
+    };
+
     // ── 로그인 시 최근접속일 자동 갱신 + 종료일자 동기화 ──────────
     async function pingBizManager() {
         try {
@@ -13665,6 +13700,23 @@ function doSaveHtml(){
 
             // 총괄관리자가 정한 사용 허가(동시 PC 수·차량 계정) — 서버가 직접 받아 적용
             fetch('/api/license/sync-features', { method: 'POST' }).catch(() => {});
+
+            // BizManager [전체변경 → 최신 버전으로 업데이트] 요청이 있으면 이 자리에서 업데이트
+            (async () => {
+                try {
+                    const q = `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`;
+                    const h = { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}` };
+                    const rows = await fetch(q + '&select=update_request', { headers: h, signal: AbortSignal.timeout(6000) }).then(r => r.json());
+                    if (!Array.isArray(rows) || !rows[0]?.update_request) return;   // 칸이 없거나 요청 없음
+                    const clearReq = () => fetch(q, { method: 'PATCH', headers: { ...h, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                        body: JSON.stringify({ update_request: null }) }).catch(() => {});
+                    const c = await fetch('/api/update/check').then(r => r.json());
+                    if (!c.ok) return;
+                    if (!c.data.newer) { clearReq(); return; }   // 이미 최신
+                    await clearReq();   // 실패해도 반복 시도하지 않게 먼저 지움 (재시작 후 버전은 로그인 때 다시 기록됨)
+                    await window._bizRunUpdate(`관리자 요청으로 v${c.data.current} → v${c.data.latest} 업데이트합니다.`);
+                } catch(e) { /* 오프라인 등 — 무시 */ }
+            })();
 
             // BizManager에서 종료일자 읽어 license.json 동기화
             const bmRows = await fetch(
