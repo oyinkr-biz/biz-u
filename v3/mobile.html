@@ -285,6 +285,10 @@ async function initApp() {
     const [cr,ir,cor] = await Promise.all([
       api('/api/clients'), api('/api/items'), api('/api/company')
     ]);
+    // 저장된 접속 암호가 더 이상 맞지 않으면(보안 강화 전 암호 등) 로그인 화면으로
+    if (cr.ok === false && cr.error === '인증 필요') {
+      doLogout(); $('lerr').textContent = '다시 로그인해 주세요.'; return;
+    }
     CLIENTS = cr.data || [];
     ITEMS   = ir.data || [];
     if(cor.data?.Co_Name) $('hd-co').textContent = cor.data.Co_Name;
