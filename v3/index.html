@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.06 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.07 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -249,6 +249,7 @@
                 <li class="menu-item-legacy">파일(F)
                     <ul class="dropdown-legacy">
                         <li id="open-db-recovery">데이터베이스 복구</li>
+                        <li id="open-admin-pw-change">관리자 비밀번호 변경</li>
                         <li class="divider"></li>
                         <li id="app-logout" style="display:none;color:#8b0000;font-weight:bold">로그아웃</li>
                         <li id="app-exit" class="win-btn close">종료 <span class="shortcut">Ctrl+X</span></li>
@@ -2323,7 +2324,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.06 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.07 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2883,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.06</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.07</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -5071,6 +5072,30 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             };
                         }).catch(() => {});
                     }
+                    // 공유기 자동 포트포워딩(UPnP) 결과 표시 — 서버가 켜지고 몇 초 뒤 끝나므로 잠시 후 확인
+                    const _showUpnp = async (tries) => {
+                        const el = document.getElementById('upnp-status-display');
+                        if (!el) return;
+                        try {
+                            const s = (await fetch('/api/upnp-status').then(r => r.json())).data || {};
+                            if (s.state === 'waiting' && tries > 0) { setTimeout(() => _showUpnp(tries - 1), 3000); return; }
+                            if (s.state === 'off' || !s.state || s.state === 'waiting') { el.style.display = 'none'; return; }
+                            el.style.display = '';
+                            if (s.state === 'ok') {
+                                const url = `http://${s.external_ip || '공인IP'}:${s.port}/m`;
+                                el.style.color = '#a5f3a5';
+                                el.textContent = `🌐 외부 ${s.external_ip || ''}:${s.port}/m`;
+                                el.title = `${s.msg}\n바깥(인터넷)에서 휴대폰 접속 주소: ${url}\n※ 바깥 접속은 관리자 비밀번호가 기본값(0000)이 아니어야 로그인됩니다.\n클릭하면 주소 복사`;
+                                el.onclick = () => { navigator.clipboard?.writeText(url).catch(() => {}); el.textContent = '✅ 복사됨!'; setTimeout(() => _showUpnp(0), 1500); };
+                            } else {
+                                el.style.color = '#ffcc80';
+                                el.textContent = '🌐 외부접속 자동설정 실패';
+                                el.title = `${s.msg}\n공유기에서 포트포워딩을 직접 설정하면 바깥에서 접속할 수 있습니다.`;
+                                el.onclick = () => window._bizAlert?.(el.title);
+                            }
+                        } catch (e) {}
+                    };
+                    setTimeout(() => _showUpnp(5), 2000);
                     if (typeof pingBizManager === 'function') pingBizManager();
                     if (typeof _startBmLicenseWatch === 'function') _startBmLicenseWatch();
                     // 로그인 즉시 로컬 만료일을 헤더에 표시
@@ -7034,12 +7059,24 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 _bmLastSync = 0;
                 _silentBmSync();
             });
-            document.getElementById('sa-open-pw-change')?.addEventListener('click', () => {
+            // 비밀번호 변경 창: mode 'sa' = 총괄관리자(199), 'admin' = 매장 관리자(로그인 admin, 기본 0000)
+            const _openPwChange = (mode) => {
                 const win = document.getElementById('sa-pw-change-window');
-                if (win) { bringToFront(win); }
+                if (!win) return;
+                win.dataset.mode = mode;
+                const t = win.querySelector('.child-title-legacy');
+                if (t) t.lastChild.textContent = mode === 'admin' ? ' 매장 관리자 비밀번호 변경' : ' 총괄관리자 비밀번호 변경';
+                // 매장 화면(main-app)에서는 매장 창 영역으로 옮겨서 보이게
+                const host = document.getElementById(mode === 'admin' ? 'main-app' : 'superadmin-app');
+                const desk = host?.querySelector('#mdi-desktop, .mdi-desktop') || host;
+                if (desk && win.parentElement !== desk) desk.appendChild(win);
+                bringToFront(win);
                 ['sa-pw-current','sa-pw-new','sa-pw-confirm'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
                 const msg = document.getElementById('sa-pw-msg'); if (msg) msg.style.display='none';
-            });
+                setTimeout(() => document.getElementById('sa-pw-current')?.focus(), 50);
+            };
+            document.querySelectorAll('#sa-open-pw-change').forEach(el => el.addEventListener('click', () => _openPwChange('sa')));
+            document.getElementById('open-admin-pw-change')?.addEventListener('click', () => _openPwChange('admin'));
             document.getElementById('sa-open-server-status')?.addEventListener('click', () => {
                 const win = document.getElementById('sa-server-window');
                 if (win) { bringToFront(win); }
@@ -7306,11 +7343,28 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             document.getElementById('sa-dash-refresh-btn')?.addEventListener('click', saRefreshDashboard);
 
             // 비밀번호 변경
-            document.getElementById('sa-pw-save-btn')?.addEventListener('click', () => {
+            document.getElementById('sa-pw-save-btn')?.addEventListener('click', async () => {
                 const cur = document.getElementById('sa-pw-current')?.value;
                 const nw = document.getElementById('sa-pw-new')?.value;
                 const cf = document.getElementById('sa-pw-confirm')?.value;
                 const msgEl = document.getElementById('sa-pw-msg');
+                const showMsg = (t, ok) => { if (msgEl) { msgEl.textContent = t; msgEl.style.color = ok ? '#006600' : '#c00'; msgEl.style.display = ''; } };
+                if (document.getElementById('sa-pw-change-window')?.dataset.mode === 'admin') {
+                    // 매장 관리자 비밀번호 — 서버 설정(biz_settings.json admin_password)에 저장, 로그인·휴대폰 로그인에 사용
+                    let curAdmin = '0000';
+                    try { const s = (await fetch('/api/settings').then(r => r.json())).data || {}; curAdmin = s.admin_password || '0000'; } catch(e) {}
+                    if (cur !== curAdmin) { showMsg('현재 비밀번호가 올바르지 않습니다.'); return; }
+                    if (!nw || nw.length < 4) { showMsg('새 비밀번호는 4자 이상 입력하세요.'); return; }
+                    if (['0000','1111','2222','3333'].includes(nw)) { showMsg('기본 비밀번호(0000·1111 등)는 쓸 수 없습니다.'); return; }
+                    if (nw !== cf) { showMsg('새 비밀번호가 일치하지 않습니다.'); return; }
+                    try {
+                        const r = await fetch('/api/settings', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ admin_password: nw }) }).then(x => x.json());
+                        if (!r.ok) throw new Error(r.error || '저장 실패');
+                    } catch(e) { showMsg('저장 오류: ' + e.message); return; }
+                    showMsg('비밀번호가 변경되었습니다. 다음 로그인부터 새 비밀번호를 쓰세요.', true);
+                    ['sa-pw-current','sa-pw-new','sa-pw-confirm'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+                    return;
+                }
                 const pws = saGetPasswords();
                 const currentSaPw = pws.sa || 'biz3399';
                 if (cur !== currentSaPw) {
