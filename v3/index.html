@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2544,7 +2544,6 @@
                                 <td style="padding:3px;font-weight:bold">동시 사용 PC</td>
                                 <td style="padding:3px">
                                     <select id="sa-reg-maxpcs" style="width:160px;padding:2px;border:1px solid #888;font-size:11px">
-                                        <option value="0">제한 없음</option>
                                         <option value="1">1대</option>
                                         <option value="2">2대</option>
                                         <option value="3">3대</option>
@@ -2554,10 +2553,11 @@
                             <tr style="height:26px">
                                 <td style="padding:3px;font-weight:bold">차량 계정</td>
                                 <td style="padding:3px;font-size:11px">
-                                    <label style="margin-right:8px"><input type="checkbox" id="sa-reg-veh-all" checked> 제한 없음</label>
                                     <label><input type="checkbox" class="sa-reg-veh" value="1"> 1호차</label>
                                     <label><input type="checkbox" class="sa-reg-veh" value="2"> 2호차</label>
                                     <label><input type="checkbox" class="sa-reg-veh" value="3"> 3호차</label>
+                                    <span style="color:#888;margin-left:6px">(체크 없으면 차량 사용 안 함)</span>
+                                    <span id="sa-reg-feat-note" style="color:#a60;margin-left:4px"></span>
                                 </td>
                             </tr>
                             <tr style="height:26px">
@@ -2909,7 +2909,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.15</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.16</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -6919,21 +6919,25 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             }
 
             // ── 사용 허가(동시 사용 PC·차량 계정) — 고객사 등록 화면 ↔ BizManager(Supabase) ──
+            // 동시 PC 1~3대(기본 1대), 차량은 체크한 호차만 — 체크 없으면 차량 계정 사용 안 함
+            // 아직 설정 안 한 기존 고객사는 이 칸을 직접 바꿨을 때만 매장에 전달 (다른 항목만 고쳐서 갑자기 막히지 않게)
+            let _saFeatTouched = false, _saFeatUnset = true;
             function _saReadFeatures() {
-                const maxPcs = parseInt(document.getElementById('sa-reg-maxpcs')?.value) || 0;
-                const all = document.getElementById('sa-reg-veh-all')?.checked;
-                const vehicles = all ? 'all' : [...document.querySelectorAll('.sa-reg-veh:checked')].map(c => c.value).join(',');
+                const maxPcs = parseInt(document.getElementById('sa-reg-maxpcs')?.value) || 1;
+                const vehicles = [...document.querySelectorAll('.sa-reg-veh:checked')].map(c => c.value).join(',');
                 return { maxPcs, vehicles };
             }
             function _saFillFeatures(c) {
-                const sel = document.getElementById('sa-reg-maxpcs'); if (sel) sel.value = String(c?.maxPcs || 0);
-                const v = (c?.vehicles == null || c.vehicles === 'all') ? 'all' : String(c.vehicles);
-                const all = document.getElementById('sa-reg-veh-all'); if (all) all.checked = v === 'all';
-                document.querySelectorAll('.sa-reg-veh').forEach(cb => { cb.checked = v !== 'all' && v.split(',').includes(cb.value); cb.disabled = v === 'all'; });
+                _saFeatTouched = false;
+                _saFeatUnset = !c || ((c.maxPcs == null || c.maxPcs === 0) && (c.vehicles == null || c.vehicles === 'all'));
+                const sel = document.getElementById('sa-reg-maxpcs'); if (sel) sel.value = String(Math.min(3, Math.max(1, c?.maxPcs || 1)));
+                const v = (c?.vehicles == null || c.vehicles === 'all') ? '' : String(c.vehicles);
+                document.querySelectorAll('.sa-reg-veh').forEach(cb => { cb.checked = v.split(',').includes(cb.value); });
+                const note = document.getElementById('sa-reg-feat-note');
+                if (note) note.textContent = (c && _saFeatUnset) ? '· 미설정(지금은 제한 없이 사용 중)' : '';
             }
-            document.getElementById('sa-reg-veh-all')?.addEventListener('change', e => {
-                document.querySelectorAll('.sa-reg-veh').forEach(cb => { cb.disabled = e.target.checked; if (e.target.checked) cb.checked = false; });
-            });
+            ['sa-reg-maxpcs'].forEach(id => document.getElementById(id)?.addEventListener('change', () => { _saFeatTouched = true; }));
+            document.querySelectorAll('.sa-reg-veh').forEach(cb => cb.addEventListener('change', () => { _saFeatTouched = true; }));
             function _bmPatchFeatures(bizno, f) {
                 if (!bizno) return;
                 fetch(`${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`, {
@@ -7082,8 +7086,9 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     expiryDate:     expiry,
                     licenseType:    document.getElementById('sa-reg-license')?.value || '1년',
                     memo:           document.getElementById('sa-reg-memo')?.value.trim()    || '',
-                    ..._saReadFeatures(),
                 };
+                const _sendFeat = !(_saEditingId && _saFeatUnset && !_saFeatTouched);
+                if (_sendFeat) Object.assign(fields, _saReadFeatures());
                 let list = saGetCustomers();
                 if (_saEditingId) {
                     list = list.map(c => c.id === _saEditingId ? {...c, ...fields} : c);
@@ -7096,7 +7101,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 // BizManager 만료일 · 사용 허가 동기화 (매장 BizTech가 로그인할 때 받아 적용)
                 if (fields.businessNumber) {
                     _bmPatchExpiry(fields.businessNumber, fields.expiryDate);
-                    _bmPatchFeatures(fields.businessNumber, fields);
+                    if (_sendFeat) _bmPatchFeatures(fields.businessNumber, fields);
                 }
                 _saEditingId = null;
                 const t = document.getElementById('sa-reg-win-title'); if(t) t.textContent = '고객사 신규등록';
