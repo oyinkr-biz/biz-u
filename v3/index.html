@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.29 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.30 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.29 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.30 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2908,7 +2908,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.29</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.30</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -2927,6 +2927,9 @@
                     <button id="login-cancel-btn" title="로그인하지 않고 프로그램 종료" style="margin-left: 8px; padding: 5px 30px; font-size: 14px; font-weight: bold; background: #e0e0e0; border: 2px solid; border-color: #fff #888 #888 #fff; cursor: pointer;">취소</button>
                 </div>
                 <div id="login-expiry-info" style="margin-top:10px;text-align:center;font-size:16px;font-weight:bold;display:none"></div>
+                <div id="login-pay-wrap" style="margin-top:10px;text-align:center;display:none">
+                    <button id="login-pay-btn" type="button" onclick="window._openPayFromLogin && window._openPayFromLogin()" style="padding:6px 22px;font-size:15px;font-weight:bold;background:#0055cc;color:#fff;border:2px solid;border-color:#5c8ee0 #003080 #003080 #5c8ee0;cursor:pointer">💳 갱신 / 결제</button>
+                </div>
             </div>
         </div>
     </div>
@@ -3007,7 +3010,7 @@
             // 로그인 화면 만료일 표시 — BM(Supabase) 우선, 로컬 license.json 보조
             // BM 날짜가 더 최신이면 license.json 자동 갱신
             (async () => {
-                const showExpiry = (expiryDate) => {
+                const showExpiry = window._bizShowLoginExpiry = (expiryDate) => {
                     const el = document.getElementById('login-expiry-info');
                     if (!el || !expiryDate) return;
                     const today = new Date(); today.setHours(0,0,0,0);
@@ -3019,6 +3022,11 @@
                     else if (diff <= 7) { color = '#cc6600'; text = `만료일: ${expiryDate} (D-${diff})`; text2 = window._bizExpMsg('renew'); }
                     else               { color = '#006600'; text = `사용 만료일: ${expiryDate} (D-${diff})`; }
                     el.textContent = text;
+                    const pw = document.getElementById('login-pay-wrap');
+                    if (pw) {
+                        pw.style.display = 'none';
+                        if (diff <= 7) fetch('/api/payment/available').then(r => r.json()).then(j => { if (j.ok && j.data?.available) pw.style.display = ''; }).catch(() => {});
+                    }
                     if (text2) { const sm = document.createElement('div'); sm.style.cssText = 'font-size:13px;margin-top:4px;color:#333'; sm.textContent = text2; el.appendChild(sm); }
                     el.style.color  = color;
                     el.style.display = '';
@@ -19513,6 +19521,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                     if (d.expiry_date && _fmtDate(d.expiry_date) !== prevExpiry) {
                         clearInterval(_poll);
                         await _loadStatus();
+                        window._onPaymentDone && window._onPaymentDone(d.expiry_date);
                         const resEl = document.getElementById('pay-result');
                         if (resEl) {
                             resEl.style.cssText = 'display:;background:#e8f5e9;border:1px solid #81c784;border-radius:4px;padding:12px 14px;font-size:13px;color:#1b5e20;margin-top:12px';
@@ -19522,6 +19531,28 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 } catch(e) {}
             }, 3000);
             setTimeout(() => clearInterval(_poll), 600000); // 10분 후 자동 종료
+        };
+
+        // 로그인 화면(사용기간 만료)에서 결제창 열기 — 로그인 화면 위로 띄움
+        window._openPayFromLogin = function() {
+            const w = document.getElementById('payment-window');
+            if (!w) return;
+            // 로그인 화면(z-index 99999) 위 전용 층에 넣음 — 창을 클릭할 때 z-index가 바뀌어도 이 층 안에서만 바뀜
+            let layer = document.getElementById('login-pay-layer');
+            if (!layer) { layer = document.createElement('div'); layer.id = 'login-pay-layer'; layer.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;z-index:100001'; document.body.appendChild(layer); }
+            if (w.parentElement !== layer) layer.appendChild(w);
+            w.style.position = 'fixed';
+            w.style.left = Math.max(10, (window.innerWidth - 500) / 2) + 'px'; w.style.top = '40px';
+            window._openPaymentWindow();
+        };
+        // 결제 완료 → 로그인 화면 만료일 갱신, 바로 로그인 가능
+        window._onPaymentDone = function(newExpiry) {
+            const ov = document.getElementById('login-overlay');
+            if (!ov || ov.style.display === 'none') return;
+            window._bizShowLoginExpiry && window._bizShowLoginExpiry(newExpiry);
+            const resEl = document.getElementById('pay-result');
+            if (resEl) resEl.innerHTML = '✅ <strong>결제 완료!</strong> 구독이 연장되었습니다.<br>이 창을 닫고 <strong>로그인</strong>하세요.';
+            document.getElementById('login-pw')?.focus();
         };
 
         // payment-window가 숨김 → 표시로 전환될 때만 상태 자동 로드
