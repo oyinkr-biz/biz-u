@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>BizManager — 업체관리 시스템</title>
+<script src="./lib/supabase.js"></script>
+<script src="./config.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: '맑은 고딕', Tahoma, sans-serif; font-size: 12px;
+  background: #d4d0c8; display: flex;
+  min-height: 100vh; }
+
+/* ── Window ── */
+.win { background: #d4d0c8;
+  width: 100%;
+  display: flex; flex-direction: column;
+  min-height: 100vh; }
+
+/* ── Title Bar ── */
+.tb { background: linear-gradient(to right, #000080, #1084d0);
+  color: #fff; padding: 3px 6px; display: flex; align-items: center;
+  gap: 6px; height: 22px; flex-shrink: 0; }
+.tb-icon { font-size: 13px; }
+.tb-title { flex: 1; font-weight: bold; font-size: 12px; }
+.tb-conn { font-size: 11px; }
+
+/* ── Body ── */
+.wb { flex: 1; padding: 5px; display: flex; flex-direction: column;
+  gap: 4px; overflow: auto; }
+
+/* ── Panel ── */
+.panel { border: 1px solid #808080; padding: 6px 8px 8px;
+  position: relative; background: #d4d0c8; }
+.ptitle { position: absolute; top: -8px; left: 8px;
+  background: #d4d0c8; padding: 0 3px; font-size: 11px; }
+
+/* ── Fields ── */
+input[type=text], input[type=date] {
+  height: 20px; border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #fff; padding: 0 3px; font: inherit; }
+input[type=date] { min-width: 0; }
+input:focus { outline: 1px solid #000080; }
+select { height: 20px; border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #fff; font: inherit; padding: 0 2px; }
+.lbl { white-space: nowrap; padding-right: 3px; }
+
+/* ── Buttons ── */
+.btn { height: 22px; min-width: 54px; padding: 0 10px;
+  background: #d4d0c8; border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer; font: inherit; white-space: nowrap; }
+.btn:active { border-color: #808080 #fff #fff #808080; }
+.btn:hover:not(:active) { background: #e0ddd8; }
+
+/* ── Grid ── */
+.grid-wrap { border: 2px solid; border-color: #808080 #fff #fff #808080;
+  overflow: auto; flex: 1; min-height: 220px; }
+table { border-collapse: collapse; width: 100%; }
+thead th { background: #d4d0c8; border: 1px solid #808080;
+  padding: 2px 5px; white-space: nowrap; position: sticky;
+  top: 0; z-index: 2; font-weight: normal; text-align: center; }
+thead th.th-num { background: #bfbcb4; width: 36px; }
+thead th.th-chk { width: 44px; }
+tbody td { border: 1px solid #d0d0d0; padding: 1px 5px; white-space: nowrap; font-size: 14px; }
+tbody td.td-num { background: #d8d5cd; text-align: center;
+  font-size: 11px; color: #444; border-right: 1px solid #999; }
+tbody tr { cursor: pointer; }
+tbody tr:hover td { background: rgba(0,0,128,.08); }
+tbody tr:hover td.td-num { background: #c8c5bc; }
+tbody tr.sel td { background: #000080 !important; color: #fff !important; }
+
+/* ── Status Bar ── */
+.sb { border-top: 1px solid #808080; padding: 2px 8px;
+  font-size: 11px; color: #444; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="win">
+
+<!-- ══ Title Bar ══════════════════════════════════════════════ -->
+<div class="tb">
+  <span class="tb-icon">📋</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.10</span>
+  <span class="tb-conn" id="conn">● 연결 중...</span>
+</div>
+
+<!-- ══ Window Body ════════════════════════════════════════════ -->
+<div class="wb">
+
+  <!-- ── 자료입력 ──────────────────────────────────────────── -->
+  <div class="panel">
+    <span class="ptitle">[ 자료입력 ]</span>
+    <!-- CSS grid -->
+    <div style="display:grid;grid-template-columns:340px 148px 250px 125px 200px;gap:14px;margin-top:8px;align-items:start;width:100%">
+
+      <!-- ① 입력 폼 (340px) -->
+      <table style="border-collapse:separate;border-spacing:2px 2px;table-layout:fixed;width:340px">
+        <colgroup>
+          <col style="width:52px"><col style="width:104px">
+          <col style="width:76px"><col style="width:92px">
+        </colgroup>
+        <tr>
+          <td class="lbl">업체명</td>
+          <td><input type="text" id="f-name" style="width:100px"></td>
+          <td class="lbl" style="padding-left:3px;font-size:11px">핸드폰번호</td>
+          <td><input type="text" id="f-mobile" style="width:88px"></td>
+        </tr>
+        <tr>
+          <td class="lbl">사업자번호</td>
+          <td><input type="text" id="f-bizno" style="width:100px"></td>
+          <td class="lbl" style="padding-left:3px">등록일자</td>
+          <td><input type="date" id="f-regdate" style="width:88px"></td>
+        </tr>
+        <tr>
+          <td class="lbl">대 표 자</td>
+          <td><input type="text" id="f-rep" style="width:100px"></td>
+          <td style="padding-left:2px">
+            <label style="cursor:pointer;white-space:nowrap;font-size:11px">
+              * 종료일자&nbsp;<input type="checkbox" id="f-expchk">
+            </label>
+          </td>
+          <td><input type="date" id="f-expiry" style="width:88px"></td>
+        </tr>
+        <tr>
+          <td class="lbl">전화번호</td>
+          <td><input type="text" id="f-phone" style="width:100px"></td>
+          <td class="lbl" style="padding-left:3px">업데이트</td>
+          <td><input type="text" id="f-ver" style="width:88px" placeholder="YYYYMMDDHH"></td>
+        </tr>
+        <tr>
+          <td class="lbl">비&nbsp;&nbsp;&nbsp;&nbsp;고</td>
+          <td colspan="3"><textarea id="f-memo" rows="2"
+            style="width:274px;resize:none;font:inherit;font-size:11px;
+                   border:2px solid;border-color:#808080 #fff #fff #808080;
+                   background:#fff;padding:1px 3px;vertical-align:top"></textarea></td>
+        </tr>
+        <tr>
+          <td class="lbl">만료메시지</td>
+          <td colspan="3"><input type="text" id="f-expmsg" style="width:274px;font-size:11px" onfocus="msgPick(this)" onclick="msgPick(this)" onblur="msgPickHide()" autocomplete="off" title="클릭하면 문구 목록이 나옵니다 — 골라서 [저 장]/[수 정]"></td>
+        </tr>
+      </table>
+
+      <!-- ② 색상 라디오 2열 + 저장/취소 (120px) -->
+      <div style="border:1px solid #808080;padding:5px 6px">
+        <div id="clr-radios" style="display:grid;grid-template-columns:auto auto;gap:2px 6px"></div>
+        <div style="display:flex;gap:4px;margin-top:6px;justify-content:center">
+          <button class="btn" onclick="saveRec()" style="padding:0 6px;min-width:44px">저 장</button>
+          <button class="btn" onclick="clearForm()" style="padding:0 6px;min-width:44px">취 소</button>
+        </div>
+      </div>
+
+      <!-- ③ 전체변경 -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="border:1px solid #808080;padding:4px 7px;position:relative">
+        <span style="position:absolute;top:-8px;left:5px;background:#d4d0c8;padding:0 3px;font-size:11px">[ 전체변경 — 체크내역만 ]</span>
+        <table style="border-collapse:separate;border-spacing:2px 3px;margin-top:8px;width:100%;table-layout:fixed">
+          <colgroup><col style="width:68px"><col></colgroup>
+          <tr>
+            <td class="lbl" style="white-space:nowrap">종료일자</td>
+            <td><input type="date" id="b-exp" style="width:100%;min-width:0;box-sizing:border-box"></td>
+          </tr>
+          <tr>
+            <td class="lbl" style="white-space:nowrap">업데이트</td>
+            <td style="font-size:11px;white-space:nowrap" title="체크한 업체의 BizTech가 다음 로그인 때 최신 버전으로 자동 업데이트 후 다시 시작합니다">
+              <label><input type="checkbox" id="b-upd" style="margin:0 2px 0 0;vertical-align:middle">최신 버전으로 업데이트</label>
+            </td>
+          </tr>
+          <tr>
+            <td class="lbl" style="white-space:nowrap">문의전화</td>
+            <td title="고치면(노란색) 체크한 업체의 만료 안내문구에서 전화번호만 바꿉니다. 안 고치면 그대로 둡니다."><input type="text" id="b-tel" style="width:100%;min-width:0;box-sizing:border-box;font-size:11px" oninput="bulkDirty(this)"></td>
+          </tr>
+          <tr>
+            <td class="lbl" style="white-space:nowrap">만료메시지</td>
+            <td title="고치면(노란색) 체크한 업체의 만료 안내문구를 이 문구로 바꿉니다 (BizTech 로그인 화면·만료 알림창에 표시). 안 고치면 그대로 둡니다."><input type="text" id="b-expmsg" style="width:100%;min-width:0;box-sizing:border-box;font-size:11px" oninput="bulkDirty(this)" onfocus="msgPick(this)" onclick="msgPick(this)" onblur="msgPickHide()" autocomplete="off"></td>
+          </tr>
+        </table>
+        <button class="btn" onclick="bulkUpdate()" style="width:100%;margin-top:4px">저 &nbsp; 장</button>
+      </div>
+      </div>
+
+      <!-- ④ 색상선택 + 신규/수정/삭제 (130px 고정) -->
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:center;gap:4px">
+          <span style="font-size:11px;white-space:nowrap">색상선택</span>
+          <select id="clr-filter" style="flex:1;font-size:11px;height:20px;min-width:0"></select>
+        </div>
+        <button class="btn" onclick="filterColor()" style="width:100%">색상 체크</button>
+        <div style="height:6px"></div>
+        <button class="btn" onclick="newRec()" style="height:28px;width:100%">신 &nbsp; 규</button>
+        <button class="btn" onclick="saveRec()" style="height:28px;width:100%">수 &nbsp; 정</button>
+        <button class="btn" onclick="delRec()" style="height:28px;width:100%">삭 &nbsp; 제</button>
+      </div>
+
+
+      <!-- ⑤ 사용 허가 (맨 오른쪽) -->
+      <div style="margin-top:8px">
+        <!-- 사용 허가: 선택한 업체에 적용, 왼쪽 [저 장]/[수 정]으로 함께 저장 → 매장 BizTech가 로그인할 때 받아 적용 -->
+        <div style="border:1px solid #808080;padding:2px 7px 4px;position:relative;font-size:11px">
+          <span style="position:absolute;top:-8px;left:5px;background:#d4d0c8;padding:0 3px;font-size:11px">[ 사용 허가 — 선택 업체 ]</span>
+          <!-- 2줄: 동시 PC(1~3대, 기본 1대) / 차량(체크한 호차만, 체크 없으면 차량 사용 안 함) -->
+          <div style="display:flex;align-items:center;gap:4px;margin-top:7px">
+            <span class="lbl" style="width:44px">동시 PC</span>
+            <!-- 하나만 선택 (다른 것을 체크하면 앞의 체크가 풀림) -->
+            <label><input type="checkbox" class="f-pcs" value="1" onchange="pcsPick(this)" style="margin:0 1px 0 0;vertical-align:middle">1대</label>
+            <label><input type="checkbox" class="f-pcs" value="2" onchange="pcsPick(this)" style="margin:0 1px 0 6px;vertical-align:middle">2대</label>
+            <label><input type="checkbox" class="f-pcs" value="3" onchange="pcsPick(this)" style="margin:0 1px 0 6px;vertical-align:middle">3대</label>
+          </div>
+          <div style="display:flex;align-items:center;gap:3px;margin-top:3px;white-space:nowrap">
+            <span class="lbl" style="width:44px">차량</span>
+            <label><input type="checkbox" class="f-veh" value="1" onchange="featTouched=true" style="margin:0 1px 0 0;vertical-align:middle">1호</label>
+            <label><input type="checkbox" class="f-veh" value="2" onchange="featTouched=true" style="margin:0 1px 0 6px;vertical-align:middle">2호</label>
+            <label><input type="checkbox" class="f-veh" value="3" onchange="featTouched=true" style="margin:0 1px 0 6px;vertical-align:middle">3호</label>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </div><!-- /panel 자료입력 -->
+
+  <!-- ── 조회 ──────────────────────────────────────────────── -->
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="panel" style="padding:4px 8px;flex:1">
+      <span class="ptitle">[ 조회 ]</span>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+        <span style="font-size:11px;color:#555">업체명, 사업자번호, 대표자, 전화번호, 핸드폰번호</span>
+        <input type="text" id="q" style="width:200px" placeholder="검색어"
+          onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="btn" onclick="doSearch()">조&nbsp;&nbsp;회</button>
+        <button class="btn" onclick="loadAll()">전&nbsp;&nbsp;체</button>
+      </div>
+    </div>
+    <span id="cnt" style="font-size:11px;color:#000080;white-space:nowrap"></span>
+  </div>
+
+  <!-- ── Grid ──────────────────────────────────────────────── -->
+  <div class="grid-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-num">번호</th>
+          <th class="th-chk"><input type="checkbox" id="chk-all" onchange="toggleAll(this.checked)">&nbsp;전체</th>
+          <th>업체명</th><th style="width:56px">버전</th><th style="width:100px">사업자번호</th>
+          <th style="width:65px">대표자</th><th style="width:88px">전화번호</th>
+          <th style="width:105px">핸드폰번호</th>
+          <th style="width:78px">등록일자</th><th style="width:78px">종료일자</th>
+          <th style="width:82px">최근접속일</th>
+          <th style="width:140px">공인IP:포트</th>
+          <th style="width:50px" title="동시 사용 PC 수">PC</th>
+          <th style="width:70px" title="사용 가능한 차량 계정">차량</th>
+          <th style="width:105px" title="만료 안내문구에 들어간 문의 전화 (마우스를 올리면 문구 전체)">문의전화</th>
+          <th style="min-width:120px">비고</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+</div><!-- /wb -->
+
+<div class="sb" id="sb">준비</div>
+</div><!-- /win -->
+
+<script>
+// ════════════════════════════════════════════════════════════
+// Supabase REST API 직접 호출 (SDK schema cache 오류 우회)
+// ════════════════════════════════════════════════════════════
+const SB  = SUPABASE_URL + '/rest/v1';
+const SBH = {
+  apikey:        SUPABASE_ANON_KEY,
+  Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+  'Content-Type':'application/json'
+};
+
+async function sbGet(path) {
+  const res = await fetch(SB + path, { headers: SBH });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) return { data: null, error: json };
+  return { data: json, error: null };
+}
+async function sbPost(path, body) {
+  const res = await fetch(SB + path, { method:'POST', headers:{...SBH, Prefer:'return=minimal'}, body: JSON.stringify(body) });
+  if (!res.ok) { const j = await res.json().catch(()=>({})); return { error: j }; }
+  return { error: null };
+}
+async function sbPatch(path, body) {
+  const res = await fetch(SB + path, { method:'PATCH', headers:{...SBH, Prefer:'return=minimal'}, body: JSON.stringify(body) });
+  if (!res.ok) { const j = await res.json().catch(()=>({})); return { error: j }; }
+  return { error: null };
+}
+async function sbDelete(path) {
+  const res = await fetch(SB + path, { method:'DELETE', headers: SBH });
+  if (!res.ok) { const j = await res.json().catch(()=>({})); return { error: j }; }
+  return { error: null };
+}
+
+// 연결 상태 표시 (실제 연결은 loadAll에서 확인)
+if (SUPABASE_URL.includes('YOUR')) {
+  document.getElementById('conn').textContent = '● config.js 설정 필요';
+  document.getElementById('conn').style.color = '#ffaa00';
+  document.getElementById('sb').textContent = '⚠ electron/config.js 에 SUPABASE_URL 과 SUPABASE_ANON_KEY 를 입력하세요.';
+} else {
+  document.getElementById('conn').textContent = '● Supabase 연결됨';
+  document.getElementById('conn').style.color = '#90ff90';
+}
+
+const TBL = 'biz_clients';
+let rows = [], selId = null, isEdit = false;
+
+// ════════════════════════════════════════════════════════════
+// 색상 정의
+// ════════════════════════════════════════════════════════════
+const COLORS = ['검정','파랑','녹색','빨강','분홍','보라','감색','노랑','회색'];
+// 행 배경색 — 색상별 명확한 구분
+const C = {
+  '검정': '',                             // 기본(배경 없음)
+  '파랑': 'background:#80c8ff',          // 하늘파랑
+  '녹색': 'background:#80ee99',          // 밝은 초록
+  '빨강': 'background:#ff8888',          // 연한 빨강
+  '분홍': 'background:#ffaacc',          // 분홍
+  '보라': 'background:#cc88ff',          // 보라
+  '감색': 'background:#9999cc',          // 남색(인디고) — 파랑과 명확히 구분
+  '노랑': 'background:#ffee55',          // 노랑
+  '회색': 'background:#dcdcdc',          // 연한 회색
+};
+// 라디오 버튼 색상 사각형용 실제 색상
+const SWATCH = {
+  '검정': '#222222', '파랑': '#0000cc', '녹색': '#006600',
+  '빨강': '#cc0000', '분홍': '#cc0088', '보라': '#660099',
+  '감색': '#000066', '노랑': '#ccaa00', '회색': '#666666',
+};
+
+(function initColors() {
+  const radios = document.getElementById('clr-radios');
+  const sel    = document.getElementById('clr-filter');
+  sel.innerHTML = '<option value="">전체</option>';
+  COLORS.forEach((c, i) => {
+    radios.innerHTML += `<label style="cursor:pointer;display:flex;align-items:center;gap:3px">
+      <input type="radio" name="clr" value="${c}" ${i===0?'checked':''}>
+      <span style="display:inline-block;width:13px;height:13px;background:${SWATCH[c]};border:1px solid #666;vertical-align:middle;flex-shrink:0"></span>
+      <span>${c}</span></label>`;
+    sel.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+})();
+
+const getClr = () => document.querySelector('input[name=clr]:checked')?.value || '검정';
+
+const sortByColor = list =>
+  [...list].sort((a, b) => {
+    const ai = COLORS.indexOf(a.color || '검정');
+    const bi = COLORS.indexOf(b.color || '검정');
+    return ai - bi;
+  });
+
+// ════════════════════════════════════════════════════════════
+// 데이터 로드
+// ════════════════════════════════════════════════════════════
+async function loadAll() {
+  setStatus('로딩 중...');
+  try {
+    const { data, error } = await sbGet('/biz_clients?select=*&order=id');
+    if (error) { setStatus('오류: ' + (error.message || JSON.stringify(error))); return; }
+    rows = sortByColor(data || []);
+    render(rows);
+    setStatus(`총 ${rows.length}개 업체`);
+  } catch(e) {
+    setStatus('연결오류: ' + e.message);
+  }
+}
+
+async function doSearch() {
+  const q = G('q');
+  if (!q) { loadAll(); return; }
+  const f = encodeURIComponent(q);
+  const { data, error } = await sbGet(
+    `/biz_clients?select=*&order=id&or=(company_name.ilike.*${f}*,business_number.ilike.*${f}*,representative.ilike.*${f}*,phone.ilike.*${f}*,mobile.ilike.*${f}*)`
+  );
+  if (error) { setStatus('오류: ' + (error.message || JSON.stringify(error))); return; }
+  rows = sortByColor(data || []);
+  render(rows);
+  setStatus(`검색결과: ${rows.length}개`);
+}
+
+// 색상 체크: 고른 색 업체들의 체크칸을 체크 (예전엔 목록만 걸러 보여서 체크가 안 되는 것처럼 보였음)
+//   → 이어서 [전체변경 — 체크내역만]으로 종료일자·업데이트를 한 번에 바꿀 수 있음. '전체'면 모두 체크.
+function filterColor() {
+  const c = document.getElementById('clr-filter').value;
+  render(rows);
+  let n = 0;
+  document.querySelectorAll('.rc').forEach(cb => {
+    const r = rows.find(x => x.id === +cb.dataset.id);
+    cb.checked = !c || (r && (r.color || '검정') === c);
+    if (cb.checked) n++;
+  });
+  document.getElementById('chk-all').checked = !c;
+  setStatus(c ? `색상 [${c}] 업체 ${n}곳 체크됨` : `전체 ${n}곳 체크됨`);
+}
+
+// ════════════════════════════════════════════════════════════
+// 그리드 렌더
+// ════════════════════════════════════════════════════════════
+function render(list) {
+  const today = new Date().toISOString().slice(0, 10);
+  document.getElementById('tbody').innerHTML = list.map((r, i) => {
+    const expired = r.expiry_date && r.expiry_date < today;
+    const cs = C[r.color] || '';
+    return `<tr data-id="${r.id}" onclick="selRow(this,${r.id})" style="${cs}">
+      <td class="td-num">${i + 1}</td>
+      <td style="text-align:center"><input type="checkbox" class="rc" data-id="${r.id}" onclick="event.stopPropagation()"></td>
+      <td>${r.company_name||''}</td>
+      <td style="text-align:center" ${r.update_request ? 'title="업데이트 요청됨 — 다음 로그인 때 자동 업데이트"' : ''}>${r.version||''}${r.update_request ? ' <span style="color:#c60">⟳</span>' : ''}</td>
+      <td>${r.business_number||''}</td>
+      <td>${r.representative||''}</td>
+      <td>${r.phone||''}</td>
+      <td>${r.mobile||''}</td>
+      <td style="text-align:center">${d(r.registered_date)}</td>
+      <td style="text-align:center;${expired?'color:red;font-weight:bold':''}">${d(r.expiry_date)}</td>
+      <td style="text-align:center">${r.last_access ? new Date(r.last_access).toLocaleDateString('ko-KR') : ''}</td>
+      <td style="text-align:center;font-size:12px" ${r.public_ip ? `title="휴대폰 접속 주소: http://${r.public_ip}/m (더블클릭하면 복사)" ondblclick="event.stopPropagation();navigator.clipboard.writeText('http://${r.public_ip}/m');setStatus('복사됨: http://${r.public_ip}/m')"` : ''}>${r.public_ip||''}</td>
+      <td style="text-align:center;font-size:12px">${r.max_pcs ? r.max_pcs + '대' : ''}</td>
+      <td style="text-align:center;font-size:12px">${vehText(r.vehicles)}</td>
+      <td style="text-align:center;font-size:12px" title="${esc(r.expiry_message || '(비어 있음 → 기본: 연장 문의: 비즈테크 (☎ ' + DEF_TEL + '))')}">${expTel(r.expiry_message) || `<span style="color:#888">${DEF_TEL}</span>`}</td>
+      <td>${r.memo||''}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('cnt').textContent = `${list.length}건`;
+}
+
+const d = v => (v || '').slice(0, 10);
+// 만료 안내문구 속 전화번호
+const DEF_TEL = '010-9750-7151';
+const TEL_RE  = /0\d{1,2}-?\d{3,4}-?\d{4}/;
+const expTel  = m => ((m || '').match(TEL_RE) || [''])[0];
+const DEF_MSG = '연장 문의: 비즈테크 (☎ ' + DEF_TEL + ')';   // BizTech 기본 문구와 같음
+// 전체변경 문의전화·만료메시지: 기본내용을 채워 두고, 고친 칸(노란색)만 저장
+function bulkPrefill(r) {
+  const m = (r && r.expiry_message) || DEF_MSG;
+  S('b-tel', expTel(m) || DEF_TEL); S('b-expmsg', m);
+  ['b-tel', 'b-expmsg'].forEach(id => { const el = document.getElementById(id); if (el) { el.dataset.dirty = ''; el.style.background = ''; } });
+}
+function bulkDirty(el) { el.dataset.dirty = '1'; el.style.background = '#fff6b0'; }
+// 만료메시지 칸 클릭 → 문구 목록(기본 문구 + 담당자 번호 + 업체들에 저장된 문구)에서 골라 넣기
+const MSG_TELS = [DEF_TEL, '010-3018-1992', '010-3212-3399'];
+function msgList() {
+  const out = MSG_TELS.map(t => '연장 문의: 비즈테크 (☎ ' + t + ')');
+  (rows || []).forEach(r => { const m = (r.expiry_message || '').trim(); if (m && !out.includes(m)) out.push(m); });
+  return out;
+}
+let _msgPickEl = null;
+function msgPick(inp) {
+  // 화면 확대(zoom)와 상관없이 칸 바로 아래에 붙도록 칸의 부모(td) 안에 넣음
+  let box = document.getElementById('msg-pick');
+  if (!box) {
+    box = document.createElement('div'); box.id = 'msg-pick';
+    box.style.cssText = 'position:absolute;left:0;top:100%;z-index:999;background:#fff;border:1px solid #808080;box-shadow:2px 2px 4px rgba(0,0,0,.3);font-size:11px;max-height:220px;overflow:auto';
+  }
+  inp.parentNode.style.position = 'relative'; inp.parentNode.appendChild(box);
+  _msgPickEl = inp;
+  box.innerHTML = msgList().map(m => `<div class="mp-i" style="padding:3px 6px;cursor:pointer;white-space:nowrap${m === inp.value ? ';background:#cce4ff' : ''}" onmousedown="event.preventDefault();msgPickSet(this.textContent)" onmouseover="this.style.background='#cce4ff'" onmouseout="this.style.background='${m === inp.value ? '#cce4ff' : ''}'">${esc(m)}</div>`).join('');
+  box.style.minWidth = inp.offsetWidth + 'px';
+  box.style.display = '';
+}
+function msgPickSet(m) {
+  const inp = _msgPickEl; if (!inp) return;
+  inp.value = m;
+  if (inp.id === 'b-expmsg') { bulkDirty(inp); }
+  msgPickHide(true);
+}
+function msgPickHide(now) {
+  const h = () => { const b = document.getElementById('msg-pick'); if (b) b.style.display = 'none'; };
+  now ? h() : setTimeout(h, 150);
+}
+const isDirty = id => document.getElementById(id)?.dataset.dirty === '1';
+const esc     = v => String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+
+// ════════════════════════════════════════════════════════════
+// 행 선택 → 폼 채우기
+// ════════════════════════════════════════════════════════════
+function selRow(tr, id) {
+  document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('sel'));
+  tr.classList.add('sel');
+  selId = id; isEdit = true;
+  const r = rows.find(x => x.id === id);
+  if (!r) return;
+  S('f-name', r.company_name); S('f-bizno', r.business_number);
+  S('f-rep', r.representative); S('f-phone', r.phone);
+  S('f-mobile', r.mobile); S('f-regdate', d(r.registered_date));
+  S('f-expiry', d(r.expiry_date));
+  document.getElementById('f-expchk').checked = !!r.expiry_date;
+  S('f-ver', r.version); S('f-memo', r.memo); S('f-expmsg', r.expiry_message || DEF_MSG);
+  bulkPrefill(r);
+  const radio = document.querySelector(`input[name=clr][value="${r.color||'검정'}"]`);
+  if (radio) radio.checked = true;
+  fillFeatures(r);
+}
+
+// ════════════════════════════════════════════════════════════
+// 사용 허가 (동시 사용 PC 수 · 차량 계정) — BizTech server.py와 같은 규칙
+//   화면: 동시 PC 1~3대(기본 1대), 차량은 체크한 호차만('1,3'), 체크 없으면 ''=차량 계정 사용 안 함
+//   저장할 때 화면 값 그대로 함께 저장
+// ════════════════════════════════════════════════════════════
+let featTouched = false;
+const vehText = v => (v == null || v === 'all') ? '' : (v ? v.split(',').join('·') + '호차' : '없음');
+// 동시 PC 체크칸은 하나만 (해제하려 하면 그대로 둠 — 최소 1대)
+function pcsPick(cb) {
+  if (!cb.checked) { cb.checked = true; return; }
+  document.querySelectorAll('.f-pcs').forEach(x => { if (x !== cb) x.checked = false; });
+}
+function fillFeatures(r) {
+  const pcs = String(Math.min(3, Math.max(1, (r && r.max_pcs) || 1)));
+  document.querySelectorAll('.f-pcs').forEach(x => { x.checked = x.value === pcs; });
+  const v = (!r || r.vehicles == null || r.vehicles === 'all') ? '' : String(r.vehicles);
+  document.querySelectorAll('.f-veh').forEach(cb => { cb.checked = v.split(',').includes(cb.value); });
+}
+function readFeatures() {
+  const maxPcs = parseInt(document.querySelector('.f-pcs:checked')?.value) || 1;
+  const vehicles = [...document.querySelectorAll('.f-veh:checked')].map(c => c.value).join(',');
+  return { maxPcs, vehicles };
+}
+// ════════════════════════════════════════════════════════════
+// CRUD
+// ════════════════════════════════════════════════════════════
+function newRec() {
+  clearForm();
+  S('f-regdate', new Date().toISOString().slice(0, 10));
+  S('f-expmsg', DEF_MSG);
+  document.getElementById('f-name').focus();
+}
+
+function clearForm() {
+  ['f-name','f-bizno','f-rep','f-phone','f-mobile',
+   'f-regdate','f-expiry','f-ver','f-memo','f-expmsg'].forEach(id => S(id, ''));
+  document.getElementById('f-expchk').checked = false;
+  const r = document.querySelector('input[name=clr][value="검정"]');
+  if (r) r.checked = true;
+  fillFeatures(null);
+  document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('sel'));
+  selId = null; isEdit = false;
+}
+
+async function saveRec() {
+  const name = G('f-name');
+  if (!name) { alert('업체명을 입력하세요.'); return; }
+
+  const payload = {
+    company_name:    name,
+    business_number: G('f-bizno'),
+    representative:  G('f-rep'),
+    phone:           G('f-phone'),
+    mobile:          G('f-mobile'),
+    registered_date: G('f-regdate') || null,
+    expiry_date:     document.getElementById('f-expchk').checked ? (G('f-expiry') || null) : null,
+    version:         G('f-ver'),
+    memo:            G('f-memo'),
+    expiry_message:  G('f-expmsg'),
+    color:           getClr(),
+  };
+  // 사용 허가 — 매장 BizTech가 로그인할 때 받아 적용
+  const f = readFeatures();
+  payload.max_pcs  = f.maxPcs;
+  payload.vehicles = f.vehicles;
+
+  const { error } = isEdit && selId
+    ? await sbPatch(`/biz_clients?id=eq.${selId}`, payload)
+    : await sbPost('/biz_clients', payload);
+
+  if (error) { alert('저장 실패: ' + (error.message || JSON.stringify(error))); return; }
+  clearForm();
+  loadAll();
+}
+
+async function delRec() {
+  if (!selId) { alert('삭제할 업체를 선택하세요.'); return; }
+  const r = rows.find(x => x.id === selId);
+  if (!confirm(`[${r?.company_name}] 업체를 삭제하시겠습니까?`)) return;
+  const { error } = await sbDelete(`/biz_clients?id=eq.${selId}`);
+  if (error) { alert('삭제 실패: ' + (error.message || JSON.stringify(error))); return; }
+  clearForm();
+  loadAll();
+}
+
+// ════════════════════════════════════════════════════════════
+// 일괄 업데이트 (체크된 행)
+// ════════════════════════════════════════════════════════════
+async function bulkUpdate() {
+  const ids = [...document.querySelectorAll('.rc:checked')].map(c => +c.dataset.id);
+  if (!ids.length) { alert('체크된 업체가 없습니다.'); return; }
+  const exp = G('b-exp'), upd = document.getElementById('b-upd').checked, msg = isDirty('b-expmsg') ? G('b-expmsg') : '', tel = isDirty('b-tel') ? G('b-tel') : '';
+  if (!exp && !upd && !msg && !tel) { alert('종료일자를 넣거나, 문의전화·만료메시지를 고치거나, [최신 버전으로 업데이트]를 체크하세요.'); return; }
+  if (tel && !TEL_RE.test(tel)) { alert('문의전화 형식이 맞지 않습니다. 예: 010-1234-5678'); return; }
+  if (tel) {
+    // 전화번호만 바꾸기 — 업체마다 문구가 달라서 한 곳씩 저장
+    for (const id of ids) {
+      const r = rows.find(x => x.id === id) || {};
+      const base = (msg || r.expiry_message || '').trim();
+      const m = TEL_RE.test(base) ? base.replace(TEL_RE, tel) : (base ? base + ' (☎ ' + tel + ')' : DEF_MSG.replace(TEL_RE, tel));
+      const { error } = await sbPatch(`/biz_clients?id=eq.${id}`, { expiry_message: m });
+      if (error) { alert('실패: ' + (error.message || JSON.stringify(error))); return; }
+    }
+  }
+  const p = {};
+  if (exp) p.expiry_date = exp;
+  if (msg && !tel) p.expiry_message = msg;
+  // 업데이트 요청 표시 → 그 매장 BizTech가 다음 로그인 때 최신 버전으로 자동 업데이트 후 표시를 지움
+  if (upd) p.update_request = new Date().toISOString();
+  const { error } = Object.keys(p).length ? await sbPatch(`/biz_clients?id=in.(${ids.join(',')})`, p) : {};
+  if (error) { alert('실패: ' + (error.message || JSON.stringify(error))); return; }
+  document.getElementById('b-upd').checked = false;
+  bulkPrefill(rows.find(x => x.id === selId));
+  alert(`${ids.length}개 업체 저장 완료` + (upd ? '\n\n업데이트는 각 매장 BizTech가 다음에 로그인할 때 자동으로 진행됩니다.' : ''));
+  loadAll();
+}
+
+function toggleAll(v) { document.querySelectorAll('.rc').forEach(c => c.checked = v); }
+
+// ════════════════════════════════════════════════════════════
+// 유틸
+// ════════════════════════════════════════════════════════════
+const G  = id => (document.getElementById(id)?.value || '').trim();
+const S  = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+const setStatus = msg => document.getElementById('sb').textContent = msg;
+
+const BASE_WIDTH = 1220;
+function autoZoom() {
+  document.body.style.zoom = (window.innerWidth / BASE_WIDTH).toFixed(3);
+}
+window.addEventListener('resize', autoZoom);
+
+window.addEventListener('DOMContentLoaded', () => {
+  autoZoom();
+  loadAll();
+  bulkPrefill(null);
+});
+
+</script>
+</body>
+</html>
