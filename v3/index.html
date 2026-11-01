@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.27 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.28 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.27 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.28 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2908,7 +2908,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.27</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.28</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -2998,6 +2998,12 @@
             setTimeout(_restoreFocus, 300);
             setTimeout(_restoreFocus, 700);
 
+            // 만료 안내문구 — BizManager 매장정보 '만료 메시지' 칸(expiry_message) 우선, 비어 있으면 기본 문구
+            window._bizExpMsg = (kind) => {
+                let m = '';
+                try { m = (localStorage.getItem('biz_expiry_message') || '').trim(); } catch(e) {}
+                return m || ((kind === 'renew' ? '갱신 문의: ' : '연장 문의: ') + '비즈테크 (☎ 010-9750-7151)');
+            };
             // 로그인 화면 만료일 표시 — BM(Supabase) 우선, 로컬 license.json 보조
             // BM 날짜가 더 최신이면 license.json 자동 갱신
             (async () => {
@@ -3008,9 +3014,9 @@
                     const exp   = new Date(expiryDate); exp.setHours(0,0,0,0);
                     const diff  = Math.ceil((exp - today) / 86400000);
                     let color, text, text2 = '';
-                    if (diff < 0)      { color = '#cc0000'; text = `사용기간 만료됨 (만료일: ${expiryDate})`; text2 = '연장 문의: 비즈테크 (☎ 010-9750-7151)'; }
+                    if (diff < 0)      { color = '#cc0000'; text = `사용기간 만료됨 (만료일: ${expiryDate})`; text2 = window._bizExpMsg(); }
                     else if (diff === 0){ color = '#cc6600'; text = `만료일: ${expiryDate} (오늘 만료)`; }
-                    else if (diff <= 7) { color = '#cc6600'; text = `만료일: ${expiryDate} (D-${diff})`; text2 = '갱신 문의: 비즈테크 (☎ 010-9750-7151)'; }
+                    else if (diff <= 7) { color = '#cc6600'; text = `만료일: ${expiryDate} (D-${diff})`; text2 = window._bizExpMsg('renew'); }
                     else               { color = '#006600'; text = `사용 만료일: ${expiryDate} (D-${diff})`; }
                     el.textContent = text;
                     if (text2) { const sm = document.createElement('div'); sm.style.cssText = 'font-size:13px;margin-top:4px;color:#333'; sm.textContent = text2; el.appendChild(sm); }
@@ -3033,9 +3039,13 @@
                     const bizno = compJ.data?.Co_sNo;
                     if (bizno) {
                         const bmJ = await fetch(
-                            `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}&select=expiry_date`,
+                            `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}&select=expiry_date,expiry_message`,
                             { headers: { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}` }, signal: AbortSignal.timeout(6000) }
                         ).then(r => r.json());
+                        if (bmJ.length > 0) {
+                            try { localStorage.setItem('biz_expiry_message', (bmJ[0].expiry_message || '').trim()); } catch(e) {}
+                            if (!bmJ[0].expiry_date && localExpiry) showExpiry(localExpiry); // 문구만 바뀐 경우 다시 표시
+                        }
                         if (bmJ.length > 0 && bmJ[0].expiry_date) {
                             const bmExpiry = bmJ[0].expiry_date;
                             showExpiry(bmExpiry); // BM 날짜로 업데이트
@@ -5037,12 +5047,12 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             const exp   = new Date(expiryDate); exp.setHours(0,0,0,0);
                             const diff  = Math.ceil((exp - today) / 86400000);
                             if (diff < 0) {
-                                alert(`라이선스가 만료되었습니다.\n\n만료일: ${expiryDate}\n\n연장 문의: 비즈테크 (☎ 010-9750-7151)`);
+                                alert(`라이선스가 만료되었습니다.\n\n만료일: ${expiryDate}\n\n${window._bizExpMsg()}`);
                                 document.getElementById('login-pw').value = '';
                                 return false;
                             }
                             if (diff <= 7) {
-                                setTimeout(() => alert(`⚠️ 라이선스 만료 임박!\n\n만료일: ${expiryDate}\n남은 기간: ${diff}일\n\n갱신 문의: 비즈테크 (☎ 010-9750-7151)`), 300);
+                                setTimeout(() => alert(`⚠️ 라이선스 만료 임박!\n\n만료일: ${expiryDate}\n남은 기간: ${diff}일\n\n${window._bizExpMsg('renew')}`), 300);
                             }
                             return true;
                         };
@@ -13721,10 +13731,11 @@ function doSaveHtml(){
 
             // BizManager에서 종료일자 읽어 license.json 동기화
             const bmRows = await fetch(
-                `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}&select=expiry_date`,
+                `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}&select=expiry_date,expiry_message`,
                 { headers: { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}` },
                   signal: AbortSignal.timeout(6000) }
             ).then(r => r.json()).catch(() => []);
+            if (bmRows.length > 0) { try { localStorage.setItem('biz_expiry_message', (bmRows[0].expiry_message || '').trim()); } catch(e) {} }
             if (bmRows.length > 0 && bmRows[0].expiry_date) {
                 _applyBmExpiry(bmRows[0].expiry_date);
             }
