@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.47 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.48 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2328,7 +2328,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.47 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.48 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2906,7 +2906,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.47</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.48</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -8067,6 +8067,39 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     ]}));
                 }
 
+                // 2단계(날짜별): 거래처별로 모아서 — 거래처 머리줄(노란색, 기간 합계) 아래 그 거래처의 날짜별 한 줄씩
+                if (level === 1) {
+                    const byC = new Map();
+                    _proc.forEach(p => {
+                        const cid = String(p.r.Ivn_Client || '');
+                        if (!byC.has(cid)) byC.set(cid, { cid, cName: p.cName, days: new Map() });
+                        const C = byC.get(cid);
+                        const dk = String(p.r.Ivn_Date || '').replace(/-/g, '').slice(0, 8);
+                        let d = C.days.get(dk);
+                        if (!d) {
+                            d = { r: { Ivn_Date: dk }, cName: '', prevBal: p.prevBal, curBal: p.curBal, qty: 0, total: 0, retAmt: 0,
+                                  dc: 0, cash: 0, card: 0, bank: 0, received: 0, effDir: p.effDir, isReturn: false, dayRow: true };
+                            C.days.set(dk, d);
+                        }
+                        d.qty += p.qty * (p.isReturn ? -1 : 1);
+                        if (p.isReturn) d.retAmt += p.total; else d.total += p.total;
+                        d.dc += p.dc; d.cash += p.cash; d.card += p.card; d.bank += p.bank; d.received += p.received;
+                        d.curBal = p.curBal;   // 그날 마지막 거래 뒤 잔액
+                    });
+                    const _cnum = v => { const n = parseFloat(v); return isNaN(n) ? Infinity : n; };
+                    const cl = [...byC.values()].sort((a, b) => (_cnum(a.cid) - _cnum(b.cid)) || a.cName.localeCompare(b.cName, 'ko'));
+                    finalProc = []; finalExcelRows = [];
+                    cl.forEach(C => {
+                        const days = [...C.days.values()];
+                        const h = { hdrRow: true, cCode: C.cid, cName: C.cName, prevBal: days[0].prevBal, curBal: days[days.length - 1].curBal,
+                                    qty: 0, total: 0, retAmt: 0, dc: 0, cash: 0, card: 0, bank: 0, received: 0, effDir: days[0].effDir };
+                        days.forEach(d => { ['qty','total','retAmt','dc','cash','card','bank','received'].forEach(k => h[k] += d[k]); });
+                        finalProc.push(h, ...days);
+                        finalExcelRows.push({t:'h', d:['', C.cid, C.cName, h.prevBal, h.qty || '', '', h.total - h.retAmt, h.retAmt || 0, h.dc, h.received, h.cash, h.card, h.bank, h.curBal]});
+                        days.forEach(d => finalExcelRows.push({t:'1', d:['', fmtDate(d.r.Ivn_Date), '', d.prevBal, d.qty || '', '', d.total - d.retAmt, d.retAmt || 0, d.dc, d.received, d.cash, d.card, d.bank, d.curBal]}));
+                    });
+                }
+
                 // 엑셀: 맨 밑 총합계 줄 추가
                 finalExcelRows = [...finalExcelRows, {t:'s', d:['', '', '총합계', '', _gt.qty || '', '', _gt.total, '', '', '', '', '', '', '']}];
                 window._cpsExcelRows = finalExcelRows;
@@ -8092,8 +8125,34 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     let rowNum = pg * CPS_PG;
                     const fq = v => v ? (Math.round(v * 10) / 10).toLocaleString('ko-KR', {maximumFractionDigits:1}) : '';
                     slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq, qty,
-                                     ymLabel, sumTotal, sumReturn, sumDc, sumCash, sumBank, sumCard, sumReceived, sumQty}) => {
+                                     ymLabel, sumTotal, sumReturn, sumDc, sumCash, sumBank, sumCard, sumReceived, sumQty,
+                                     hdrRow, dayRow, cCode, retAmt}) => {
                         rowNum++;
+                        if (hdrRow || dayRow) {
+                            // 2단계: 거래처 머리줄(노란색) / 그 거래처의 날짜별 줄
+                            const net = total - (retAmt || 0);
+                            const B = hdrRow ? ';font-weight:bold;background:#fff6c8' : '';
+                            const red = effDir === '2' ? ';color:#c00' : '';
+                            rowParts.push(
+                                `<tr style="background:${hdrRow ? '#fff6c8' : '#fff'}">` +
+                                `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
+                                cell(hdrRow ? cCode : fmtDate(r.Ivn_Date), false, B + (hdrRow ? ';text-align:right' : '')) +
+                                cell(hdrRow ? cName : '', false, B) +
+                                cell(fmt(prevBal), true, B) +
+                                cell(fq(qty), true, B) +
+                                cell('', true, B) +
+                                cell(fmt(net), true, B + red) +
+                                cell(retAmt ? fmt(retAmt) : '', true, B + ';color:#b85c00') +
+                                cell(dc ? fmt(dc) : '', true, B) +
+                                cell(fmt(net), true, B + red) +
+                                cell(fmt(cash), true, B) +
+                                cell(fmt(card), true, B) +
+                                cell(fmt(bank), true, B) +
+                                cell(fmt(curBal), true, B + (curBal > 0 ? ';color:#c00' : '')) +
+                                `</tr>`
+                            );
+                            return;
+                        }
                         const rowBg    = lv === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
                         const rowFw    = lv === 3 ? 'font-weight:bold;' : '';
                         const amtStyle = isReturn ? ';color:#b85c00' : (effDir === '2' ? ';color:#c00' : '');
