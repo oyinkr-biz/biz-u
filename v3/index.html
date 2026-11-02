@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.32 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.32 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2908,7 +2908,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.32</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.33</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3434,8 +3434,8 @@
                 'category-status': {
                     width:'900px', layout:'A',
                     searchFn:'window.runCatSearch', excelFn:'window.runCatExcel',
-                    cols:['대분류','중분류','소분류','제품명','단가','매출수량','매출금액','반품수량','반품금액','합계수량','합계금액'],
-                    colWidths:[72,72,72,160,64,62,76,62,76,62,76],
+                    cols:['대분류','소분류','제품명','단가','매출수량','매출금액','반품수량','반품금액','합계수량','합계금액'],
+                    colWidths:[90,90,170,64,62,76,62,76,62,76],
                     filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:3px 5px;display:flex;flex-direction:column;gap:2px;font-size:11px">
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label" style="min-width:46px">거래일자</span>
@@ -3445,9 +3445,7 @@
                             <span class="l-label" style="min-width:46px">거래구분</span>
                             <select id="cat-gubun" class="l-input" style="width:68px;background:#7fbfff;color:#00f"><option value="">전체</option><option value="1">매출</option><option value="2">매입</option></select>
                             <span class="l-label" style="min-width:40px">대분류</span>
-                            <select id="cat-cat1" class="l-input" style="width:82px" onchange="window.runCatLoadCat2()"><option value="">전체</option></select>
-                            <span class="l-label" style="min-width:40px">중분류</span>
-                            <select id="cat-cat2" class="l-input" style="width:82px" onchange="window.runCatLoadCat3()"><option value="">전체</option></select>
+                            <select id="cat-cat1" class="l-input" style="width:82px"><option value="">전체</option></select>
                             <span class="l-label" style="min-width:40px">소분류</span>
                             <select id="cat-cat3" class="l-input" style="width:82px"><option value="">전체</option></select>
                         </div>
@@ -3759,10 +3757,9 @@
                     filter:`<span class="l-label">거래일자</span><input type="text" class="l-input" style="width:82px" value="2026-05-01"> ~ <input type="text" class="l-input" style="width:82px" value="2026-05-31">
                         <span class="l-label">거래구분</span><select class="l-input" style="width:68px;background:#7fbfff;color:#00f"><option selected>전체</option><option>매입</option><option>매출</option></select>
                         <span class="l-label">대분류</span><select class="l-input" style="width:80px"><option>전체</option></select>
-                        <span class="l-label">중분류</span><select class="l-input" style="width:80px"><option>전체</option></select>
                         <span class="l-label">소분류</span><select class="l-input" style="width:80px"><option>전체</option></select>
                         <span class="l-label">제품명</span><input id="ca-item" type="text" class="l-input" style="width:100px" placeholder="이름 검색" onfocus="window.showGlobalItemSearch(this,'name')" oninput="window.showGlobalItemSearch(this,'name')" autocomplete="off">`,
-                    cols:['대분류','중분류','소분류','제품명','매입수량','매입금액','매출수량','매출금액','수량차','금액차']
+                    cols:['대분류','소분류','제품명','매입수량','매입금액','매출수량','매출금액','수량차','금액차']
                 },
                 'cash-ledger': {
                     width:'1000px', layout:'A',
@@ -10704,47 +10701,19 @@ function doSaveHtml(){
         })();
 
         // ── 분류별 매입/매출 현황 조회 ─────────────────────────────────
-        window._catCat1Data = [];
-        window._catCat2Data = [];
-
-        window.runCatLoadCat2 = function() {
-            const cat1Val = document.getElementById('cat-cat1')?.value || '';
-            const sel2 = document.getElementById('cat-cat2');
-            if (!sel2) return;
-            const filtered = cat1Val
-                ? window._catCat2Data.filter(g => String(g.Gubun_GubunCode) === cat1Val)
-                : window._catCat2Data;
-            sel2.innerHTML = '<option value="">전체</option>';
-            filtered.forEach(g => {
-                const o = document.createElement('option');
-                o.value = g.Gubun_Code;
-                o.textContent = g.Gubun_Name;
-                sel2.appendChild(o);
-            });
-            window.runCatLoadCat3();
-        };
-
-        window.runCatLoadCat3 = function() {
-            const cat2Val = document.getElementById('cat-cat2')?.value || '';
-            const sel3 = document.getElementById('cat-cat3');
-            if (!sel3) return;
-            sel3.innerHTML = '<option value="">전체</option>';
-            if (cat2Val) {
-                const cat = window._catCat2Data.find(g => String(g.Gubun_Code) === cat2Val);
-                if (cat && cat.Gubun_MinName) {
-                    const o = document.createElement('option');
-                    o.value = cat.Gubun_MinName;
-                    o.textContent = cat.Gubun_MinName;
-                    sel3.appendChild(o);
-                }
-            } else {
-                const mins = [...new Set(window._catCat2Data.map(g => g.Gubun_MinName).filter(Boolean))];
-                mins.forEach(mn => {
-                    const o = document.createElement('option');
-                    o.value = mn; o.textContent = mn;
-                    sel3.appendChild(o);
-                });
-            }
+        // 대분류·소분류 목록 = 기본정보등록 '제품대분류'·'제품소분류'에 입력한 내용 (요청 50)
+        window._catLoadDropdowns = async function() {
+            try {
+                const j = await fetch(window.location.origin + '/api/categories/product').then(r => r.json());
+                const fill = (id, list) => {
+                    const sel = document.getElementById(id); if (!sel) return;
+                    const prev = sel.value;
+                    sel.innerHTML = '<option value="">전체</option>';
+                    (list || []).forEach(g => { const o = document.createElement('option'); o.value = g.code; o.textContent = g.name; sel.appendChild(o); });
+                    sel.value = prev;
+                };
+                fill('cat-cat1', j.data?.big); fill('cat-cat3', j.data?.small);
+            } catch(e) {}
         };
 
         window.runCatSearch = async function() {
@@ -10754,12 +10723,11 @@ function doSaveHtml(){
             const to      = document.getElementById('cat-date-to')?.value   || '';
             const gubun   = document.getElementById('cat-gubun')?.value     || '';
             const cat1    = document.getElementById('cat-cat1')?.value      || '';
-            const cat2    = document.getElementById('cat-cat2')?.value      || '';
             const cat3    = (document.getElementById('cat-cat3')?.value     || '').trim();
             const item    = (document.getElementById('cat-item')?.value     || '').trim();
             const sort    = document.getElementById('cat-sort')?.value      || 'code';
             const sortDir = document.getElementById('cat-sortdir')?.value   || 'asc';
-            const COLS  = 11;
+            const COLS  = 10;
             tbody.innerHTML = `<tr><td colspan="${COLS}" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
             try {
                 let url = window.location.origin + '/api/category-status?';
@@ -10767,12 +10735,10 @@ function doSaveHtml(){
                 if (to)    url += `to=${to.replace(/-/g,'')}&`;
                 if (gubun) url += `gubun=${gubun}&`;
                 if (cat1)  url += `cat1=${cat1}&`;
-                if (cat2)  url += `cat2=${cat2}&`;
+                if (cat3)  url += `cat3=${encodeURIComponent(cat3)}&`;
                 if (item)  url += `item=${encodeURIComponent(item)}&`;
                 const json = await fetch(url).then(r => r.json());
                 let rows = json.data || [];
-                // 소분류 필터 (프론트)
-                if (cat3) rows = rows.filter(r => (r.cat3||'') === cat3);
                 // 정렬
                 rows.sort((a, b) => {
                     let va, vb;
@@ -10802,7 +10768,6 @@ function doSaveHtml(){
                     tr.innerHTML = `
                         <td class="center bg-gray" style="font-size:10px">${rowNum}</td>
                         <td style="padding-left:3px">${r.cat1||''}</td>
-                        <td style="padding-left:3px">${r.cat2||''}</td>
                         <td style="padding-left:3px">${r.cat3||''}</td>
                         <td style="padding-left:3px">${r.itemName||''}</td>
                         <td class="right" style="padding-right:3px">${fm(r.unitPrice)}</td>
@@ -10827,10 +10792,10 @@ function doSaveHtml(){
 
         window.runCatExcel = function() {
             const rows = [...document.querySelectorAll('#category-status-grid-body tr')]
-                .filter(tr => tr.cells.length >= 11)
+                .filter(tr => tr.cells.length >= 10)
                 .map(tr => [...tr.cells].map(td => `"${(td.textContent||'').trim().replace(/"/g,'""')}"`).join(','));
             if (!rows.length) { alert('조회 결과가 없습니다.'); return; }
-            const header = '"대분류","중분류","소분류","제품명","단가","매출수량","매출금액","반품수량","반품금액","합계수량","합계금액"';
+            const header = '"번호","대분류","소분류","제품명","단가","매출수량","매출금액","반품수량","반품금액","합계수량","합계금액"';
             const csv = '﻿' + header + '\n' + rows.join('\n');
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
@@ -11238,24 +11203,8 @@ function doSaveHtml(){
             if (f) f.value = today;
             if (t) t.value = today;
 
-            // 분류 드롭다운 1회만 로드
-            const sel1 = document.getElementById('cat-cat1');
-            if (sel1 && sel1.options.length <= 1) {
-                try {
-                    const [r1, r2] = await Promise.all([
-                        fetch(window.location.origin + '/api/categories/group').then(r=>r.json()),
-                        fetch(window.location.origin + '/api/categories').then(r=>r.json())
-                    ]);
-                    window._catCat1Data = r1.data || [];
-                    window._catCat2Data = r2.data || [];
-                    window._catCat1Data.forEach(g => {
-                        const o = document.createElement('option');
-                        o.value = g.Gubun_Code; o.textContent = g.Gubun_Name;
-                        sel1.appendChild(o);
-                    });
-                    window.runCatLoadCat2();
-                } catch(e) {}
-            }
+            // 대분류·소분류 목록 (기본정보등록에서 고친 내용이 바로 반영되도록 열 때마다 새로 읽음)
+            await window._catLoadDropdowns();
 
             // Enter 키 조회 바인딩 (1회)
             const ci = document.getElementById('cat-item');
@@ -12639,7 +12588,8 @@ function doSaveHtml(){
             try {
                 const BASE = window.location.origin + '/api';
                 const grps = (await fetch(`${BASE}/categories/group`).then(r => r.json())).data || [];
-                const find = name => grps.find(g => (g.Gubun_Name || '').includes(name));
+                // 옛 DB는 그룹 이름이 '제품대구분'·'제품소구분' — '분류'/'구분' 둘 다 찾음
+                const find = name => grps.find(g => { const n = g.Gubun_Name || ''; return n.includes(name) || n.includes(name.replace('분류', '구분')); });
                 const fillSel = async (selId, groupName) => {
                     const grp = find(groupName);
                     if (!grp) return;
