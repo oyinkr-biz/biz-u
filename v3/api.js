@@ -1,15 +1,19 @@
 /* 비즈테크 API 클라이언트 v2.0.01 */
 const API_BASE = window.location.origin + '/api';
 
-/* 외부 접속 시 모든 /api/ 요청에 X-Mobile-Token 자동 주입 */
+/* 외부 접속 시 모든 /api/ 요청에 X-Mobile-Token 자동 주입
+   — 매장 전용 접속 암호: 바깥에서 로그인할 때 /api/mobile/login 으로 받아 sessionStorage에 둠 */
+window._bizToken = function() {
+    try { return sessionStorage.getItem('biz_mtoken') || ''; } catch (e) { return ''; }
+};
 (function() {
-    const _TOKEN = 'biz-mobile-2024-secure-key';
     const _orig = window.fetch.bind(window);
     window.fetch = function(url, opts) {
         const u = typeof url === 'string' ? url : (url?.url || '');
-        if (u.includes('/api/')) {
+        const t = window._bizToken();
+        if (t && u.includes('/api/')) {
             opts = Object.assign({}, opts);
-            opts.headers = Object.assign({ 'X-Mobile-Token': _TOKEN }, opts.headers || {});
+            opts.headers = Object.assign({ 'X-Mobile-Token': t }, opts.headers || {});
         }
         return _orig(url, opts);
     };
@@ -17,7 +21,7 @@ const API_BASE = window.location.origin + '/api';
 
 const api = {
   async _fetch(method, path, body) {
-    const opts = { method, headers: { 'Content-Type': 'application/json', 'X-Mobile-Token': 'biz-mobile-2024-secure-key' } };
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };   // 접속 암호는 위 fetch에서 붙임
     if (body) opts.body = JSON.stringify(body);
     // GET 요청은 서버 재시작 타이밍에 실패할 수 있어 최대 3회 재시도
     const maxAttempts = method === 'GET' ? 3 : 1;
