@@ -30,6 +30,9 @@ echo Current : !CURVER!
 echo Latest  : !NEWVER!
 echo.
 
+:: server.exe missing (failed update etc.) - download again even if version is the same
+if not exist "%DEST%server.exe" set "CURVER=missing-server"
+
 if "!CURVER!"=="!NEWVER!" (
     echo Already up to date.
     pause & exit /b 0
