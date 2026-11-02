@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.10</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.11</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -250,7 +250,6 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
           <th style="width:140px">공인IP:포트</th>
           <th style="width:50px" title="동시 사용 PC 수">PC</th>
           <th style="width:70px" title="사용 가능한 차량 계정">차량</th>
-          <th style="width:105px" title="만료 안내문구에 들어간 문의 전화 (마우스를 올리면 문구 전체)">문의전화</th>
           <th style="min-width:120px">비고</th>
         </tr>
       </thead>
@@ -421,7 +420,6 @@ function render(list) {
       <td style="text-align:center;font-size:12px" ${r.public_ip ? `title="휴대폰 접속 주소: http://${r.public_ip}/m (더블클릭하면 복사)" ondblclick="event.stopPropagation();navigator.clipboard.writeText('http://${r.public_ip}/m');setStatus('복사됨: http://${r.public_ip}/m')"` : ''}>${r.public_ip||''}</td>
       <td style="text-align:center;font-size:12px">${r.max_pcs ? r.max_pcs + '대' : ''}</td>
       <td style="text-align:center;font-size:12px">${vehText(r.vehicles)}</td>
-      <td style="text-align:center;font-size:12px" title="${esc(r.expiry_message || '(비어 있음 → 기본: 연장 문의: 비즈테크 (☎ ' + DEF_TEL + '))')}">${expTel(r.expiry_message) || `<span style="color:#888">${DEF_TEL}</span>`}</td>
       <td>${r.memo||''}</td>
     </tr>`;
   }).join('');
