@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2330,7 +2330,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2908,7 +2908,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.33</span>
+                    비즈테크<br><span style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.34</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3530,11 +3530,7 @@
                             <span style="margin:0 2px">~</span>
                             <input id="cps-date-to" type="date" class="l-input" style="width:112px">
                             <span class="l-label" style="min-width:52px">거래처구분</span>
-                            <select class="l-input" style="width:85px"><option>전체</option><option>매입거래처</option><option>매출거래처</option></select>
-                            <span class="l-label" style="min-width:46px">거래구분</span>
-                            <select id="cps-gubun" class="l-input" style="width:68px" onchange="window.onCpsGubunChange(this)"><option value="">전체</option><option value="1">매출</option><option value="2">매입</option></select>
-                            <span class="l-label" style="min-width:52px">거래처조건</span>
-                            <select class="l-input" style="width:88px"><option>매출거래처</option><option>매입거래처</option></select>
+                            <select id="cps-gubun" class="l-input" style="width:68px" onchange="window.onCpsGubunChange(this)"><option value="">전체</option><option value="1" selected>매출</option><option value="2">매입</option></select>
                             <span class="l-label" style="min-width:40px">거래처</span>
                             <input id="cps-client" type="text" class="l-input" style="width:110px" autocomplete="off"
                                 oninput="window.showGlobalClientSearch(this, document.getElementById('cps-gubun')?.value)"
@@ -3542,7 +3538,7 @@
                         </div>
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label" style="min-width:52px">조회구분</span>
-                            <select class="l-input" style="width:148px"><option value="1">1단계 — 날짜별 금액</option><option value="2">2단계 — 월별 합계</option><option value="3" selected>3단계 — 상세내역</option></select>
+                            <select id="cps-level" class="l-input" style="width:148px"><option value="1">1단계 — 총합계</option><option value="2">2단계 — 날짜별 금액</option><option value="3" selected>3단계 — 상세내역</option></select>
                             <span class="l-label" style="min-width:28px">담당</span>
                             <input type="text" class="l-input" style="width:80px">
                             <span class="l-label" style="min-width:46px">제품코드</span>
@@ -7779,13 +7775,15 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             const gubun     = document.getElementById('cps-gubun')?.value || '';
             const clientEl  = document.getElementById('cps-client');
             const clientId  = clientEl?.dataset?.clientId || '';
-            const levelSel  = document.querySelector('#cust-period-status-window select[style*="148px"]');
-            const level     = levelSel ? parseInt(levelSel.value) : 3;
+            // 조회구분(요청 51): 화면 1단계=거래처별 총합계, 2단계=날짜별 금액, 3단계=상세내역
+            //   아래 코드 안에서는 예전 번호 그대로 씀 → 묶음(총합계)=2, 날짜별=1, 상세=3
+            const levelSel  = document.getElementById('cps-level');
+            const shown     = levelSel ? parseInt(levelSel.value) : 3;
+            const level     = shown === 1 ? 2 : shown === 2 ? 1 : 3;
             const tbody     = document.getElementById('cust-period-status-grid-body');
             if (!tbody) return;
-            // 2단계(월별 합계)일 때는 '거래일자' 헤더를 '년월'로 표시
             const thDate = document.querySelector('#cust-period-status-window thead th:nth-child(2)');
-            if (thDate) thDate.textContent = level === 2 ? '년월' : '거래일자';
+            if (thDate) thDate.textContent = level === 2 ? '기간' : '거래일자';
 
             tbody.innerHTML = '<tr><td colspan="38" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>';
 
@@ -7812,7 +7810,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                 // 3단계는 period 엔드포인트(제품 포함), 1/2단계는 기본 엔드포인트
                 const endpoint  = level === 3 ? 'inven/period' : 'inven';
-                const _slimP    = level !== 3 ? '&slim=1' : '';
+                const _slimP    = level !== 3 ? '&slim=1&qty=1' : '';
                 const _cpFmt    = d => String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
                 const _cpDays   = (dateFrom && dateTo) ? (() => {
                     const _f = new Date(+dateFrom.slice(0,4), +dateFrom.slice(4,6)-1, +dateFrom.slice(6,8));
@@ -7901,6 +7899,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             if (!_seen.has(k)) { _seen.add(k); tranUniq.push(t); }
                         });
                     }
+                    // 수량은 전표의 모든 줄로 계산 (화면의 같은 줄 합치기와 상관없이 금액·1·2단계와 맞도록)
+                    const qty = r.tran ? r.tran.reduce((a, t) => a + (parseFloat(t.Inot_Quty) || 0), 0) : (parseFloat(r._qty) || 0);
                     const rn = _proc.length + 1;
                     if (level === 3) {
                         excelRows.push({t:'h', d:[rn, fmtDate(r.Ivn_Date), cName, '', '', '', '', '', '', '', '', '', '', '']});
@@ -7910,28 +7910,31 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         });
                         excelRows.push({t:'s', d:['', '', '', prevBal, 1, '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     } else {
-                        excelRows.push({t:'1', d:[rn, fmtDate(r.Ivn_Date), cName, prevBal, '', '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
+                        excelRows.push({t:'1', d:[rn, fmtDate(r.Ivn_Date), cName, prevBal, qty || '', '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     }
-                    _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq});
+                    _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq, qty});
                 });
+                // 맨 밑 총합계 (파란색): 총 수량·총금액
+                const _gt = { qty: 0, total: 0 };
+                _proc.forEach(p => { _gt.qty += p.qty; _gt.total += p.amtSign * p.total; });
+                window._cpsGrand = _gt;
 
-                // 2단계(월별 합계): 거래처+연월 단위로 묶어서 그 달 시작/끝 잔액과 합계금액을 보여줌
+                // 1단계(총합계): 거래처별로 조회 기간 전체를 한 줄로 묶음 — 기간 시작/끝 잔액과 합계금액
                 let finalProc = _proc, finalExcelRows = excelRows;
                 if (level === 2) {
-                    const _ymOf = d => String(d || '').replace(/-/g, '').slice(0, 6); // 'YYYYMM'
                     const groups = new Map();
                     const order  = [];
                     _proc.forEach(p => {
                         const cid = String(p.r.Ivn_Client || '');
-                        const ym  = _ymOf(p.r.Ivn_Date);
-                        const key = cid + '|' + ym;
+                        const ym  = '';
+                        const key = cid;
                         let g = groups.get(key);
                         if (!g) {
                             g = {
                                 cName: p.cName, ym,
                                 prevBal: p.prevBal,          // 그 달 첫 거래 시점의 월초 잔액
                                 curBal: p.curBal,
-                                sumTotal: 0, sumReturn: 0, sumDc: 0,
+                                sumTotal: 0, sumReturn: 0, sumDc: 0, sumQty: 0,
                                 sumCash: 0, sumBank: 0, sumCard: 0, sumReceived: 0,
                                 dirCount: { '1': 0, '2': 0 },
                             };
@@ -7939,6 +7942,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             order.push(key);
                         }
                         g.sumTotal    += p.total;
+                        g.sumQty      += p.qty;
                         if (p.isReturn) g.sumReturn += p.total;
                         g.sumDc       += p.dc;
                         g.sumCash     += p.cash;
@@ -7952,7 +7956,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         const g = groups.get(k);
                         const effDir = g.dirCount['2'] > g.dirCount['1'] ? '2' : '1';
                         return {
-                            ymLabel: `${g.ym.slice(0,4)}-${g.ym.slice(4,6)}`,
+                            ymLabel: '합계',
+                            sumQty: g.sumQty,
                             cName: g.cName, effDir,
                             prevBal: g.prevBal, curBal: g.curBal,
                             sumTotal: g.sumTotal, sumReturn: g.sumReturn, sumDc: g.sumDc,
@@ -7960,11 +7965,13 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         };
                     });
                     finalExcelRows = finalProc.map((g, i) => ({t:'1', d:[
-                        i+1, g.ymLabel, g.cName, g.prevBal, '', '',
+                        i+1, g.ymLabel, g.cName, g.prevBal, g.sumQty || '', '',
                         g.sumTotal, g.sumReturn || 0, g.sumDc, g.sumReceived, g.sumCash, g.sumCard, g.sumBank, g.curBal
                     ]}));
                 }
 
+                // 엑셀: 맨 밑 총합계 줄 추가
+                finalExcelRows = [...finalExcelRows, {t:'s', d:['', '', '총합계', '', _gt.qty || '', '', _gt.total, '', '', '', '', '', '', '']}];
                 window._cpsExcelRows = finalExcelRows;
                 window._cpsAllProc   = finalProc;
                 window._cpsLevel3    = level;
@@ -7986,8 +7993,9 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                     const rowParts = [];
                     let rowNum = pg * CPS_PG;
-                    slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq,
-                                     ymLabel, sumTotal, sumReturn, sumDc, sumCash, sumBank, sumCard, sumReceived}) => {
+                    const fq = v => v ? (Math.round(v * 10) / 10).toLocaleString('ko-KR', {maximumFractionDigits:1}) : '';
+                    slice.forEach(({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq, qty,
+                                     ymLabel, sumTotal, sumReturn, sumDc, sumCash, sumBank, sumCard, sumReceived, sumQty}) => {
                         rowNum++;
                         const rowBg    = lv === 3 ? '#e8f0fb' : (rowNum % 2 === 0 ? '#f8f8f8' : '#fff');
                         const rowFw    = lv === 3 ? 'font-weight:bold;' : '';
@@ -8004,14 +8012,14 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 `</tr>`
                             );
                         } else if (lv === 2) {
-                            // 월별 합계 행 — 개별 거래가 아니라 그 달 전체를 하나로 묶은 값
+                            // 총합계 행 — 개별 거래가 아니라 조회 기간 전체를 거래처별로 묶은 값
                             rowParts.push(
                                 `<tr style="background:${rowBg};font-weight:bold">` +
                                 `<td style="font-size:10px;text-align:center;color:#888;border:1px solid #e8e8e8;padding:1px 3px">${rowNum}</td>` +
                                 cell(ymLabel, false) +
                                 cell(cName, false) +
                                 cell(fmt(prevBal), true) +
-                                cell('', true) +
+                                cell(fq(sumQty), true) +
                                 cell('', true) +
                                 cell(fmt(sumTotal), true, effDir === '2' ? ';color:#c00' : '') +
                                 cell(sumReturn ? fmt(sumReturn) : '', true, ';color:#b85c00') +
@@ -8030,7 +8038,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 cell(fmtDate(r.Ivn_Date), false) +
                                 cell(cName, false) +
                                 cell(fmt(prevBal), true) +
-                                cell('', true) +
+                                cell(fq(qty), true) +
                                 cell('', true) +
                                 cell(fmt(total), true, amtStyle) +
                                 cell(isReturn ? fmt(total) : '', true, ';color:#b85c00') +
@@ -8082,6 +8090,21 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             );
                         }
                     });
+
+                    // 맨 밑 총합계 줄 (파란색) — 마지막까지 다 보였을 때만
+                    if (!isMore && window._cpsGrand) {
+                        const G = window._cpsGrand, B = ';color:#0033cc;font-weight:bold;background:#eef3ff';
+                        rowParts.push(
+                            `<tr class="cps-grand-row">` +
+                            `<td style="border:1px solid #e8e8e8;background:#eef3ff"></td>` +
+                            cell('', false, B) + cell('총합계', false, B + ';text-align:center') + cell('', true, B) +
+                            cell(fq(G.qty), true, B) + cell('', true, B) +
+                            cell(fmt(G.total), true, B) + cell('', true, B) + cell('', true, B) +
+                            cell(fmt(G.total), true, B) +
+                            cell('', true, B) + cell('', true, B) + cell('', true, B) + cell('', true, B) +
+                            `</tr>`
+                        );
+                    }
 
                     // 다음 데이터 유도 센티넬 행
                     if (isMore) {
