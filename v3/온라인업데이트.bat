@@ -32,6 +32,8 @@ echo.
 
 :: server.exe missing (failed update etc.) - download again even if version is the same
 if not exist "%DEST%server.exe" set "CURVER=missing-server"
+:: old BizTech program (no server_bg.json = before 2026-11 always-on server) - update app.asar even if version is the same
+if not exist "%DEST%server_bg.json" set "CURVER=old-app"
 
 if "!CURVER!"=="!NEWVER!" (
     echo Already up to date.
@@ -61,6 +63,16 @@ if !errorlevel! neq 0 (
     pause & exit /b 1
 )
 echo server.exe updated.
+
+:: BizTech program (app.asar) - can only be replaced while BizTech is closed (done above)
+echo Downloading app.asar...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "try { Invoke-WebRequest '%BASE%/app.asar' -OutFile '%DEST%app_new.asar' -UseBasicParsing } catch { exit 1 }"
+if !errorlevel! equ 0 (
+    for %%A in ("%DEST%app_new.asar") do if %%~zA GTR 10000 (
+        move /y "%DEST%app_new.asar" "%DEST%app.asar" > nul && echo app.asar updated.
+    )
+)
+if exist "%DEST%app_new.asar" del /q "%DEST%app_new.asar"
 
 :: Other files (version.json last)
 set "FILES=index.html api.js style.css mobile.html order.html xlsx-js-style.bundle.js version.json"
