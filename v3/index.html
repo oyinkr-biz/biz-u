@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.61 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.62 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1477,17 +1477,14 @@
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 6px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">&nbsp;</legend>
-                                        <label style="display:block;margin-bottom:4px"><input type="checkbox"> 전자세금계산서 발행</label>
-                                        <div style="display:grid;grid-template-columns:48px 1fr;gap:2px 4px;align-items:center;padding-left:4px">
-                                            <span>그룹주소</span><input type="text" class="l-input" style="width:100%">
-                                            <span>사용자ID</span><input type="text" class="l-input" style="width:100%">
-                                            <span>파트너ID</span><input type="text" class="l-input" style="width:100%">
-                                            <span>연동 Key</span><input type="text" class="l-input" style="width:100%">
+                                        <label style="display:block;margin-bottom:4px"><input type="checkbox" id="etax-enabled"> 전자세금계산서 발행 (하이웍스)</label>
+                                        <div style="display:grid;grid-template-columns:78px 1fr;gap:2px 4px;align-items:center;padding-left:4px">
+                                            <span title="하이웍스 [오피스 관리 → 오피스 API]에서 발급">오피스 API 토큰</span><input type="password" id="etax-office-token" class="l-input" style="width:100%" autocomplete="off">
+                                            <span title="하이웍스 세금계산서 화면에서 발급한 사용자 API 토큰">세금계산서 토큰</span><input type="password" id="etax-bill-token" class="l-input" style="width:100%" autocomplete="off">
                                         </div>
-                                        <div style="margin-top:4px">
-                                            <label style="margin-right:4px"><input type="checkbox" checked> 체크</label>
-                                            <label style="margin-right:6px"><input type="radio" name="ext-send" checked> 기존 전송</label>
-                                            <label><input type="radio" name="ext-send"> 변경된 전송</label>
+                                        <div style="margin-top:4px;display:flex;align-items:center;gap:6px">
+                                            <button type="button" id="etax-save" class="ex-btn-legacy" style="padding:1px 10px">토큰 저장</button>
+                                            <span id="etax-status" style="font-size:10px;color:#555"></span>
                                         </div>
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
@@ -1797,7 +1794,7 @@
                 </div>
 
                 <!-- [NEW] Tax Invoice Window -->
-                <div id="tax-invoice-window" class="child-window window-hidden" style="width:1020px">
+                <div id="tax-invoice-window" class="child-window window-hidden" style="width:1200px">
                     <header class="child-header-legacy draggable-header">
                         <div class="child-title-legacy"><i data-lucide="receipt" class="btn-icon"></i> <span id="tax-win-title">세금계산서 작성</span></div>
                         <div class="child-window-controls-legacy">
@@ -1814,7 +1811,8 @@
                             <button id="tax-btn-create" class="ex-btn-legacy">작 성(F3)</button>
                             <button id="tax-btn-edit"   class="ex-btn-legacy">수 정(F4)</button>
                             <button id="tax-btn-delete" class="ex-btn-legacy" style="color:#c00">삭 제</button>
-                            <button class="ex-btn-legacy">전자세금 전송</button>
+                            <button id="tax-btn-etax-send" class="ex-btn-legacy" title="체크한 계산서를 하이웍스로 보냄 (하이웍스 사이트에서 발행해야 국세청에 전송됨)">전자세금 전송</button>
+                            <button id="tax-btn-etax-view" class="ex-btn-legacy" title="하이웍스 전자세금계산서 사이트 열기">전자세금 조회</button>
                             <button class="ex-btn-legacy">대량 액셀</button>
                         </div>
                         <!-- 종류 탭 -->
@@ -1862,18 +1860,19 @@
                             </div>
                             <!-- 오른쪽: 목록 그리드 -->
                             <div style="flex:1;overflow:auto">
-                                <table class="legacy-table" style="width:100%;min-width:600px">
+                                <table class="legacy-table" style="width:100%;min-width:960px;white-space:nowrap">
                                     <thead>
                                         <tr>
                                             <th width="28"><input type="checkbox" id="tax-grid-all"></th>
                                             <th width="50" class="center">구분</th>
                                             <th width="90" class="center">작성일자</th>
-                                            <th>세금계산서명(거래처)</th>
+                                            <th style="min-width:140px">세금계산서명(거래처)</th>
                                             <th width="110">거래처명</th>
                                             <th width="110" class="center">사업자번호</th>
                                             <th width="90" class="right">공급가액</th>
                                             <th width="70" class="right">세액</th>
                                             <th width="90" class="right">합계금액</th>
+                                            <th style="min-width:150px">이메일</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tax-invoice-grid-body"></tbody>
@@ -2328,7 +2327,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.61 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.62 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2906,7 +2905,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.61</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.62</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -10314,6 +10313,63 @@ function doSaveHtml(){
                 if(tte) tte.textContent = tt ? tt.toLocaleString('ko-KR') : '';
             }
 
+            // ── 하이웍스 전자세금 전송 (요청 62) ──
+            window._etaxFails = window._etaxFails || {};   // 계산서번호 → 빠진 정보 (빨간 글씨 표시용)
+            async function _etaxSend() {
+                const tickets = [...document.querySelectorAll('#tax-invoice-grid-body .tax-row-cb:checked')].map(cb => cb.dataset.ticket);
+                if (!tickets.length) { await window._bizAlert('전송할 계산서를 체크하세요.'); return; }
+                if (!await window._bizConfirm(`체크한 ${tickets.length}건을 하이웍스 전자세금계산서로 전송할까요?`)) return;
+                const post = (resend, list) => fetch('/api/etax/send', { method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({ tickets: list, resend }) }).then(r => r.json());
+                let j = await post(false, tickets).catch(e => ({ ok: false, error: e.message }));
+                if (!j.ok) { await window._bizAlert('전송 실패: ' + (j.error || '')); return; }
+                let res = j.data || [];
+                const again = res.filter(x => x.already);
+                if (again.length && await window._bizConfirm(`${again.map(x => x.name).join(', ')}\n이미 하이웍스로 보낸 건입니다. 다시 보내면 하이웍스에 문서가 하나 더 생깁니다.\n다시 보낼까요?`)) {
+                    const j2 = await post(true, again.map(x => x.ticket)).catch(() => ({ data: [] }));
+                    const m2 = {}; (j2.data || []).forEach(x => m2[x.ticket] = x);
+                    res = res.map(x => m2[x.ticket] || x);
+                }
+                const okList = res.filter(x => x.ok), bad = res.filter(x => !x.ok && !x.already);
+                okList.forEach(x => delete window._etaxFails[x.ticket]);
+                bad.forEach(x => window._etaxFails[x.ticket] = x.missing ? (x.missing.join('·') + ' 없음') : (x.error || '전송 실패'));
+                let msg = `전자세금계산서 ${okList.length}건 전송되었습니다.`;
+                if (okList.length) msg += `\n(하이웍스 사이트에서 발행해야 국세청에 전송됩니다 — [전자세금 조회])`;
+                if (bad.length) msg += `\n\n전송 안 된 ${bad.length}건 (목록에 빨간 글씨):\n` +
+                    bad.map(x => `- ${x.name || x.ticket}: ${x.missing ? x.missing.join(', ') + ' 없음' : x.error}`).join('\n') +
+                    (bad.some(x => x.missing) ? `\n\n거래처등록에서 빠진 정보를 넣은 뒤, 여기서 그 건을 다시 체크해 [전자세금 전송]을 누르세요.` : '');
+                await window._bizAlert(msg);
+                window._taxSearch?.();
+            }
+            document.getElementById('tax-btn-etax-send')?.addEventListener('click', _etaxSend);
+            document.getElementById('tax-btn-etax-view')?.addEventListener('click', async () => {
+                const url = 'https://bill.office.hiworks.com/';
+                if (window.electronAPI) {   // BizTech 창: 이 PC 기본 브라우저로
+                    const j = await fetch('/api/open-url', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ url }) })
+                        .then(r => r.json()).catch(() => ({}));
+                    if (!j.ok) window.open(url, '_blank');
+                } else window.open(url, '_blank');
+            });
+
+            // 환경설정 — 하이웍스 토큰 (값은 서버에만 저장, 화면에는 넣었는지만 표시)
+            const _etaxShow = d => {
+                const st = document.getElementById('etax-status'); if (!st || !d) return;
+                const en = document.getElementById('etax-enabled'); if (en) en.checked = !!d.enabled;
+                st.textContent = `오피스 토큰 ${d.officeSet ? '저장됨' : '없음'} / 세금계산서 토큰 ${d.billSet ? '저장됨' : '없음'}`;
+                st.style.color = d.officeSet && d.billSet ? '#060' : '#c00';
+                ['etax-office-token', 'etax-bill-token'].forEach(id => { const el = document.getElementById(id); if (el) { el.value = ''; el.placeholder = (id.includes('office') ? d.officeSet : d.billSet) ? '저장됨 (바꿀 때만 입력)' : ''; } });
+            };
+            window._etaxLoadCfg = () => fetch('/api/etax/config').then(r => r.json()).then(j => _etaxShow(j.data)).catch(() => {});
+            document.getElementById('open-settings')?.addEventListener('click', () => setTimeout(window._etaxLoadCfg, 300));
+            document.getElementById('etax-save')?.addEventListener('click', async () => {
+                const j = await fetch('/api/etax/config', { method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({ enabled: !!document.getElementById('etax-enabled')?.checked,
+                        officeToken: document.getElementById('etax-office-token')?.value || '',
+                        billToken: document.getElementById('etax-bill-token')?.value || '' }) }).then(r => r.json()).catch(e => ({ ok: false, error: e.message }));
+                if (j.ok) { _etaxShow(j.data); await window._bizAlert('하이웍스 설정을 저장했습니다.'); }
+                else await window._bizAlert('저장 실패: ' + (j.error || ''));
+            });
+
             // 목록 조회
             window._taxSearch = async function() {
                 const tbody = document.getElementById('tax-invoice-grid-body');
@@ -10341,16 +10397,22 @@ function doSaveHtml(){
                         const tr = document.createElement('tr');
                         tr.style.cssText = 'height:20px;cursor:pointer';
                         tr.dataset.ticket = r.Tax_No;
+                        const sent = String(r.Tax_GaviaChk || '') === '1';
+                        if (sent) tr.title = `하이웍스로 보냄 (${r.Tax_GaviaEnd || ''})`;
+                        // 지난 전송에서 정보가 빠져 못 보낸 건은 빨간 글씨 (다시 조회해도 유지)
+                        const fail = (window._etaxFails || {})[r.Tax_No];
+                        if (fail) { tr.style.color = '#d00000'; tr.style.fontWeight = 'bold'; tr.title = '전송 안 됨: ' + fail; }
                         tr.innerHTML = `
                             <td class="center"><input type="checkbox" class="tax-row-cb" data-ticket="${r.Tax_No}"></td>
-                            <td class="center" style="font-size:10px;color:${isTaxRow?'#00a':'#060'};font-weight:bold">${isTaxRow?'세금':'계산서'}</td>
+                            <td class="center" style="font-size:10px;color:${isTaxRow?'#00a':'#060'};font-weight:bold">${isTaxRow?'세금':'계산서'}${sent?'<span style="color:#888;font-weight:normal"> ✔</span>':''}</td>
                             <td class="center">${r.Tax_Date||''}</td>
                             <td style="padding-left:3px">${r.Tax_ClientName2||r.Tax_ClientName||''}</td>
                             <td style="padding-left:3px">${r.Tax_ClientName||''}</td>
                             <td class="center" style="font-size:11px">${r.Tax_ClientNo||''}</td>
                             <td class="right" style="padding-right:3px">${_taxFmt(r.Tax_Amt)}</td>
                             <td class="right" style="padding-right:3px">${_taxFmt(r.Tax_Tax)}</td>
-                            <td class="right" style="padding-right:3px;color:#00a;font-weight:bold">${_taxFmt(r.Tax_Total)}</td>`;
+                            <td class="right" style="padding-right:3px;color:#00a;font-weight:bold">${_taxFmt(r.Tax_Total)}</td>
+                            <td style="padding-left:3px;font-size:11px${fail ? '' : ';color:#333'}">${r._email || (fail ? '(이메일 없음)' : '')}</td>`;
                         tr.addEventListener('click', (e) => {
                             if (e.target.type === 'checkbox') return;
                             _taxOpenEdit(r.Tax_No);
@@ -10359,10 +10421,10 @@ function doSaveHtml(){
                     });
                     for (let i=rows.length+1; i<=MINROWS; i++) {
                         const er = document.createElement('tr'); er.style.height='20px';
-                        er.innerHTML = `<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>`;
+                        er.innerHTML = '<td></td>'.repeat(10);
                         tbody.appendChild(er);
                     }
-                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:8px;color:#999">조회 결과 없음</td></tr>';
+                    if (!rows.length) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:8px;color:#999">조회 결과 없음</td></tr>';
                     // 전체선택 체크박스
                     const allCb = document.getElementById('tax-grid-all');
                     if (allCb && !allCb._wired) {
