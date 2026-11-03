@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.69 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.70 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2263,7 +2263,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.69 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.70 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2841,7 +2841,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.69</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.70</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -9932,7 +9932,7 @@ function doSaveHtml(){
                 tbody.innerHTML = '';
                 rows.forEach((r, idx) => {
                     const cardAmt  = parseFloat(r.cardAmt)||0;
-                    const slipAmt  = (parseFloat(r.sellAmt)||0) - cardAmt;
+                    const slipAmt  = parseFloat(r.slipAmt)||0;   // 과세구분에 맞는 몫 (면세·카드 뺀 것은 서버에서)
                     const tr = document.createElement('tr');
                     tr.style.cssText = 'height:22px;cursor:pointer';
                     tr.innerHTML = `
@@ -9942,7 +9942,7 @@ function doSaveHtml(){
                         <td class="right" style="padding-right:3px">${fm(r.prevBal)}</td>
                         <td class="right" style="padding-right:3px">${fm(r.sellAmt)}</td>
                         <td class="right" style="padding-right:3px;color:#c00">${cardAmt ? fm(cardAmt) : ''}</td>
-                        <td class="right" style="padding-right:3px;color:#060;font-weight:bold">${fm(slipAmt)}</td>
+                        <td class="right" style="padding-right:3px;color:#060;font-weight:bold" title="세금계산서 ${fm(r.taxPart)||0} / 계산서 ${fm(r.freePart)||0} (카드 결제액 뺌)">${fm(slipAmt)}</td>
                         <td class="right" style="padding-right:3px">${fm(r.retAmt)}</td>
                         <td class="right" style="padding-right:3px">${fm(r.recvAmt)}</td>
                         <td class="right" style="padding-right:3px;color:#00a">${fm(r.balance)}</td>
@@ -10017,8 +10017,8 @@ function doSaveHtml(){
 
         /* 거래처 기간별 매출조회 [계산서] 행 더블클릭 → 세금계산서 작성 연동 */
         window._cpSlipOpenTax = async function(r, from, to, taxType) {
-            const cardAmt = parseFloat(r.cardAmt) || 0;
-            const slipAmt = (parseFloat(r.sellAmt) || 0) - cardAmt;
+            const slipAmt = taxType === '1' ? (parseFloat(r.taxPart) || 0)
+                          : taxType === '2' ? (parseFloat(r.freePart) || 0) : (parseFloat(r.slipAmt) || 0);
 
             // 기존 Tax_Mast 조회
             let existingTicket = null;
@@ -10120,15 +10120,10 @@ function doSaveHtml(){
             for (const cb of checked) {
                 const d = cb.closest('tr')._cpSlipData;
                 if (!d) continue;
-                const allAmt = (d.sellAmt||0) - (d.cardAmt||0);
-                if (taxSel === '1')      jobs.push({ d, isTaxBill: true,  slipAmt: allAmt });
-                else if (taxSel === '2') jobs.push({ d, isTaxBill: false, slipAmt: allAmt });
-                else {
-                    // 전체: 매출등록에서 세금계산서로 입력한 전표 몫 → 세금계산서, 나머지 → 계산서 (두 장으로 나눔)
-                    const taxPart = (d.taxSellAmt||0) - (d.taxCardAmt||0);
-                    if (taxPart) jobs.push({ d, isTaxBill: true, slipAmt: taxPart });
-                    if (allAmt - taxPart) jobs.push({ d, isTaxBill: false, slipAmt: allAmt - taxPart });
-                }
+                // 과세 품목 몫 → 세금계산서, 면세 품목 몫 → 계산서 (카드 결제액은 양쪽 다 뺌, 서버에서 계산)
+                const taxPart = d.taxPart || 0, freePart = d.freePart || 0;
+                if (taxSel !== '2' && taxPart > 0)  jobs.push({ d, isTaxBill: true,  slipAmt: taxPart });
+                if (taxSel !== '1' && freePart > 0) jobs.push({ d, isTaxBill: false, slipAmt: freePart });
             }
             for (const { d, isTaxBill, slipAmt } of jobs) {
                 const supply  = isTaxBill ? Math.round(slipAmt / 1.1) : slipAmt;
