@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2328,7 +2328,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2906,7 +2906,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.59</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.60</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3569,6 +3569,7 @@
                             <input id="cds-client" type="text" class="l-input" style="width:120px" placeholder="전체 (고르면 그 거래처만)" autocomplete="off"
                                 onclick="if(this.dataset.clientId){this.value='';delete this.dataset.clientId;}else{this.select();}window.showGlobalClientSearch(this,'',window.runCdsSearch)"
                                 oninput="delete this.dataset.clientId;window.showGlobalClientSearch(this,'',window.runCdsSearch)">
+                            <span class="l-label" style="min-width:30px">구분</span><select id="cds-sgubun" class="l-input sgubun-sel" style="width:80px" onchange="window.runCdsSearch?.()"><option value="">전체</option></select>
                             <span class="l-label" style="min-width:40px">제품명</span>
                             <input id="cds-item" type="text" class="l-input" style="width:100px" placeholder="이름 일부" autocomplete="off" onkeydown="if(event.key==='Enter')window.runCdsSearch()">
                             <span class="l-label" style="min-width:46px">정렬조건</span>
@@ -3594,6 +3595,7 @@
                             <input id="cps-client" type="text" class="l-input" style="width:110px" autocomplete="off"
                                 oninput="window.showGlobalClientSearch(this, document.getElementById('cps-gubun')?.value)"
                                 onclick="this.select();window.showGlobalClientSearch(this, document.getElementById('cps-gubun')?.value)">
+                            <span class="l-label" style="min-width:30px">구분</span><select id="cps-sgubun" class="l-input sgubun-sel" style="width:80px"><option value="">전체</option></select>
                         </div>
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label" style="min-width:52px">조회구분</span>
@@ -3685,7 +3687,7 @@
                             <span class="l-label">거래일자</span><input id="cr-date-from" type="date" class="l-input" style="width:110px"> ~ <input id="cr-date-to" type="date" class="l-input" style="width:110px">
                             <span class="l-label">담당자</span><select id="cr-staff" class="l-input" style="width:90px"><option value="">전체</option></select>
                             <span class="l-label">거래처</span><input id="cr-client" type="text" class="l-input" style="width:130px" placeholder="이름 검색" onclick="this.select();window.showGlobalClientSearch(this,'1')" oninput="window.showGlobalClientSearch(this,'1')" autocomplete="off">
-                            <span class="l-label">거래처구분</span><select id="cr-cgubun" class="l-input" style="width:70px"><option value="">전체</option></select>
+                            <span class="l-label" style="min-width:30px">구분</span><select id="cr-cgubun" class="l-input sgubun-sel" style="width:80px"><option value="">전체</option></select>
                         </div>
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label">조회구분</span><select id="cr-mode" class="l-input" style="width:80px"><option value="active">거래중</option><option value="all">전체</option></select>
@@ -3704,7 +3706,7 @@
                             <span class="l-label">거래일자</span><input id="vu-date-from" type="date" class="l-input" style="width:110px"> ~ <input id="vu-date-to" type="date" class="l-input" style="width:110px">
                             <span class="l-label">담당자</span><select id="vu-staff" class="l-input" style="width:90px"><option value="">전체</option></select>
                             <span class="l-label">거래처</span><input id="vu-client" type="text" class="l-input" style="width:130px" placeholder="이름 검색" onclick="this.select();window.showGlobalClientSearch(this,'2')" oninput="window.showGlobalClientSearch(this,'2')" autocomplete="off">
-                            <span class="l-label">거래처구분</span><select id="vu-cgubun" class="l-input" style="width:70px"><option value="">전체</option></select>
+                            <span class="l-label" style="min-width:30px">구분</span><select id="vu-cgubun" class="l-input sgubun-sel" style="width:80px"><option value="">전체</option></select>
                         </div>
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
                             <span class="l-label">조회구분</span><select id="vu-mode" class="l-input" style="width:80px"><option value="active">거래중</option><option value="all">전체</option></select>
@@ -7964,6 +7966,12 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 }
                 const sawonFilt = document.getElementById('cps-sawon')?.value || '';
                 if (sawonFilt) rows = rows.filter(r => String(r.Ivn_Sawon || '') === sawonFilt);
+                // 구분(거래처등록의 구분 = 기본정보 거래처구분): 그 구분 거래처만
+                const sgFilt = document.getElementById('cps-sgubun')?.value || '';
+                if (sgFilt) {
+                    const sgIds = new Set(clients.filter(c => String(c.Client_sGubun || '') === sgFilt).map(c => String(c.Client_ID)));
+                    rows = rows.filter(r => sgIds.has(String(r.Ivn_Client || '')));
+                }
 
                 if (rows.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="38" style="text-align:center;padding:8px;color:#888">조회 결과가 없습니다.</td></tr>';
@@ -11608,7 +11616,8 @@ function doSaveHtml(){
                 from: g('cds-date-from')?.value || '', to: g('cds-date-to')?.value || '',
                 gubun: g('cds-gubun')?.value ?? '1',
                 client: g('cds-client')?.value?.trim() ? (g('cds-client').dataset.clientId || '') : '',
-                item: g('cds-item')?.value?.trim() || '' });
+                item: g('cds-item')?.value?.trim() || '',
+                sgubun: g('cds-sgubun')?.value || '' });
             tbody.innerHTML = `<tr><td colspan="${COLS+1}" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
             try {
                 const j = await fetch(`${window.location.origin}/api/client-daily?${qs}`).then(r => r.json());
@@ -12380,6 +12389,30 @@ function doSaveHtml(){
                 (c.Client_sName||'').toLowerCase().includes(kw)
             ));
         }
+
+        // ── 조회 화면 '구분' 칸(.sgubun-sel) 목록: 기본정보등록 '거래처구분' (요청 59) ──
+        window._fillSGubunSelects = async function(force) {
+            const sels = [...document.querySelectorAll('select.sgubun-sel')].filter(s => force || !s.dataset.filled);
+            if (!sels.length) return;
+            try {
+                const grps = (await fetch(window.location.origin + '/api/categories/group').then(r => r.json())).data || [];
+                const grp  = grps.find(g => (g.Gubun_Name || '').includes('거래처구분'));
+                const codes = grp ? ((await fetch(`${window.location.origin}/api/categories?gubun_code=${grp.Gubun_Code}`).then(r => r.json())).data || []) : [];
+                sels.forEach(sel => {
+                    const prev = sel.value;
+                    sel.innerHTML = '<option value="">전체</option>' +
+                        codes.filter(c => (c.Gubun_Name || '').trim()).map(c => `<option value="${c.Gubun_Code}">${c.Gubun_Name}</option>`).join('');
+                    sel.value = [...sel.options].some(o => o.value === prev) ? prev : '';
+                    sel.dataset.filled = '1';
+                });
+            } catch(e) {}
+        };
+        // 창을 열 때마다 최신 목록으로 (기본정보등록에서 바꾼 이름이 바로 보이게), 아직 비어 있으면 칸을 누를 때
+        document.addEventListener('mousedown', e => {
+            if (e.target?.matches?.('select.sgubun-sel') && !e.target.dataset.filled) window._fillSGubunSelects();
+        }, true);
+        ['open-cust-daily-status', 'open-cust-period-status', 'open-client-receivable', 'open-vendor-unpaid'].forEach(id =>
+            document.getElementById(id)?.addEventListener('click', () => setTimeout(() => window._fillSGubunSelects(true), 300)));
 
         // ── 거래처구분 SELECT 옵션 로드 ─────────────────────
         async function loadSGubunOptions() {
