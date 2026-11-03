@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.61 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2328,7 +2328,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.61 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2906,7 +2906,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.60</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.61</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -10064,6 +10064,14 @@ function doSaveHtml(){
             window._xlsxDownload(data, `거래처기간별매출조회_계산서_${from}_${to}.xlsx`);
         };
 
+        // 계산서 품목 기본 이름 (요청 61): 환경설정 → 업체기본정보의 '기본세액명'(예: 수산물)
+        //   세금계산서는 '기본세액명(세금)'이 있으면 그것, 없으면 기본세액명
+        window._taxDefaultItem = function(co, isTaxBill) {
+            co = co || {};
+            const bill = (co.Co_TaxName || '').trim(), tax = (co.Co_ComGubun || '').trim();
+            return isTaxBill ? (tax || bill) : bill;
+        };
+
         /* 거래처 기간별 매출조회 [계산서] 행 더블클릭 → 세금계산서 작성 연동 */
         window._cpSlipOpenTax = async function(r, from, to, taxType) {
             const cardAmt = parseFloat(r.cardAmt) || 0;
@@ -10115,7 +10123,9 @@ function doSaveHtml(){
                     const dt   = (to || '').slice(5);             // 'MM-DD'
                     if (inps[0]) inps[0].value = dt.slice(0,2);  // 월
                     if (inps[1]) inps[1].value = dt.slice(3,5);  // 일
-                    if (inps[2]) inps[2].value = r.clientTax || r.clientName || ''; // 품목
+                    let _co = {};
+                    try { _co = (await fetch('/api/company').then(x => x.json())).data || {}; } catch(_) {}
+                    if (inps[2]) inps[2].value = window._taxDefaultItem(_co, taxType === '1') || r.clientTax || r.clientName || ''; // 품목
                     if (inps[6]) inps[6].value = slipAmt > 0 ? Math.round(slipAmt).toLocaleString('ko-KR') : '';
                     if (inps[7]) inps[7].value = '0';
                     window._taxRecalcTotals?.();
@@ -10152,8 +10162,7 @@ function doSaveHtml(){
             const to   = document.getElementById('cps2-date-to')?.value   || '';
             if (!from || !to) { alert('거래일자를 먼저 입력하세요.'); return; }
             const taxSel = document.getElementById('cps2-tax')?.value || '';
-            const isTaxBill = (taxSel === '1');
-            const typeLabel = isTaxBill ? '세금계산서' : '계산서';
+            const typeLabel = taxSel === '1' ? '세금계산서' : taxSel === '2' ? '계산서' : '세금계산서/계산서(입력한 대로 나눠서)';
             if (!confirm(`선택된 ${checked.length}개 거래처의 ${typeLabel}를 저장하겠습니까?\n기간: ${from} ~ ${to}`)) return;
 
             // 우리 회사 정보 로드
@@ -10164,13 +10173,24 @@ function doSaveHtml(){
             } catch(e) {}
 
             let ok = 0, fail = 0, lastErr = '';
+            const jobs = [];
             for (const cb of checked) {
-                const tr = cb.closest('tr');
-                const d = tr._cpSlipData;
+                const d = cb.closest('tr')._cpSlipData;
                 if (!d) continue;
-                const slipAmt = (d.sellAmt||0) - (d.cardAmt||0);
+                const allAmt = (d.sellAmt||0) - (d.cardAmt||0);
+                if (taxSel === '1')      jobs.push({ d, isTaxBill: true,  slipAmt: allAmt });
+                else if (taxSel === '2') jobs.push({ d, isTaxBill: false, slipAmt: allAmt });
+                else {
+                    // 전체: 매출등록에서 세금계산서로 입력한 전표 몫 → 세금계산서, 나머지 → 계산서 (두 장으로 나눔)
+                    const taxPart = (d.taxSellAmt||0) - (d.taxCardAmt||0);
+                    if (taxPart) jobs.push({ d, isTaxBill: true, slipAmt: taxPart });
+                    if (allAmt - taxPart) jobs.push({ d, isTaxBill: false, slipAmt: allAmt - taxPart });
+                }
+            }
+            for (const { d, isTaxBill, slipAmt } of jobs) {
                 const supply  = isTaxBill ? Math.round(slipAmt / 1.1) : slipAmt;
                 const taxAmt  = isTaxBill ? (slipAmt - supply) : 0;
+                const itemName = window._taxDefaultItem(myInfo, isTaxBill) || d.clientTax || d.clientName;
                 const payload = {
                     Tax_Gubun:         '1',
                     Tax_Date:          to,
@@ -10194,7 +10214,7 @@ function doSaveHtml(){
                     Tax_ClientBusiness1: myInfo.Co_Business || '',
                     Tax_ClientItem1:   myInfo.Co_Item  || '',
                     items: [{
-                        date: to, item: d.clientTax || d.clientName,
+                        date: to, item: itemName,
                         size:'', qty:0, unit:0,
                         amt: supply, tax: taxAmt, bigo:''
                     }]
@@ -10218,8 +10238,8 @@ function doSaveHtml(){
                 }
                 // 목록 뷰로 전환
                 window._taxShowList?.();
-                // 과세구분에 맞는 탭으로 전환
-                if (taxSel === '1') window._taxSetTab?.('tax');
+                // 과세구분에 맞는 탭으로 전환 (전체로 나눠 저장했으면 세금계산서가 있을 때 세금계산서 탭)
+                if (taxSel === '1' || (taxSel === '' && jobs.some(j => j.isTaxBill))) window._taxSetTab?.('tax');
                 else window._taxSetTab?.('bill');
                 // 기간 설정 후 조회
                 const tfFrom = document.getElementById('tax-date-from');
@@ -20679,13 +20699,15 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             let rows = '', cnt = 0, totAmt = 0, totTax = 0, totTotal = 0;
             tbody.querySelectorAll('tr').forEach(tr => {
                 const tds = tr.querySelectorAll('td');
-                if (tds.length < 7) return;
+                if (tds.length < 8) return;
+                // 목록 칸: 번호 | 체크 | 작성일자 | 세금계산서명 | 거래처명 | 사업자번호 | 공급가액 | 세액 | 합계금액 (엑셀과 같게)
                 const date  = tds[2]?.textContent.trim();
                 const name2 = tds[3]?.textContent.trim();
                 const name  = tds[4]?.textContent.trim();
-                const amt   = tds[5]?.textContent.trim();
-                const tax   = tds[6]?.textContent.trim();
-                const total = tds[7]?.textContent.trim();
+                const bizno = tds[5]?.textContent.trim();
+                const amt   = tds[6]?.textContent.trim();
+                const tax   = tds[7]?.textContent.trim();
+                const total = tds[8]?.textContent.trim();
                 if (!date && !name && !name2) return;
                 cnt++;
                 totAmt   += parseN(amt);
@@ -20696,6 +20718,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                     <td style="border:1px solid #e8e8e8;padding:3px;text-align:center">${date}</td>
                     <td style="border:1px solid #e8e8e8;padding:3px">${name2}</td>
                     <td style="border:1px solid #e8e8e8;padding:3px">${name}</td>
+                    <td style="border:1px solid #e8e8e8;padding:3px;text-align:center">${bizno}</td>
                     <td style="border:1px solid #e8e8e8;padding:3px;text-align:right">${amt}</td>
                     <td style="border:1px solid #e8e8e8;padding:3px;text-align:right">${tax}</td>
                     <td style="border:1px solid #e8e8e8;padding:3px;text-align:right">${total}</td>
@@ -20703,7 +20726,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             });
             const fmt = n => Math.round(n).toLocaleString('ko-KR');
             rows += `<tr style="background:#f0f0f0;font-weight:bold">
-                <td colspan="4" style="border:1px solid #999;padding:3px;text-align:center">합 계 (${cnt}건)</td>
+                <td colspan="5" style="border:1px solid #999;padding:3px;text-align:center">합 계 (${cnt}건)</td>
                 <td style="border:1px solid #999;padding:3px;text-align:right">${fmt(totAmt)}</td>
                 <td style="border:1px solid #999;padding:3px;text-align:right">${fmt(totTax)}</td>
                 <td style="border:1px solid #999;padding:3px;text-align:right">${fmt(totTotal)}</td>
@@ -20720,6 +20743,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                             <th style="border:1px solid #555;padding:3px">작성일자</th>
                             <th style="border:1px solid #555;padding:3px">세금계산서명(거래처)</th>
                             <th style="border:1px solid #555;padding:3px">거래처명</th>
+                            <th style="border:1px solid #555;padding:3px">사업자번호</th>
                             <th style="border:1px solid #555;padding:3px;text-align:right">공급가액</th>
                             <th style="border:1px solid #555;padding:3px;text-align:right">세액</th>
                             <th style="border:1px solid #555;padding:3px;text-align:right">합계금액</th>
