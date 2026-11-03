@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.64 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1433,27 +1433,10 @@
                             <div style="display:grid;grid-template-columns:1fr 1fr 200px;gap:6px;align-items:start">
                                 <!-- 좌측 -->
                                 <div style="display:flex;flex-direction:column;gap:4px">
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 신규거래처 동일이름 설정 ]</legend>
-                                        <label style="margin-right:8px"><input type="radio" name="ext-dup"> 매입.매출 동시체크</label>
-                                        <label><input type="radio" name="ext-dup" checked> 각자 체크</label>
-                                    </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 내역 수정시 메세지 알림 ]</legend>
-                                        <label style="margin-right:8px"><input type="radio" name="ext-msg" checked> 알리지 않음</label>
-                                        <label><input type="radio" name="ext-msg"> 메세지 알림</label>
-                                    </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 최근판매단가 표시일 ]</legend>
-                                        <div style="display:flex;align-items:center;gap:4px">
-                                            <span>표시일수</span>
-                                            <input type="text" class="l-input" style="width:46px" value="30">
-                                        </div>
-                                    </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 6px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">&nbsp;</legend>
                                         <label style="display:block;margin-bottom:4px"><input type="checkbox" id="etax-enabled"> 전자세금계산서 발행 (하이웍스)</label>
-                                        <div style="display:grid;grid-template-columns:78px 1fr;gap:2px 4px;align-items:center;padding-left:4px">
+                                        <div style="display:grid;grid-template-columns:96px 1fr;gap:2px 4px;align-items:center;padding-left:4px;white-space:nowrap">
                                             <span title="하이웍스 [오피스 관리 → 오피스 API]에서 발급">오피스 API 토큰</span><input type="password" id="etax-office-token" class="l-input" style="width:100%" autocomplete="off">
                                             <span title="하이웍스 세금계산서 화면에서 발급한 사용자 API 토큰">세금계산서 토큰</span><input type="password" id="etax-bill-token" class="l-input" style="width:100%" autocomplete="off">
                                         </div>
@@ -1461,17 +1444,6 @@
                                             <button type="button" id="etax-save" class="ex-btn-legacy" style="padding:1px 10px">토큰 저장</button>
                                             <span id="etax-status" style="font-size:10px;color:#555"></span>
                                         </div>
-                                    </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 최근단가(이미지) 표시 설정 ]</legend>
-                                        <label style="margin-right:6px"><input type="radio" name="ext-img"> 표시</label>
-                                        <label style="margin-right:6px"><input type="radio" name="ext-img" checked> 비표시</label>
-                                        <label><input type="radio" name="ext-img"> 이미지</label>
-                                    </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 계산서작성 검색 설정 ]</legend>
-                                        <label style="margin-right:8px"><input type="radio" name="ext-calc" checked> 전체거래처</label>
-                                        <label><input type="radio" name="ext-calc"> 세금거래처</label>
                                     </fieldset>
                                 </div>
                                 <!-- 중앙 -->
@@ -1505,26 +1477,10 @@
                                             <input id="settings-phone" type="text" class="l-input" style="flex:1">
                                         </div>
                                     </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 판매수량 표시 설정 ]</legend>
-                                        <label style="margin-right:8px"><input type="radio" name="ext-qty" checked> 수량 표시</label>
-                                        <label><input type="radio" name="ext-qty"> 수량 비표시</label>
-                                    </fieldset>
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 거래처.제품 검색 설정 ]</legend>
-                                        <label style="margin-right:6px"><input type="radio" name="ext-srch" checked> 기준</label>
-                                        <label style="margin-right:6px"><input type="radio" name="ext-srch"> 엔터시</label>
-                                        <label><input type="radio" name="ext-srch"> 바코드</label>
-                                    </fieldset>
                                 </div>
                                 <!-- 우측 -->
                                 <div style="display:flex;flex-direction:column;gap:4px">
-                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 8px;margin:0;background:#f5f5f5">
-                                        <legend style="font-size:10px;padding:0 3px">[ 금일 이전내역 저장 ]</legend>
-                                        <label style="display:block;margin-bottom:4px"><input type="radio" name="ext-hist" checked> 가능</label>
-                                        <label style="display:block;margin-bottom:6px"><input type="radio" name="ext-hist"> 불가능</label>
-                                        <button id="env-settings-save-btn" class="ex-btn-legacy" style="width:100%;font-weight:bold" onclick="window._saveThermalSettings?.()">설정저장</button>
-                                    </fieldset>
+                                    <button id="env-settings-save-btn" class="ex-btn-legacy" style="width:100%;font-weight:bold;padding:4px" onclick="window._saveThermalSettings?.()">설정저장</button>
                                 </div>
                             </div>
                             </div>
@@ -2302,7 +2258,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.64 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2880,7 +2836,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.63</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.64</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
