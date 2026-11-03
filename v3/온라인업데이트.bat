@@ -9,9 +9,9 @@ echo BizTech v3 Online Updater
 echo ========================
 echo.
 
-:: Check version
+:: Check version (GitHub API first - raw address can show the old version for ~5 minutes after upload)
 echo Checking latest version...
-powershell -Command "try { $v=(Invoke-WebRequest '%BASE%/version.json' -UseBasicParsing).Content | ConvertFrom-Json; Write-Host $v.version } catch { Write-Host 'ERROR' }" > "%TEMP%\biz_ver.txt"
+powershell -Command "& { $n=''; try { $j=Invoke-RestMethod 'https://api.github.com/repos/oyinkr-biz/biz-u/contents/v3/version.json'; $n=([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($j.content)) | ConvertFrom-Json).version } catch {}; if (-not $n) { try { $n=((Invoke-WebRequest '%BASE%/version.json' -UseBasicParsing).Content | ConvertFrom-Json).version } catch {} }; if ($n) { Write-Host $n } else { Write-Host 'ERROR' } }" > "%TEMP%\biz_ver.txt"
 set /p NEWVER=<"%TEMP%\biz_ver.txt"
 
 if "!NEWVER!"=="ERROR" (
