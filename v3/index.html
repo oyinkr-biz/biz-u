@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.79 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.80 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2264,7 +2264,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.79 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.80 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2842,7 +2842,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.79</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.80</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -8954,7 +8954,7 @@ function doSaveHtml(){
             window._xlsxDownload([
                 ['처리구분','거래처코드','거래처명','전화번호','팩스번호','휴대폰',
                  '거래시작일','단가적용','세금계산서명','대표자성명','업태','종목',
-                 '사업자등록번호','과세구분','주소','번지',
+                 '사업자등록번호','거래처구분','주소','번지',
                  '담당자성명','담당자직책','담당자내선번호','담당자이메일','색상',
                  '거래은행','계좌번호','예금주명','예금주2','비고','기초잔액'],
                 ['매출처',1001,'홍길동수산','010-1234-5678','02-123-4567','010-9876-5432',
@@ -8990,7 +8990,12 @@ function doSaveHtml(){
             '업태':'Client_Business', 'Client_Business':'Client_Business',
             '종목':'Client_Item', 'Client_Item':'Client_Item',
             '사업자등록번호':'Client_sNo', '사업자번호':'Client_sNo', 'Client_sNo':'Client_sNo',
-            '과세구분':'Client_sGubun', 'Client_sGubun':'Client_sGubun',
+            '과세구분':'Client_sGubun', '거래처구분':'Client_sGubun', 'Client_sGubun':'Client_sGubun',
+            '담당자명':'Client_Charge', '담당자휴대폰':'Client_HTel', '은행계좌':'Client_BankNo',
+            '주소1':'Client_Addr1', '주소2':'Client_Addr2', '거래처색상':'Client_Color',
+            '잔액':'Client_Re', '잔액설정일자':'Client_Day1', 'Client_Day1':'Client_Day1',
+            '최종거래일자':'Client_VisDate', 'Client_VisDate':'Client_VisDate',
+            '거래구분':'Client_Dis', '거래중지예외':'_stopExc',
             '거래은행':'Client_Bank', 'Client_Bank':'Client_Bank',
             '계좌번호':'Client_BankNo', 'Client_BankNo':'Client_BankNo',
             '예금주':'Client_BankName', '예금주명':'Client_BankName', 'Client_BankName':'Client_BankName',
@@ -9019,15 +9024,34 @@ function doSaveHtml(){
             try {
                 const rows = await _xlsxUploadParse(file);
                 if (!rows.length) { alert('데이터가 없습니다.'); return; }
-                const numFields = ['Client_ID','Client_Gubun','Client_Re','Client_DC','Client_Dis','Client_Str1','Client_sGubun'];
+                // 거래처구분: 이름(예: 용역)이나 코드 둘 다 받음 → 기본정보 거래처구분 코드로
+                const sgMap = {};
+                try {
+                    const grps = (await fetch('/api/categories/group').then(x => x.json())).data || [];
+                    const grp  = grps.find(g => (g.Gubun_Name || '').includes('거래처구분'));
+                    if (grp) ((await fetch(`/api/categories?gubun_code=${grp.Gubun_Code}`).then(x => x.json())).data || [])
+                        .forEach(c => { sgMap[String(c.Gubun_Name).trim()] = String(c.Gubun_Code); sgMap[String(c.Gubun_Code)] = String(c.Gubun_Code); });
+                } catch(e) {}
+                const COLOR_VAL = { '검정':'', '청색':'B', '파랑':'B', '파란색':'B', 'B':'B', '빨간색':'R', '빨강':'R', 'R':'R' };
+                const yes = v => ['1','Y','y','예','O','o','중지','거래중지','사용','true'].includes(v);
                 const clean = rows.map(r => {
                     const obj = {};
                     for (const [k,v] of Object.entries(r)) {
                         const dbKey = CUST_COL_MAP[k.trim()];
                         if (!dbKey || v === '' || v == null) continue;
-                        let val = String(v).trim();
-                        if (dbKey === 'Client_Gubun') val = GUBUN_VAL[val] || val;
-                        obj[dbKey] = numFields.includes(dbKey) ? (parseInt(val)||0) : val;
+                        const val = String(v).trim();
+                        if (dbKey === 'Client_ID')          obj[dbKey] = parseInt(val) || 0;
+                        else if (dbKey === 'Client_Gubun')  obj[dbKey] = GUBUN_VAL[val] || val;
+                        else if (dbKey === 'Client_Re' || dbKey === 'Client_DC')
+                            obj[dbKey] = parseFloat(val.replace(/,/g, '')) || 0;   // '500,000' → 500000 (예전엔 500)
+                        else if (dbKey === 'Client_Dis' || dbKey === 'Client_Str1') obj[dbKey] = yes(val) ? 1 : 0;
+                        else if (dbKey === '_stopExc') {   // 엑셀변환의 '거래중지예외' 칸: '중지/예'
+                            obj.Client_Dis  = val.includes('중지') ? 1 : 0;
+                            obj.Client_Str1 = val.includes('예') ? 1 : 0;
+                        }
+                        else if (dbKey === 'Client_sGubun') obj[dbKey] = sgMap[val] ?? val;
+                        else if (dbKey === 'Client_Color')  obj[dbKey] = COLOR_VAL[val] ?? val;
+                        else obj[dbKey] = val;
                     }
                     return obj;
                 }).filter(r => r.Client_ID);
