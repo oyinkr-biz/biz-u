@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.80 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.81 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2264,7 +2264,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.80 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.81 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2842,7 +2842,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.80</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.81</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -9109,6 +9109,14 @@ function doSaveHtml(){
                 if (!rows.length) { alert('데이터가 없습니다.'); return; }
                 const numFields = ['Item_OrgPric','Item_Amt','Item_Amt1','Item_Amt2','Item_Amt3',
                                    'Item_Amt4','Item_Amt5','Item_StockQty','Item_Dis','Item_Stock','Item_Str1'];
+                // 대분류·소분류: 엑셀엔 이름(냉동수산물)으로 들어오지만 저장은 기본정보 분류 코드로 (예전엔 이름 그대로 저장돼 제품등록 칸이 비어 보였음)
+                await window._loadProductCatOptions?.();
+                const catCode = (key, val) => {
+                    const m = (window._prodCat || {})[key] || {};
+                    if (m[val] !== undefined) return val;
+                    const hit = Object.entries(m).find(([, n]) => n.trim() === val);
+                    return hit ? hit[0] : val;
+                };
                 const clean = rows.map(r => {
                     const obj = {};
                     for (const [k,v] of Object.entries(r)) {
@@ -9120,6 +9128,8 @@ function doSaveHtml(){
                         } else if (dbKey === 'Item_Dis') {
                             const sv = String(v).trim();
                             obj[dbKey] = (sv === '단종' || sv === '1' || sv === 'Y') ? 1 : 0;
+                        } else if (dbKey === 'Item_Gubun1' || dbKey === 'Item_Gubun3') {
+                            obj[dbKey] = catCode(dbKey === 'Item_Gubun1' ? 'g1' : 'g3', String(v).trim());
                         } else if (dbKey === 'Item_VatType') {
                             // 엑셀 '포함' = 저장값 '과세' (제품등록 부가세: 면세/포함/미포함)
                             const sv = String(v).trim();
@@ -12833,9 +12843,9 @@ function doSaveHtml(){
                     <td style="text-align:center;">${(item.Item_sDate||'').substring(0,10)}</td>
                     <td style="text-align:center;">${item.Item_Size1||''}</td>
                     <td style="text-align:center;"><input type="checkbox" class="grid-stock-cb" style="cursor:pointer;width:14px;height:14px"></td>
-                    <td>${item.Item_Gubun1||''}</td>
+                    <td>${(window._prodCat?.g1 || {})[item.Item_Gubun1] ?? (item.Item_Gubun1||'')}</td>
                     <td></td>
-                    <td>${item.Item_Gubun3||''}</td>
+                    <td>${(window._prodCat?.g3 || {})[item.Item_Gubun3] ?? (item.Item_Gubun3||'')}</td>
                     <td style="text-align:center;">${item.Item_Size||''}</td>
                     <td>${item.Item_Memo||''}</td>
                     <td style="text-align:center;">${item.Item_Dis==1?'단종':''}</td>
@@ -12879,6 +12889,12 @@ function doSaveHtml(){
             setF('prod-amt5',     item.Item_Amt5);
             setF('prod-gubun1',   item.Item_Gubun1);
             setF('prod-gubun3',   item.Item_Gubun3);
+            ['prod-gubun1', 'prod-gubun3'].forEach((id, i) => {
+                const sel = document.getElementById(id), v = String((i ? item.Item_Gubun3 : item.Item_Gubun1) || '').trim();
+                if (!sel || !v || sel.value === v) return;
+                const opt = [...sel.options].find(o => o.textContent.trim() === v);
+                if (opt) sel.value = opt.value;
+            });
             setF('prod-size',     item.Item_Size);
             setF('prod-size1',    item.Item_Size1);
             setF('prod-traceno',  item.Item_TraceNo);
@@ -13122,10 +13138,13 @@ function doSaveHtml(){
                 const grps = (await fetch(`${BASE}/categories/group`).then(r => r.json())).data || [];
                 // 옛 DB는 그룹 이름이 '제품대구분'·'제품소구분' — '분류'/'구분' 둘 다 찾음
                 const find = name => grps.find(g => { const n = g.Gubun_Name || ''; return n.includes(name) || n.includes(name.replace('분류', '구분')); });
+                window._prodCat = window._prodCat || { g1: {}, g3: {} };
                 const fillSel = async (selId, groupName) => {
                     const grp = find(groupName);
                     if (!grp) return;
                     const codes = (await fetch(`${BASE}/categories?gubun_code=${grp.Gubun_Code}`).then(r => r.json())).data || [];
+                    const m = {}; codes.forEach(c => { m[String(c.Gubun_Code)] = String(c.Gubun_Name || ''); });
+                    window._prodCat[selId === 'prod-gubun1' ? 'g1' : 'g3'] = m;   // 코드 → 이름
                     const sel = document.getElementById(selId);
                     if (!sel) return;
                     const prev = sel.value;
@@ -13144,6 +13163,7 @@ function doSaveHtml(){
                 ]);
             } catch(e) {}
         }
+        window._loadProductCatOptions = loadProductCatOptions;
 
         document.addEventListener('DOMContentLoaded', () => {
             const openBtn = document.getElementById('open-product-reg');
