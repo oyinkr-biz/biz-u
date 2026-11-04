@@ -546,6 +546,16 @@ function renderClients() {
     </div>`).join('');
 }
 
+// 거래처 단가적용 A~E면 매출단가 ± 제품 A~E칸 금액 (PC 매출등록과 같게)
+function _mPrice(it){
+  const base=parseFloat(it.Item_Amt||0);
+  if(_mPre!=='s') return base;   // 매출 작성 중일 때만 거래처 단가적용
+  const d=(sDrafts||[]).find(x=>x.id===_mDraftId);
+  const c=(typeof CLIENTS!=='undefined'?CLIENTS:[]).find(x=>String(x.Client_ID)===String(d?.clientId||''));
+  const pt=String(c?.Client_PriceType||'').trim();
+  const k={A:'Item_Amt1',B:'Item_Amt2',C:'Item_Amt3',D:'Item_Amt4',E:'Item_Amt5'}[pt];
+  return k?Math.max(0,base+(parseFloat(it[k])||0)):base;
+}
 function renderItems() {
   const q=($('it-q')?.value||'').trim().toLowerCase();
   const list=q?ITEMS.filter(i=>(i.Item_Name||'').toLowerCase().includes(q)||String(i.Item_Code||'').includes(q)):ITEMS;
@@ -557,7 +567,7 @@ function renderItems() {
         <div class="lc-sub">${i.Item_Size1||i.Item_Size||''} ${i._vatType||''}</div>
       </div>
       <div class="lc-right">
-        <div class="lc-price">${fmt(i.Item_Amt1||i.Item_Amt||0)}원</div>
+        <div class="lc-price">${fmt(_mPrice(i))}원</div>
         <div class="lc-code">${i.Item_Code}</div>
       </div>
     </div>`).join('');
@@ -596,7 +606,7 @@ function filterModal() {
     <div class="mi" onclick="selectModal(${i})">
       <div><div class="mi-name">${x.Item_Name||''}</div>
       <div class="mi-sub">${x.Item_Code} ${x.Item_Size1||x.Item_Size||''}</div></div>
-      <div class="mi-price">${fmt(x.Item_Amt1||x.Item_Amt||0)}원</div>
+      <div class="mi-price">${fmt(_mPrice(x))}원</div>
     </div>`:
     `<div class="mi" onclick="selectModal(${i})">
       <div><div class="mi-name">${x.Client_Name||''}</div>
@@ -619,7 +629,7 @@ function selectModal(idx) {
   }
   // 품목 선택
   if(_mLineIdx>=0&&_mLineIdx<d.lines.length) {
-    const price=parseFloat(item.Item_Amt1||item.Item_Amt||0);
+    const price=_mPrice(item);
     d.lines[_mLineIdx]={
       code:String(item.Item_Code), name:item.Item_Name||'',
       vatType:item._vatType||'', qty:0, price:price, amt:0
