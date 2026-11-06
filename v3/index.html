@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.07 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.08 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2270,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.07 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.08 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.07</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.08</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3101,6 +3101,13 @@
             function bringToFront(win) {
                 _clearAllPopups();
                 const wasHidden = win.classList.contains('window-hidden');
+                // 다른 창에서 돌아온 경우에만 입력칸으로 (이미 맨 앞이면 사용자가 누른 곳 그대로)
+                const isSales = /^sales-entry-window/.test(win.id);
+                const cameBack = isSales && (wasHidden || win.classList.contains('minimized') || Number(win.style.zIndex) !== topZIndex);
+                if (cameBack) setTimeout(() => window._focusSalesWin?.(win), 30);
+                // 다른 창의 칸에 커서가 남아 있으면 키보드 입력이 보이지 않는 창으로 들어감 → 빼기
+                const _ae = document.activeElement;
+                if (_ae && _ae !== document.body && !win.contains(_ae) && _ae.closest('.child-window')) _ae.blur();
 
                 // 닫혀있던 창이 새로 열릴 때 → 다른 열린 창 자동 최소화
                 if (wasHidden) {
@@ -4629,7 +4636,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const confirmMsg = isYear
                         ? `${yrFrom}년 ~ ${yrTo}년 거래 데이터를 교체합니다.\n(기초자료는 전체 교체)\n계속하시겠습니까?`
                         : '기존 DB 데이터가 완전히 교체됩니다.\n계속하시겠습니까?';
-                    if (!confirm(confirmMsg)) return;
+                    if (!await window._bizConfirm(confirmMsg)) return;
 
                     const progressEl  = document.getElementById('import-mdb-progress');
                     const progressTxt = document.getElementById('import-mdb-progress-text');
@@ -4786,7 +4793,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 // 압축 및 복구
                 document.getElementById('db-compact-btn')?.addEventListener('click', async () => {
                     const btn = document.getElementById('db-compact-btn');
-                    if (!confirm('압축 및 복구를 실행합니다.\n실행 전 현재 DB가 자동 백업됩니다.\n계속할까요?')) return;
+                    if (!await window._bizConfirm('압축 및 복구를 실행합니다.\n실행 전 현재 DB가 자동 백업됩니다.\n계속할까요?')) return;
                     btn.disabled = true; btn.textContent = '처리 중...';
                     try {
                         const r = await fetch('/api/db/compact', { method: 'POST' });
@@ -4825,7 +4832,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 }
 
                 window.saDbRestoreFile = async (fname) => {
-                    if (!confirm(`"${fname}" 으로 복원합니다.\n현재 데이터가 삭제되고 해당 시점으로 돌아갑니다.\n계속할까요?`)) return;
+                    if (!await window._bizConfirm(`"${fname}" 으로 복원합니다.\n현재 데이터가 삭제되고 해당 시점으로 돌아갑니다.\n계속할까요?`)) return;
                     const msgEl = document.getElementById('sa-db-restore-msg');
                     try {
                         const r = await fetch('/api/db/restore', {
@@ -5368,7 +5375,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 $('sbank-del-btn')?.addEventListener('click', async () => {
                     const code = $('sbank-code')?.value.trim();
                     if (!code) { showMsg('삭제할 통장을 선택하세요.', true); return; }
-                    if (!confirm(`통장코드 ${code}을(를) 삭제하시겠습니까?`)) return;
+                    if (!await window._bizConfirm(`통장코드 ${code}을(를) 삭제하시겠습니까?`)) return;
                     try {
                         const r = await fetch(`${API_BANK}/${encodeURIComponent(code)}`, { method: 'DELETE' });
                         const j = await r.json();
@@ -5718,7 +5725,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 async function smsDel() {
                     if (!_smsSelId) { alert('삭제할 행을 먼저 클릭하세요'); return; }
                     const row = _smsContacts.find(c => c.id === _smsSelId);
-                    if (!confirm(`"${row?.name || row?.phone}" 연락처를 삭제하시겠습니까?`)) return;
+                    if (!await window._bizConfirm(`"${row?.name || row?.phone}" 연락처를 삭제하시겠습니까?`)) return;
                     try {
                         const d = await fetch(`/api/sms/contacts/${_smsSelId}`, { method:'DELETE' }).then(r => r.json());
                         if (!d.ok) { alert('삭제 실패: ' + d.error); return; }
@@ -5729,7 +5736,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                 // 거래처 가져오기 (Client DB → SMS 연락처에 없는 것만 추가)
                 async function smsImportClients() {
-                    if (!confirm('거래처 목록에서 핸드폰번호가 있는 거래처를 SMS 연락처로 가져옵니다.\n중복(번호 기준)은 건너뜁니다.')) return;
+                    if (!await window._bizConfirm('거래처 목록에서 핸드폰번호가 있는 거래처를 SMS 연락처로 가져옵니다.\n중복(번호 기준)은 건너뜁니다.')) return;
                     try {
                         const d = await fetch('/api/clients').then(r => r.json());
                         const clients = (d.data || []).filter(c => (c.Client_HTel || '').trim());
@@ -5761,7 +5768,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         return { group: cols[0]||'', name: cols[1]||'', phone: cols[2]||'', memo: cols[3]||'' };
                     }).filter(r => r.name || r.phone);
                     if (!rows.length) { alert('업로드할 데이터가 없습니다 (형식: 그룹명,이름,핸드폰,메모)'); return; }
-                    if (!confirm(`${rows.length}건을 추가하시겠습니까?`)) return;
+                    if (!await window._bizConfirm(`${rows.length}건을 추가하시겠습니까?`)) return;
                     for (const r of rows) {
                         await fetch('/api/sms/contacts', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(r) });
                     }
@@ -6247,7 +6254,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     if (!_selNo) { alert('삭제할 지출을 고르세요.\n(위 목록에서 클릭하거나, 거래일자 옆 ◀ ▶로 불러오세요)'); return; }
                     const _r = _expenses[_selIdx] || {};
                     const _amt = (parseFloat(_r.iAmt_Amt||0) + parseFloat(_r.iAmt_cAmt||0) + parseFloat(_r.iAmt_Bank||0)).toLocaleString('ko-KR');
-                    if (!confirm(`${_selIdx + 1}번 지출을 삭제할까요?\n\n${_r.iAmt_ItemName || '(계정과목 없음)'} / ${_r.iAmt_Bigo || ''} / ${_amt}원`)) return;
+                    if (!await window._bizConfirm(`${_selIdx + 1}번 지출을 삭제할까요?\n\n${_r.iAmt_ItemName || '(계정과목 없음)'} / ${_r.iAmt_Bigo || ''} / ${_amt}원`)) return;
                     try {
                         await window.api.expense.delete(_selNo);
                         _expClearForm();
@@ -6400,7 +6407,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     if (!_selNo && _byDate(_d)) _selNo = _byDate(_d).CA_No;
                     if (!_selNo) { _showMsg(`${_d || '그 날짜'}에 잡은 시재금이 없습니다.`, true); return; }
                     const _r = _cashList.find(r => r.CA_No === _selNo) || {};
-                    if (!confirm(`${_r.CA_Date || ''} 시재금 ${_fmtNum(_r.CA_Base)}원을 삭제할까요?`)) return;
+                    if (!await window._bizConfirm(`${_r.CA_Date || ''} 시재금 ${_fmtNum(_r.CA_Base)}원을 삭제할까요?`)) return;
                     try {
                         await window.api.cash.remove(_selNo);
                         _showMsg('삭제되었습니다.');
@@ -6758,7 +6765,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     } catch(e) { statusEl.textContent = '조회 실패'; statusEl.style.color = '#999'; }
 
                     resetBtn.addEventListener('click', async () => {
-                        if (!confirm('PC 인증을 초기화합니다.\n\n초기화 후 다음에 이 프로그램을 실행하는 PC가 자동으로 새 인증 PC로 등록됩니다.\n\n계속하시겠습니까?')) return;
+                        if (!await window._bizConfirm('PC 인증을 초기화합니다.\n\n초기화 후 다음에 이 프로그램을 실행하는 PC가 자동으로 새 인증 PC로 등록됩니다.\n\n계속하시겠습니까?')) return;
                         try {
                             const licR = await fetch('/api/license', { signal: AbortSignal.timeout(3000) });
                             const licJ = await licR.json();
@@ -6794,7 +6801,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const p = parseInt(inp?.value);
                 if (!p || p < 8000 || p > 9999) { alert('포트 번호는 8000~9999 사이 숫자를 입력하세요.'); return; }
                 if (!window.electronAPI?.setPort) { alert('Electron 환경에서만 사용 가능합니다.'); return; }
-                if (!confirm(`포트를 ${p}로 변경하고 앱을 재시작합니다. 계속할까요?`)) return;
+                if (!await window._bizConfirm(`포트를 ${p}로 변경하고 앱을 재시작합니다. 계속할까요?`)) return;
                 const r = await window.electronAPI.setPort(p);
                 if (!r?.ok) alert('포트 변경 실패: ' + (r?.error || '알 수 없는 오류'));
             });
@@ -6811,7 +6818,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 } catch(e) { if(msg) { msg.textContent='저장 실패'; msg.style.color='#cc0000'; } }
             });
             document.getElementById('sa-local-expiry-clear')?.addEventListener('click', async () => {
-                if (!confirm('만료일을 삭제하면 만료일 제한이 없어집니다. 계속할까요?')) return;
+                if (!await window._bizConfirm('만료일을 삭제하면 만료일 제한이 없어집니다. 계속할까요?')) return;
                 const msg = document.getElementById('sa-local-expiry-msg');
                 try {
                     await fetch('/api/license', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ expiry: '' }) });
@@ -6863,7 +6870,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const bizno = btn.dataset.bizno;
                 if (!bizno) return;
                 const cName = btn.closest('tr')?.querySelector('td:nth-child(3)')?.textContent || bizno;
-                if (!confirm(`[${cName}]\nPC 인증을 원격 초기화합니다.\n\n고객이 다음 로그인 시 현재 PC가 자동 등록됩니다.\n\n계속하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`[${cName}]\nPC 인증을 원격 초기화합니다.\n\n고객이 다음 로그인 시 현재 PC가 자동 등록됩니다.\n\n계속하시겠습니까?`)) return;
                 btn.disabled = true; btn.textContent = '처리중...';
                 try {
                     const r = await fetch(`${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`, {
@@ -7089,10 +7096,10 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             });
             document.getElementById('sa-cl-extend1-btn')?.addEventListener('click', () => saExtendExpiry(1));
             document.getElementById('sa-cl-extend12-btn')?.addEventListener('click', () => saExtendExpiry(12));
-            document.getElementById('sa-cl-block-btn')?.addEventListener('click', () => {
+            document.getElementById('sa-cl-block-btn')?.addEventListener('click', async () => {
                 const ids = saGetCheckedIds();
                 if (ids.length === 0) { alert('차단할 고객사를 선택하세요.'); return; }
-                if (!confirm(`${ids.length}개 고객사를 차단하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`${ids.length}개 고객사를 차단하시겠습니까?`)) return;
                 let list = saGetCustomers();
                 list = list.map(c => ids.includes(c.id) ? {...c, blocked: true} : c);
                 saSaveCustomers(list);
@@ -7106,10 +7113,10 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 saSaveCustomers(list);
                 saLoadClientGrid(); saRefreshDashboard();
             });
-            document.getElementById('sa-cl-del-btn')?.addEventListener('click', () => {
+            document.getElementById('sa-cl-del-btn')?.addEventListener('click', async () => {
                 const ids = saGetCheckedIds();
                 if (ids.length === 0) { alert('삭제할 고객사를 선택하세요.'); return; }
-                if (!confirm(`${ids.length}개 고객사를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`)) return;
+                if (!await window._bizConfirm(`${ids.length}개 고객사를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`)) return;
                 let list = saGetCustomers().filter(c => !ids.includes(c.id));
                 saSaveCustomers(list);
                 saLoadClientGrid(); saRefreshDashboard();
@@ -7260,8 +7267,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const win = document.getElementById('sa-server-window');
                 if (win) { bringToFront(win); }
             });
-            document.getElementById('sa-open-db-backup-sa')?.addEventListener('click', () => {
-                if (confirm('데이터베이스를 즉시 백업하시겠습니까?')) {
+            document.getElementById('sa-open-db-backup-sa')?.addEventListener('click', async () => {
+                if (await window._bizConfirm('데이터베이스를 즉시 백업하시겠습니까?')) {
                     fetch(window.location.origin + '/api/backup', { method: 'POST' })
                         .then(r => r.json())
                         .then(j => alert(j.ok ? '✅ ' + j.message : '❌ 백업 실패: ' + j.error))
@@ -7283,7 +7290,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 btn.style.display = '';
                 if (msgEl) { msgEl.style.display='none'; msgEl.textContent=''; }
                 btn.onclick = async () => {
-                    if (!confirm(`"${file.name}" 파일로 현재 DB를 복원합니다.\n현재 데이터가 덮어씌워집니다. 계속할까요?`)) return;
+                    if (!await window._bizConfirm(`"${file.name}" 파일로 현재 DB를 복원합니다.\n현재 데이터가 덮어씌워집니다. 계속할까요?`)) return;
                     btn.disabled = true; btn.textContent = '복원 중...';
                     const fd = new FormData(); fd.append('file', file);
                     try {
@@ -7996,7 +8003,12 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq, qty});
                 });
                 // 맨 밑 총합계 (파란색): 총 수량·총금액
-                const _gt = { qty: 0, total: 0, received: 0, cash: 0, bank: 0, card: 0 };
+                // 총잔액 = 거래처마다 마지막 잔액의 합 (매입 조회=줄 돈, 매출 조회=받을 돈, 전체=받을 돈-줄 돈)
+                const _lastBal = {};
+                _proc.forEach(p => { _lastBal[String(p.r.Ivn_Client || '')] = p.curBal; });
+                const _gt = { qty: 0, total: 0, received: 0, cash: 0, bank: 0, card: 0,
+                              bal: gubun ? Object.values(_lastBal).reduce((a, b) => a + b, 0)
+                                         : Object.keys(_lastBal).reduce((a, k) => a + (balMap[k] || 0), 0) };
                 _proc.forEach(p => { _gt.qty += p.qty; _gt.total += _cpsAmt(p.amtSign, p.total);
                     _gt.received += p.received; _gt.cash += p.cash; _gt.bank += p.bank; _gt.card += p.card; });
                 window._cpsGrand = _gt;
@@ -8122,7 +8134,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 }
 
                 // 엑셀: 맨 밑 총합계 줄 추가
-                finalExcelRows = [...finalExcelRows, {t:'s', d:['', '', '총합계', '', _gt.qty || '', '', _gt.total, '', '', _gt.received, _gt.cash, _gt.card, _gt.bank, '']}];
+                finalExcelRows = [...finalExcelRows, {t:'s', d:['', '', '총합계', '', _gt.qty || '', '', _gt.total, '', '', _gt.received, _gt.cash, _gt.card, _gt.bank, _gt.bal]}];
                 window._cpsExcelRows = finalExcelRows;
                 window._cpsAllProc   = finalProc;
                 window._cpsLevel3    = level;
@@ -8334,7 +8346,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             cell(fmt(G.total), true, B) + cell('', true, B) + cell('', true, B) +
                             cell(fmt(G.total), true, B) +
                             cell(fmt(G.received), true, B) + cell(fmt(G.cash), true, B) + cell(fmt(G.bank), true, B) + cell(fmt(G.card), true, B) +
-                            cell('', true, B) +
+                            cell(fmt(G.bal), true, B) +
                             `</tr>`
                         );
                     }
@@ -10173,7 +10185,7 @@ function doSaveHtml(){
             if (!from || !to) { alert('거래일자를 먼저 입력하세요.'); return; }
             const taxSel = document.getElementById('cps2-tax')?.value || '';
             const typeLabel = taxSel === '1' ? '세금계산서' : taxSel === '2' ? '계산서' : '세금계산서/계산서(입력한 대로 나눠서)';
-            if (!confirm(`선택된 ${checked.length}개 거래처의 ${typeLabel}를 저장하겠습니까?\n기간: ${from} ~ ${to}`)) return;
+            if (!await window._bizConfirm(`선택된 ${checked.length}개 거래처의 ${typeLabel}를 저장하겠습니까?\n기간: ${from} ~ ${to}`)) return;
 
             // 우리 회사 정보 로드
             let myInfo = {};
@@ -10806,7 +10818,7 @@ function doSaveHtml(){
                 btn('tax-btn-delete')?.addEventListener('click', async () => {
                     const cbs = [...document.querySelectorAll('.tax-row-cb:checked')];
                     if (!cbs.length) { alert('삭제할 항목을 체크하세요.'); return; }
-                    if (!confirm(`${cbs.length}건을 삭제하겠습니까?`)) return;
+                    if (!await window._bizConfirm(`${cbs.length}건을 삭제하겠습니까?`)) return;
                     for (const cb of cbs) {
                         await fetch(`/api/tax/${cb.dataset.ticket}`, {method:'DELETE'}).catch(()=>{});
                     }
@@ -10815,7 +10827,7 @@ function doSaveHtml(){
                 btn('tax-btn-del-checked')?.addEventListener('click', async () => {
                     const cbs = [...document.querySelectorAll('.tax-row-cb:checked')];
                     if (!cbs.length) { alert('삭제할 항목을 체크하세요.'); return; }
-                    if (!confirm(`${cbs.length}건을 삭제하겠습니까?`)) return;
+                    if (!await window._bizConfirm(`${cbs.length}건을 삭제하겠습니까?`)) return;
                     for (const cb of cbs) {
                         await fetch(`/api/tax/${cb.dataset.ticket}`, {method:'DELETE'}).catch(()=>{});
                     }
@@ -12158,7 +12170,7 @@ function doSaveHtml(){
                 }).then(r => r.json());
                 if (!j.ok) {
                     const msg = `⚠ [${c.Client_Name}] 거래처를 현재 다른 사용자(${j.locked_by})가 편집 중입니다.\n(잠금 시각: ${j.since})\n\n그래도 열겠습니까?`;
-                    if (!confirm(msg)) return false;
+                    if (!await window._bizConfirm(msg)) return false;
                     // 강제 획득
                     await fetch('/api/lock', {
                         method: 'POST',
@@ -12461,6 +12473,7 @@ function doSaveHtml(){
                     await window._bizAlert('수정되었습니다.');
                     clearForm();
                     _balCache = null; window.runCustRegSearch();
+                    document.getElementById('cust-name')?.focus();
                 }
             } catch (e) {
                 console.error('저장 오류:', e);
@@ -12492,7 +12505,7 @@ function doSaveHtml(){
             if (invenCnt > 0) {
                 // 총괄관리자: 거래내역 포함 삭제 확인
                 const msg = `[${name}] 거래처에 거래내역이 ${invenCnt}건 있습니다.\n거래내역도 함께 삭제하시겠습니까?\n\n※ 삭제된 거래내역은 삭제내역 조회에서 확인할 수 있습니다.`;
-                if (!confirm(msg)) return;
+                if (!await window._bizConfirm(msg)) return;
                 try {
                     await window.api.clients.remove(selectedId, false, true);
                     alert('삭제되었습니다 (거래내역 포함).');
@@ -12500,7 +12513,7 @@ function doSaveHtml(){
                     _balCache = null; window.runCustRegSearch();
                 } catch (e2) { alert('삭제 오류: ' + e2.message); }
             } else {
-                if (!confirm(`[${name}] 거래처를 삭제하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`[${name}] 거래처를 삭제하시겠습니까?`)) return;
                 try {
                     await window.api.clients.remove(selectedId);
                     alert('삭제되었습니다.');
@@ -12654,7 +12667,7 @@ function doSaveHtml(){
             async function deleteSelectedClients() {
                 const checked = [...document.querySelectorAll('#customer-grid-body .cust-row-chk:checked')];
                 if (!checked.length) { alert('삭제할 거래처를 선택하세요.'); return; }
-                if (!confirm(`선택한 ${checked.length}개 거래처를 삭제하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`선택한 ${checked.length}개 거래처를 삭제하시겠습니까?`)) return;
 
                 const ids = checked.map(cb => cb.dataset.id);
                 let ok = 0, skip = [], errors = [];
@@ -12809,7 +12822,7 @@ function doSaveHtml(){
                 if (!clientId) return;
                 const thumb = document.getElementById('biz-img-thumb');
                 if (!thumb || thumb.style.display === 'none') { alert('등록된 이미지가 없습니다.'); return; }
-                if (!confirm('사업자등록증 이미지를 삭제하시겠습니까?')) return;
+                if (!await window._bizConfirm('사업자등록증 이미지를 삭제하시겠습니까?')) return;
                 try {
                     const res = await fetch(`${window.location.origin}/api/clients/${clientId}/biz-image`, { method: 'DELETE' });
                     const j = await res.json();
@@ -13071,6 +13084,7 @@ function doSaveHtml(){
                     clearItemForm();
                     currentMode = 'view';
                     await loadItems();
+                    document.getElementById('prod-name')?.focus();
                 }
                 // 전역 캐시 초기화 + 매출등록 allItems 갱신
                 window._bizCache.items = null;
@@ -13097,7 +13111,7 @@ function doSaveHtml(){
             }
             if (invenCnt > 0) {
                 const msg = `[${name}] 제품에 거래내역이 ${invenCnt}건 있습니다.\n제품만 삭제하시겠습니까?\n\n※ 기존 거래내역은 유지됩니다.`;
-                if (!confirm(msg)) return;
+                if (!await window._bizConfirm(msg)) return;
                 try {
                     await window.api.items.remove(selectedCode, true);
                     alert('삭제되었습니다 (거래내역 유지).');
@@ -13105,7 +13119,7 @@ function doSaveHtml(){
                     await loadItems();
                 } catch (e2) { alert('삭제 오류: ' + e2.message); }
             } else {
-                if (!confirm(`[${name}] 제품을 삭제하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`[${name}] 제품을 삭제하시겠습니까?`)) return;
                 try {
                     await window.api.items.remove(selectedCode);
                     alert('삭제되었습니다.');
@@ -13536,7 +13550,7 @@ function doSaveHtml(){
             if (!state.selRow) { alert('삭제할 행을 클릭하여 선택하세요.'); return; }
             if (currentTab !== 'stock') {
                 if (!state.selRow.amount) { alert('설정된 잔액이 없습니다 (이미 0).'); return; }
-                if (!confirm(`[${state.selRow.name}] 기초잔액을 0으로 초기화하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`[${state.selRow.name}] 기초잔액을 0으로 초기화하시겠습니까?`)) return;
                 try {
                     const res = await fetch(`${API}/clients/${state.selRow.code}`, {
                         method: 'PUT',
@@ -13551,7 +13565,7 @@ function doSaveHtml(){
                 } catch(e) { alert('서버 연결 오류.'); }
             } else {
                 if (!state.selRow.Ivn_Ticket) { alert('저장된 데이터가 없습니다 (이미 0).'); return; }
-                if (!confirm(`[${state.selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
+                if (!await window._bizConfirm(`[${state.selRow.name}] 초기값을 삭제(0으로 초기화)하시겠습니까?`)) return;
                 try {
                     const res = await fetch(`${API}/init/${state.selRow.Ivn_Ticket}`, { method: 'DELETE' }).then(r => r.json());
                     if (!res.ok) { alert('삭제 오류: ' + res.error); return; }
@@ -14687,7 +14701,7 @@ function doSaveHtml(){
             }
 
             const name = row.Gubun_Name || `코드 ${row.Gubun_Code}`;
-            if (!confirm(`"${name}"을(를) 삭제하시겠습니까?`)) return;
+            if (!await window._bizConfirm(`"${name}"을(를) 삭제하시겠습니까?`)) return;
             try {
                 const r = await fetch(`${API}/categories/${row.Gubun_Code}?group=${encodeURIComponent(currentGroupCode)}`, { method: 'DELETE' });
                 const j = await r.json();
@@ -14717,7 +14731,7 @@ function doSaveHtml(){
                 if (chk && chk.checked && row) toDelete.push(row);
             });
             if (toDelete.length === 0) { showMsg('삭제할 항목을 체크하세요.', true); return; }
-            if (!confirm(`${toDelete.length}건을 삭제하시겠습니까?`)) return;
+            if (!await window._bizConfirm(`${toDelete.length}건을 삭제하시겠습니까?`)) return;
             let ok = 0, errCnt = 0;
             for (const row of toDelete) {
                 if (row._isNew) {
@@ -14791,7 +14805,7 @@ function doSaveHtml(){
         // ── 그룹 삭제 ────────────────────────────────────────
         async function deleteGroup() {
             if (!currentGroupCode || !currentGroupName) { showMsg('왼쪽에서 삭제할 그룹을 선택하세요.', true); return; }
-            if (!confirm(`"${currentGroupName}" 그룹 전체(하위 항목 포함)를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+            if (!await window._bizConfirm(`"${currentGroupName}" 그룹 전체(하위 항목 포함)를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
             try {
                 const r = await fetch(`${API}/categories/group/${currentGroupCode}`, { method: 'DELETE' });
                 const j = await r.json();
@@ -14854,6 +14868,19 @@ function doSaveHtml(){
     <script>
     // 과세구분 기본값 저장 + 열려 있는 빈 매출등록 창에 반영
     window._bizTaxDefault = '2';
+    // 다른 창에 갔다가 매출등록으로 돌아오면 작업하던 입력칸으로 (없으면 거래처칸)
+    window._focusSalesWin = function(win) {
+        if (!win || win.classList.contains('window-hidden') || win.classList.contains('minimized')) return;
+        if (document.getElementById('biz-alert-overlay')?.style.display === 'flex') return;   // 알림창이 떠 있으면 그대로
+        const a = document.activeElement;
+        if (a && a !== document.body && win.contains(a) && a.tagName !== 'BUTTON') return;      // 이미 이 창의 입력칸에 있음
+        const last = win._lastInput;
+        const el = (last && last.isConnected && last.offsetParent !== null && !last.disabled && !last.readOnly)
+            ? last : win.querySelector('[id^="ivn-client-name"]');
+        if (!el) return;
+        el.focus();
+        try { el.select(); } catch(_) {}
+    };
     window._bizSetTaxDefault = function(v) {
         window._bizTaxDefault = String(v) === '1' ? '1' : '2';
         Object.values(window._salesTaxApply || {}).forEach(f => f());
@@ -15094,6 +15121,10 @@ function doSaveHtml(){
             if (r) r.checked = true;
         }
         // 설정이 나중에 읽혀도 비어 있는 입력 화면에는 바로 반영 (작성 중인 전표는 건드리지 않음)
+        $win?.addEventListener('focusin', e => {
+            const t = e.target;
+            if ((t.tagName === 'INPUT' && t.type !== 'radio' && t.type !== 'checkbox' && !t.readOnly) || t.tagName === 'TEXTAREA') $win._lastInput = t;
+        });
         (window._salesTaxApply = window._salesTaxApply || {})[sfx] = () => {
             const busy = currentClientId || [...$qryAll('.g-code')].some(el => el.value.trim());
             if (!busy) _setDefaultTax();
@@ -20640,7 +20671,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         });
 
         async function callDel(endpoint, body, confirmMsg) {
-            if (!confirm(confirmMsg + '\n\n계속 진행하시겠습니까?')) return;
+            if (!await window._bizConfirm(confirmMsg + '\n\n계속 진행하시겠습니까?')) return;
             try {
                 const r = await fetch(API + endpoint, {
                     method: 'DELETE',
@@ -21296,6 +21327,16 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         }
     };
 
+    // 알림창을 닫으면 커서가 어디에도 없게 되어 입력이 안 먹힘 → 있던 입력칸으로 돌려줌
+    function _bizRefocus(prev) {
+        setTimeout(() => {
+            const a = document.activeElement;
+            const ov = document.getElementById('biz-alert-overlay');
+            if (a && a !== document.body && !ov?.contains(a)) return;   // 호출한 쪽이 이미 다른 칸으로 보냄
+            if (prev && /^(INPUT|TEXTAREA|SELECT)$/.test(prev.tagName) && prev.isConnected && prev.offsetParent !== null && !prev.disabled) prev.focus();
+        }, 0);
+    }
+
     window._bizAlert = function(msg) {
         _bizDismiss(); // 이전 열린 알림 강제 닫기
         return new Promise(resolve => {
@@ -21305,11 +21346,13 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             const cancelBtn = document.getElementById('biz-alert-cancel');
             if (cancelBtn) cancelBtn.style.display = 'none';
             msgEl.textContent = msg;
+            const prev = document.activeElement;
             ov.style.display  = 'flex';
             const close = () => {
                 ov.style.display = 'none';
                 okBtn.removeEventListener('click', close);
                 _alertCleanup = null;
+                _bizRefocus(prev);
                 resolve();
             };
             _alertCleanup = close;
@@ -21326,6 +21369,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             const cancelBtn = document.getElementById('biz-alert-cancel');
             if (cancelBtn) cancelBtn.style.display = '';
             msgEl.textContent = msg;
+            const prev = document.activeElement;
             ov.style.display  = 'flex';
             const onOk     = () => { cleanup(); resolve(true); };
             const onCancel = () => { cleanup(); resolve(false); };
@@ -21334,12 +21378,19 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 okBtn.removeEventListener('click', onOk);
                 if (cancelBtn) cancelBtn.removeEventListener('click', onCancel);
                 _alertCleanup = null;
+                _bizRefocus(prev);
             };
             _alertCleanup = () => { cleanup(); resolve(false); }; // ESC/외부클릭 = 취소
             okBtn.addEventListener('click', onOk);
             if (cancelBtn) cancelBtn.addEventListener('click', onCancel);
             setTimeout(() => okBtn.focus(), 30);
         });
+    };
+    // Windows 기본 알림창은 닫힌 뒤 Electron 입력이 먹통이 됨 → 프로그램 알림창으로 (3.2.94와 같은 원인)
+    const _nativeAlert = window.alert.bind(window);
+    window.alert = function(msg) {
+        if (document.getElementById('biz-alert-overlay')) window._bizAlert(String(msg ?? ''));
+        else _nativeAlert(msg);
     };
 })();
 </script>
