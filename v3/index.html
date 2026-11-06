@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.94 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.2.95 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -380,7 +380,8 @@
                                 <button id="sales-bal-adj-btn" class="ex-btn-legacy" style="display:none;background:#fff0ee;color:#8b0000;border-color:#c66"><i data-lucide="dollar-sign" class="btn-icon"></i>잔액수정</button>
                                 <button id="sales-new-btn" class="ex-btn-legacy"><i data-lucide="plus" class="btn-icon"></i>신규(F5)</button>
                                 <button id="sales-save-btn" class="ex-btn-legacy"><i data-lucide="save" class="btn-icon"></i>저장(F8)</button>
-                                <button id="sales-del-btn" class="ex-btn-legacy" style="margin-left:30px;color:#c00"><i data-lucide="trash-2" class="btn-icon"></i>삭제</button>
+                                <button id="sales-date-move-btn" class="ex-btn-legacy" style="margin-left:30px" title="저장된 전표를 불러온 뒤 누르면 그 전표의 거래일자를 바꿉니다"><i data-lucide="calendar" class="btn-icon"></i>날짜변경</button>
+                                <button id="sales-del-btn" class="ex-btn-legacy" style="margin-left:6px;color:#c00"><i data-lucide="trash-2" class="btn-icon"></i>삭제</button>
                             </div>
                         </div>
 
@@ -2264,7 +2265,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.94 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.2.95 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2842,7 +2843,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.94</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.2.95</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -17236,6 +17237,59 @@ function doSaveHtml(){
             }
         }
 
+        // ── 저장된 전표의 거래일자 변경 ───────────────────────
+        // 거래일자 칸을 바꾸면 그 날짜로 이동(화면 비움)이라, 전표를 옮기는 건 [날짜변경] 버튼으로 따로 함
+        function _askMoveDate(fromDate, msgHtml) {
+            return new Promise(resolve => {
+                const d = new Date(fromDate + 'T00:00:00');
+                d.setDate(d.getDate() - 1);   // 기본값 = 전날
+                const def = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                const ov = document.createElement('div');
+                ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:99999;display:flex;align-items:center;justify-content:center';
+                ov.innerHTML = `<div style="background:#fff;border:1px solid #666;box-shadow:0 4px 16px rgba(0,0,0,.4);padding:16px 20px;min-width:320px;font-size:13px;line-height:1.7">
+                    <b style="font-size:14px">전표 날짜 변경</b><div style="margin:8px 0">${msgHtml}</div>
+                    <div>옮길 날짜 <input type="date" class="mv-date" value="${def}" style="font-size:14px;padding:2px 4px"></div>
+                    <div style="text-align:right;margin-top:12px"><button class="ex-btn-legacy mv-ok" style="min-width:64px">변경</button>
+                    <button class="ex-btn-legacy mv-cancel" style="min-width:64px;margin-left:6px">취소</button></div></div>`;
+                document.body.appendChild(ov);
+                const inp = ov.querySelector('.mv-date');
+                const done = v => { ov.remove(); resolve(v); };
+                ov.querySelector('.mv-ok').addEventListener('click', () => done(inp.value));
+                ov.querySelector('.mv-cancel').addEventListener('click', () => done(''));
+                ov.addEventListener('keydown', e => {
+                    e.stopPropagation();
+                    if (e.key === 'Enter') { e.preventDefault(); done(inp.value); }
+                    if (e.key === 'Escape') { e.preventDefault(); done(''); }
+                });
+                setTimeout(() => inp.focus(), 30);
+            });
+        }
+        async function moveEntryDate() {
+            if (!isExistingEntry || !currentTicket) {
+                await window._bizAlert('저장된 전표를 먼저 불러오세요.\n(작성순번 ◀ ▶ 또는 오른쪽 거래내역 클릭)');
+                return;
+            }
+            const fromDate = String($id('ivn-date')?.value || '').replace(/(\d{4})-?(\d{2})-?(\d{2})/, '$1-$2-$3');
+            const nm = ($id('ivn-client-name')?.value || '').replace(/[<>&]/g, '');
+            const toDate = await _askMoveDate(fromDate,
+                `거래처 <b>${nm}</b> / 지금 날짜 <b>${fromDate}</b><br><span style="color:#c00">날짜만 바뀝니다. 고친 내용이 있으면 먼저 저장하세요.</span>`);
+            if (!toDate) return;
+            if (toDate === fromDate) { await window._bizAlert('지금 날짜와 같습니다.'); return; }
+            try {
+                const r = await fetch(`${API}/inven/${currentTicket}/move-date`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ from: fromDate, to: toDate })
+                });
+                const j = await r.json();
+                if (!j.ok) { await window._bizAlert('날짜 변경 실패: ' + (j.error || '')); return; }
+                await newEntry();
+                window._bizToast?.(`전표를 ${toDate} 로 옮겼습니다`, 3000);
+                _focusClientName();
+            } catch(e) {
+                await window._bizAlert('서버 연결 실패: ' + e.message);
+            }
+        }
+
         // ── 처리구분 변경 ─────────────────────────────────────
         function onGubunChange(keepG2) {
             const v  = $id('ivn-gubun')?.value;
@@ -17499,6 +17553,7 @@ function doSaveHtml(){
             // 저장/삭제/신규
             $id('sales-save-btn')?.addEventListener('click', saveEntry);
             $id('sales-del-btn')?.addEventListener('click', deleteEntry);
+            $id('sales-date-move-btn')?.addEventListener('click', moveEntryDate);
             $id('sales-new-btn')?.addEventListener('click', async () => {
                 await newEntry();
                 $id('ivn-client-name')?.focus();
