@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.02 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.03 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1295,6 +1295,11 @@
                                         <label><input type="radio" name="env-sf" id="env-sf-2" value="2"> 보관용 2단</label>
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
+                                        <legend style="font-size:10px;padding:0 3px">[ 과세구분 기본값 ]</legend>
+                                        <label style="margin-right:10px"><input type="radio" name="env-taxdef" id="env-taxdef-1" value="1"> 세금계산서</label>
+                                        <label><input type="radio" name="env-taxdef" id="env-taxdef-2" value="2" checked> 계산서</label>
+                                    </fieldset>
+                                    <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">[ 금액에서 엔터키 입력시 ]</legend>
                                         <div style="display:grid;grid-template-columns:1fr 1fr;row-gap:1px">
                                             <label><input type="radio" name="env-ea" checked> 순차적으로</label>
@@ -2265,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.02 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.03 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2843,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.02</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.03</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -5035,6 +5040,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     if (s.trunc_mode !== undefined) window._bizTruncMode = s.trunc_mode || 'none';
                                     if (s.trunc_unit  !== undefined) window._bizTruncUnit = s.trunc_unit || 0;
                                     if (s.decimal_places !== undefined) window._bizDecimals = Number(s.decimal_places);
+                                    window._bizSetTaxDefault?.(s.sales_tax_default);
                                     if (s.sales_bal_btn) {   // 매출등록 [잔액수정] 버튼 보임/숨김 (요청 65)
                                         window._pendingSalesBal = s.sales_bal_btn;
                                         window._applySalesBalSetting?.(s.sales_bal_btn);
@@ -5145,6 +5151,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         if (s.trunc_mode !== undefined) window._bizTruncMode = s.trunc_mode || 'none';
                         if (s.trunc_unit  !== undefined) window._bizTruncUnit = s.trunc_unit || 0;
                         if (s.decimal_places !== undefined) window._bizDecimals = Number(s.decimal_places);
+                        window._bizSetTaxDefault?.(s.sales_tax_default);
                         if (s.sales_bal_btn) {
                             window._pendingSalesBal = s.sales_bal_btn;
                             window._applySalesBalSetting?.(s.sales_bal_btn);
@@ -14839,6 +14846,13 @@ function doSaveHtml(){
          매출등록 창 로직 (API 연동) — 다중 창 지원 (_initSalesEntry)
     ══════════════════════════════════════════════════════════ -->
     <script>
+    // 과세구분 기본값 저장 + 열려 있는 빈 매출등록 창에 반영
+    window._bizTaxDefault = '2';
+    window._bizSetTaxDefault = function(v) {
+        window._bizTaxDefault = String(v) === '1' ? '1' : '2';
+        Object.values(window._salesTaxApply || {}).forEach(f => f());
+    };
+
     function _initSalesEntry(sfx) {
         'use strict';
         sfx = sfx || '';
@@ -15065,6 +15079,17 @@ function doSaveHtml(){
         // 출력 자료에 지금 고른 거래처 코드를 넣기 위함 (창마다 따로)
         (window._salesCid = window._salesCid || {})[sfx] = () => currentClientId;
 
+        // 과세구분 기본값 (환경설정 [과세구분 기본값]: 1=세금계산서, 2=계산서)
+        function _setDefaultTax() {
+            const r = window._bizTaxDefault === '1' ? $id('stax-taxbill') : $id('stax-bill');
+            if (r) r.checked = true;
+        }
+        // 설정이 나중에 읽혀도 비어 있는 입력 화면에는 바로 반영 (작성 중인 전표는 건드리지 않음)
+        (window._salesTaxApply = window._salesTaxApply || {})[sfx] = () => {
+            const busy = currentClientId || [...$qryAll('.g-code')].some(el => el.value.trim());
+            if (!busy) _setDefaultTax();
+        };
+
         // 거래처/제품 저장 후 매출등록 캐시 갱신 (등록창 → 매출창 연동)
         if (!sfx) window._bizRefreshClients = async function() {
             try { const j = await fetch(API + '/clients').then(r=>r.json()); allClients = j.data || []; } catch(e) {}
@@ -15155,9 +15180,7 @@ function doSaveHtml(){
             if ($id('ivn-gubun2')) $id('ivn-gubun2').value = '0';
             onGubunChange();
 
-            // 과세구분 기본 = 계산서
-            const _billR = $id('stax-bill');
-            if (_billR) _billR.checked = true;
+            _setDefaultTax();
 
             // 전표번호 / 작성순번 (async — 폼 초기화 후 진행)
             const next = await getNextTicket();
@@ -17184,8 +17207,7 @@ function doSaveHtml(){
                         if ($id('ivn-gubun'))  $id('ivn-gubun').value  = savedGubun;
                         if ($id('ivn-gubun2')) $id('ivn-gubun2').value = '0';
                         onGubunChange(true);
-                        const _billR2 = $id('stax-bill');
-                        if (_billR2) _billR2.checked = true;
+                        _setDefaultTax();
                         const next = await getNextTicket();
                         currentTicket = next;
                         if ($id('ivn-ticket')) $id('ivn-ticket').value = next;
@@ -17207,8 +17229,7 @@ function doSaveHtml(){
                         if ($id('ivn-gubun'))  $id('ivn-gubun').value  = savedGubun;
                         if ($id('ivn-gubun2')) $id('ivn-gubun2').value = '0';
                         onGubunChange(true);
-                        const _billR3 = $id('stax-bill');
-                        if (_billR3) _billR3.checked = true;
+                        _setDefaultTax();
                         const nextAfterEdit = await getNextTicket();
                         currentTicket = nextAfterEdit;
                         if ($id('ivn-ticket')) $id('ivn-ticket').value = nextAfterEdit;
@@ -18645,6 +18666,7 @@ function doSaveHtml(){
 
         // 매출 로직 초기화
         _initSalesEntry(sfx);
+        window._salesTaxApply?.[sfx]?.();   // 새 창도 과세구분 기본값으로
     };
 
     // ═══════════════════════════════════════════════════════════════
@@ -19736,6 +19758,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             decimal_places: parseInt(g('env-decimal')?.value ?? 2) || 0,
             stmt_layout:    g('env-sf-2')?.checked ? '2' : '1',   // 거래명세서 출력양식: 1=기본형, 2=보관용 2단
             sales_bal_btn:  g('ext-bal-hide')?.checked ? 'hide' : 'show',   // 매출등록 [잔액수정] 버튼 보임/숨김 (요청 65)
+            sales_tax_default: g('env-taxdef-1')?.checked ? '1' : '2',      // 과세구분 기본값: 1=세금계산서, 2=계산서
         };
         const _showSaveToast = (ok, msg) => {
             const btn = document.getElementById('env-settings-save-btn');
@@ -19757,6 +19780,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 window._bizTruncMode = data.trunc_mode || 'none';
                 window._bizTruncUnit = data.trunc_unit || 0;
                 window._bizDecimals  = data.decimal_places;
+                window._bizSetTaxDefault?.(data.sales_tax_default);
                 window._ivnCalcTotals?.();
             }
             _showSaveToast(r.ok);
@@ -19821,6 +19845,9 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 window._bizDecimals = Number(s.decimal_places);
                 if (g('env-decimal')) g('env-decimal').value = String(s.decimal_places);
             }
+            window._bizSetTaxDefault?.(s.sales_tax_default);
+            if (g('env-taxdef-1')) g('env-taxdef-1').checked = window._bizTaxDefault === '1';
+            if (g('env-taxdef-2')) g('env-taxdef-2').checked = window._bizTaxDefault !== '1';
             if (s.stmt_layout !== undefined) {
                 if (g('env-sf-1')) g('env-sf-1').checked = String(s.stmt_layout) !== '2';
                 if (g('env-sf-2')) g('env-sf-2').checked = String(s.stmt_layout) === '2';
