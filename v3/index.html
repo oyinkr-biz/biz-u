@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.04 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.05 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2270,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.04 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.05 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.04</span>
+                    비즈테크<br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.05</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7860,12 +7860,17 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const clients = await _loadClients();
                 const clientMap = {};
                 const initBalMap = {};   // Client_Re → 전일잔액 초기값 (날짜 무관)
+                // 잔액 계산은 공통 방향(받을 돈 +, 줄 돈 -)으로, 매입처·매입 조회의 화면 표시는 줄 돈을 + 로
+                const balSign = {};
                 clients.forEach(c => {
                     const cid      = String(c.Client_ID);
                     clientMap[cid] = c.Client_Name || '';
-                    const re = parseInt(c.Client_Re) || 0;
-                    if (re) initBalMap[cid] = re;
+                    const isVendor = String(c.Client_Gubun || '') === '0';
+                    if (isVendor || gubun === '2') balSign[cid] = -1;
+                    const re = parseInt(c.Client_Re) || 0;   // 매입처 기초잔액은 줄 돈이 + 로 저장됨
+                    if (re) initBalMap[cid] = isVendor ? -re : re;
                 });
+                const _cpsAmt = (sign, total) => (gubun === '2' ? -sign : sign) * total;   // 매입 조회는 매입 금액을 + 로
 
                 // 거래처 ID 결정 — 필드가 비어 있으면 전체 조회
                 let cltParam = '';
@@ -7963,9 +7968,10 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const effDir   = (g2 === '2' || g2 === '1') ? (g1 === '1' ? '2' : '1') : g1;
                     const amtSign  = effDir === '2' ? -1 : 1;
                     const isReturn = g2 === '1';
-                    const prevBal  = balMap[cid] || 0;
-                    const curBal   = prevBal + amtSign * total - received - dc;
-                    balMap[cid]    = curBal;
+                    const _prev    = balMap[cid] || 0;
+                    balMap[cid]    = _prev + amtSign * (total - received - dc);   // 매입은 지급하면 줄 돈이 줄어듦
+                    const prevBal  = (balSign[cid] || 1) * _prev;
+                    const curBal   = (balSign[cid] || 1) * balMap[cid];
                     const tranUniq = [];
                     if (r.tran) {
                         const _seen = new Set();
@@ -7983,15 +7989,15 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             const qty = num(t.Inot_Quty), amt = num(t.Inot_Amt);
                             excelRows.push({t:'p', d:['', t.Inot_Item||'', t.Item_Name||'', '', qty, qty?Math.round(amt/qty):0, amt, '', '', '', '', '', '', '']});
                         });
-                        excelRows.push({t:'s', d:['', '', '', prevBal, 1, '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
+                        excelRows.push({t:'s', d:['', '', '', prevBal, 1, '', _cpsAmt(amtSign, total), isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     } else {
-                        excelRows.push({t:'1', d:[rn, fmtDate(r.Ivn_Date), cName, prevBal, qty || '', '', amtSign*total, isReturn?total:0, dc, received, cash, card, bank, curBal]});
+                        excelRows.push({t:'1', d:[rn, fmtDate(r.Ivn_Date), cName, prevBal, qty || '', '', _cpsAmt(amtSign, total), isReturn?total:0, dc, received, cash, card, bank, curBal]});
                     }
                     _proc.push({r, cName, total, dc, cash, bank, card, received, g1, g2, effDir, amtSign, isReturn, prevBal, curBal, tranUniq, qty});
                 });
                 // 맨 밑 총합계 (파란색): 총 수량·총금액
                 const _gt = { qty: 0, total: 0, received: 0, cash: 0, bank: 0, card: 0 };
-                _proc.forEach(p => { _gt.qty += p.qty; _gt.total += p.amtSign * p.total;
+                _proc.forEach(p => { _gt.qty += p.qty; _gt.total += _cpsAmt(p.amtSign, p.total);
                     _gt.received += p.received; _gt.cash += p.cash; _gt.bank += p.bank; _gt.card += p.card; });
                 window._cpsGrand = _gt;
 
@@ -8017,7 +8023,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             groups.set(key, g);
                             order.push(key);
                         }
-                        g.sumTotal    += p.total;
+                        g.sumTotal    += p.effDir === p.g1 ? p.total : -p.total;   // 반품·방향반전 전표는 빼기
                         g.sumQty      += p.qty;
                         if (p.isReturn) g.sumReturn += p.total;
                         g.sumDc       += p.dc;
@@ -8061,7 +8067,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             C.days.set(dk, d);
                         }
                         d.qty += p.qty * (p.isReturn ? -1 : 1);
-                        if (p.isReturn) d.retAmt += p.total; else d.total += p.total;
+                        if (p.isReturn) d.retAmt += p.total; else d.total += p.effDir === p.g1 ? p.total : -p.total;
                         d.dc += p.dc; d.cash += p.cash; d.card += p.card; d.bank += p.bank; d.received += p.received;
                         d.curBal = p.curBal;   // 그날 마지막 거래 뒤 잔액
                     });
@@ -8098,14 +8104,14 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     qty: 0, total: 0, retAmt: 0, dc: 0, cash: 0, card: 0, bank: 0, received: 0, effDir: L[0].effDir };
                         L.forEach(p => {
                             h.qty += p.qty * (p.isReturn ? -1 : 1);
-                            if (p.isReturn) h.retAmt += p.total; else h.total += p.total;
+                            if (p.isReturn) h.retAmt += p.total; else h.total += p.effDir === p.g1 ? p.total : -p.total;
                             h.dc += p.dc; h.cash += p.cash; h.card += p.card; h.bank += p.bank; h.received += p.received;
                         });
                         // 맨 위 거래처 이름 줄 → 가운데 전표 내역 → 맨 밑 거래처 합계 줄
                         finalProc.push({ nameRow: true, cCode: C.cid, cName: C.cName }, ...L.map(p => ({ ...p, tk3: true })), h);
                         finalExcelRows.push({t:'h', d:['', C.cid, C.cName, '', '', '', '', '', '', '', '', '', '', '']});
                         L.forEach(p => {
-                            finalExcelRows.push({t:'1', d:['', fmtDate(p.r.Ivn_Date), '', p.prevBal, p.qty || '', '', p.amtSign * p.total, p.isReturn ? p.total : 0, p.dc, p.received, p.cash, p.card, p.bank, p.curBal]});
+                            finalExcelRows.push({t:'1', d:['', fmtDate(p.r.Ivn_Date), '', p.prevBal, p.qty || '', '', _cpsAmt(p.amtSign, p.total), p.isReturn ? p.total : 0, p.dc, p.received, p.cash, p.card, p.bank, p.curBal]});
                             p.tranUniq.forEach(t => {
                                 const q = parseFloat(t.Inot_Quty) || 0, a = num(t.Inot_Amt), u = Math.round(parseFloat(t.Inot_Unit) || (q ? a / q : 0));
                                 finalExcelRows.push({t:'p', d:['', t.Inot_Item || '', t.Item_Name || '', '', q, u, a, '', '', '', '', '', '', '']});
@@ -15076,6 +15082,9 @@ function doSaveHtml(){
             else if (allBanks.length) sel.value = allBanks[0].Bank_Code;
         }
 
+        // 전표 구분: 예전 프로그램에서 가져온 매입 '0' = 매입 '2'
+        const _ivnDir = v => { const g = String(v ?? '1') || '1'; return g === '0' ? '2' : g; };
+
         // 출력 자료에 지금 고른 거래처 코드를 넣기 위함 (창마다 따로)
         (window._salesCid = window._salesCid || {})[sfx] = () => currentClientId;
 
@@ -15473,7 +15482,7 @@ function doSaveHtml(){
 
                 // 기초잔액(잔액수정)은 서버 prev-bal이 입력날짜 이후 거래까지 반영해서 계산함
                 const prevBal   = balJ.ok ? (balJ.data?.balance ?? 0) : 0;
-                const todayList = (todayJ.data || []).filter(row => String(row.Ivn_Gubun ?? '1') === curGubun);
+                const todayList = (todayJ.data || []).filter(row => _ivnDir(row.Ivn_Gubun) === curGubun);
 
                 let todayAmt = 0, lastDate = '';
                 todayList.forEach(row => {
@@ -15490,7 +15499,7 @@ function doSaveHtml(){
                 let todayNet = 0;
                 (todayJ.data || []).forEach(row => {
                     if (currentTicket && parseInt(row.Ivn_Ticket) === parseInt(currentTicket)) return;
-                    const g   = String(row.Ivn_Gubun ?? '1');
+                    const g   = _ivnDir(row.Ivn_Gubun);
                     const eff = String(row.Ivn_soGubun || '0') === '2' ? (g === '1' ? '2' : '1') : g;
                     const net = parseNum(row.Ivn_Total) - parseNum(row.Ivn_Cash) - parseNum(row.Ivn_Bank)
                               - parseNum(row.Ivn_Card) - parseNum(row.Ivn_DC);
@@ -16679,7 +16688,7 @@ function doSaveHtml(){
                 rawList.forEach(x => {
                     const fd = (x.Ivn_Date || '').substring(0, 10);
                     const ds = (x.Ivn_Date || '').substring(5).replace(/-/g, '/');
-                    const xg1 = String(x.Ivn_Gubun || '1');
+                    const xg1 = _ivnDir(x.Ivn_Gubun);
                     const xg2 = String(x.Ivn_soGubun || '0');
                     const xEff = xg2 === '2' ? (xg1 === '1' ? '2' : '1') : xg1;
                     const xSign = xEff === '2' ? -1 : 1;
@@ -18255,7 +18264,10 @@ function doSaveHtml(){
                 const get = before => fetch(`${API}/amt/prev-bal?client=${clientId}&before=${before}`)
                     .then(r => r.json()).then(j => j.ok ? (j.data?.balance ?? 0) : 0).catch(() => 0);
                 const [prevBal, totalBal] = await Promise.all([get(dateStr), get(next)]);
-                return { prevBal, totalBal };
+                // 매입처 출력은 화면과 같이 줄 돈을 + 로
+                const c = allClients.find(x => String(x.Client_ID) === String(clientId));
+                const vs = String(c?.Client_Gubun || '') === '0' ? -1 : 1;
+                return { prevBal: (vs * prevBal) || 0, totalBal: (vs * totalBal) || 0 };
             }
             window._bizDayBals = _dayBals;
 
