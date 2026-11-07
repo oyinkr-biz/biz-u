@@ -34,6 +34,9 @@ echo.
 if not exist "%DEST%server.exe" set "CURVER=missing-server"
 :: old BizTech program (no server_bg.json = before 2026-11 always-on server) - update app.asar even if version is the same
 if not exist "%DEST%server_bg.json" set "CURVER=old-app"
+:: app.asar differs from the latest (in-program update does not change it, server_bg.json alone is not reliable)
+powershell -NoProfile -ExecutionPolicy Bypass -Command "try { $r=(Invoke-RestMethod 'https://api.github.com/repos/oyinkr-biz/biz-u/contents/v3/app.asar').size; $l=(Get-Item '%DEST%app.asar').Length; if ($r -and $r -ne $l) { exit 1 } } catch {}; exit 0"
+if !errorlevel! equ 1 set "CURVER=old-app"
 
 if "!CURVER!"=="!NEWVER!" (
     echo Already up to date.
@@ -86,6 +89,6 @@ for %%F in (%FILES%) do (
 )
 
 echo.
-echo Update complete! (!NEWVER!)
+echo Update complete (!NEWVER!)
 echo Please start BizTech again.
 pause
