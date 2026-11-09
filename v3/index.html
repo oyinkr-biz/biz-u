@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2270,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.33 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.34 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.33</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.34</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -10023,9 +10023,26 @@ function doSaveHtml(){
         };
 
         // ── 거래처 기간별 매출조회 [계산서] ────────────────────────────
+        // 표 맨 아래 합계 줄 (스크롤해도 항상 보임). 본문(tbody) 밖이라 인쇄·엑셀·선택 표시에 섞이지 않음
+        // cells: 칸 값 배열(숫자는 오른쪽 정렬·천단위), null이면 합계 줄 지움
+        window._stickyTotal = function(tbody, cells) {
+            const table = tbody?.closest('table');
+            if (!table) return;
+            table.querySelector(':scope > tfoot.sticky-total')?.remove();
+            if (!cells) return;
+            const tf = document.createElement('tfoot');
+            tf.className = 'sticky-total';
+            tf.innerHTML = '<tr style="height:24px">' + cells.map(v => {
+                const num = typeof v === 'number';
+                return `<td style="position:sticky;bottom:0;z-index:2;background:#dfe9ff;color:#0033cc;font-weight:bold;border-top:2px solid #0033cc;white-space:nowrap;`
+                    + (num ? 'text-align:right;padding-right:3px' : 'text-align:left;padding-left:3px') + `">${num ? v.toLocaleString('ko-KR') : v}</td>`;
+            }).join('') + '</tr>';
+            table.appendChild(tf);
+        };
         window.runCpSlipSearch = async function() {
             const tbody = document.getElementById('cust-period-slip-grid-body');
             if (!tbody) return;
+            window._stickyTotal(tbody, null);
             const from   = document.getElementById('cps2-date-from')?.value || '';
             const to     = document.getElementById('cps2-date-to')?.value   || '';
             const client = document.getElementById('cps2-client')?.value    || '';
@@ -10074,6 +10091,11 @@ function doSaveHtml(){
                     tbody.appendChild(er);
                 }
                 if (!rows.length) tbody.innerHTML=`<tr><td colspan="${COLS}" style="text-align:center;padding:8px;color:#999">조회 결과가 없습니다.</td></tr>`;
+                else {
+                    const _sum = k => rows.reduce((a, x) => a + (parseFloat(x[k]) || 0), 0);
+                    window._stickyTotal(tbody, ['', '합계', `${rows.length.toLocaleString('ko-KR')}곳`, _sum('prevBal'), _sum('sellAmt'), _sum('cardAmt'),
+                        _sum('slipAmt'), _sum('retAmt'), _sum('recvAmt'), _sum('balance'), '']);
+                }
             } catch(e) {
                 tbody.innerHTML=`<tr><td colspan="11" style="text-align:center;padding:8px;color:red">오류: ${e.message}</td></tr>`;
             }
@@ -10089,6 +10111,7 @@ function doSaveHtml(){
             if(cl) cl.value = '';
             const tbody = document.getElementById('cust-period-slip-grid-body');
             if(!tbody) return;
+            window._stickyTotal(tbody, null);
             const COLS = 11; const MINROWS = 17;
             tbody.innerHTML = '';
             for(let i=1; i<=MINROWS; i++) {
@@ -10467,6 +10490,7 @@ function doSaveHtml(){
             window._taxSearch = async function() {
                 const tbody = document.getElementById('tax-invoice-grid-body');
                 if (!tbody) return;
+                window._stickyTotal(tbody, null);
                 const from = document.getElementById('tax-date-from')?.value || '';
                 const to   = document.getElementById('tax-date-to')?.value   || '';
                 const kw   = document.getElementById('tax-client-kw')?.value || '';
@@ -10518,6 +10542,11 @@ function doSaveHtml(){
                         tbody.appendChild(er);
                     }
                     if (!rows.length) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:8px;color:#999">조회 결과 없음</td></tr>';
+                    else {
+                        const _sum = k => rows.reduce((a, x) => a + (parseFloat(x[k]) || 0), 0);
+                        window._stickyTotal(tbody, ['', '', '', `합계 ${rows.length.toLocaleString('ko-KR')}건`, '', '',
+                            _sum('Tax_Amt'), _sum('Tax_Tax'), _sum('Tax_Total'), '']);
+                    }
                     // 전체선택 체크박스
                     const allCb = document.getElementById('tax-grid-all');
                     if (allCb && !allCb._wired) {
