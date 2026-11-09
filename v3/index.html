@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.35 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.36 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2270,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.35 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.36 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.35</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.36</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -10241,11 +10241,39 @@ function doSaveHtml(){
             if (!from || !to) { alert('거래일자를 먼저 입력하세요.'); return; }
             const taxSel = document.getElementById('cps2-tax')?.value || '';
             const typeLabel = taxSel === '1' ? '세금계산서' : taxSel === '2' ? '계산서' : '세금계산서/계산서(입력한 대로 나눠서)';
-            // 사업자번호가 없는 거래처는 계산서로 넘기지 않음 (전자세금으로 보낼 수 없음)
+            // 사업자번호가 없거나 10자리가 아닌 거래처는 계산서로 넘기지 않음 (전자세금으로 보낼 수 없음)
             const _hasAmt = d => (taxSel !== '2' && (d?.taxPart || 0) > 0) || (taxSel !== '1' && (d?.freePart || 0) > 0);
-            const _noSno  = checked.map(cb => cb.closest('tr')._cpSlipData).filter(d => _hasAmt(d) && !String(d.clientSNo || '').trim());
-            if (!await window._bizConfirm(`선택된 ${checked.length}개 거래처의 ${typeLabel}를 저장하겠습니까?\n기간: ${from} ~ ${to}`
-                + (_noSno.length ? `\n\n사업자번호가 없는 ${_noSno.length}곳은 제외합니다.` : ''))) return;
+            const _snoOk  = d => String(d?.clientSNo || '').replace(/\D/g, '').length === 10;
+            const _noSno  = checked.map(cb => cb.closest('tr')._cpSlipData).filter(d => _hasAmt(d) && !_snoOk(d));
+            // 이 기간에 이미 만든 계산서는 건너뜀 — [전표저장]을 또 누르면 같은 계산서가 겹쳐 이중 발행될 수 있음
+            // 세금계산서·계산서는 따로 봄. 0원 자료는 목록에서 빠지므로 이미 있는 것으로 치지 않음
+            let _have;
+            try {
+                const ej = await fetch(`/api/tax?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&gubun=1`).then(r => r.json());
+                if (!ej.ok) throw new Error(ej.error || '조회 실패');
+                _have = new Set((ej.data || []).map(x => `${parseInt(x.Tax_Client) || 0}|${(parseFloat(x.Tax_Tax) || 0) > 0 ? 't' : 'b'}`));
+            } catch(e) {
+                alert('이미 만든 계산서를 확인하지 못해 저장하지 않았습니다.\n' + e.message);
+                return;
+            }
+            const jobs = [];
+            const _dup = new Set();
+            for (const cb of checked) {
+                const d = cb.closest('tr')._cpSlipData;
+                if (!d || !_snoOk(d)) continue;
+                // 과세 품목 몫 → 세금계산서, 면세 품목 몫 → 계산서 (카드 결제액은 양쪽 다 뺌, 서버에서 계산)
+                const parts = [];
+                if (taxSel !== '2' && (d.taxPart || 0) > 0)  parts.push({ isTaxBill: true,  slipAmt: d.taxPart });
+                if (taxSel !== '1' && (d.freePart || 0) > 0) parts.push({ isTaxBill: false, slipAmt: d.freePart });
+                for (const pt of parts) {
+                    if (_have.has(`${parseInt(d.clientCode) || 0}|${pt.isTaxBill ? 't' : 'b'}`)) _dup.add(d);
+                    else jobs.push({ d, ...pt });
+                }
+            }
+            const _skipMsg = (_noSno.length ? `\n사업자번호가 없거나 잘못된 ${_noSno.length}곳은 제외합니다.` : '')
+                + (_dup.size ? `\n이미 계산서가 있는 ${_dup.size}곳은 건너뜁니다.` : '');
+            if (!jobs.length) { alert(`새로 만들 계산서가 없습니다.${_skipMsg}`); return; }
+            if (!await window._bizConfirm(`${typeLabel} ${jobs.length}건을 새로 저장하겠습니까?\n기간: ${from} ~ ${to}${_skipMsg}`)) return;
 
             // 우리 회사 정보 로드
             let myInfo = {};
@@ -10255,16 +10283,6 @@ function doSaveHtml(){
             } catch(e) {}
 
             let ok = 0, fail = 0, lastErr = '';
-            const jobs = [];
-            for (const cb of checked) {
-                const d = cb.closest('tr')._cpSlipData;
-                if (!d) continue;
-                if (!String(d.clientSNo || '').trim()) continue;   // 사업자번호 없음 → 제외
-                // 과세 품목 몫 → 세금계산서, 면세 품목 몫 → 계산서 (카드 결제액은 양쪽 다 뺌, 서버에서 계산)
-                const taxPart = d.taxPart || 0, freePart = d.freePart || 0;
-                if (taxSel !== '2' && taxPart > 0)  jobs.push({ d, isTaxBill: true,  slipAmt: taxPart });
-                if (taxSel !== '1' && freePart > 0) jobs.push({ d, isTaxBill: false, slipAmt: freePart });
-            }
             for (const { d, isTaxBill, slipAmt } of jobs) {
                 const supply  = isTaxBill ? Math.round(slipAmt / 1.1) : slipAmt;
                 const taxAmt  = isTaxBill ? (slipAmt - supply) : 0;
@@ -10307,7 +10325,8 @@ function doSaveHtml(){
                 } catch(e) { fail++; lastErr = e.message; }
             }
             alert(`저장 완료: ${ok}건\n${fail ? '실패: ' + fail + '건\n오류: ' + lastErr + '\n' : ''}`
-                + (_noSno.length ? `사업자번호 없어 제외: ${_noSno.length}곳\n${_noSno.slice(0, 10).map(d => (d.clientName || '').trim()).join(', ')}${_noSno.length > 10 ? ' 외' : ''}` : ''));
+                + (_noSno.length ? `사업자번호 없음·잘못됨 제외: ${_noSno.length}곳\n${_noSno.slice(0, 10).map(d => (d.clientName || '').trim()).join(', ')}${_noSno.length > 10 ? ' 외' : ''}\n` : '')
+                + (_dup.size ? `이미 있어 건너뜀: ${_dup.size}곳` : ''));
             if (ok > 0) {
                 // 세금계산서 작성 창 열기 (닫혀있으면 자동 열기)
                 const tw = document.getElementById('tax-invoice-window');
