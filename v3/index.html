@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.30 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.31 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2270,7 +2270,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.30 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.31 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2848,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.30</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.31</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -14945,28 +14945,30 @@ function doSaveHtml(){
         let allStock    = [];      // GET /api/stock 전체 캐시
         let allBanks    = [];      // GET /api/banks 통장 목록
         let allCurStock = {};      // GET /api/inv-current 실시간 현재고 {item_code: 수량}
-        let dailyStrip = { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, creditIn:0, dc:0, received:0 };
-        // 아래 줄 누계에 전표 1건 더하기 — 예전 프로그램과 같은 방식
-        // 매출 전표: 받은 돈 중 그날 매출만큼 = 현금매출(현금입금), 나머지 현금 = 외상입금(지난 외상 갚음)
-        // (예전엔 현금이 조금만 있어도 전표 매출 전체를 현금매출로, 받은 현금 전체를 현금입금으로 셌음)
+        // 아래 줄 누계: 매출·매입을 따로 모아 처리구분에 맞는 쪽을 보여줌 (매입 전표에서 준 돈이 매출 입금액에 섞이지 않게)
+        const _newStrip = () => ({
+            sale: { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, creditIn:0, dc:0, received:0 },
+            buy:  { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, creditIn:0, dc:0, received:0 }
+        });
+        let dailyStrip = _newStrip();
+        // 전표 1건 더하기 — 예전 프로그램과 같은 방식 (eff: '1'=매출, '2'=매입, 그 외 Loss·초기자료는 제외)
+        // 받거나 준 돈 중 그날 금액만큼 = 현금매출·현금입금(매입은 현금매입·현금출금), 남는 현금 = 외상입금(외상출금)
         function _stripAdd(eff, retSign, total, dc, cash, bank, card) {
+            if (eff !== '1' && eff !== '2') return;
+            const t = eff === '1' ? dailyStrip.sale : dailyStrip.buy;
             const paid = cash + bank + card;
-            if (eff === '1') {
-                const net = retSign * (total - dc);   // 매출액은 할인 후 금액, 반품은 뺌
-                const applied = retSign > 0 ? Math.max(0, Math.min(paid, net)) : 0;
-                dailyStrip.sales       += net;
-                dailyStrip.cashSales   += applied;
-                dailyStrip.creditSales += net - applied;
-                const cashApplied = retSign > 0 ? Math.max(0, Math.min(cash, net)) : cash;
-                dailyStrip.cashIn   += cashApplied;
-                dailyStrip.creditIn += cash - cashApplied;
-            } else {
-                dailyStrip.cashIn += cash;
-            }
-            dailyStrip.bankIn   += bank;
-            dailyStrip.cardIn   += card;
-            dailyStrip.dc       += dc;
-            dailyStrip.received += paid;
+            const net = retSign * (total - dc);   // 할인 후 금액, 반품은 뺌
+            const applied = retSign > 0 ? Math.max(0, Math.min(paid, net)) : 0;
+            const cashApplied = retSign > 0 ? Math.max(0, Math.min(cash, net)) : cash;
+            t.sales       += net;
+            t.cashSales   += applied;
+            t.creditSales += net - applied;
+            t.cashIn      += cashApplied;
+            t.creditIn    += cash - cashApplied;
+            t.bankIn      += bank;
+            t.cardIn      += card;
+            t.dc          += dc;
+            t.received    += paid;
         }
         let clientTodaySum = 0;  // 현재 거래처 금일 누계 (저장 후 갱신)
         let currentTicket    = null;
@@ -15531,12 +15533,12 @@ function doSaveHtml(){
                 updateSeqDisplay();
 
                 // 당일 누계 strip 재계산 (서버 데이터 기준)
-                dailyStrip = { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, creditIn:0, dc:0, received:0 };
+                dailyStrip = _newStrip();
                 list.forEach(x => {
-                    const g1  = String(x.Ivn_Gubun   || '1');
+                    const g1  = _ivnDir(x.Ivn_Gubun);   // 예전 프로그램 매입 '0'도 매입
                     const g2  = String(x.Ivn_soGubun || '0');
                     const eff = g2 === '2' ? (g1 === '1' ? '2' : '1') : g1;
-                    const retSign = g2 === '1' ? -1 : 1;   // 반품은 매출액에서 뺌 (매입 반품은 매출이 아니므로 제외 — eff는 g1 그대로)
+                    const retSign = g2 === '1' ? -1 : 1;   // 반품은 그 구분 금액에서 뺌
                     const total = parseFloat(x.Ivn_Total || 0);
                     const cash  = parseFloat(x.Ivn_Cash  || 0);
                     const bank  = parseFloat(x.Ivn_Bank  || 0);
@@ -16726,7 +16728,21 @@ function doSaveHtml(){
 
         // ── 당일 누계 strip 표시 ──────────────────────────────
         function updateDailyStrip() {
-            const s = dailyStrip;
+            const isBuy = $id('ivn-gubun')?.value === '2';
+            const s = isBuy ? dailyStrip.buy : dailyStrip.sale;
+            // 처리구분에 따라 칸 이름도 바꿈 (예전 프로그램과 같은 이름)
+            const _lbl = (id, sale, buy) => {
+                const el = $id(id)?.previousElementSibling;
+                if (el) el.textContent = isBuy ? buy : sale;
+            };
+            _lbl('strip-sales',        '매출액',   '매입액');
+            _lbl('strip-cash-sales',   '현금매출', '현금매입');
+            _lbl('strip-credit-sales', '외상매출', '외상매입');
+            _lbl('strip-cash-in',      '현금입금', '현금출금');
+            _lbl('strip-bank-in',      '은행입금', '은행출금');
+            _lbl('strip-credit-in',    '외상입금', '외상출금');
+            _lbl('strip-card-in',      '카드입금', '카드출금');
+            _lbl('strip-received',     '입금액',   '출금액');
             const set = (id, v) => {
                 const el = $id(id);
                 if (el) el.textContent = v > 0 ? v.toLocaleString('ko-KR') : '0';
@@ -17480,11 +17496,12 @@ function doSaveHtml(){
 
             calcTotals();
             updateSeqDisplay();
+            updateDailyStrip();   // 아래 줄도 매출↔매입 전환
         }
 
         // ── 초기화 ───────────────────────────────────────────
         async function init() {
-            dailyStrip = { sales:0, cashSales:0, creditSales:0, cashIn:0, bankIn:0, cardIn:0, creditIn:0, dc:0, received:0 };
+            dailyStrip = _newStrip();
             clearStripTotals();
             // 앱 시작 시 이전 세션의 잔여 잠금 초기화
             fetch('/api/lock/clear-all', { method: 'DELETE' }).catch(() => {});
