@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.39 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.40 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -332,6 +332,7 @@
                         <li id="sa-open-integration" style="color:#005500;font-weight:bold">⚙ 연동/백업 설정</li>
                         <li class="divider"></li>
                         <li id="open-import-mdb" style="color:#800000;font-weight:bold">📂 MDB 가져오기</li>
+                        <li id="open-fill-mdb" style="color:#005500;font-weight:bold">📂 예전 자료 보충 (빈 칸만)</li>
                     </ul>
                 </li>
             </ul>
@@ -2270,7 +2271,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.39 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.40 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2848,7 +2849,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.39</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.40</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4760,6 +4761,81 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         if (cancelBtn) { cancelBtn.textContent = '닫  기'; cancelBtn.style.fontWeight = 'bold'; }
                     }
                     runBtn.disabled = false;
+                });
+            })();
+
+            // ── 예전 자료 보충 (사업자번호·휴대폰·전표 할인 중 빈 칸만) ──────────
+            (function() {
+                const $f = id => document.getElementById('fill-mdb-' + id);
+                const reset = () => {
+                    $f('msg').style.display = 'none';
+                    $f('run').style.display = '';
+                    $f('run').disabled = false;
+                    $f('close').textContent = '취 소';
+                };
+                const show = (text, good) => {
+                    const el = $f('msg');
+                    el.textContent = text;
+                    el.style.background = good ? '#e8ffe8' : '#ffe8e8';
+                    el.style.color = good ? '#040' : '#800';
+                    el.style.display = 'block';
+                };
+                const send = async (file, pwd, apply) => {
+                    const fd = new FormData();
+                    fd.append('file', file);
+                    fd.append('password', pwd);
+                    fd.append('apply', apply ? '1' : '0');
+                    const res = await fetch(window.location.origin + '/api/import-mdb/fill', { method: 'POST', body: fd });
+                    const j = await res.json();
+                    if (!j.ok) throw new Error(j.error || `서버 오류: ${res.status}`);
+                    return j.data;
+                };
+                const n = v => Number(v || 0).toLocaleString();
+                const skips = d => [
+                    d.dcEdited ? `· 수정된 전표라 그대로 둠: ${n(d.dcEdited)}건` : '',
+                    d.dcGone ? `· 지금 없는 전표: ${n(d.dcGone)}건` : '',
+                    d.dcBalLocked ? `· 잔액수정 후 전표라 그대로 둠: ${n(d.dcBalLocked)}건` : '',
+                    d.nameDiff ? `· 이름이 달라 그대로 둔 거래처: ${n(d.nameDiff)}곳` : '',
+                ].filter(Boolean).join('\n');
+                document.getElementById('open-fill-mdb')?.addEventListener('click', () => {
+                    reset();
+                    $f('dialog').style.display = 'flex';
+                });
+                $f('close')?.addEventListener('click', () => { $f('dialog').style.display = 'none'; reset(); });
+                $f('pick')?.addEventListener('click', () => $f('file').click());
+                $f('file')?.addEventListener('change', () => { $f('filename').value = $f('file').files[0]?.name || ''; });
+                $f('run')?.addEventListener('click', async () => {
+                    const file = $f('file').files[0];
+                    const pwd = $f('pwd').value.trim();
+                    if (!file) { alert('예전 파일을 선택해주세요.'); return; }
+                    if (!pwd) { alert('비밀번호를 입력해주세요.'); return; }
+                    $f('run').disabled = true;
+                    $f('msg').style.display = 'none';
+                    try {
+                        show('파일을 확인하는 중입니다...', true);
+                        const d = await send(file, pwd, false);
+                        $f('msg').style.display = 'none';
+                        if (!d.sno && !d.hp && !d.dc) {
+                            show('채울 빈 칸이 없습니다. 아무것도 바꾸지 않았습니다.' + (skips(d) ? '\n\n' + skips(d) : ''), true);
+                            $f('run').disabled = false;
+                            return;
+                        }
+                        const go = await window._bizConfirm(`다음 빈 칸을 채웁니다. 실행 전에 자동 백업합니다.\n\n`
+                            + `· 사업자번호: ${n(d.sno)}곳\n· 휴대폰: ${n(d.hp)}곳\n· 전표 할인: ${n(d.dc)}건 (${n(d.dcAmt)}원)\n`
+                            + (skips(d) ? `\n${skips(d)}\n` : '')
+                            + `\n할인이 채워지면 그 전표가 들어간 잔액과 앞으로 만드는 계산서 금액이 달라질 수 있습니다.\n이미 만든 계산서는 바뀌지 않습니다.\n\n계속하시겠습니까?`);
+                        if (!go) { $f('run').disabled = false; return; }
+                        show('채우는 중입니다...', true);
+                        const a = await send(file, pwd, true);
+                        show(`✅ 보충 완료\n사업자번호 ${n(a.sno)}곳, 휴대폰 ${n(a.hp)}곳, 전표 할인 ${n(a.dc)}건 (${n(a.dcAmt)}원)\n`
+                            + (skips(a) ? `${skips(a)}\n` : '')
+                            + `백업: ${a.backup}\n\n화면에 반영되도록 프로그램을 다시 시작해 주세요.`, true);
+                        $f('run').style.display = 'none';
+                        $f('close').textContent = '닫  기';
+                    } catch (e) {
+                        show('오류: ' + e.message, false);
+                        $f('run').disabled = false;
+                    }
                 });
             })();
 
@@ -21106,6 +21182,38 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                         style="min-width:100px;padding:5px 0;font-size:13px;background:#d4d0c8;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;cursor:pointer">
                         취 소
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 예전 자료 보충 다이얼로그 -->
+    <div id="fill-mdb-dialog" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:99990;align-items:center;justify-content:center;">
+        <div style="background:#d4d0c8;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;width:480px;box-shadow:3px 3px 8px rgba(0,0,0,0.5)">
+            <div style="background:#000080;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;user-select:none">📂 예전 자료 보충 (빈 칸만)</div>
+            <div style="padding:14px 16px 16px;font-size:12px">
+                <div style="background:#fffff0;border:1px solid #c8a000;padding:7px 10px;margin-bottom:12px;color:#664400;line-height:1.6">
+                    예전 파일에서 <b>비어 있는 사업자번호·휴대폰·전표 할인만</b> 채웁니다.<br>
+                    입력한 값과 새로 입력한 전표는 바꾸지 않고, 실행 전에 자동 백업합니다.
+                </div>
+                <table style="width:100%;border-spacing:0 6px">
+                    <tr>
+                        <td style="width:90px;padding-right:8px">예전 파일</td>
+                        <td><div style="display:flex;gap:6px">
+                            <input id="fill-mdb-filename" type="text" readonly placeholder="파일을 선택하세요" style="flex:1;min-width:0;border:1px inset #808080;background:#fff;padding:3px 5px;font-family:inherit;color:#000">
+                            <button id="fill-mdb-pick" style="white-space:nowrap;padding:2px 10px;background:#d4d0c8;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;cursor:pointer">📁 선택</button>
+                            <input id="fill-mdb-file" type="file" accept=".mdb,.accdb,.COSTNET" style="display:none">
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right:8px">DB 비밀번호</td>
+                        <td><input id="fill-mdb-pwd" type="password" value="biz_01030181992" style="width:100%;box-sizing:border-box;border:1px inset #808080;background:#fff;padding:3px 5px;font-family:inherit"></td>
+                    </tr>
+                </table>
+                <div id="fill-mdb-msg" style="display:none;margin:10px 0;padding:8px 12px;border:1px solid #888;font-size:11px;max-height:180px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;font-weight:bold"></div>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+                    <button id="fill-mdb-run" style="min-width:120px;padding:5px 0;font-size:13px;font-weight:bold;background:#d4d0c8;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;cursor:pointer">확인 후 보충</button>
+                    <button id="fill-mdb-close" style="min-width:100px;padding:5px 0;font-size:13px;background:#d4d0c8;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;cursor:pointer">취 소</button>
                 </div>
             </div>
         </div>
