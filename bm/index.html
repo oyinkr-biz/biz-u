@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.12</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.13</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -650,9 +650,17 @@ window.addEventListener('DOMContentLoaded', () => {
     </div>
    </div>
    <div style="display:flex;gap:6px;flex:1;min-height:0">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4px">
+    <div style="display:flex;gap:6px;align-items:center;font-size:11px">
+     <span class="lbl">업체명</span><input type="text" id="sr-q" style="width:140px" oninput="smsRender()">
+     <label><input type="checkbox" id="sr-onlyreg" onchange="smsRender()"> 등록된 업체만</label>
+     <span id="sr-cnt" style="color:#000080"></span>
+     <button class="btn" onclick="smsBulk()" style="margin-left:auto" title="체크한 미등록 업체를 업체명·사업자번호·핸드폰(발신번호)으로 한꺼번에 등록">체크 업체 등록</button>
+    </div>
     <div class="grid-wrap" style="flex:1;min-height:0">
-     <table><thead><tr><th>업체명</th><th style="width:96px">사업자번호</th><th style="width:100px">발신번호</th><th style="width:80px">포인트</th><th style="width:86px">단가(단/장/사진)</th><th style="width:60px">매장연결</th><th style="width:40px">사용</th></tr></thead>
+     <table><thead><tr><th style="width:30px"><input type="checkbox" onchange="document.querySelectorAll('.sr-ck:not(:disabled)').forEach(c=>c.checked=this.checked)"></th><th>업체명</th><th style="width:96px">사업자번호</th><th style="width:100px">발신번호</th><th style="width:80px">포인트</th><th style="width:86px">단가(단/장/사진)</th><th style="width:60px">매장연결</th><th style="width:40px">사용</th></tr></thead>
      <tbody id="sr-body"></tbody></table>
+    </div>
     </div>
     <div style="width:330px;display:flex;flex-direction:column;gap:6px">
      <div class="panel" style="padding:8px">
@@ -726,6 +734,7 @@ function smsOpen() {
   $sr('sr-url').value = c.url || 'http://biz.bizone.kr:8099';
   $sr('sr-key').value = c.key || '';
   $sr('sms-ov').style.display = 'flex';
+  smsRender();
   if (c.url && c.key) smsConnect(); else $sr('sr-status').textContent = '주소와 관리 암호를 넣으세요 (관리 암호는 문자 서버 PC의 relay_config.json에 있습니다)';
 }
 function smsClose() { $sr('sms-ov').style.display = 'none'; }
@@ -743,28 +752,68 @@ async function smsConnect() {
       + ` · 카드충전 ${j.toss ? '<span style="color:#006600">가능</span>' : '<span style="color:#cc6600">키 없음</span>'}`;
     $sr('sr-defp').textContent = `${j.price_sms}/${j.price_lms}/${j.price_mms}`;
     await smsLoad();
-  } catch (e) { st.style.color = '#cc0000'; st.textContent = '연결 실패: ' + e.message; }
+  } catch (e) { st.style.color = '#cc0000'; st.textContent = '연결 실패: ' + e.message; srShops = []; smsRender(); }
 }
 async function smsLoad() {
   const j = await srApi('/admin/shops');
   srShops = j.shops || [];
-  const d = srCfg || {};
-  $sr('sr-body').innerHTML = srShops.map(s => `<tr data-b="${srEsc(s.bizno)}" onclick="smsPick('${srEsc(s.bizno)}')"${srSel === s.bizno ? ' class="sel"' : ''}>
+  smsRender();
+}
+const srDig = v => String(v || '').replace(/\D/g, '');
+function srMain() {   // 업체관리(Supabase) 업체 — 사업자번호 10자리만
+  return (typeof rows !== 'undefined' ? rows : []).filter(r => srDig(r.business_number).length === 10);
+}
+function smsRender() {
+  const d = srCfg || {}, q = ($sr('sr-q').value || '').trim().toLowerCase(), onlyReg = $sr('sr-onlyreg').checked;
+  const reg = new Map(srShops.map(s => [s.bizno, s]));
+  const list = srShops.map(s => ({ b: s.bizno, name: s.name, s }));
+  for (const r of srMain()) { const b = srDig(r.business_number); if (!reg.has(b)) { reg.set(b, null); list.push({ b, name: r.company_name || '', m: r }); } }
+  list.sort((a, b) => (!!b.s - !!a.s) || String(a.name).localeCompare(String(b.name), 'ko'));
+  const view = list.filter(x => (!q || String(x.name).toLowerCase().includes(q) || x.b.includes(q)) && (!onlyReg || x.s));
+  $sr('sr-cnt').textContent = `등록 ${srShops.length} / 전체 ${list.length}`;
+  $sr('sr-body').innerHTML = view.map(x => {
+    const s = x.s;
+    if (!s) return `<tr data-b="${x.b}" onclick="smsPick('${x.b}')" style="color:#888"${srSel === x.b ? ' class="sel"' : ''}>
+      <td style="text-align:center" onclick="event.stopPropagation()"><input type="checkbox" class="sr-ck" value="${x.b}"></td>
+      <td>${srEsc(x.name)}</td><td>${x.b}</td><td>${srEsc(srDig(x.m.mobile || x.m.phone))}</td><td colspan="4" style="text-align:center;font-size:12px">미등록</td></tr>`;
+    return `<tr data-b="${s.bizno}" onclick="smsPick('${s.bizno}')"${srSel === s.bizno ? ' class="sel"' : ''}>
+    <td style="text-align:center"><input type="checkbox" class="sr-ck" disabled></td>
     <td>${srEsc(s.name)}</td><td>${srEsc(s.bizno)}</td><td>${srEsc(s.sender) || '<span style="color:#c00">없음</span>'}</td>
     <td style="text-align:right;font-weight:bold">${srNum(s.points)}</td>
-    <td style="text-align:center;font-size:12px">${s.price_sms ?? d.price_sms}/${s.price_lms ?? d.price_lms}/${s.price_mms ?? d.price_mms}</td>
+    <td style="text-align:center;font-size:12px">${s.price_sms ?? d.price_sms ?? '-'}/${s.price_lms ?? d.price_lms ?? '-'}/${s.price_mms ?? d.price_mms ?? '-'}</td>
     <td style="text-align:center;font-size:12px">${s.linked ? '<span style="color:#060">연결됨</span>' : (s.has_code ? '코드대기' : '-')}</td>
-    <td style="text-align:center">${s.enabled ? '○' : '<span style="color:#c00">중지</span>'}</td></tr>`).join('')
-    || '<tr><td colspan="7" style="text-align:center;color:#888;padding:10px">등록된 업체가 없습니다 — 업체관리 목록에서 업체를 고르고 [선택 업체 가져오기] → [저 장]</td></tr>';
+    <td style="text-align:center">${s.enabled ? '○' : '<span style="color:#c00">중지</span>'}</td></tr>`;
+  }).join('') || '<tr><td colspan="8" style="text-align:center;color:#888;padding:10px">업체가 없습니다</td></tr>';
 }
 function smsPick(b) {
-  const s = srShops.find(x => x.bizno === b); if (!s) return;
   srSel = b;
   document.querySelectorAll('#sr-body tr').forEach(tr => tr.classList.toggle('sel', tr.dataset.b === b));
+  $sr('sr-code').textContent = '';
+  const s = srShops.find(x => x.bizno === b);
+  if (!s) {   // 미등록: 업체관리 정보로 채움 → [저 장]하면 등록
+    const m = srMain().find(r => srDig(r.business_number) === b) || {};
+    $sr('sr-name').value = m.company_name || ''; $sr('sr-bizno').value = b; $sr('sr-sender').value = srDig(m.mobile || m.phone);
+    ['sr-p1', 'sr-p2', 'sr-p3', 'sr-memo'].forEach(i => $sr(i).value = ''); $sr('sr-en').checked = true;
+    $sr('sr-hist').innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888">문자 미등록 업체 — 발신번호 확인 후 [저 장]</td></tr>';
+    return;
+  }
   $sr('sr-name').value = s.name || ''; $sr('sr-bizno').value = s.bizno; $sr('sr-sender').value = s.sender || '';
   $sr('sr-p1').value = s.price_sms ?? ''; $sr('sr-p2').value = s.price_lms ?? ''; $sr('sr-p3').value = s.price_mms ?? '';
-  $sr('sr-memo').value = s.memo || ''; $sr('sr-en').checked = !!s.enabled; $sr('sr-code').textContent = '';
+  $sr('sr-memo').value = s.memo || ''; $sr('sr-en').checked = !!s.enabled;
   smsHist(false);
+}
+async function smsBulk() {
+  const bs = [...document.querySelectorAll('.sr-ck:checked:not(:disabled)')].map(c => c.value);
+  if (!bs.length) { alert('목록에서 등록할 업체(회색, 미등록)를 체크하세요'); return; }
+  if (!confirm(`${bs.length}개 업체를 문자 서버에 등록합니다.\n발신번호는 업체관리의 핸드폰번호로 넣습니다 (알리고에 등록된 번호여야 발송됩니다).\n계속할까요?`)) return;
+  let ok = 0; const bad = [];
+  for (const b of bs) {
+    const m = srMain().find(r => srDig(r.business_number) === b) || {};
+    try { await srApi('/admin/shop', { bizno: b, name: m.company_name || '', sender: srDig(m.mobile || m.phone), enabled: true }); ok++; }
+    catch (e) { bad.push((m.company_name || b) + ': ' + e.message); }
+  }
+  await smsLoad();
+  alert(`${ok}개 등록` + (bad.length ? `\n실패 ${bad.length}개\n` + bad.join('\n') : ''));
 }
 function smsNew() {
   srSel = null;
