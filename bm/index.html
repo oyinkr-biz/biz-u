@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.11</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.12</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -230,6 +230,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
           onkeydown="if(event.key==='Enter')doSearch()">
         <button class="btn" onclick="doSearch()">조&nbsp;&nbsp;회</button>
         <button class="btn" onclick="loadAll()">전&nbsp;&nbsp;체</button>
+        <button class="btn" onclick="smsOpen()" style="margin-left:14px;font-weight:bold" title="충전식 문자: 업체 등록·연결코드·입금 충전·내역">📱 문자 관리</button>
       </div>
     </div>
     <span id="cnt" style="font-size:11px;color:#000080;white-space:nowrap"></span>
@@ -632,6 +633,202 @@ window.addEventListener('DOMContentLoaded', () => {
   bulkPrefill(null);
 });
 
+</script>
+
+<!-- ══ 문자 관리 (BizRelay 문자 서버) ══════════════════════════ -->
+<div id="sms-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:50;align-items:center;justify-content:center">
+ <div style="background:#d4d0c8;border:2px solid;border-color:#fff #808080 #808080 #fff;width:1060px;max-width:98vw;height:680px;max-height:96vh;display:flex;flex-direction:column">
+  <div class="tb"><span class="tb-title">📱 문자 관리 — 충전식 문자 (1원 = 1포인트)</span><button class="btn" style="min-width:0;height:18px;padding:0 6px" onclick="smsClose()">✕</button></div>
+  <div style="padding:6px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0">
+   <div class="panel" style="padding:8px">
+    <span class="ptitle">[ 문자 서버 ]</span>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+     <span class="lbl">주소</span><input type="text" id="sr-url" style="width:230px" placeholder="http://biz.bizone.kr:8099">
+     <span class="lbl">관리 암호</span><input type="password" id="sr-key" style="width:150px">
+     <button class="btn" onclick="smsConnect()">연결 확인</button>
+     <span id="sr-status" style="font-size:11px;margin-left:6px"></span>
+    </div>
+   </div>
+   <div style="display:flex;gap:6px;flex:1;min-height:0">
+    <div class="grid-wrap" style="flex:1;min-height:0">
+     <table><thead><tr><th>업체명</th><th style="width:96px">사업자번호</th><th style="width:100px">발신번호</th><th style="width:80px">포인트</th><th style="width:86px">단가(단/장/사진)</th><th style="width:60px">매장연결</th><th style="width:40px">사용</th></tr></thead>
+     <tbody id="sr-body"></tbody></table>
+    </div>
+    <div style="width:330px;display:flex;flex-direction:column;gap:6px">
+     <div class="panel" style="padding:8px">
+      <span class="ptitle">[ 업체 ]</span>
+      <table style="border-collapse:separate;border-spacing:2px 3px;margin-top:4px;width:100%">
+       <tr><td class="lbl">업체명</td><td><input type="text" id="sr-name" style="width:100%"></td></tr>
+       <tr><td class="lbl">사업자번호</td><td><input type="text" id="sr-bizno" style="width:100%" placeholder="숫자 10자리"></td></tr>
+       <tr><td class="lbl">발신번호</td><td><input type="text" id="sr-sender" style="width:100%" placeholder="알리고에 등록된 번호"></td></tr>
+       <tr><td class="lbl">단가</td><td style="font-size:11px">단문<input type="text" id="sr-p1" style="width:38px">장문<input type="text" id="sr-p2" style="width:38px">사진<input type="text" id="sr-p3" style="width:38px"></td></tr>
+       <tr><td></td><td style="font-size:10px;color:#555">비우면 기본 단가 (<span id="sr-defp">-</span>)</td></tr>
+       <tr><td class="lbl">메모</td><td><input type="text" id="sr-memo" style="width:100%"></td></tr>
+       <tr><td class="lbl">사용</td><td><label><input type="checkbox" id="sr-en" checked> 문자 사용 허용</label></td></tr>
+      </table>
+      <div style="display:flex;gap:4px;margin-top:4px">
+       <button class="btn" onclick="smsFromMain()" title="업체관리 목록에서 선택한 업체의 이름·사업자번호·핸드폰을 가져옵니다">선택 업체 가져오기</button>
+       <button class="btn" onclick="smsSave()" style="font-weight:bold">저 장</button>
+       <button class="btn" onclick="smsNew()">새로</button>
+      </div>
+     </div>
+     <div class="panel" style="padding:8px">
+      <span class="ptitle">[ 매장 연결 ]</span>
+      <div style="display:flex;gap:6px;align-items:center;margin-top:4px">
+       <button class="btn" onclick="smsCode()">연결코드 받기</button>
+       <b id="sr-code" style="font-size:18px;letter-spacing:3px;font-family:monospace;color:#000080"></b>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:3px">매장 BizTech 총괄관리자 → SMS 설정 → [비즈테크 문자] 에 넣습니다. 24시간 유효, 새로 받으면 그 매장의 이전 연결은 끊깁니다.</div>
+     </div>
+     <div class="panel" style="padding:8px">
+      <span class="ptitle">[ 입금 충전 / 조정 ]</span>
+      <div style="display:flex;gap:4px;align-items:center;margin-top:4px">
+       <input type="text" id="sr-pts" style="width:90px" placeholder="포인트">
+       <input type="text" id="sr-cmemo" style="flex:1" placeholder="메모 (입금자 등)">
+       <button class="btn" onclick="smsCharge()">충 전</button>
+      </div>
+      <div style="font-size:10px;color:#555;margin-top:3px">입금액 그대로 넣으면 됩니다 (1원=1포인트). 빼려면 앞에 - (예: -500)</div>
+     </div>
+     <div style="display:flex;gap:4px"><button class="btn" onclick="smsHist(false)" style="flex:1">선택 업체 내역</button><button class="btn" onclick="smsHist(true)" style="flex:1">전체 내역</button></div>
+    </div>
+   </div>
+   <div class="grid-wrap" style="height:180px;flex:none;min-height:0">
+    <table><thead><tr><th style="width:130px">일시</th><th style="width:120px">업체</th><th style="width:60px">구분</th><th>내용</th><th style="width:70px">건수</th><th style="width:80px">포인트</th><th style="width:90px">남은</th></tr></thead>
+    <tbody id="sr-hist"></tbody></table>
+   </div>
+  </div>
+ </div>
+</div>
+<script>
+// ════════════════════════════════════════════════════════════
+// 문자 관리 — BizRelay 관리 API (관리 암호는 이 PC에만 저장)
+// ════════════════════════════════════════════════════════════
+let srShops = [], srSel = null, srCfg = null;
+const $sr = id => document.getElementById(id);
+const srEsc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const srNum = v => (v == null || v === '') ? '' : Number(v).toLocaleString();
+function srLoadCfg() {
+  try { return JSON.parse(localStorage.getItem('bm_relay') || '{}'); } catch (e) { return {}; }
+}
+async function srApi(path, body) {
+  const c = srLoadCfg();
+  if (!c.url || !c.key) throw new Error('문자 서버 주소와 관리 암호를 넣고 [연결 확인]을 누르세요');
+  const res = await fetch(c.url.replace(/\/+$/, '') + path, {
+    method: body ? 'POST' : 'GET',
+    headers: { 'Content-Type': 'application/json', 'X-Admin-Key': c.key },
+    body: body ? JSON.stringify(body) : undefined });
+  const j = await res.json().catch(() => ({ ok: false, error: '응답 오류 (' + res.status + ')' }));
+  if (!j.ok) throw new Error(j.error || '실패');
+  return j;
+}
+function smsOpen() {
+  const c = srLoadCfg();
+  $sr('sr-url').value = c.url || 'http://biz.bizone.kr:8099';
+  $sr('sr-key').value = c.key || '';
+  $sr('sms-ov').style.display = 'flex';
+  if (c.url && c.key) smsConnect(); else $sr('sr-status').textContent = '주소와 관리 암호를 넣으세요 (관리 암호는 문자 서버 PC의 relay_config.json에 있습니다)';
+}
+function smsClose() { $sr('sms-ov').style.display = 'none'; }
+async function smsConnect() {
+  localStorage.setItem('bm_relay', JSON.stringify({ url: $sr('sr-url').value.trim(), key: $sr('sr-key').value }));
+  const st = $sr('sr-status');
+  st.style.color = '#444'; st.textContent = '확인 중...';
+  try {
+    const j = await srApi('/admin/status');
+    srCfg = j;
+    const a = j.aligo || {};
+    st.innerHTML = `<span style="color:#006600">● 연결됨</span> v${srEsc(j.version)} · 알리고 `
+      + (a.ok ? `<span style="color:#006600">정상</span> (잔여 단문 ${srNum(a.SMS)} / 장문 ${srNum(a.LMS)} / 사진 ${srNum(a.MMS)}건)` : `<span style="color:#cc0000">안 됨: ${srEsc(a.error)}</span>`)
+      + (j.testmode ? ' <b style="color:#cc6600">[시험 모드: 실제로 안 보냄]</b>' : '')
+      + ` · 카드충전 ${j.toss ? '<span style="color:#006600">가능</span>' : '<span style="color:#cc6600">키 없음</span>'}`;
+    $sr('sr-defp').textContent = `${j.price_sms}/${j.price_lms}/${j.price_mms}`;
+    await smsLoad();
+  } catch (e) { st.style.color = '#cc0000'; st.textContent = '연결 실패: ' + e.message; }
+}
+async function smsLoad() {
+  const j = await srApi('/admin/shops');
+  srShops = j.shops || [];
+  const d = srCfg || {};
+  $sr('sr-body').innerHTML = srShops.map(s => `<tr data-b="${srEsc(s.bizno)}" onclick="smsPick('${srEsc(s.bizno)}')"${srSel === s.bizno ? ' class="sel"' : ''}>
+    <td>${srEsc(s.name)}</td><td>${srEsc(s.bizno)}</td><td>${srEsc(s.sender) || '<span style="color:#c00">없음</span>'}</td>
+    <td style="text-align:right;font-weight:bold">${srNum(s.points)}</td>
+    <td style="text-align:center;font-size:12px">${s.price_sms ?? d.price_sms}/${s.price_lms ?? d.price_lms}/${s.price_mms ?? d.price_mms}</td>
+    <td style="text-align:center;font-size:12px">${s.linked ? '<span style="color:#060">연결됨</span>' : (s.has_code ? '코드대기' : '-')}</td>
+    <td style="text-align:center">${s.enabled ? '○' : '<span style="color:#c00">중지</span>'}</td></tr>`).join('')
+    || '<tr><td colspan="7" style="text-align:center;color:#888;padding:10px">등록된 업체가 없습니다 — 업체관리 목록에서 업체를 고르고 [선택 업체 가져오기] → [저 장]</td></tr>';
+}
+function smsPick(b) {
+  const s = srShops.find(x => x.bizno === b); if (!s) return;
+  srSel = b;
+  document.querySelectorAll('#sr-body tr').forEach(tr => tr.classList.toggle('sel', tr.dataset.b === b));
+  $sr('sr-name').value = s.name || ''; $sr('sr-bizno').value = s.bizno; $sr('sr-sender').value = s.sender || '';
+  $sr('sr-p1').value = s.price_sms ?? ''; $sr('sr-p2').value = s.price_lms ?? ''; $sr('sr-p3').value = s.price_mms ?? '';
+  $sr('sr-memo').value = s.memo || ''; $sr('sr-en').checked = !!s.enabled; $sr('sr-code').textContent = '';
+  smsHist(false);
+}
+function smsNew() {
+  srSel = null;
+  ['sr-name', 'sr-bizno', 'sr-sender', 'sr-p1', 'sr-p2', 'sr-p3', 'sr-memo'].forEach(i => $sr(i).value = '');
+  $sr('sr-en').checked = true; $sr('sr-code').textContent = '';
+  document.querySelectorAll('#sr-body tr').forEach(tr => tr.classList.remove('sel'));
+}
+function smsFromMain() {
+  const r = (typeof rows !== 'undefined' && selId != null) ? rows.find(x => x.id === selId) : null;
+  if (!r) { alert('업체관리 목록에서 업체를 먼저 클릭하세요 (문자 관리 창을 닫고 선택 후 다시 여세요)'); return; }
+  smsNew();
+  $sr('sr-name').value = r.company_name || r.name || '';
+  $sr('sr-bizno').value = String(r.business_number || '').replace(/\D/g, '');
+  $sr('sr-sender').value = String(r.mobile || r.phone || '').replace(/\D/g, '');
+  const ex = srShops.find(x => x.bizno === $sr('sr-bizno').value);
+  if (ex) smsPick(ex.bizno);
+}
+async function smsSave() {
+  const bizno = $sr('sr-bizno').value.replace(/\D/g, '');
+  if (bizno.length !== 10) { alert('사업자번호 10자리를 넣으세요'); return; }
+  try {
+    await srApi('/admin/shop', { bizno, name: $sr('sr-name').value.trim(), sender: $sr('sr-sender').value.trim(),
+      price_sms: $sr('sr-p1').value.trim(), price_lms: $sr('sr-p2').value.trim(), price_mms: $sr('sr-p3').value.trim(),
+      memo: $sr('sr-memo').value.trim(), enabled: $sr('sr-en').checked });
+    srSel = bizno; await smsLoad(); smsPick(bizno);
+  } catch (e) { alert('저장 실패: ' + e.message); }
+}
+async function smsCode() {
+  if (!srSel) { alert('목록에서 업체를 고르세요 (새 업체는 먼저 [저 장])'); return; }
+  const s = srShops.find(x => x.bizno === srSel);
+  if (s && s.linked && !confirm(`${s.name}은(는) 이미 매장과 연결되어 있습니다.\n새 코드를 받으면 지금 연결이 끊기고, 매장에서 새 코드를 넣어야 합니다.\n계속할까요?`)) return;
+  try {
+    const j = await srApi('/admin/shop/code', { bizno: srSel });
+    $sr('sr-code').textContent = j.code;
+    $sr('sr-code').title = j.expire + '까지';
+    await smsLoad();
+  } catch (e) { alert('실패: ' + e.message); }
+}
+async function smsCharge() {
+  if (!srSel) { alert('목록에서 업체를 고르세요'); return; }
+  const pts = parseInt(($sr('sr-pts').value || '').replace(/[^\d-]/g, ''), 10);
+  if (!pts) { alert('포인트를 넣으세요'); return; }
+  const s = srShops.find(x => x.bizno === srSel);
+  if (!confirm(`${s ? s.name : srSel}에 ${pts > 0 ? '+' : ''}${pts.toLocaleString()}포인트 ${pts > 0 ? '충전' : '차감'}할까요?`)) return;
+  try {
+    const j = await srApi('/admin/charge', { bizno: srSel, points: pts, kind: pts > 0 ? '입금' : '조정', memo: $sr('sr-cmemo').value.trim() });
+    $sr('sr-pts').value = ''; $sr('sr-cmemo').value = '';
+    await smsLoad(); smsHist(false);
+    alert('완료 — 남은 포인트 ' + j.points.toLocaleString());
+  } catch (e) { alert('실패: ' + e.message); }
+}
+async function smsHist(all) {
+  const tb = $sr('sr-hist');
+  if (!all && !srSel) { tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888">업체를 고르세요</td></tr>'; return; }
+  try {
+    const j = await srApi('/admin/history?limit=300' + (all ? '' : '&bizno=' + srSel));
+    const nm = b => (srShops.find(x => x.bizno === b) || {}).name || b;
+    const tn = { SMS: '단문', LMS: '장문', MMS: '사진' };
+    const list = [...(j.sends || []).map(h => ({ at: h.at, html: `<td>${srEsc(nm(h.bizno))}</td><td>${tn[h.msg_type] || h.msg_type}</td><td title="${srEsc(h.receivers)}">${srEsc((h.msg || '').slice(0, 60))} <span style="color:${h.ok_cnt === h.req_cnt ? '#060' : '#c60'};font-size:11px">${srEsc(h.result)}</span></td><td style="text-align:right">${h.ok_cnt}/${h.req_cnt}</td><td style="text-align:right;color:#c00">-${srNum(h.points)}</td><td style="text-align:right">${srNum(h.after)}</td>` })),
+                  ...(j.charges || []).map(c => ({ at: c.at, html: `<td>${srEsc(nm(c.bizno))}</td><td style="color:#00a">${srEsc(c.kind)}</td><td style="color:#00a">${srEsc(c.memo || '')}${c.order_id ? ' (' + srEsc(c.order_id) + ')' : ''}</td><td></td><td style="text-align:right;color:#00a">${c.points > 0 ? '+' : ''}${srNum(c.points)}</td><td style="text-align:right">${srNum(c.after)}</td>` }))]
+      .sort((a, b) => a.at < b.at ? 1 : -1);
+    tb.innerHTML = list.map(x => `<tr><td style="font-size:12px">${x.at}</td>${x.html}</tr>`).join('') || '<tr><td colspan="7" style="text-align:center;color:#888">내역이 없습니다</td></tr>';
+  } catch (e) { tb.innerHTML = `<tr><td colspan="7" style="color:#c00">${srEsc(e.message)}</td></tr>`; }
+}
 </script>
 </body>
 </html>
