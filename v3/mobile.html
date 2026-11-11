@@ -113,6 +113,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
 .lc-price{font-size:14px;font-weight:700;color:#1565c0}
 .lc-code{font-size:11px;color:#bdbdbd;margin-top:3px}
 .empty{text-align:center;color:#bdbdbd;padding:40px 0;font-size:14px}
+/* 입력 내역 */
+.h-bar{background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.h-bar input[type=date]{flex:1;min-width:130px;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:9px;font-size:14px}
+.h-day{border:1.5px solid #e0e0e0;background:#fff;border-radius:9px;padding:8px 10px;font-size:13px;cursor:pointer}
+.h-seg{display:flex;width:100%;gap:6px}
+.h-seg button{flex:1;padding:8px 0;border:1.5px solid #e0e0e0;background:#fff;border-radius:9px;font-size:14px;font-weight:600;color:#78909c;cursor:pointer}
+.h-seg button.on{background:#1565c0;border-color:#1565c0;color:#fff}
+.h-sum{background:#e3f2fd;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:#0d47a1;display:flex;justify-content:space-between}
+.h-card{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.h-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.h-cl{font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-amt{font-size:15px;font-weight:700;color:#1565c0;flex-shrink:0}
+.h-sub{font-size:12px;color:#90a4ae;margin-top:3px}
+.h-lines{margin-top:8px;border-top:1px dashed #e0e0e0;padding-top:6px;font-size:13px}
+.h-ln{display:flex;justify-content:space-between;padding:3px 0;gap:8px}
+.h-ln span:first-child{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* ── 바텀시트 모달 ── */
 #modal{position:fixed;inset:0;z-index:900;display:none;flex-direction:column;justify-content:flex-end}
@@ -183,6 +199,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
       <div id="cl-list"></div>
     </div>
 
+    <!-- 입력 내역 (저장한 매출·매입 전표 보기) -->
+    <div id="p-history" class="panel">
+      <div class="h-bar">
+        <button class="h-day" onclick="histShift(-1)">◀</button>
+        <input type="date" id="h-date" onchange="loadHistory()">
+        <button class="h-day" onclick="histShift(1)">▶</button>
+        <button class="h-day" onclick="$('h-date').value=_mToday();loadHistory()">오늘</button>
+        <div class="h-seg">
+          <button id="h-g1" class="on" onclick="histGubun('1')">매출</button>
+          <button id="h-g2" onclick="histGubun('2')">매입</button>
+        </div>
+      </div>
+      <div id="h-list"></div>
+    </div>
+
     <!-- 품목 조회 -->
     <div id="p-items" class="panel">
       <div class="srch-box"><input id="it-q" placeholder="이름 또는 코드 검색" oninput="renderItems()"></div>
@@ -194,6 +225,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
   <div id="nav">
     <button class="nb on" id="nb-sales"    onclick="switchTab('sales')"><span class="nb-ic">📦</span><span>매출</span></button>
     <button class="nb"    id="nb-purchase" onclick="switchTab('purchase')"><span class="nb-ic">🛒</span><span>매입</span></button>
+    <button class="nb"    id="nb-history"  onclick="switchTab('history')"><span class="nb-ic">🧾</span><span>내역</span></button>
     <button class="nb"    id="nb-clients"  onclick="switchTab('clients')"><span class="nb-ic">👥</span><span>거래처</span></button>
     <button class="nb"    id="nb-items"    onclick="switchTab('items')"><span class="nb-ic">📋</span><span>품목</span></button>
   </div>
@@ -315,14 +347,50 @@ async function initApp() {
 }
 
 // ── 탭 전환 ──
-const TABS = ['sales','purchase','clients','items'];
-const TAB_LABELS = {sales:'매출 입력',purchase:'매입 입력',clients:'거래처 조회',items:'품목 조회'};
+const TABS = ['sales','purchase','history','clients','items'];
+const TAB_LABELS = {sales:'매출 입력',purchase:'매입 입력',history:'입력 내역',clients:'거래처 조회',items:'품목 조회'};
 function switchTab(tab) {
   TABS.forEach(t=>{
     $('p-'+t).classList.toggle('on',t===tab);
     $('nb-'+t).classList.toggle('on',t===tab);
   });
   $('hd-tab').textContent = TAB_LABELS[tab]||tab;
+  if(tab==='history'){ if(!$('h-date').value) $('h-date').value=_mToday(); loadHistory(); }
+}
+
+// ── 입력 내역: 날짜별 매출/매입 전표 (PC에서 넣은 것 포함), 누르면 품목 펼침 ──
+let _hGubun='1', _hOpen={};
+function histGubun(g){ _hGubun=g; $('h-g1').classList.toggle('on',g==='1'); $('h-g2').classList.toggle('on',g==='2'); loadHistory(); }
+function histShift(n){
+  const d=new Date(($('h-date').value||_mToday())+'T00:00:00'); d.setDate(d.getDate()+n);
+  $('h-date').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  loadHistory();
+}
+function histToggle(k){ _hOpen[k]=!_hOpen[k]; const el=$('hl-'+k); if(el) el.style.display=_hOpen[k]?'':'none'; }
+async function loadHistory(){
+  const day=$('h-date').value||_mToday();
+  $('h-list').innerHTML='<div class="empty">불러오는 중...</div>';
+  try{
+    const j=await api('/api/inven/period?from='+day+'&to='+day+'&gubun='+_hGubun);
+    if(j.ok===false){ $('h-list').innerHTML='<div class="empty">'+(j.error||'조회 실패')+'</div>'; return; }
+    const list=(j.data||[]).slice().sort((a,b)=>String(b.Ivn_Time||'').localeCompare(String(a.Ivn_Time||''))||(b.Ivn_Ticket-a.Ivn_Ticket));
+    const gl=_hGubun==='1'?'매출':'매입';
+    if(!list.length){ $('h-list').innerHTML='<div class="empty">'+day+' '+gl+' 내역이 없습니다</div>'; return; }
+    const cname=id=>(CLIENTS.find(c=>String(c.Client_ID)===String(id))||{}).Client_Name||('거래처 '+id);
+    const tot=list.reduce((s,m)=>s+(parseFloat(m.Ivn_Total)||0),0);
+    const paid=list.reduce((s,m)=>s+(parseFloat(m.Ivn_Cash)||0)+(parseFloat(m.Ivn_Bank)||0)+(parseFloat(m.Ivn_Card)||0),0);
+    $('h-list').innerHTML=`<div class="h-sum"><span>${gl} ${list.length}건</span><span>합계 <b>${fmt(tot)}</b>원 · 입금 ${fmt(paid)}원</span></div>`+
+      list.map(m=>{
+        const k=m.Ivn_Ticket+'_'+String(m.Ivn_Client);
+        const pay=[['현금',m.Ivn_Cash],['통장',m.Ivn_Bank],['카드',m.Ivn_Card],['할인',m.Ivn_DC]].filter(x=>parseFloat(x[1])).map(x=>x[0]+' '+fmt(x[1])).join(' · ');
+        const lines=(m.tran||[]).map(t=>`<div class="h-ln"><span>${t.Item_Name||t.Inot_Item}</span><span>${+(parseFloat(t.Inot_Quty)||0).toFixed(2)} × ${fmt(t.Inot_Unit)}</span><span style="min-width:72px;text-align:right">${fmt(t.Inot_Amt)}</span></div>`).join('');
+        return `<div class="h-card" onclick="histToggle('${k}')">
+          <div class="h-top"><span class="h-cl">${cname(m.Ivn_Client)}</span><span class="h-amt">${fmt(m.Ivn_Total)}원</span></div>
+          <div class="h-sub">순번 ${m.Ivn_Ticket}${m.Ivn_Time?' · '+String(m.Ivn_Time).slice(0,5):''} · ${(m.tran||[]).length}품목${pay?' · '+pay:''}</div>
+          <div class="h-lines" id="hl-${k}" style="${_hOpen[k]?'':'display:none'}">${lines||'<div class="h-sub">품목 없음 (입금만)</div>'}</div>
+        </div>`;
+      }).join('');
+  }catch(e){ $('h-list').innerHTML='<div class="empty">조회 오류: '+e.message+'</div>'; }
 }
 
 // ══════════════════════════════════════════════════════
