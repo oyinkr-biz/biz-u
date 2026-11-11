@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.13</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.14</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -230,7 +230,8 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
           onkeydown="if(event.key==='Enter')doSearch()">
         <button class="btn" onclick="doSearch()">조&nbsp;&nbsp;회</button>
         <button class="btn" onclick="loadAll()">전&nbsp;&nbsp;체</button>
-        <button class="btn" onclick="smsOpen()" style="margin-left:14px;font-weight:bold" title="충전식 문자: 업체 등록·연결코드·입금 충전·내역">📱 문자 관리</button>
+        <button class="btn" id="sms-btn-1" onclick="smsOpen(1)" style="margin-left:14px;font-weight:bold" title="충전식 문자 (관리자 1의 문자 서버·알리고 계정)">📱 문자 관리 1</button>
+        <button class="btn" id="sms-btn-2" onclick="smsOpen(2)" style="font-weight:bold" title="충전식 문자 (관리자 2의 문자 서버·알리고 계정)">📱 문자 관리 2</button>
       </div>
     </div>
     <span id="cnt" style="font-size:11px;color:#000080;white-space:nowrap"></span>
@@ -638,12 +639,13 @@ window.addEventListener('DOMContentLoaded', () => {
 <!-- ══ 문자 관리 (BizRelay 문자 서버) ══════════════════════════ -->
 <div id="sms-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:50;align-items:center;justify-content:center">
  <div style="background:#d4d0c8;border:2px solid;border-color:#fff #808080 #808080 #fff;width:1060px;max-width:98vw;height:680px;max-height:96vh;display:flex;flex-direction:column">
-  <div class="tb"><span class="tb-title">📱 문자 관리 — 충전식 문자 (1원 = 1포인트)</span><button class="btn" style="min-width:0;height:18px;padding:0 6px" onclick="smsClose()">✕</button></div>
+  <div class="tb"><span class="tb-title">📱 <span id="sr-title">문자 관리</span> — 충전식 문자 (1원 = 1포인트)</span><button class="btn" style="min-width:0;height:18px;padding:0 6px" onclick="smsClose()">✕</button></div>
   <div style="padding:6px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0">
    <div class="panel" style="padding:8px">
     <span class="ptitle">[ 문자 서버 ]</span>
     <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
-     <span class="lbl">주소</span><input type="text" id="sr-url" style="width:230px" placeholder="http://biz.bizone.kr:8099">
+     <span class="lbl">이름</span><input type="text" id="sr-alias" style="width:90px" placeholder="관리자명" title="버튼에 표시할 이름 (예: 김관리)">
+     <span class="lbl">주소</span><input type="text" id="sr-url" style="width:210px" placeholder="http://biz.bizone.kr:8099">
      <span class="lbl">관리 암호</span><input type="password" id="sr-key" style="width:150px">
      <button class="btn" onclick="smsConnect()">연결 확인</button>
      <span id="sr-status" style="font-size:11px;margin-left:6px"></span>
@@ -711,13 +713,17 @@ window.addEventListener('DOMContentLoaded', () => {
 // ════════════════════════════════════════════════════════════
 // 문자 관리 — BizRelay 관리 API (관리 암호는 이 PC에만 저장)
 // ════════════════════════════════════════════════════════════
-let srShops = [], srSel = null, srCfg = null;
+let srShops = [], srSel = null, srCfg = null, srSlot = 1;   // srSlot: 문자 관리 1·2 (관리자별 문자 서버·알리고 계정)
+const srKey = n => n === 2 ? 'bm_relay2' : 'bm_relay';
+function srLoadSlot(n) { try { return JSON.parse(localStorage.getItem(srKey(n)) || '{}'); } catch (e) { return {}; } }
+function srBtnLabels() {
+  for (const n of [1, 2]) { const b = $sr('sms-btn-' + n), a = srLoadSlot(n).alias; if (b) b.textContent = `📱 문자 관리 ${n}` + (a ? ` (${a})` : ''); }
+}
+document.addEventListener('DOMContentLoaded', () => srBtnLabels());
 const $sr = id => document.getElementById(id);
 const srEsc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const srNum = v => (v == null || v === '') ? '' : Number(v).toLocaleString();
-function srLoadCfg() {
-  try { return JSON.parse(localStorage.getItem('bm_relay') || '{}'); } catch (e) { return {}; }
-}
+function srLoadCfg() { return srLoadSlot(srSlot); }
 async function srApi(path, body) {
   const c = srLoadCfg();
   if (!c.url || !c.key) throw new Error('문자 서버 주소와 관리 암호를 넣고 [연결 확인]을 누르세요');
@@ -729,9 +735,15 @@ async function srApi(path, body) {
   if (!j.ok) throw new Error(j.error || '실패');
   return j;
 }
-function smsOpen() {
+function smsOpen(n) {
+  srSlot = n === 2 ? 2 : 1;
+  srShops = []; srSel = null; srCfg = null;
+  if (typeof smsNew === 'function') smsNew();
+  $sr('sr-hist').innerHTML = ''; $sr('sr-defp').textContent = '-';
   const c = srLoadCfg();
-  $sr('sr-url').value = c.url || 'http://biz.bizone.kr:8099';
+  $sr('sr-title').textContent = `문자 관리 ${srSlot}` + (c.alias ? ` (${c.alias})` : '');
+  $sr('sr-alias').value = c.alias || '';
+  $sr('sr-url').value = c.url || (srSlot === 1 ? 'http://biz.bizone.kr:8099' : '');
   $sr('sr-key').value = c.key || '';
   $sr('sms-ov').style.display = 'flex';
   smsRender();
@@ -739,7 +751,9 @@ function smsOpen() {
 }
 function smsClose() { $sr('sms-ov').style.display = 'none'; }
 async function smsConnect() {
-  localStorage.setItem('bm_relay', JSON.stringify({ url: $sr('sr-url').value.trim(), key: $sr('sr-key').value }));
+  const alias = $sr('sr-alias').value.trim();
+  localStorage.setItem(srKey(srSlot), JSON.stringify({ url: $sr('sr-url').value.trim(), key: $sr('sr-key').value, alias }));
+  $sr('sr-title').textContent = `문자 관리 ${srSlot}` + (alias ? ` (${alias})` : ''); srBtnLabels();
   const st = $sr('sr-status');
   st.style.color = '#444'; st.textContent = '확인 중...';
   try {
