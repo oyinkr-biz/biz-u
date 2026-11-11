@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.47 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2293,7 +2293,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.47 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2885,7 +2885,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.46</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.47</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4519,10 +4519,11 @@
                 window.gsLoad  = () => loadGeneralStatus();
                 window.gsExcel = () => {
                     if (!gsData.length) { alert('조회 후 사용하세요.'); return; }
-                    const header = '구분,일자,순번,거래처명,총수량,총금액,할인금액,입금금액,현금금액,카드금액,통장금액\n';
-                    const rows = gsData.map(r => `${r.Ivn_Gubun},${r.Ivn_Date},${r.Ivn_Ticket},${r.Ivn_Client},${r.Ivn_Qty||0},${r.Ivn_Total||0},${r.Ivn_DC||0},${(parseFloat(r.Ivn_Cash||0)+parseFloat(r.Ivn_Bank||0)+parseFloat(r.Ivn_Card||0))},${r.Ivn_Cash||0},${r.Ivn_Card||0},${r.Ivn_Bank||0}`).join('\n');
-                    const blob = new Blob(['﻿'+header+rows], {type:'text/csv;charset=utf-8'});
-                    const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='매입매출현황.csv'; a.click();
+                    const n = v => parseFloat(v || 0) || 0;
+                    const header = ['구분','일자','순번','거래처코드','총수량','총금액','할인금액','입금금액','현금금액','카드금액','통장금액'];
+                    const rows = gsData.map(r => [window._xlsxVal(r.Ivn_Gubun), String(r.Ivn_Date ?? ''), r.Ivn_Ticket, window._xlsxVal(r.Ivn_Client), n(r.Ivn_Qty), n(r.Ivn_Total), n(r.Ivn_DC),
+                        n(r.Ivn_Cash) + n(r.Ivn_Bank) + n(r.Ivn_Card), n(r.Ivn_Cash), n(r.Ivn_Card), n(r.Ivn_Bank)]);
+                    window._xlsxDownload([header, ...rows], `매입매출현황_${_todayLocal()}.xlsx`);
                 };
                 window.gsPrintAll = async () => {
                     if (!gsData.length) { alert('조회 후 사용하세요.'); return; }
@@ -8830,24 +8831,13 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 if (hRow) rows.push(Array.from(hRow.querySelectorAll('th')).map(th => th.textContent.trim()));
             }
             tbody.querySelectorAll('tr').forEach(tr => {
-                rows.push(Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim()));
+                const r = window._xlsxCells(tr);   // 숫자는 숫자로(콤마 형식은 _xlsxNumFmt), 합친 칸 펼침
+                if (r.some(v => v !== '')) rows.push(r);
             });
 
-            const csv = '﻿' + rows.map(r => r.map(c => {
-                const s = String(c).replace(/"/g, '""');
-                return /[,"\n]/.test(s) ? `"${s}"` : s;
-            }).join(',')).join('\r\n');
-
             const today = _todayLocal().replace(/-/g,'');
-            const fileName = title.replace(/[\/\\:*?"<>|]/g,'_') + '_' + today + '.csv';
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(a.href);
+            const fileName = title.replace(/[\/\\:*?"<>|]/g,'_') + '_' + today + '.xlsx';
+            window._xlsxDownload(rows, fileName);   // 예전 CSV는 콤마 형식을 못 담아 120000 으로 보였음
         };
 
         // ── 거래처 기간별 매입/매출 현황 출력(F11) ───────────────────
@@ -9244,15 +9234,54 @@ function doSaveHtml(){
         // ── Excel 업로드/다운로드 (SheetJS) ──────────────────────────
         window._xlsxDownload = _xlsxDownload;   // 다른 화면(매출등록 통계 등)에서도 쓰도록 공용
         // 표 한 줄 → 엑셀 칸. 합친 칸(colspan, 예: 합계 줄의 "합 계")은 그 칸 수만큼 펼쳐야 뒤 숫자가 제 열에 들어감
+        // 화면 글자 → 엑셀 값: "120,000" → 120000(숫자). 앞자리 0 코드("0101")는 글자 그대로
+        window._xlsxVal = function(t) {
+            t = String(t ?? '').trim();
+            const v = t.replace(/,/g, '');
+            if (v === '' || isNaN(v) || /^[+-]?0\d/.test(v) || /\s/.test(v)) return t;
+            return Number(v);
+        };
         window._xlsxCells = function(tr) {
             const out = [];
             tr.querySelectorAll('td').forEach(td => {
-                const v = td.textContent.trim().replace(/,/g, '');
-                out.push(isNaN(v) || v === '' ? v : Number(v));
+                out.push(window._xlsxVal(td.textContent));
                 for (let i = 1; i < (td.colSpan || 1); i++) out.push('');
             });
             return out;
         };
+        // 요청 87: 엑셀 금액·수량에 천 단위 콤마(#,##0) — 숫자 칸에 표시 형식만 넣음(값은 숫자라 계산 그대로)
+        //  제목줄(첫 숫자 줄 위 글자)이 코드·번호·사업자·전화·일자 같은 열은 콤마 안 넣음
+        const _XLSX_NOFMT = /코드|번호|사업자|전화|연락처|휴대|핸드폰|일자|날짜|년월|순번|계좌|우편|^no\.?$|^id$/i;
+        window._xlsxNumFmt = function(ws) {
+            if (!ws || !ws['!ref'] || typeof XLSX === 'undefined') return ws;
+            const rg = XLSX.utils.decode_range(ws['!ref']);
+            const at = (R, C) => ws[XLSX.utils.encode_cell({ r: R, c: C })];
+            let first = rg.e.r + 1;   // 첫 숫자 줄
+            for (let R = rg.s.r; R <= rg.e.r && first > rg.e.r; R++)
+                for (let C = rg.s.c; C <= rg.e.c; C++) { const c = at(R, C); if (c && c.t === 'n') { first = R; break; } }
+            for (let C = rg.s.c; C <= rg.e.c; C++) {
+                let hd = '';
+                for (let R = rg.s.r; R < first; R++) { const c = at(R, C); if (c && c.t === 's') hd += ' ' + String(c.v).trim(); }
+                if (hd.trim().split(/\s+/).some(w => _XLSX_NOFMT.test(w))) continue;
+                for (let R = first; R <= rg.e.r; R++) {
+                    const c = at(R, C);
+                    if (!c) continue;
+                    if (c.t === 's' && /^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(String(c.v).trim())) { c.v = Number(String(c.v).replace(/,/g, '')); c.t = 'n'; }
+                    if (c.t !== 'n' || c.z) continue;
+                    c.z = Number.isInteger(c.v) ? '#,##0' : '#,##0.0##';
+                    if (c.s) c.s = Object.assign({}, c.s, { numFmt: c.z });   // 색 있는 칸(xlsx-js-style)은 스타일 쪽에도
+                }
+            }
+            return ws;
+        };
+        if (typeof XLSX !== 'undefined' && !XLSX._bizNumFmt) {
+            const _wf = XLSX.writeFile;
+            XLSX.writeFile = function(wb, fn, opts) {
+                try { (wb.SheetNames || []).forEach(n => window._xlsxNumFmt(wb.Sheets[n])); } catch (e) { console.warn('엑셀 콤마 형식', e); }
+                return _wf.call(this, wb, fn, opts);
+            };
+            XLSX._bizNumFmt = true;
+        }
         window._xlsxNotBlank = r => r.slice(1).some(v => v !== '');   // 화면 채우기용 빈 줄(번호만 있음) 빼기
         function _xlsxDownload(rows, filename) {
             const ws  = XLSX.utils.aoa_to_sheet(rows);
@@ -11632,14 +11661,10 @@ function doSaveHtml(){
         window.runCatExcel = function() {
             const rows = [...document.querySelectorAll('#category-status-grid-body tr')]
                 .filter(tr => tr.cells.length >= 10)
-                .map(tr => [...tr.cells].map(td => `"${(td.textContent||'').trim().replace(/"/g,'""')}"`).join(','));
+                .map(tr => window._xlsxCells(tr));
             if (!rows.length) { alert('조회 결과가 없습니다.'); return; }
-            const header = '"번호","대분류","소분류","제품명","단가","매출수량","매출금액","반품수량","반품금액","합계수량","합계금액"';
-            const csv = '﻿' + header + '\n' + rows.join('\n');
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
-            a.download = `분류별매입매출현황_${_todayLocal()}.csv`;
-            a.click();
+            const header = ['번호','대분류','소분류','제품명','단가','매출수량','매출금액','반품수량','반품금액','합계수량','합계금액'];
+            window._xlsxDownload([header, ...rows], `분류별매입매출현황_${_todayLocal()}.xlsx`);
         };
 
 
