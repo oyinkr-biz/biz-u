@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.15</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.16</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -790,9 +790,11 @@ function smsRender() {
   const reg = new Map(srShops.map(s => [s.bizno, s]));
   const list = srShops.map(s => ({ b: s.bizno, name: s.name, s }));
   for (const r of srMain()) { const b = srDig(r.business_number); if (!reg.has(b)) { reg.set(b, null); list.push({ b, name: r.company_name || '', m: r }); } }
-  list.sort((a, b) => (!!b.s - !!a.s) || String(a.name).localeCompare(String(b.name), 'ko'));
+
   const clrOf = new Map(srMain().map(r => [srDig(r.business_number), r.color || '검정']));
   const clr = $sr('sr-clr').value;
+  const ci = x => { const i = COLORS.indexOf(clrOf.get(x.b) || '검정'); return i < 0 ? 99 : i; };   // 같은 색끼리 (업체관리 색 순서)
+  list.sort((a, b) => (ci(a) - ci(b)) || (!!b.s - !!a.s) || String(a.name).localeCompare(String(b.name), 'ko'));
   const view = list.filter(x => (!q || String(x.name).toLowerCase().includes(q) || x.b.includes(q)) && (!onlyReg || x.s)
                              && (!clr || (clrOf.get(x.b) || '검정') === clr));
   const bg = b => (C[clrOf.get(b) || '검정'] || '');
