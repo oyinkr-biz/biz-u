@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.49 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.50 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2297,7 +2297,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.49 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.50 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2889,7 +2889,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.49</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.50</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -15679,7 +15679,9 @@ function doSaveHtml(){
         // 작업 날짜: 거래일자를 직접 바꾸면 기억 → 새 전표가 돼도 그 날짜 유지 (어제 자료 이어서 입력)
         // 창을 새로 열면 다시 오늘. 거래내역 클릭으로 잠깐 본 전표 날짜는 작업 날짜가 아님
         let workDate = '';
+        let _orderPriceRows = null;   // 주문→매출 전환으로 채운 줄들: 단가 Enter → 다음 채운 줄 단가
         async function newEntry(keepDate) {
+            _orderPriceRows = null;
             if (!keepDate) workDate = '';
             currentTicket   = null;
             currentClientId = null;
@@ -16680,6 +16682,15 @@ function doSaveHtml(){
                         // — 단가 0으로 넣을 품목(우니 등 생물)은 ↓ 화살표로 다음 줄로 이동
                         if (!parseNum(inp.value)) { try { inp.select(); } catch(_) {} return; }
                         if (!parseNum($qry(`.g-qty[data-row="${row}"]`)?.value)) return;
+                        // 주문 전환으로 채운 줄이면 다음 주문 품목의 단가로 (마지막 줄 다음은 빈 줄 제품코드)
+                        if (_orderPriceRows && _orderPriceRows.includes(row)) {
+                            const nr = _orderPriceRows.find(x => x > row);
+                            if (nr != null) { $qry(`.g-price[data-row="${nr}"]`)?.focus(); return; }
+                            const lastRow = _orderPriceRows[_orderPriceRows.length - 1];
+                            _orderPriceRows = null;
+                            $qry(`.g-code[data-row="${lastRow + 1}"]`)?.focus();
+                            return;
+                        }
                         const next = $qry(`.g-code[data-row="${row + 1}"]`);
                         if (next) next.focus();
                     } else if (e.key === 'ArrowLeft') {
@@ -19142,6 +19153,7 @@ function doSaveHtml(){
                 }
                 // 품목 채우기
                 const items = order.items || [];
+                const filled = [];
                 for (let i = 0; i < items.length; i++) {
                     const it = items[i];
                     const prod = allItems.find(p =>
@@ -19155,8 +19167,16 @@ function doSaveHtml(){
                     fillGridRow(i, prod);
                     const qtyEl = $qry(`.g-qty[data-row="${i}"]`);
                     if (qtyEl) { qtyEl.value = it.qty; calcRowAmt(i); }
+                    filled.push(i);
                 }
                 calcTotals();
+                // 전환 후 첫 품목 단가로 커서 → 단가 입력하고 Enter 치면 다음 품목 단가로
+                _orderPriceRows = filled.length ? filled : null;
+                if (filled.length && matched) setTimeout(() => {
+                    removePopup('client-search-popup');
+                    const pe = $qry(`.g-price[data-row="${filled[0]}"]`);
+                    if (pe) { pe.focus(); try { pe.select(); } catch(_) {} }
+                }, 150);
             };
 
             // 매출등록 창 닫기(X) 시 거래처 잠금 해제
