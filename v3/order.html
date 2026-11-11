@@ -104,12 +104,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
 <div id="info-box">
   <h2>📋 주문자 정보</h2>
   <div class="frow">
-    <input class="finput" id="ord-name" placeholder="이름 또는 상호명 (연락처만 입력해도 됨)" maxlength="30">
+    <input class="finput" id="ord-key" placeholder="거래처명 / 대표자명 / 휴대폰 / 사업자번호 중 하나" maxlength="40" autocomplete="off">
   </div>
-  <div class="frow">
-    <input class="finput" id="ord-phone" placeholder="연락처 (이름만 입력해도 됨, 등록된 거래처면 단가 자동 적용)" type="tel" maxlength="20">
-  </div>
-  <div id="client-match" style="font-size:11px;color:#2e7d32;display:none;margin-top:-2px"></div>
+  <div style="font-size:11px;color:#888;margin-top:-2px">넷 중 하나만 입력하면 등록된 거래처로 자동 연결됩니다</div>
+  <div id="client-match" style="font-size:11px;color:#2e7d32;display:none;margin-top:4px"></div>
 </div>
 
 <div id="search-wrap">
@@ -161,28 +159,32 @@ function scheduleClientLookup() {
   clearTimeout(_lookupTimer);
   _lookupTimer = setTimeout(doClientLookup, 500);
 }
+let selectedClientName = '';
+// 숫자 위주로 입력했으면 연락처로도 남김
+const _isNumKey = v => { const d = v.replace(/\D/g, ''); return d.length >= 7 && d.length >= v.replace(/\s/g, '').length * 0.6; };
 async function doClientLookup() {
-  const name  = document.getElementById('ord-name').value.trim();
-  const phone = document.getElementById('ord-phone').value.trim();
+  const key = document.getElementById('ord-key').value.trim();
   const matchEl = document.getElementById('client-match');
-  if (!name && !phone) {
-    selectedClientId = '';
+  if (!key) {
+    selectedClientId = ''; selectedClientName = '';
     matchEl.style.display = 'none';
     return loadProducts();
   }
   try {
-    const params = new URLSearchParams();
-    if (name) params.set('name', name);
-    if (phone) params.set('phone', phone);
-    const r = await fetch(API + '/api/order/lookup?' + params.toString());
+    const r = await fetch(API + '/api/order/lookup?q=' + encodeURIComponent(key));
     const j = await r.json();
     if (j.data && j.data.id) {
-      selectedClientId = j.data.id;
-      matchEl.textContent = `✓ 등록된 거래처(${j.data.name})로 자동 연결됨 — 거래처 단가가 적용됩니다`;
+      selectedClientId = j.data.id; selectedClientName = j.data.name || '';
+      matchEl.textContent = `✓ 등록된 거래처(${j.data.name})로 자동 연결됨`;
+      matchEl.style.color = '#2e7d32';
       matchEl.style.display = '';
     } else {
-      selectedClientId = '';
-      matchEl.style.display = 'none';
+      selectedClientId = ''; selectedClientName = '';
+      matchEl.textContent = j.many > 1
+        ? `여러 거래처가 해당됩니다 — 휴대폰이나 사업자번호로 입력해 주세요`
+        : `등록된 거래처를 찾지 못했습니다 — 이대로 주문해도 접수됩니다`;
+      matchEl.style.color = j.many > 1 ? '#e65100' : '#888';
+      matchEl.style.display = '';
     }
   } catch(e) {
     selectedClientId = '';
@@ -190,8 +192,7 @@ async function doClientLookup() {
   }
   loadProducts();
 }
-document.getElementById('ord-name').addEventListener('input', scheduleClientLookup);
-document.getElementById('ord-phone').addEventListener('input', scheduleClientLookup);
+document.getElementById('ord-key').addEventListener('input', scheduleClientLookup);
 
 async function loadProducts() {
   const url = API + '/api/order/products' + (selectedClientId ? ('?client_id=' + encodeURIComponent(selectedClientId)) : '');
@@ -303,9 +304,10 @@ document.getElementById('search').addEventListener('input', function() {
 });
 
 document.getElementById('order-btn').addEventListener('click', async () => {
-  const name  = document.getElementById('ord-name').value.trim();
-  const phone = document.getElementById('ord-phone').value.trim();
-  if (!name && !phone) { document.getElementById('ord-name').focus(); alert('이름 또는 연락처를 입력해 주세요.'); return; }
+  const key   = document.getElementById('ord-key').value.trim();
+  if (!key) { document.getElementById('ord-key').focus(); alert('거래처명·대표자명·휴대폰·사업자번호 중 하나를 입력해 주세요.'); return; }
+  const name  = selectedClientName || key;
+  const phone = _isNumKey(key) ? key : '';
   if (!Object.keys(cart).length) { alert('제품을 선택해 주세요.'); return; }
 
   const btn = document.getElementById('order-btn');
@@ -346,8 +348,8 @@ document.getElementById('order-btn').addEventListener('click', async () => {
 document.getElementById('done-btn').addEventListener('click', () => {
   cart = {};
   selectedClientId = '';
-  document.getElementById('ord-name').value = '';
-  document.getElementById('ord-phone').value = '';
+  document.getElementById('ord-key').value = '';
+  selectedClientName = '';
   document.getElementById('memo').value = '';
   document.getElementById('client-match').style.display = 'none';
   document.getElementById('done').style.display = 'none';
