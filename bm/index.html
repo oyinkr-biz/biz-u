@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.14</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.15</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -654,7 +654,8 @@ window.addEventListener('DOMContentLoaded', () => {
    <div style="display:flex;gap:6px;flex:1;min-height:0">
     <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4px">
     <div style="display:flex;gap:6px;align-items:center;font-size:11px">
-     <span class="lbl">업체명</span><input type="text" id="sr-q" style="width:140px" oninput="smsRender()">
+     <span class="lbl">색상</span><select id="sr-clr" style="width:70px" onchange="smsClrChange()"></select>
+     <span class="lbl">업체명</span><input type="text" id="sr-q" style="width:120px" oninput="smsRender()">
      <label><input type="checkbox" id="sr-onlyreg" onchange="smsRender()"> 등록된 업체만</label>
      <span id="sr-cnt" style="color:#000080"></span>
      <button class="btn" onclick="smsBulk()" style="margin-left:auto" title="체크한 미등록 업체를 업체명·사업자번호·핸드폰(발신번호)으로 한꺼번에 등록">체크 업체 등록</button>
@@ -724,6 +725,11 @@ const $sr = id => document.getElementById(id);
 const srEsc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const srNum = v => (v == null || v === '') ? '' : Number(v).toLocaleString();
 function srLoadCfg() { return srLoadSlot(srSlot); }
+function smsClrChange() {   // 고른 색은 문자 관리 1·2가 따로 기억
+  const c = srLoadCfg(); c.clr = $sr('sr-clr').value;
+  localStorage.setItem(srKey(srSlot), JSON.stringify(c));
+  smsRender();
+}
 async function srApi(path, body) {
   const c = srLoadCfg();
   if (!c.url || !c.key) throw new Error('문자 서버 주소와 관리 암호를 넣고 [연결 확인]을 누르세요');
@@ -743,6 +749,8 @@ function smsOpen(n) {
   const c = srLoadCfg();
   $sr('sr-title').textContent = `문자 관리 ${srSlot}` + (c.alias ? ` (${c.alias})` : '');
   $sr('sr-alias').value = c.alias || '';
+  $sr('sr-clr').innerHTML = '<option value="">전체</option>' + COLORS.map(k => `<option value="${k}">${k}</option>`).join('');
+  $sr('sr-clr').value = c.clr || '';
   $sr('sr-url').value = c.url || (srSlot === 1 ? 'http://biz.bizone.kr:8099' : '');
   $sr('sr-key').value = c.key || '';
   $sr('sms-ov').style.display = 'flex';
@@ -752,7 +760,7 @@ function smsOpen(n) {
 function smsClose() { $sr('sms-ov').style.display = 'none'; }
 async function smsConnect() {
   const alias = $sr('sr-alias').value.trim();
-  localStorage.setItem(srKey(srSlot), JSON.stringify({ url: $sr('sr-url').value.trim(), key: $sr('sr-key').value, alias }));
+  localStorage.setItem(srKey(srSlot), JSON.stringify({ url: $sr('sr-url').value.trim(), key: $sr('sr-key').value, alias, clr: $sr('sr-clr').value }));
   $sr('sr-title').textContent = `문자 관리 ${srSlot}` + (alias ? ` (${alias})` : ''); srBtnLabels();
   const st = $sr('sr-status');
   st.style.color = '#444'; st.textContent = '확인 중...';
@@ -783,14 +791,18 @@ function smsRender() {
   const list = srShops.map(s => ({ b: s.bizno, name: s.name, s }));
   for (const r of srMain()) { const b = srDig(r.business_number); if (!reg.has(b)) { reg.set(b, null); list.push({ b, name: r.company_name || '', m: r }); } }
   list.sort((a, b) => (!!b.s - !!a.s) || String(a.name).localeCompare(String(b.name), 'ko'));
-  const view = list.filter(x => (!q || String(x.name).toLowerCase().includes(q) || x.b.includes(q)) && (!onlyReg || x.s));
-  $sr('sr-cnt').textContent = `등록 ${srShops.length} / 전체 ${list.length}`;
+  const clrOf = new Map(srMain().map(r => [srDig(r.business_number), r.color || '검정']));
+  const clr = $sr('sr-clr').value;
+  const view = list.filter(x => (!q || String(x.name).toLowerCase().includes(q) || x.b.includes(q)) && (!onlyReg || x.s)
+                             && (!clr || (clrOf.get(x.b) || '검정') === clr));
+  const bg = b => (C[clrOf.get(b) || '검정'] || '');
+  $sr('sr-cnt').textContent = clr ? `${clr} ${view.length}곳 (등록 ${view.filter(x => x.s).length})` : `등록 ${srShops.length} / 전체 ${list.length}`;
   $sr('sr-body').innerHTML = view.map(x => {
     const s = x.s;
-    if (!s) return `<tr data-b="${x.b}" onclick="smsPick('${x.b}')" style="color:#888"${srSel === x.b ? ' class="sel"' : ''}>
+    if (!s) return `<tr data-b="${x.b}" onclick="smsPick('${x.b}')" style="color:#666;${bg(x.b)}"${srSel === x.b ? ' class="sel"' : ''}>
       <td style="text-align:center" onclick="event.stopPropagation()"><input type="checkbox" class="sr-ck" value="${x.b}"></td>
       <td>${srEsc(x.name)}</td><td>${x.b}</td><td>${srEsc(srDig(x.m.mobile || x.m.phone))}</td><td colspan="4" style="text-align:center;font-size:12px">미등록</td></tr>`;
-    return `<tr data-b="${s.bizno}" onclick="smsPick('${s.bizno}')"${srSel === s.bizno ? ' class="sel"' : ''}>
+    return `<tr data-b="${s.bizno}" onclick="smsPick('${s.bizno}')" style="${bg(s.bizno)}"${srSel === s.bizno ? ' class="sel"' : ''}>
     <td style="text-align:center"><input type="checkbox" class="sr-ck" disabled></td>
     <td>${srEsc(s.name)}</td><td>${srEsc(s.bizno)}</td><td>${srEsc(s.sender) || '<span style="color:#c00">없음</span>'}</td>
     <td style="text-align:right;font-weight:bold">${srNum(s.points)}</td>
