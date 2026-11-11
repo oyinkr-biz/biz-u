@@ -211,21 +211,40 @@ function filterProducts(q) {
 
 function renderProducts(list) {
   const container = document.getElementById('prod-list');
-  if (!list.length) { container.innerHTML = '<div class="no-prod">검색 결과가 없습니다.</div>'; return; }
+  // 요청 91: 담은 제품은 검색어와 상관없이 맨 위에 항상 보임 (다른 제품을 검색해도 사라진 것처럼 안 보이게)
+  const inCart = allProducts.filter(p => cart[p.code] > 0);
+  const cartCodes = new Set(inCart.map(p => String(p.code)));
+  const rest = list.filter(p => !cartCodes.has(String(p.code)));
+  const q = document.getElementById('search').value.trim();
+
+  let html = '';
+  if (inCart.length) {
+    html += `<div class="cat-label" style="color:#1a237e;font-weight:bold">🛒 담은 제품 (${inCart.length}종류)</div>`;
+    inCart.forEach(p => { html += cardHtml(p); });
+    html += `<div class="cat-label">${q ? '검색 결과' : '전체 제품'}</div>`;
+  }
+  if (!rest.length) {
+    container.innerHTML = html + '<div class="no-prod">검색 결과가 없습니다.</div>';
+    return;
+  }
 
   const groups = {};
-  list.forEach(p => {
+  rest.forEach(p => {
     const cat = p.cat || '전체';
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(p);
   });
 
-  let html = '';
   Object.entries(groups).forEach(([cat, prods]) => {
     if (Object.keys(groups).length > 1) html += `<div class="cat-label">${cat}</div>`;
-    prods.forEach(p => {
+    prods.forEach(p => { html += cardHtml(p); });
+  });
+  container.innerHTML = html;
+}
+
+function cardHtml(p) {
       const qty = cart[p.code] || 0;
-      html += `
+      return `
         <div class="prod-card${qty > 0 ? ' selected' : ''}" id="card-${p.code}">
           <div class="prod-info">
             <div class="prod-name">${esc(p.name)}</div>
@@ -235,13 +254,10 @@ function renderProducts(list) {
           <div class="qty-ctrl">
             <button class="qty-btn" onclick="changeQty('${p.code}',-1)">−</button>
             <input class="qty-val${qty===0?' zero':''}" id="qty-${p.code}" type="number" inputmode="numeric" min="0" step="1"
-                   value="${qty}" onfocus="this.select()" onchange="setQty('${p.code}', this.value)">
+                   value="${qty}" onfocus="this.select()" oninput="setQty('${p.code}', this.value, true)" onchange="setQty('${p.code}', this.value)">
             <button class="qty-btn" onclick="changeQty('${p.code}',1)">+</button>
           </div>
         </div>`;
-    });
-  });
-  container.innerHTML = html;
 }
 
 function changeQty(code, delta) {
@@ -249,17 +265,17 @@ function changeQty(code, delta) {
   applyQty(code, cur + delta);
 }
 
-function setQty(code, val) {
+function setQty(code, val, typing) {
   const n = Math.floor(Number(val));
-  applyQty(code, isNaN(n) ? 0 : n);
+  applyQty(code, isNaN(n) ? 0 : n, typing);
 }
 
-function applyQty(code, next) {
+function applyQty(code, next, typing) {
   next = Math.max(0, next);
   if (next === 0) { delete cart[code]; } else { cart[code] = next; }
   const qtyEl = document.getElementById('qty-' + code);
   const cardEl = document.getElementById('card-' + code);
-  if (qtyEl) { qtyEl.value = next; qtyEl.className = 'qty-val' + (next===0?' zero':''); }
+  if (qtyEl) { if (!typing) qtyEl.value = next; qtyEl.className = 'qty-val' + (next===0?' zero':''); }
   if (cardEl) { cardEl.className = 'prod-card' + (next>0?' selected':''); }
   updateSummary();
 }
@@ -293,15 +309,10 @@ function updateSummary() {
 
 document.getElementById('search').addEventListener('input', function() {
   const q = this.value.trim().toLowerCase();
-  const filtered = q ? filterProducts(q) : allProducts;
-  renderProducts(filtered);
-  Object.entries(cart).forEach(([code, qty]) => {
-    const qtyEl = document.getElementById('qty-' + code);
-    const cardEl = document.getElementById('card-' + code);
-    if (qtyEl) { qtyEl.value = qty; qtyEl.className = 'qty-val'; }
-    if (cardEl) { cardEl.className = 'prod-card selected'; }
-  });
+  renderProducts(q ? filterProducts(q) : allProducts);   // 담은 제품은 renderProducts가 맨 위에 따로 보여 줌
 });
+// 검색칸을 다시 누르면 이전 검색어 전체 선택 → 바로 다음 제품명 입력
+document.getElementById('search').addEventListener('focus', function() { try { this.select(); } catch (e) {} });
 
 document.getElementById('order-btn').addEventListener('click', async () => {
   const key   = document.getElementById('ord-key').value.trim();
