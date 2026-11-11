@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.48 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.49 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2265,6 +2265,10 @@
                         <div style="display:flex;flex:1;overflow:hidden">
                             <!-- 왼쪽: 주문 목록 -->
                             <div style="width:260px;min-width:180px;border-right:1px solid #d4d0c8;overflow-y:auto;background:#fff;flex-shrink:0">
+                                <div style="display:flex;position:sticky;top:0;z-index:1;border-bottom:1px solid #b0c8df">
+                                    <button id="inbox-tab-pending" onclick="window._setInboxMode('pending')" style="flex:1;font-size:12px;padding:5px 0;border:none;cursor:pointer;font-family:inherit;background:#1a237e;color:#fff;font-weight:bold">대기 주문</button>
+                                    <button id="inbox-tab-history" onclick="window._setInboxMode('history')" style="flex:1;font-size:12px;padding:5px 0;border:none;cursor:pointer;font-family:inherit;background:#e0e0e0;color:#333">처리 내역</button>
+                                </div>
                                 <div id="inbox-list" style="font-size:12px">
                                     <div style="padding:24px 12px;text-align:center;color:#999">주문이 없습니다</div>
                                 </div>
@@ -2293,7 +2297,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.48 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.49 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2885,7 +2889,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.48</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.49</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -17894,6 +17898,7 @@ function doSaveHtml(){
         }
 
         // ── 초기화 ───────────────────────────────────────────
+        let _winOpenP = null;   // 창 열릴 때 도는 초기화(주문→매출 전환이 끝나길 기다림)
         async function init() {
             dailyStrip = _newStrip();
             clearStripTotals();
@@ -18394,9 +18399,9 @@ function doSaveHtml(){
                         if (wasHidden && !isNowHidden) {
                             if (!lookupsLoaded) {
                                 lookupsLoaded = true;
-                                init();
+                                _winOpenP = init();
                             } else {
-                                newEntry();
+                                _winOpenP = newEntry();
                             }
                         }
                     }
@@ -19117,16 +19122,19 @@ function doSaveHtml(){
             if (!sfx) window._fillSalesFromOrder = async function(order) {
                 const win = $win;
                 if (!win) return;
+                const _wasHidden = win.classList.contains('window-hidden');
                 win.classList.remove('window-hidden');
                 window._bringToFront?.(win);
                 if (window._updateTaskbar) window._updateTaskbar();
-                await newEntry();
-                // 거래처 이름으로 자동 매칭
-                const matched = allClients.find(c =>
-                    (c.Client_Name || '').trim() === (order.client_name || '').trim()
-                );
+                // 숨겨진 창을 열면 감시 코드가 초기화(init/newEntry)를 따로 돌림 → 끝난 뒤에 채워야 거래처가 안 지워짐
+                if (_wasHidden) { await new Promise(r => setTimeout(r, 0)); try { await _winOpenP; } catch (e) {} }
+                if (!allClients.length || !allItems.length) { try { await loadLookups(); } catch (e) {} }
+                if (!_wasHidden) await newEntry();
+                // 거래처: 주문의 거래처 번호 우선, 없으면 이름으로 매칭
+                const matched = (order.client_id != null && allClients.find(c => String(c.Client_ID) === String(order.client_id))) ||
+                    allClients.find(c => (c.Client_Name || '').trim() === (order.client_name || '').trim());
                 if (matched) {
-                    selectClient(matched.Client_ID);
+                    await selectClient(matched.Client_ID);
                     removePopup('client-search-popup');
                 } else if ($id('ivn-client-name')) {
                     $id('ivn-client-name').value = order.client_name || '';
@@ -20473,6 +20481,8 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         let _selectedId = null;
         let _pollTimer = null;
         let _tunnelUrl = '';
+        let _mode = 'pending';   // 'pending' 대기 주문 | 'history' 처리 내역(매출전환·처리완료·취소)
+        const _ST = { sales: ['매출전환', '#1a237e'], done: ['처리완료', '#2e7d32'], cancel: ['취소', '#b71c1c'] };
 
         function _esc(s) {
             return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -20489,13 +20499,23 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         };
 
 
+        window._setInboxMode = function(m) {
+            _mode = m === 'history' ? 'history' : 'pending';
+            _selectedId = null;
+            const on = 'background:#1a237e;color:#fff;font-weight:bold', off = 'background:#e0e0e0;color:#333;font-weight:normal';
+            const tp = document.getElementById('inbox-tab-pending'), th = document.getElementById('inbox-tab-history');
+            if (tp) tp.style.cssText += ';' + (_mode === 'pending' ? on : off);
+            if (th) th.style.cssText += ';' + (_mode === 'history' ? on : off);
+            window._loadOrders();
+        };
+
         window._loadOrders = async function() {
             try {
-                const r = await fetch(OAPI + '/order/pending');
+                const r = await fetch(OAPI + (_mode === 'history' ? '/order/history' : '/order/pending'));
                 const j = await r.json();
                 _orders = j.data || [];
                 _renderList();
-                _updateBadge(_orders.length);
+                if (_mode === 'pending') _updateBadge(_orders.length);
                 const el = document.getElementById('inbox-last-refresh');
                 if (el) el.textContent = '갱신: ' + new Date().toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
             } catch(e) { console.warn('[주문함 로드]', e); }
@@ -20505,7 +20525,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             const el = document.getElementById('inbox-list');
             if (!el) return;
             if (!_orders.length) {
-                el.innerHTML = '<div style="padding:24px 12px;text-align:center;color:#999">주문이 없습니다</div>';
+                el.innerHTML = `<div style="padding:24px 12px;text-align:center;color:#999">${_mode === 'history' ? '처리한 주문이 없습니다' : '주문이 없습니다'}</div>`;
                 const det = document.getElementById('inbox-detail');
                 if (det) det.innerHTML = '<div style="color:#bbb;text-align:center;margin-top:50px;font-size:13px">←　주문을 선택하세요</div>';
                 _selectedId = null;
@@ -20516,8 +20536,9 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 const raw = o.created_at || '';
                 const dt  = raw.length >= 16 ? raw.slice(5,16).replace('T',' ') : raw;
                 const cnt = Array.isArray(o.items) ? o.items.length : 0;
+                const st  = _ST[o.status];
                 return `<div onclick="window._selectOrder(${o.id})" style="padding:8px 10px;border-bottom:1px solid #e8e8e8;cursor:pointer;${sel}">
-                    <div style="font-weight:bold;color:#000080;font-size:12px">${_esc(o.client_name||'')}</div>
+                    <div style="font-weight:bold;color:#000080;font-size:12px">${_esc(o.client_name||'')}${st ? ` <span style="float:right;font-size:10px;font-weight:normal;color:#fff;background:${st[1]};padding:0 5px;border-radius:2px">${st[0]}</span>` : ''}</div>
                     <div style="color:#666;font-size:11px;margin-top:2px">${dt} · ${cnt}종류</div>
                     ${o.phone ? `<div style="color:#888;font-size:10px;margin-top:1px">📞 ${_esc(o.phone)}</div>` : ''}
                     ${o.memo  ? `<div style="color:#888;font-size:10px;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📝 ${_esc(o.memo)}</div>` : ''}
@@ -20556,7 +20577,8 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 <div style="margin-bottom:10px">
                     <div style="font-size:17px;font-weight:bold;color:#000080">${_esc(order.client_name || '')}</div>
                     ${order.phone ? `<div style="font-size:11px;color:#555;margin-top:3px">📞 ${_esc(order.phone)}</div>` : ''}
-                    <div style="font-size:11px;color:#888;margin-top:3px">접수: ${dt}</div>
+                    <div style="font-size:11px;color:#888;margin-top:3px">접수: ${dt || '-'}</div>
+                    ${_ST[order.status] ? `<div style="font-size:11px;margin-top:3px;color:${_ST[order.status][1]};font-weight:bold">${_ST[order.status][0]}${order.done_at ? ' · ' + _esc(String(order.done_at).slice(0,16)) : ''}</div>` : ''}
                 </div>
                 <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;background:#fff">
                     <thead>
@@ -20569,11 +20591,13 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                     <tbody>${rows}</tbody>
                 </table>
                 ${order.memo ? `<div style="font-size:11px;background:#fffde7;padding:6px 8px;border-left:3px solid #f9a825;margin-bottom:10px">📝 ${_esc(order.memo)}</div>` : ''}
-                <div style="display:flex;gap:5px;flex-wrap:wrap">
+                ${_mode === 'history' ? `<div style="display:flex;gap:5px;flex-wrap:wrap">
+                    <button onclick="window._updateOrderStatus(${order.id},'pending')" style="padding:4px 10px;background:#e65100;color:#fff;border:1px outset #ff8a50;cursor:pointer;font-size:12px;font-family:inherit">↩ 대기 주문으로 되돌리기</button>
+                </div>` : `<div style="display:flex;gap:5px;flex-wrap:wrap">
                     <button onclick="window._orderToSales(${order.id})" style="padding:4px 10px;background:#1a237e;color:#fff;border:1px outset #4a4a8e;cursor:pointer;font-size:12px;font-family:inherit">📋 매출로 전환</button>
                     <button onclick="window._updateOrderStatus(${order.id},'done')" style="padding:4px 10px;background:#2e7d32;color:#fff;border:1px outset #558b2f;cursor:pointer;font-size:12px;font-family:inherit">✔ 처리완료</button>
                     <button onclick="window._updateOrderStatus(${order.id},'cancel')" style="padding:4px 10px;background:#b71c1c;color:#fff;border:1px outset #c62828;cursor:pointer;font-size:12px;font-family:inherit">✕ 취소</button>
-                </div>`;
+                </div>`}`;
         }
 
         window._updateOrderStatus = async function(id, status) {
@@ -20585,6 +20609,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 });
                 if (_selectedId === id) _selectedId = null;
                 await window._loadOrders();
+                if (_mode === 'history') _poll();   // 되돌리면 대기 건수 배지 갱신
             } catch(e) { console.warn('[주문 상태 변경]', e); }
         };
 
@@ -20603,7 +20628,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                         if (window._updateTaskbar) window._updateTaskbar();
                     }
                 }
-                await window._updateOrderStatus(id, 'done');
+                await window._updateOrderStatus(id, 'sales');   // 처리 내역에 '매출전환'으로 남음
             } catch(e) {
                 alert('매출 전환 오류: ' + e.message);
             }
