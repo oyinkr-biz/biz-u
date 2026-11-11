@@ -179,7 +179,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
 
     <!-- 거래처 조회 -->
     <div id="p-clients" class="panel">
-      <div class="srch-box"><input id="cl-q" placeholder="이름 또는 코드 검색" oninput="renderClients()"></div>
+      <div class="srch-box"><input id="cl-q" placeholder="이름·코드·대표자·전화 검색" oninput="renderClients()"></div>
       <div id="cl-list"></div>
     </div>
 
@@ -222,12 +222,25 @@ let CLIENTS = [], ITEMS = [];
 let sDrafts = [], bDrafts = [];
 let _draftIdCounter = 0;
 
+function _mToday() { const t=new Date(); return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0'); }
+function _mNow() { const t=new Date(); return [t.getHours(),t.getMinutes(),t.getSeconds()].map(v=>String(v).padStart(2,'0')).join(':'); }
+// 거래처 구분 — PC와 같게: '0' 매입처, '1' 매출처, '2' 기타처
+const _GUBUN_LBL = {'0':'매입처','1':'매출처','2':'기타처'};
+const _cPhone = c => c.Client_HP||c.Client_STel||c.Client_Tel||c.Client_HTel||'';
+const _cDis = c => { const d=c.Client_Dis; return !!d && d!==0 && d!=='0' && d!==false; };
+// 거래처 검색: 이름·코드·대표자명·전화(숫자만 비교)
+function _cMatch(c, q) {
+  if(!q) return true;
+  if((c.Client_Name||'').toLowerCase().includes(q) || String(c.Client_ID||'').includes(q) || String(c.Client_Header||'').toLowerCase().includes(q)) return true;
+  const d=q.replace(/\D/g,'');
+  return d.length>=3 && [c.Client_HP,c.Client_STel,c.Client_Tel,c.Client_HTel,c.Client_Tel2].some(v=>String(v||'').replace(/\D/g,'').includes(d));
+}
 function newDraft() {
   return {
     id: 'd' + (++_draftIdCounter) + '_' + Date.now(),
     expanded: true,
-    date: new Date().toISOString().slice(0,10),
-    clientId: 0, clientName: '',
+    date: _mToday(),
+    clientId: 0, clientName: '', lastPrices: {},
     lines: [{code:'', name:'', vatType:'', qty:0, price:0, amt:0}],
     cash:'', bank:'', card:''
   };
@@ -289,7 +302,7 @@ async function initApp() {
     if (cr.ok === false && cr.error === '인증 필요') {
       doLogout(); $('lerr').textContent = '다시 로그인해 주세요.'; return;
     }
-    CLIENTS = cr.data || [];
+    CLIENTS = (cr.data || []).sort((a,b)=>(Number(a.Client_ID)||0)-(Number(b.Client_ID)||0));   // PC같이 코드 번호 순
     ITEMS   = ir.data || [];
     if(cor.data?.Co_Name) $('hd-co').textContent = cor.data.Co_Name;
     if(sDrafts.length===0) addDraft('s');
@@ -496,26 +509,28 @@ async function saveDraft(pre, id) {
     const totalAmt=validLines.reduce((s,l)=>s+l.amt,0);
     const totalQty=validLines.reduce((s,l)=>s+l.qty,0);
     const cash=parseN(d.cash), bank=parseN(d.bank), card=parseN(d.card);
+    const tm=_mNow();
     const mast={
       Ivn_Date:d.date, Ivn_Ticket:ticket, Ivn_Gubun:gubun,
       Ivn_soGubun:0, Ivn_Qty:totalQty, Ivn_Total:totalAmt,
       Ivn_Amt:totalAmt, Ivn_Tax:0, Ivn_Qty1:0, Ivn_Total1:0,
       Ivn_Amt1:0, Ivn_Tax1:0, Ivn_C:0, Ivn_DC:0,
-      Ivn_Time:'', Ivn_Sawon:1, Ivn_Client:parseInt(d.clientId)||0, Ivn_Conr:0,
+      Ivn_Time:tm, Ivn_Sawon:1, Ivn_Client:parseInt(d.clientId)||0, Ivn_Conr:0,
       Ivn_Cash:cash, Ivn_Card:card, Ivn_Bank:bank, Ivn_Um:null,
       Ivn_No1:null, Ivn_No2:null, Ivn_Blank:0,
       Ivn_sGubun1:0, Ivn_sGubun2:0, Ivn_sGubun3:0,
-      Ivn_VAT:'2', Ivn_TicketNo:null, Ivn_Bigo:null
+      Ivn_VAT:'2', Ivn_TicketNo:null, Ivn_Bigo:null,
+      Ivn_No:validLines.length, Ivn_Reciept:'3', Ivn_dSawon:0, Ivn_Memo:null
     };
     let seq=1;
     const tran=validLines.map(l=>({
       Inot_Date:d.date, Inot_Ticket:ticket, Inot_Gubun:gubun,
       Inot_Item:String(l.code), Inot_Quty:l.qty, Inot_Unit:l.price,
-      Inot_Amt:l.amt, Inot_No:seq++, Inot_Time:'',
+      Inot_Amt:l.amt, Inot_No:seq++, Inot_Time:tm,
       Inot_Client:parseInt(d.clientId)||0, Inot_Conr:0, Inot_sDate:d.date,
       Inot_Sawon:1, Inot_sSawon:0, Inot_TicketNo:null, Inot_Bigo:null,
       Inot_IvnGubun:gubun, Inot_Size:0, Inot_dSawon:0,
-      Inot_Size1:null, Inot_Gong:0, Inot_Tax:0, Inot_C:0
+      Inot_Size1:null, Inot_Gong:l.amt, Inot_Tax:0, Inot_C:0
     }));
     const r=await api('/api/inven',{method:'POST',body:JSON.stringify({mast,tran})});
     if(!r.ok){toast('저장 실패: '+(r.error||''));return;}
@@ -531,17 +546,17 @@ async function saveDraft(pre, id) {
 // ── 거래처/품목 조회 렌더 ──
 function renderClients() {
   const q=($('cl-q')?.value||'').trim().toLowerCase();
-  const list=q?CLIENTS.filter(c=>(c.Client_Name||'').toLowerCase().includes(q)||String(c.Client_ID||'').includes(q)):CLIENTS;
+  const list=CLIENTS.filter(c=>_cMatch(c,q));
   $('cl-list').innerHTML=list.length===0?'<div class="empty">검색 결과 없음</div>'
     :list.slice(0,80).map(c=>`
     <div class="list-card">
       <div class="lc-left">
         <div class="lc-name">${c.Client_Name||''}</div>
-        <div class="lc-sub">${c.Client_Tel||''}</div>
+        <div class="lc-sub">${_cPhone(c)}</div>
       </div>
       <div class="lc-right">
         <div class="lc-code">코드 ${c.Client_ID}</div>
-        <div class="lc-code">${c.Client_Gubun==='1'?'매입처':c.Client_Gubun==='2'?'매출처':'거래처'}</div>
+        <div class="lc-code">${_GUBUN_LBL[String(c.Client_Gubun??'')]||'거래처'}${_cDis(c)?' · 거래중지':''}</div>
       </div>
     </div>`).join('');
 }
@@ -549,12 +564,15 @@ function renderClients() {
 // 거래처 단가적용 A~E면 매출단가 ± 제품 A~E칸 금액 (PC 매출등록과 같게)
 function _mPrice(it){
   const base=parseFloat(it.Item_Amt||0);
-  if(_mPre!=='s') return base;   // 매출 작성 중일 때만 거래처 단가적용
-  const d=(sDrafts||[]).find(x=>x.id===_mDraftId);
-  const c=(typeof CLIENTS!=='undefined'?CLIENTS:[]).find(x=>String(x.Client_ID)===String(d?.clientId||''));
-  const pt=String(c?.Client_PriceType||'').trim();
+  if(_mPre!=='s'&&_mPre!=='b') return base;   // 품목 조회 탭
+  const d=(_mPre==='s'?sDrafts:bDrafts).find(x=>x.id===_mDraftId);
+  if(!d||!d.clientId) return base;
+  const c=CLIENTS.find(x=>String(x.Client_ID)===String(d.clientId));
+  const pt=String(c?.Client_PriceType||'').trim()||'이전단가';
   const k={A:'Item_Amt1',B:'Item_Amt2',C:'Item_Amt3',D:'Item_Amt4',E:'Item_Amt5'}[pt];
-  return k?Math.max(0,base+(parseFloat(it[k])||0)):base;
+  if(k) return Math.max(0,base+(parseFloat(it[k])||0));
+  if(pt==='이전단가'){ const prev=parseFloat((d.lastPrices||{})[String(it.Item_Code)]); return prev>0?prev:base; }
+  return base;
 }
 function renderItems() {
   const q=($('it-q')?.value||'').trim().toLowerCase();
@@ -588,16 +606,13 @@ function closeModal(){ $('modal').classList.remove('on'); }
 function filterModal() {
   const q=($('m-q').value||'').trim().toLowerCase();
   const isItem=_mType==='item';
-  let filtered=q
-    ?(isItem?ITEMS:CLIENTS).filter(x=>{
-        const name=isItem?(x.Item_Name||''):(x.Client_Name||'');
-        const code=isItem?String(x.Item_Code||''):String(x.Client_ID||'');
-        return name.toLowerCase().includes(q)||code.includes(q);
-      })
-    :(isItem?ITEMS:CLIENTS);
+  let filtered=isItem
+    ?(q?ITEMS.filter(x=>(x.Item_Name||'').toLowerCase().includes(q)||String(x.Item_Code||'').includes(q)):ITEMS)
+    :CLIENTS.filter(c=>!_cDis(c)&&_cMatch(c,q));
   if(!isItem&&_mPre){
-    const g=_mPre==='s'?'2':(_mPre==='b'?'1':'');
-    if(g) filtered=filtered.filter(c=>c.Client_Gubun===g||!c.Client_Gubun);
+    // 예전엔 매출='2'(기타처)·매입='1'(매출처)로 거꾸로 걸러 매출 거래처가 하나도 안 나왔음
+    const g=_mPre==='s'?'1':(_mPre==='b'?'0':'');
+    if(g) filtered=filtered.filter(c=>String(c.Client_Gubun??'')===g||c.Client_Gubun==null||c.Client_Gubun==='');
   }
   filtered=filtered.slice(0,60);
   $('m-list').innerHTML=filtered.length===0
@@ -610,7 +625,7 @@ function filterModal() {
     </div>`:
     `<div class="mi" onclick="selectModal(${i})">
       <div><div class="mi-name">${x.Client_Name||''}</div>
-      <div class="mi-sub">${x.Client_Tel||''}</div></div>
+      <div class="mi-sub">${_cPhone(x)}${x.Client_Header?' · '+String(x.Client_Header).trim():''}</div></div>
       <div class="mi-price" style="color:#546e7a;font-size:12px">${x.Client_ID}</div>
     </div>`).join('');
   _mData=filtered;
@@ -624,7 +639,11 @@ function selectModal(idx) {
   if(_mType==='client') {
     d.clientId=item.Client_ID;
     d.clientName=item.Client_Name||'';
-    renderDrafts(_mPre);
+    d.lastPrices={};
+    const pre=_mPre;
+    renderDrafts(pre);
+    api('/api/clients/'+encodeURIComponent(item.Client_ID)+'/last-prices?gubun='+(pre==='s'?'1':'2'))
+      .then(j=>{ if(String(d.clientId)===String(item.Client_ID)) d.lastPrices=j.data||{}; }).catch(()=>{});
     return;
   }
   // 품목 선택
