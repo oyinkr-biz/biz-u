@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.45 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2065,6 +2065,9 @@
                                 <button id="init-save-btn" class="ex-btn-legacy" style="width:80px;height:52px;font-size:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:4px">
                                     <i data-lucide="save" class="btn-icon"></i>저장(F8)
                                 </button>
+                                <button id="init-stock-reset-btn" class="ex-btn-legacy" title="거래일자 아침 기준으로 제품 전부 현재고를 0에서 다시 시작" style="width:80px;height:52px;font-size:11px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:4px;color:#b00">
+                                    <i data-lucide="rotate-ccw" class="btn-icon"></i>현재고 초기화
+                                </button>
                             </div>
                         </div>
                         <!-- Grid -->
@@ -2290,7 +2293,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.45 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.46 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2882,7 +2885,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.45</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.46</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -13739,6 +13742,8 @@ function doSaveHtml(){
             const thCS = $id('init-th-curstock'), colCS = $id('init-col-curstock');
             if (thCS) thCS.style.display = s ? '' : 'none';
             if (colCS) colCS.style.display = s ? '' : 'none';
+            const rb = $id('init-stock-reset-btn');
+            if (rb) rb.style.display = s ? 'flex' : 'none';
         }
 
         // ── 그리드 렌더 ───────────────────────────────────────
@@ -13948,6 +13953,30 @@ function doSaveHtml(){
             }
         }
 
+        // ── 현재고 초기화 (제품 전부, 거래일자 아침 재고 = 0) ──────────
+        async function resetAllStock() {
+            const date = $id('init-date')?.value || _todayLocal();
+            const n = tabState.stock.allRows.length;
+            if (!await window._bizConfirm(
+                `거래일자 ${date} 부터 제품 ${n ? n + '개 ' : ''}전부 현재고를 0에서 다시 시작합니다.\n\n` +
+                `· ${date} 거래(매입·매출)부터 다시 합산됩니다.\n` +
+                `· ${date} 이전 거래는 현재고에 더 이상 합산되지 않습니다.\n` +
+                `· 실제 남은 수량이 있는 제품은 초기화 후 행을 눌러 수량을 넣으세요.\n\n진행하시겠습니까?`)) return;
+            const btn = $id('init-stock-reset-btn');
+            if (btn) btn.disabled = true;
+            try {
+                const j = await fetch(`${API}/init/stock-reset`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ date })
+                }).then(r => r.json());
+                if (!j.ok) { alert('초기화 오류: ' + (j.error || '알 수 없는 오류')); return; }
+                await loadType('stock');
+                window._bizRefreshStock?.();
+                alert(`${date} 기준으로 제품 ${j.data?.items ?? ''}개 현재고를 0으로 초기화했습니다.`);
+            } catch (e) { alert('서버 연결 오류.'); }
+            finally { if (btn) btn.disabled = false; }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const dateEl = $id('init-date');
             if (dateEl) dateEl.value = _todayLocal();
@@ -13979,6 +14008,7 @@ function doSaveHtml(){
             });
 
             $id('init-save-btn')?.addEventListener('click', saveRow);
+            $id('init-stock-reset-btn')?.addEventListener('click', resetAllStock);
             $id('init-del-btn')?.addEventListener('click', deleteSelected);
             $id('init-search-btn')?.addEventListener('click', () => loadFromDB());
             $id('init-close-btn')?.addEventListener('click', () => {
