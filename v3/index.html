@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.58 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2297,7 +2297,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.58 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2889,7 +2889,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.57</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.58</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -7962,10 +7962,49 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
 
                 document.getElementById('_ep-cancel').onclick = close;
 
-                document.getElementById('_ep-exit').onclick = () => {
+                // FTP 백업 업로드가 진행 중이면 끝날 때까지 이 창에 진행률 보여 주고 끝나면 종료
+                //  (업로드 중에 끄면 끊김 — 끊겨도 다음 실행 때 다시 올리지만, PC를 끄는 경우가 많아 여기서 기다림)
+                const _exitAfterFtp = async () => {
+                    let j = {};
+                    try { j = await fetch(_API + '/backup/ftp-status', { cache: 'no-store' }).then(x => x.json()); } catch (e) {}
+                    if (j.state === 'running') {
+                        const box = ov.firstElementChild?.children[1] || ov;   // 제목줄은 두고 내용만 바꿈
+                        box.innerHTML = `<div style="padding:14px 6px 4px;min-width:340px;font-size:14px">
+                            <div style="font-weight:bold;color:#000080;margin-bottom:10px">☁ FTP 백업 업로드 중 — 끝나면 자동으로 종료합니다</div>
+                            <div style="background:#e0e0e0;height:16px;border:1px solid #999"><div id="_ep-ftp-bar" style="background:#1565c0;height:100%;width:0%"></div></div>
+                            <div id="_ep-ftp-txt" style="margin:6px 0 14px;color:#555;font-size:12px">준비 중...</div>
+                            <div style="text-align:right"><button id="_ep-ftp-skip" style="padding:4px 14px;cursor:pointer">그냥 종료</button></div></div>`;
+                        let skip = false;
+                        // 이 창이 맨 위라 확인창(아래에 깔림) 대신 한 번 더 누르면 종료
+                        const skipBtn = document.getElementById('_ep-ftp-skip');
+                        skipBtn.onclick = () => {
+                            if (skipBtn.dataset.ask) { skip = true; return; }
+                            skipBtn.dataset.ask = '1'; skipBtn.textContent = '한 번 더 누르면 종료';
+                            document.getElementById('_ep-ftp-txt')?.insertAdjacentHTML('afterend',
+                                '<div style="color:#c00;font-size:12px;margin:-8px 0 10px">업로드가 멈춥니다. PC에 백업 파일은 있고, 다음에 켜면 다시 올립니다.</div>');
+                        };
+                        const t0 = Date.now();
+                        while (!skip && Date.now() - t0 < 30 * 60 * 1000) {
+                            await new Promise(r => setTimeout(r, 1000));
+                            try { j = await fetch(_API + '/backup/ftp-status', { cache: 'no-store' }).then(x => x.json()); } catch (e) { break; }
+                            if (j.state !== 'running') break;
+                            const pct = j.total ? Math.min(99, Math.floor(j.sent * 100 / j.total)) : 0;
+                            const bar = document.getElementById('_ep-ftp-bar'), tx = document.getElementById('_ep-ftp-txt');
+                            if (bar) bar.style.width = pct + '%';
+                            if (tx) tx.textContent = `${pct}%  (${(j.sent / 1048576).toFixed(0)} / ${(j.total / 1048576).toFixed(0)} MB)`;
+                        }
+                        if (j.state === 'fail' && !skip) {
+                            box.innerHTML = `<div style="padding:14px 6px 4px;min-width:340px;font-size:13px"><div style="color:#c00;font-weight:bold;margin-bottom:6px">FTP 업로드 실패</div>
+                                <div style="color:#555;margin-bottom:12px;white-space:pre-wrap">${String(j.msg || '').replace(/</g, '&lt;')}\n(PC에 백업 파일은 저장되어 있고, 다음에 켜면 다시 올립니다)</div>
+                                <div style="text-align:right"><button id="_ep-ftp-ok" style="padding:4px 14px;cursor:pointer">종료</button></div></div>`;
+                            await new Promise(res => { document.getElementById('_ep-ftp-ok').onclick = res; });
+                        }
+                    }
                     close();
                     (window.electronAPI?.allowClose ? window.electronAPI.allowClose() : window.close());
                 };
+
+                document.getElementById('_ep-exit').onclick = () => { _exitAfterFtp(); };
 
                 document.getElementById('_ep-save').onclick = async () => {
                     const path = document.getElementById('_ep-path').value.trim();
@@ -7991,8 +8030,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 body: JSON.stringify({path})
                             });
                             clearInterval(_dotTimer);
-                            close();
-                            (window.electronAPI?.allowClose ? window.electronAPI.allowClose() : window.close());
+                            await _exitAfterFtp();
                         } else {
                             clearInterval(_dotTimer);
                             await window._bizAlert('백업 실패: ' + (r.error || '오류'));
@@ -21903,6 +21941,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         window._ftpBkTimer = setInterval(async () => {
             try {
                 const j = await fetch(window.location.origin + '/api/backup/ftp-status', { cache: 'no-store' }).then(r => r.json());
+                if (j.state === 'running') note('☁ FTP 백업 업로드 중... ' + (j.total ? Math.min(99, Math.floor(j.sent * 100 / j.total)) + '%' : ''), false);
                 if (j.state === 'done') { clearInterval(window._ftpBkTimer); note('☁ FTP 백업 업로드 완료 (' + (j.at || '') + ')', true); }
                 else if (j.state === 'fail') { clearInterval(window._ftpBkTimer); document.getElementById('ftp-bk-note')?.remove(); alert('❌ ' + (j.msg || 'FTP 업로드 실패') + '\n(로컬 백업 파일은 저장되어 있습니다)'); }
             } catch (e) {}
