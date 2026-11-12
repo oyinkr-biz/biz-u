@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2297,7 +2297,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.56 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.57 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2889,7 +2889,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.56</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.57</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4919,7 +4919,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                             body: JSON.stringify({ path })
                         });
                         const json = await res.json();
-                        if (json.ok) alert('✅ ' + (json.message || '백업 완료'));
+                        if (json.ok) { alert('✅ ' + (json.message || '백업 완료')); if (json.ftp_bg) window._watchFtpBackup?.(); }
                         else         alert('❌ 백업 실패: ' + (json.error || ''));
                     } catch(e) { alert('❌ 서버 연결 실패'); }
                 });
@@ -7542,7 +7542,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 if (await window._bizConfirm('데이터베이스를 즉시 백업하시겠습니까?')) {
                     fetch(window.location.origin + '/api/backup', { method: 'POST' })
                         .then(r => r.json())
-                        .then(j => alert(j.ok ? '✅ ' + j.message : '❌ 백업 실패: ' + j.error))
+                        .then(j => { alert(j.ok ? '✅ ' + j.message : '❌ 백업 실패: ' + j.error); if (j.ok && j.ftp_bg) window._watchFtpBackup?.(); })
                         .catch(() => alert('❌ 서버 연결 실패'));
                 }
             });
@@ -21883,6 +21883,33 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
 
     // 비차단 네트워크 오류 배너 — 연결될 때까지 유지, 복구되면 자동 사라짐
     let _netBannerPoll = null;
+    // 수동 백업의 FTP 업로드(뒤에서 진행) 끝나면 화면 오른쪽 아래에 알림, 실패면 경고창
+    window._watchFtpBackup = function() {
+        clearInterval(window._ftpBkTimer);
+        const started = Date.now();
+        const note = (msg, ok) => {
+            let el = document.getElementById('ftp-bk-note');
+            if (!el) {
+                el = document.createElement('div'); el.id = 'ftp-bk-note';
+                el.style.cssText = 'position:fixed;right:16px;bottom:44px;z-index:100000;padding:8px 14px;border-radius:4px;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,.35);cursor:pointer';
+                el.onclick = () => el.remove();
+                document.body.appendChild(el);
+            }
+            el.style.background = ok ? '#e8f5e9' : '#fff3e0'; el.style.border = '1px solid ' + (ok ? '#66bb6a' : '#ffa726');
+            el.textContent = msg;
+            clearTimeout(el._t); if (ok) el._t = setTimeout(() => el.remove(), 8000);
+        };
+        note('☁ FTP 백업 업로드 중...', false);
+        window._ftpBkTimer = setInterval(async () => {
+            try {
+                const j = await fetch(window.location.origin + '/api/backup/ftp-status', { cache: 'no-store' }).then(r => r.json());
+                if (j.state === 'done') { clearInterval(window._ftpBkTimer); note('☁ FTP 백업 업로드 완료 (' + (j.at || '') + ')', true); }
+                else if (j.state === 'fail') { clearInterval(window._ftpBkTimer); document.getElementById('ftp-bk-note')?.remove(); alert('❌ ' + (j.msg || 'FTP 업로드 실패') + '\n(로컬 백업 파일은 저장되어 있습니다)'); }
+            } catch (e) {}
+            if (Date.now() - started > 15 * 60 * 1000) { clearInterval(window._ftpBkTimer); document.getElementById('ftp-bk-note')?.remove(); }
+        }, 4000);
+    };
+
     window._bizToast = function(msg, isServerOffline) {
         const el = document.getElementById('biz-net-toast');
         if (!el) return;
