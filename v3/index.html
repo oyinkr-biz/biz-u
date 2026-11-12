@@ -5,6 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizTech 경영관리</title>
+    <script>
+    // 시험 PC (C:\BizTech_시험PC 폴더) — 매니저(BizManager)에는 읽기만, 쓰지 않음
+    window._testPCP = fetch('/api/test-pc', { cache: 'no-store' }).then(r => r.json()).then(j => !!(j.data && j.data.test)).catch(() => false);
+    window._TEST_PC = false;
+    window._testPCP.then(v => {
+        window._TEST_PC = v;
+        if (!v) return;
+        document.title = '[시험 PC] ' + document.title;
+        try { window.electronAPI?.setTitle?.(document.title); } catch (_) {}
+        const badge = () => {
+            if (document.getElementById('test-pc-badge')) return;
+            const b = document.createElement('div');
+            b.id = 'test-pc-badge';
+            b.textContent = '시험 PC';
+            b.title = '매니저에 기록하지 않고 문자도 실제로 보내지 않습니다 (C:\\BizTech_시험PC 폴더를 지우면 해제)';
+            b.style.cssText = 'position:fixed;top:2px;left:50%;transform:translateX(-50%);z-index:2147483000;background:#c00;color:#fff;font:bold 12px "맑은 고딕",sans-serif;padding:2px 12px;border-radius:0 0 6px 6px;pointer-events:auto;cursor:help;opacity:.92';
+            document.body.appendChild(b);
+        };
+        if (document.body) badge(); else document.addEventListener('DOMContentLoaded', badge);
+    });
+    </script>
     <link rel="stylesheet" href="style.css">
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -239,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.73 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.74 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2303,7 +2324,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.73 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.74 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2895,7 +2916,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.73</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.74</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -5373,7 +5394,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     if (bmJ.length > 0) {
                                         bmExpiry = bmJ[0].expiry_date || null;
                                         // 원격 HWID 초기화 플래그 처리
-                                        if (bmJ[0].hwid_reset === true) {
+                                        if (bmJ[0].hwid_reset === true && !(await window._testPCP)) {
                                             try {
                                                 await fetch('/api/license/reset-hwid', { method: 'POST', signal: AbortSignal.timeout(3000) });
                                                 fetch(`${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`, {
@@ -7378,7 +7399,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 saSaveCustomers(list);
                 saLoadClientGrid();
                 saRefreshDashboard();
-                if (bizno) _bmPatchExpiry(bizno, expiryDate);
+                if (bizno && !(await window._testPCP)) _bmPatchExpiry(bizno, expiryDate);
             };
 
             // BizManager(Supabase) expiry_date PATCH 헬퍼
@@ -15056,7 +15077,7 @@ function doSaveHtml(){
 
         // 3. BizManager(Supabase) — 백그라운드 (완료를 기다리지 않음)
 
-        if (BM_KEY && businessNumber) {
+        if (BM_KEY && businessNumber && !(await window._testPCP)) {
             (async () => {
                 try {
                     const bmSignal = () => AbortSignal.timeout(8000);
@@ -15115,6 +15136,7 @@ function doSaveHtml(){
     // 로그인 후뿐 아니라 로그인 화면에서도 부름 (사용기간이 끝나 로그인 못 하는 매장도 업데이트 받도록)
     window._bizCheckUpdateRequest = async function(bizno) {
         if (window._bizUpdReqBusy || !bizno || !BM_KEY) return;
+        if (await window._testPCP) return;   // 시험 PC: 매니저 업데이트 요청을 처리·삭제하지 않음
         window._bizUpdReqBusy = true;
                 try {
                     const q = `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`;
@@ -15217,6 +15239,8 @@ function doSaveHtml(){
                 _applyBmExpiry(bmRows[0].expiry_date);
             }
 
+            if (await window._testPCP) return;   // 시험 PC: 매니저에 쓰지 않음 (읽기만)
+
             // 최근접속일 + 버전 갱신
             fetch(
                 `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(bizno)}`,
@@ -15272,7 +15296,7 @@ function doSaveHtml(){
         const el = document.getElementById('header-expiry');
         if (el) el.style.display = 'none'; // 헤더에서 숨김 — 창 제목에 표시
         if (!expiry) {
-            if (window.electronAPI?.setTitle) window.electronAPI.setTitle('BizTech 경영관리');
+            if (window.electronAPI?.setTitle) window.electronAPI.setTitle((window._TEST_PC ? '[시험 PC] ' : '') + 'BizTech 경영관리');
             return;
         }
         const today = new Date(); today.setHours(0,0,0,0);
@@ -15283,7 +15307,7 @@ function doSaveHtml(){
         if (days < 0)       label = `⚠ 만료 ${dateStr}`;
         else if (days <= 30) label = `⚠ 만료 ${dateStr} (D-${days})`;
         else                 label = `만료 ${dateStr} (D-${days})`;
-        if (window.electronAPI?.setTitle) window.electronAPI.setTitle(`BizTech 경영관리   ${label}`);
+        if (window.electronAPI?.setTitle) window.electronAPI.setTitle(`${window._TEST_PC ? '[시험 PC] ' : ''}BizTech 경영관리   ${label}`);
     }
 
     // ── 5분마다 BizManager 종료일자 체크 ────────────────────────
