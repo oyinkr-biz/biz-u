@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.62 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -269,6 +269,7 @@
                         <li id="open-general-status">일반 매입/매출 현황</li>
                         <li id="open-inventory-status">기간별 재고현황 조회</li>
                         <li id="open-category-status">분류별 매입/매출 현황</li>
+                        <li id="open-cat-sum">분류별 매입매출 집계</li>
                         <li id="open-cust-daily-status">거래처 일자별 매입/매출 현황</li>
                         <li id="open-cust-item-status">거래처 제품별 매입/매출 현황</li>
                         <li id="open-cust-period-status">거래처 기간별 매입/매출 현황</li>
@@ -2298,7 +2299,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.62 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.63 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2890,7 +2891,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.62</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.63</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3576,6 +3577,22 @@
                     </div>`,
                     cols:['일자','구분','거래처','제품명','단가','단위','매출수량','매출금액','반품수량','반품금액','합계수량','합계금액'],
                     colWidths:[82,42,130,170,70,42,66,86,62,76,66,90],
+                    scrollAlways: true
+                },
+                // 분류별 매입매출 집계 — 기간 매입·매출을 제품 대·중·소분류별로 (예전 프로그램 같은 화면)
+                'cat-sum': {
+                    width:'900px', layout:'A', searchFn:'window.runCatSumSearch', excelFn:'window.runCatSumExcel',
+                    filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:4px 6px;display:flex;align-items:center;gap:4px;font-size:11px;flex-wrap:nowrap">
+                        <span class="l-label" style="min-width:52px">거래일자</span>
+                        <input id="csum-date-from" type="date" class="l-input" style="width:112px">
+                        <span style="margin:0 2px">~</span>
+                        <input id="csum-date-to" type="date" class="l-input" style="width:112px">
+                        <span class="l-label" style="min-width:40px">대분류</span><select id="csum-cat1" class="l-input" style="width:100px" onchange="window.runCatSumSearch?.()"><option value="">전체</option></select>
+                        <span class="l-label" style="min-width:40px">중분류</span><select id="csum-cat2" class="l-input" style="width:100px" onchange="window.runCatSumSearch?.()"><option value="">전체</option></select>
+                        <span class="l-label" style="min-width:40px">소분류</span><select id="csum-cat3" class="l-input" style="width:100px" onchange="window.runCatSumSearch?.()"><option value="">전체</option></select>
+                    </div>`,
+                    cols:['대분류','중분류','소분류','매입수량','매입금액','매출수량','매출금액'],
+                    colWidths:[110,110,150,90,120,90,120],
                     scrollAlways: true
                 },
                 // 거래처 제품별 매입/매출 현황 — 기간 합계를 거래처·제품(·단가)별로 (예전 프로그램 같은 화면)
@@ -12392,6 +12409,58 @@ function doSaveHtml(){
             }
         };
         window.runCisExcel = function() { window.runGenericExcel('cust-item-status'); };
+
+        // ── 분류별 매입매출 집계 ─────────────────────────────────
+        window.runCatSumSearch = async function() {
+            const tbody = document.getElementById('cat-sum-grid-body');
+            if (!tbody) return;
+            const COLS = 7, g = id => document.getElementById(id);
+            const qs = new URLSearchParams({ from: g('csum-date-from')?.value || '', to: g('csum-date-to')?.value || '',
+                cat1: g('csum-cat1')?.value || '', cat2: g('csum-cat2')?.value || '', cat3: g('csum-cat3')?.value || '' });
+            tbody.innerHTML = `<tr><td colspan="${COLS+1}" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
+            try {
+                const j = await fetch(`${window.location.origin}/api/cat-sum?${qs}`).then(r => r.json());
+                if (!j.ok) throw new Error(j.error || '오류');
+                const rows = j.data || [];
+                const fm = v => v ? Math.round(v).toLocaleString('ko-KR') : '';
+                const fq = v => (Math.round((v || 0) * 10) / 10).toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+                const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+                const T = { bq: 0, ba: 0, sq: 0, sa: 0 };
+                const html = rows.map((r, i) => {
+                    T.bq += r.buyQty; T.ba += r.buyAmt; T.sq += r.sellQty; T.sa += r.sellAmt;
+                    return `<tr style="height:20px">
+                        <td class="center bg-gray" style="font-size:10px">${i + 1}</td>
+                        <td style="padding-left:3px">${esc(r.big)}</td><td style="padding-left:3px">${esc(r.mid)}</td><td style="padding-left:3px">${esc(r.small)}</td>
+                        <td class="right" style="padding-right:3px">${fq(r.buyQty)}</td><td class="right" style="padding-right:3px">${fm(r.buyAmt)}</td>
+                        <td class="right" style="padding-right:3px">${fq(r.sellQty)}</td><td class="right" style="padding-right:3px">${fm(r.sellAmt)}</td></tr>`;
+                }).join('');
+                const B = 'padding-right:3px;color:#0033cc;font-weight:bold';
+                const tot = rows.length ? `<tr class="cds-total-row" style="height:22px;background:#eef3ff">
+                        <td class="center bg-gray" style="font-size:10px">${rows.length + 1}</td><td></td><td></td>
+                        <td class="center" style="color:#0033cc;font-weight:bold">합 계</td>
+                        <td class="right" style="${B}">${fq(T.bq)}</td><td class="right" style="${B}">${fm(T.ba) || '0'}</td>
+                        <td class="right" style="${B}">${fq(T.sq)}</td><td class="right" style="${B}">${fm(T.sa) || '0'}</td></tr>` : '';
+                let pad = '';
+                for (let i = rows.length + (rows.length ? 2 : 1); i <= 18; i++) pad += `<tr style="height:20px"><td class="center bg-gray" style="font-size:10px">${i}</td>${'<td></td>'.repeat(COLS)}</tr>`;
+                tbody.innerHTML = (rows.length ? html + tot : `<tr><td colspan="${COLS+1}" style="text-align:center;padding:8px;color:#999">조회 결과가 없습니다.</td></tr>`) + pad;
+            } catch(e) {
+                tbody.innerHTML = `<tr><td colspan="${COLS+1}" style="text-align:center;padding:8px;color:#c00">오류: ${e.message}</td></tr>`;
+            }
+        };
+        window.runCatSumExcel = function() { window.runGenericExcel('cat-sum'); };
+        document.getElementById('open-cat-sum')?.addEventListener('click', async () => {
+            const today = _todayLocal();
+            const f = document.getElementById('csum-date-from'), t2 = document.getElementById('csum-date-to');
+            if (f && !f.value) f.value = today.slice(0, 8) + '01';   // 이번 달 1일 ~ 오늘
+            if (t2 && !t2.value) t2.value = today;
+            try {
+                const j = await fetch(window.location.origin + '/api/categories/product3').then(r => r.json());
+                const fill = (id, list) => { const sel = document.getElementById(id); if (!sel || sel.options.length > 1) return;
+                    (list || []).forEach(x => { const o = document.createElement('option'); o.value = x.code; o.textContent = x.name; sel.appendChild(o); }); };
+                fill('csum-cat1', j.data?.big); fill('csum-cat2', j.data?.mid); fill('csum-cat3', j.data?.small);
+            } catch (e) {}
+            setTimeout(() => window.runCatSumSearch?.(), 80);
+        });
         document.getElementById('open-cust-item-status')?.addEventListener('click', async () => {
             const today = _todayLocal();
             const f = document.getElementById('cis-date-from'), t2 = document.getElementById('cis-date-to');
