@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -306,6 +306,7 @@
                         <li id="open-profit-loss">손익 계산서</li>
                         <li class="divider"></li>
                         <li id="open-ship-margin">출고 마진 조회</li>
+                        <li id="open-ship-margin-1">출고 마진 조회-1</li>
                         <li id="open-cash-ledger">금전 출납부</li>
                         <li id="open-bank-inquiry">통장조회</li>
                         <li class="divider"></li>
@@ -2324,7 +2325,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.75 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.76 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2916,7 +2917,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.75</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.76</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -3911,12 +3912,13 @@
                     colWidths:[55,125,65,75,80,125,75,65,80,80,75]
                 },
 'ship-margin-1': {
-                    width:'1000px', layout:'A',
-                    filter:`<span class="l-label">거래일자</span><input type="text" class="l-input" style="width:82px" value="2026-05-01"> ~ <input type="text" class="l-input" style="width:82px" value="2026-05-31">
-                        <span class="l-label">거래처명</span><input type="text" class="l-input" style="width:100px">
-                        <span class="l-label">제품명</span><input id="sm1-item" type="text" class="l-input" style="width:100px" placeholder="이름 검색" onfocus="window.showGlobalItemSearch(this,'name')" oninput="window.showGlobalItemSearch(this,'name')" autocomplete="off">
-                        <span class="l-label">정렬조건</span><select class="l-input" style="width:100px"><option>제품명</option><option>거래처명</option></select>`,
-                    cols:['제품코드','제품명','규격','단위','매입단가','매출단가','매출수량','매출금액','마진금액','마진율']
+                    width:'1050px', layout:'A', searchFn:'window.runShipMargin1Search', excelFn:'window.runShipMargin1Excel',
+                    filter:`<span class="l-label">거래일자</span><input id="sm1-date-from" type="date" class="l-input" style="width:115px"> ~ <input id="sm1-date-to" type="date" class="l-input" style="width:115px">
+                        <span class="l-label">거래처</span><input id="sm1-client" type="text" class="l-input" style="width:120px" placeholder="이름 일부 (Enter)" autocomplete="off" onkeydown="if(event.key==='Enter')window.runShipMargin1Search()">
+                        <span class="l-label">제품명</span><input id="sm1-item" type="text" class="l-input" style="width:110px" placeholder="이름 일부 (Enter)" autocomplete="off" onkeydown="if(event.key==='Enter')window.runShipMargin1Search()">
+                        <span class="l-label">입고단가</span><select class="l-input" style="width:80px" disabled><option>최근단가</option></select>`,
+                    cols:['품명','월일','입고수량','입고단가','입고합계','거래처','출고수량','출고가합계','마진','재고','Loss','재고금액'],
+                    colWidths:[110,62,62,68,85,135,62,85,75,70,50,100]
                 },
                 'incoming-consume': {
                     width:'1000px', layout:'A',
@@ -11600,6 +11602,78 @@ function doSaveHtml(){
         };
         window.runShipMarginExcel = function() { window.runGenericExcel('ship-margin'); };
 
+        // ── 출고 마진조회-1: 제품코드 순, 제품마다 매입·매출 줄 + 합계(빨강), 끝에 총합계(파랑) ──
+        //  매출 줄의 입고수량 '0/수량', 입고단가 = 최근단가, 입고합계 = 수량×최근단가, 마진 = 출고가합계 − 입고합계
+        //  합계 줄: 입고 = 매입 줄만, 마진 = 출고가합계 − 매입합계, 재고 칸 = 매출 줄 마진 합 (예전 프로그램과 같게)
+        window.runShipMargin1Search = async function() {
+            const tbody = document.getElementById('ship-margin-1-grid-body');
+            if (!tbody) return;
+            const seq = (window._sm1Seq = (window._sm1Seq || 0) + 1);
+            const g = id => document.getElementById(id)?.value || '';
+            const COLS = 13, MINROWS = 20;
+            tbody.innerHTML = `<tr><td colspan="${COLS}" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
+            try {
+                const qs = new URLSearchParams({ from: g('sm1-date-from'), to: g('sm1-date-to'), client: g('sm1-client').trim(), item: g('sm1-item').trim() });
+                const json = await fetch('/api/ship-margin1?' + qs).then(r => r.json());
+                if (seq !== window._sm1Seq) return;
+                if (!json.ok) throw new Error(json.error || '조회 실패');
+                const items = json.data || [];
+                const fq = v => (parseFloat(v) || 0).toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+                const fm = v => { const n = Math.round(parseFloat(v) || 0); return n ? n.toLocaleString('ko-KR') : ''; };
+                const fz = v => Math.round(parseFloat(v) || 0).toLocaleString('ko-KR');
+                const md = d => { const m = String(d || '').match(/^\d{4}-(\d{2})-(\d{2})/); return m ? `${m[1]}월${m[2]}일` : ''; };
+                const R = 'class="right" style="padding-right:3px', neg = n => (n < 0 ? ';color:#c00' : '');
+                let html = '', n = 0;
+                const T = { bq: 0, ba: 0, sq: 0, sa: 0, m: 0, sm: 0, stockAmt: 0 };
+                items.forEach(it => {
+                    const S = { bq: 0, ba: 0, sq: 0, sa: 0, sm: 0 };
+                    it.rows.forEach(x => {
+                        n++;
+                        const buy = x.kind === 'buy';
+                        if (buy) { S.bq += x.qty; S.ba += x.amt; } else { S.sq += x.qty; S.sa += x.amt; S.sm += x.margin; }
+                        html += `<tr style="height:22px;cursor:pointer" data-date="${x.date}" data-client="${x.clientCode}" data-kind="${x.kind}">
+                            <td class="center bg-gray" style="font-size:10px">${n}</td>
+                            <td style="padding-left:3px">${it.name}</td>
+                            <td class="center">${md(x.date)}</td>
+                            <td ${R}">${buy ? fq(x.qty) : '0/' + fq(x.qty)}</td>
+                            <td ${R}">${fm(buy ? x.unit : it.price)}</td>
+                            <td ${R}">${fm(buy ? x.amt : x.cost)}</td>
+                            <td style="padding-left:3px">${x.client}</td>
+                            <td ${R}">${buy ? '' : fq(x.qty)}</td>
+                            <td ${R}">${buy ? '' : fm(x.amt)}</td>
+                            <td ${R}${buy ? '' : neg(x.margin)}">${buy ? '' : fz(x.margin)}</td>
+                            <td ${R};color:#00a">${fq(it.stock)}</td>
+                            <td ${R}">${fq(it.loss)}</td>
+                            <td ${R}${neg(it.stockAmt)}">${fz(it.stockAmt)}</td></tr>`;
+                    });
+                    n++;
+                    const m = S.sa - S.ba;
+                    html += `<tr class="sm1-sub" style="height:22px;color:#e00000;font-weight:bold">
+                        <td class="center bg-gray" style="font-size:10px">${n}</td><td style="padding-left:3px">합계</td><td></td>
+                        <td ${R}">${fq(S.bq)}</td><td></td><td ${R}">${fz(S.ba)}</td><td></td>
+                        <td ${R}">${fq(S.sq)}</td><td ${R}">${fz(S.sa)}</td><td ${R}">${fz(m)}</td><td ${R}">${fz(S.sm)}</td><td></td><td></td></tr>`;
+                    T.bq += S.bq; T.ba += S.ba; T.sq += S.sq; T.sa += S.sa; T.m += m; T.sm += S.sm; T.stockAmt += it.stockAmt;
+                });
+                if (items.length) {
+                    n++;
+                    html += `<tr class="sm1-total" style="height:22px;color:#0033cc;font-weight:bold;background:#eef3ff">
+                        <td class="center bg-gray" style="font-size:10px">${n}</td><td style="padding-left:3px">총합계</td><td></td>
+                        <td ${R}">${fq(T.bq)}</td><td></td><td ${R}">${fz(T.ba)}</td><td></td>
+                        <td ${R}">${fq(T.sq)}</td><td ${R}">${fz(T.sa)}</td><td ${R}">${fz(T.m)}</td><td ${R}">${fz(T.sm)}</td><td></td><td ${R}">${fz(T.stockAmt)}</td></tr>`;
+                }
+                for (let i = n + 1; i <= MINROWS; i++) html += `<tr style="height:22px"><td class="center bg-gray" style="font-size:10px">${i}</td>${'<td></td>'.repeat(COLS - 1)}</tr>`;
+                tbody.innerHTML = items.length ? html : `<tr><td colspan="${COLS}" style="text-align:center;padding:8px;color:#999">조회 결과가 없습니다.</td></tr>`;
+            } catch (e) {
+                if (seq === window._sm1Seq) tbody.innerHTML = `<tr><td colspan="${COLS}" style="text-align:center;padding:8px;color:red">오류: ${e.message}</td></tr>`;
+            }
+        };
+        window.runShipMargin1Excel = function() { window.runGenericExcel('ship-margin-1'); };
+        // 줄 더블클릭 → 그 날짜·거래처 전표 (매출 줄만)
+        document.addEventListener('dblclick', e => {
+            const tr = e.target.closest?.('#ship-margin-1-grid-body tr[data-kind="sell"]');
+            if (tr && window._openSalesAt) window._openSalesAt(tr.dataset.date.replace(/-/g, ''), tr.dataset.client);
+        });
+
         // ── 매입매출 비교현황 조회 ──────────────────────────────────
         window.runPscSearch = async function() {
             const tbody = document.getElementById('purchase-sales-compare-grid-body');
@@ -12219,6 +12293,14 @@ function doSaveHtml(){
                 });
                 si._smItemBound = true;
             }
+        });
+
+        document.getElementById('open-ship-margin-1')?.addEventListener('click', () => {
+            const today = _todayLocal();
+            const f = document.getElementById('sm1-date-from'), t = document.getElementById('sm1-date-to');
+            if (f) f.value = today.slice(0, 8) + '01';
+            if (t) t.value = today;
+            setTimeout(() => window.runShipMargin1Search?.(), 80);
         });
 
         // 매입매출 비교현황 창 열릴 때 날짜 초기값 + 자동 조회
