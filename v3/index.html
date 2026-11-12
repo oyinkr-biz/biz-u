@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.67 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.68 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -365,6 +365,7 @@
                                 <button class="ex-btn-legacy sales-stat-btn"><i data-lucide="bar-chart-2" class="btn-icon"></i>통계(F2)</button>
                                 <button id="sales-f9-btn" class="ex-btn-legacy"><i data-lucide="printer" class="btn-icon"></i>거래명세서(F9)</button>
                                 <button id="sales-f7-btn" class="ex-btn-legacy"><i data-lucide="file-text" class="btn-icon"></i>거래영수증(F7)</button>
+                                <select id="sales-rcpt-copies" class="rcpt-copies-sel" title="영수증 출력 장수 (환경설정 출력장수와 같은 값)" style="font-size:11px;height:22px;padding:0 2px;border:1px solid #888;background:#fff;cursor:pointer;font-family:inherit"><option value="1">1장</option><option value="2">2장</option><option value="3">3장</option><option value="4">4장</option><option value="5">5장</option></select>
                                 <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;white-space:nowrap;font-size:10px;color:#444;margin:0;padding:2px 7px;background:#eef5e8;border:1px solid #90b880;height:100%;box-sizing:border-box">
                                     <input id="f7-preview-chk" type="checkbox" style="margin:0;cursor:pointer">
                                     미리보기
@@ -2302,7 +2303,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.67 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.68 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2894,7 +2895,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.67</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.68</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -19688,6 +19689,7 @@ function doSaveHtml(){
 
         // 매출 로직 초기화
         _initSalesEntry(sfx);
+        window._rcptCopiesShow?.(document.getElementById('sales-rcpt-copies')?.value);   // 영수증 장수도 첫 창과 같게
         window._salesTaxApply?.[sfx]?.();   // 새 창도 과세구분 기본값으로
     };
 
@@ -20664,7 +20666,30 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
         await window._doPrintReceipt(sfx, d);
     };
 
+    // ── 매출등록 영수증 장수 선택칸 (.rcpt-copies-sel) ↔ 환경설정 출력장수(thermal_copies) ──
+    window._rcptCopiesShow = function(n) {
+        n = Math.max(1, Math.min(parseInt(n) || 1, 9));
+        document.querySelectorAll('select.rcpt-copies-sel').forEach(sel => {
+            if (![...sel.options].some(o => o.value === String(n))) { const o = document.createElement('option'); o.value = String(n); o.textContent = n + '장'; sel.appendChild(o); }
+            sel.value = String(n);
+        });
+    };
+    document.addEventListener('input', e => { if (e.target?.id === 'env-thermal-copies' && parseInt(e.target.value)) window._rcptCopiesShow(e.target.value); });   // 환경설정에서 바꾸면 선택칸도
+    document.addEventListener('change', async e => {
+        if (!e.target?.matches?.('select.rcpt-copies-sel')) return;
+        const n = parseInt(e.target.value) || 1;
+        window._rcptCopiesShow(n);   // 매출등록 새 창들도 같이
+        const env = document.getElementById('env-thermal-copies'); if (env) env.value = n;
+        try { await fetch('/api/settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ thermal_copies: n }) }); } catch (_) {}
+    });
+    setTimeout(async () => {   // 처음 열 때 환경설정 값으로
+        try { const j = await fetch('/api/settings').then(r => r.json()); if (j.data?.thermal_copies) window._rcptCopiesShow(j.data.thermal_copies); } catch (_) {}
+    }, 2500);
+
     window._doPrintReceipt = async function(sfx, d) {
+        // 영수증 장수: 매출등록 화면 선택칸 (없으면 환경설정 값을 서버가 씀)
+        const _cpSel = document.getElementById('sales-rcpt-copies' + (sfx || '')) || document.getElementById('sales-rcpt-copies');
+        const _copies = parseInt(_cpSel?.value) || undefined;
         // F7 버튼 상태 표시
         const f7btn = document.getElementById('sales-f7-btn' + sfx) || document.getElementById('sales-f7-btn');
         const f7orig = f7btn ? f7btn.textContent : '';
@@ -20686,7 +20711,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             try {
                 const r = await fetch('/api/print/receipt', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...d, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint, return_raw: true }),
+                    body: JSON.stringify({ ...d, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint, return_raw: true, copies: _copies }),
                 });
                 const j = await r.json();
                 if (!j.ok || !j.data?.raw) throw new Error(j.error || '영수증 데이터를 받지 못했습니다');
@@ -20735,7 +20760,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             const r = await fetch('/api/print/receipt', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...d, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint }),
+                body: JSON.stringify({ ...d, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint, copies: _copies }),
             });
             const j = await r.json();
             if (!j.ok) {
@@ -20830,6 +20855,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             }
             if (s.thermal_port   && g('env-thermal-port'))   g('env-thermal-port').value   = s.thermal_port;
             if (s.thermal_copies && g('env-thermal-copies')) g('env-thermal-copies').value = s.thermal_copies;
+            window._rcptCopiesShow?.(s.thermal_copies);
             if (g('env-thermal-model')) {
                 // 두줄이 기본: 한줄을 직접 골라 저장한 적(thermal_lines='one')이 없으면 같은 기기의 '(두줄)' 항목으로 표시
                 let m = s.thermal_model || 'SRP-350';
