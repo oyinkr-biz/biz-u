@@ -239,7 +239,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2297,7 +2297,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.59 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2889,7 +2889,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.59</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.60</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -15506,6 +15506,10 @@ function doSaveHtml(){
         };
 
         // 숫자 입력 중 실시간 콤마 포맷 (커서 위치 유지)
+        // 중량 칸 값이 숫자면 그 숫자, 글자('목' 등)·빈칸이면 0
+        window._szNum = v => { const t = String(v ?? '').replace(/,/g, '').trim(); return /^-?\d+(\.\d+)?$/.test(t) ? parseFloat(t) : 0; };
+        // 화면 표시: 숫자면 콤마, 글자면 그대로
+        window._szShow = v => { const t = String(v ?? '').trim(); if (!t) return ''; const n = window._szNum(t); return n ? n.toLocaleString('ko-KR') : (/^-?[\d.,]+$/.test(t) ? '' : t); };
         function _fmtNumInput(inp) {
             const raw = inp.value.replace(/,/g, '');
             if (!raw || !/\d/.test(raw)) return;
@@ -16575,7 +16579,7 @@ function doSaveHtml(){
                         value="${rd._itemName || ''}"
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px;background:#f9f9f9" readonly></td>
                     <td style="padding:0"><input type="text" class="grid-cell g-size" data-row="${i}"
-                        value="${rd.Inot_Size ? Number(rd.Inot_Size).toLocaleString('ko-KR') : ''}"
+                        value="${window._szShow(rd.Inot_Size).replace(/"/g, '&quot;')}"
                         tabindex="-1"
                         style="width:100%;border:none;font-size:12px;font-weight:bold;color:#111;padding:1px 3px;text-align:right"></td>
                     <td style="padding:0"><input type="text" class="grid-cell g-qty" data-row="${i}"
@@ -16677,9 +16681,10 @@ function doSaveHtml(){
 
             // 중량(g-size): 실시간 콤마 포맷, Enter → 수량으로 이동
             $qryAll('.g-size').forEach(inp => {
+                const isText = () => /[^\d,.\s-]/.test(inp.value);   // '목' 같은 글자 (옛 프로그램처럼 허용)
                 inp.addEventListener('focus', () => { try{inp.select();}catch(_){} });
-                inp.addEventListener('input', () => { _fmtNumInput(inp); calcRowAmt(parseInt(inp.dataset.row)); });
-                inp.addEventListener('blur',  () => { const v=parseNum(inp.value); inp.value=v?Number(v).toLocaleString('ko-KR', {maximumFractionDigits: window._bizDecimals ?? 2}):''; calcRowAmt(parseInt(inp.dataset.row)); });
+                inp.addEventListener('input', () => { if (!isText()) _fmtNumInput(inp); calcRowAmt(parseInt(inp.dataset.row)); });
+                inp.addEventListener('blur',  () => { if (isText()) { inp.value = inp.value.trim(); return; } const v=parseNum(inp.value); inp.value=v?Number(v).toLocaleString('ko-KR', {maximumFractionDigits: window._bizDecimals ?? 2}):''; calcRowAmt(parseInt(inp.dataset.row)); });
                 inp.addEventListener('keydown', e => {
                     if (e.key !== 'Enter') return;
                     e.preventDefault();
@@ -17669,7 +17674,8 @@ function doSaveHtml(){
                 const qty   = parseNum(tr.querySelector('.g-qty')?.value);
                 const price = parseNum(tr.querySelector('.g-price')?.value);
                 const amt   = parseNum(tr.querySelector('.g-amt')?.value);
-                const size  = parseNum(tr.querySelector('.g-size')?.value);
+                const _szRaw = (tr.querySelector('.g-size')?.value || '').trim();
+                const size  = /[^\d,.\s-]/.test(_szRaw) ? _szRaw : parseNum(_szRaw);   // 글자면 글자 그대로 저장
                 const unit  = tr.querySelector('.g-unit')?.value || '';
                 const memo  = tr.querySelector('.g-memo')?.value || '';
                 const traceno = tr.querySelector('.g-traceno')?.value || '';
@@ -19170,9 +19176,13 @@ function doSaveHtml(){
             if (!sfx) window._openSalesAt = async (date, clientId) => {
                 const win = $win;
                 if (!win) return;
+                const _wasHidden = win.classList.contains('window-hidden');
                 win.classList.remove('window-hidden');
                 document.querySelectorAll('.child-window').forEach(w => { if (w !== win) w.style.zIndex = ''; });
                 win.style.zIndex = '9999';
+                // 숨겨진 창을 열면 감시 코드가 초기화(init/newEntry)를 따로 돌림 → 끝난 뒤에 불러와야 전표가 안 지워짐
+                //  (처음 열 때 조회창 더블클릭한 전표가 안 나오던 문제)
+                if (_wasHidden) { await new Promise(r => setTimeout(r, 0)); try { await _winOpenP; } catch (e) {} }
                 const d = date || today8(); // YYYY-MM-DD 형식 유지
                 if ($id('ivn-date')) $id('ivn-date').value = d;
                 await loadTodayTickets(d);
@@ -19464,7 +19474,7 @@ function doSaveHtml(){
         const pages = [];
         for (let i = 0; i < Math.max(1, rows.length); i += ROWS) pages.push(rows.slice(i, i + ROWS));
 
-        const totQty = rows.reduce((s, r) => s + num(r.size || r.qty), 0);
+        const totQty = rows.reduce((s, r) => s + (window._szNum(r.size) || num(r.qty)), 0);   // 중량이 글자('목')면 수량
         const totAmt = rows.reduce((s, r) => s + num(r.amt), 0);
         const totVat = rows.reduce((s, r) => s + num(r.vat), 0);
         const prevN  = num(d.prevBal), delivN = num(d.delivAmt);
@@ -19484,7 +19494,7 @@ function doSaveHtml(){
             const itemRows = [];
             for (let i = 0; i < ROWS; i++) {
                 const r = pageRows[i];
-                const qty = r ? (r.size && num(r.size) ? r.size : r.qty) : '';
+                const qty = r ? (window._szNum(r.size) ? r.size : r.qty) : '';
                 itemRows.push(`<tr style="height:19px">
                     <td style="${V};text-align:center">${r ? (pageNo * ROWS + i + 1) : ''}</td>
                     <td style="${V};white-space:nowrap" colspan="2">${r ? esc(r.name) + (r.memo ? `<span style="float:right">/${esc(r.memo)}</span>` : '') : ''}</td>
@@ -19952,7 +19962,7 @@ ${footer ? `<div style="margin-top:8px;border:1px solid #ccc;padding:5px 10px;fo
         for (const r of rows) {
             const s = String(r.size||'').replace(/,/g,'').trim();
             const q = String(r.qty ||'').replace(/,/g,'').trim();
-            try { total_qty += parseFloat(s||q||0); } catch(e) {}
+            total_qty += window._szNum(s) || parseFloat(q || 0) || 0;   // 중량이 글자면 수량
             total_amt += _n(r.amt);
         }
         const tq_s = total_qty===Math.floor(total_qty) ? String(Math.floor(total_qty)) : String(total_qty);
@@ -20061,7 +20071,7 @@ ${footer ? `<div style="margin-top:8px;border:1px solid #ccc;padding:5px 10px;fo
             // 수량과 단위 사이 두 칸 (1.23 + 1kg 이 '1.231kg'처럼 붙어 보이던 문제)
             const qty_n =String(r.qty ||'').replace(/,/g,'').trim();
             const qty_h =qtyHtml(qty_n, r.unit);
-            const wt_s  =(size_s && parseFloat(size_s) !== 0) ? size_s : '';
+            const wt_s  =window._szNum(size_s) ? size_s : '';
             if (compact) {
                 return `<tr class="irow"><td style="white-space:nowrap;overflow:hidden">${no} ${esc(r.name||'')}</td><td class="r">${show_wt?esc(wt_s):''}</td><td class="r" style="white-space:nowrap">${qty_h}</td><td class="r">${esc(_famt(r.price))}</td><td class="r">${esc(_famt(r.amt))}</td></tr>`;
             }
