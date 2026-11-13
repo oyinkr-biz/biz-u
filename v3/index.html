@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.77 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.78 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2325,7 +2325,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.77 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.78 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2917,7 +2917,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.77</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.78</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4119,7 +4119,7 @@
                     lowerCols:['날짜','구분','거래처명','입고수량','출고수량','Loss수량','잔량']
                 },
                 'cust-period-slip': {
-                    width:'950px', layout:'A', searchFn:'window.runCpSlipSearch', excelFn:'window.runCpSlipExcel',
+                    width:'1110px', layout:'A', searchFn:'window.runCpSlipSearch', excelFn:'window.runCpSlipExcel',
                     extraBtns:[['신규','window.runCpSlipNew()'],['전표저장','window.runCpSlipSave()']],
                     filterBlock:`<div style="background:#e8ddd4;border:1px solid #aaa;padding:3px 5px;display:flex;flex-direction:column;gap:2px;font-size:11px">
                         <div style="display:flex;align-items:center;gap:3px;flex-wrap:nowrap">
@@ -4135,8 +4135,8 @@
                             <select id="cps2-order" class="l-input" style="width:55px"><option value="asc">오름</option><option value="desc">내림</option></select>
                         </div>
                     </div>`,
-                    cols:['거래처코드','거래처명','전일잔액','매출금액','카드금액','계산서금액','반품금액','입금금액','잔액','전체'],
-                    colWidths:[64,154,92,92,78,92,80,92,92,64]
+                    cols:['거래처코드','거래처명','전일잔액','매출금액','카드금액','계산서금액','반품금액','현금입금','통장입금','입금금액','잔액','전체'],
+                    colWidths:[64,154,92,92,78,92,80,85,85,92,92,64]
                 },
                 'delete-history': {
                     width:'1050px', layout:'A', searchFn:'window.runDeleteHistSearch',
@@ -10534,7 +10534,7 @@ function doSaveHtml(){
             const client = document.getElementById('cps2-client')?.value    || '';
             const sort   = document.getElementById('cps2-sort')?.value      || 'code';
             const order  = document.getElementById('cps2-order')?.value     || 'asc';
-            tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="13" style="text-align:center;padding:8px;color:#666">조회 중...</td></tr>`;
             try {
                 const tax = document.getElementById('cps2-tax')?.value || '';
                 let url = `/api/cust-period-slip?from=${from}&to=${to}&sort=${sort}&order=${order}`;
@@ -10543,7 +10543,7 @@ function doSaveHtml(){
                 url += `&discount=${document.getElementById('cps2-discount')?.value || '0'}`;   // 미포함=할인 뺀 금액, 포함=빼기 전
                 const json = await fetch(window.location.origin + url).then(r => r.json());
                 const rows = json.data || [];
-                const COLS = 11; const MINROWS = 17;
+                const COLS = 13; const MINROWS = 17;
                 const fm = v => { const n=parseFloat(v)||0; return n ? n.toLocaleString('ko-KR') : ''; };
                 tbody.innerHTML = '';
                 rows.forEach((r, idx) => {
@@ -10560,6 +10560,8 @@ function doSaveHtml(){
                         <td class="right" style="padding-right:3px;color:#c00">${cardAmt ? fm(cardAmt) : ''}</td>
                         <td class="right" style="padding-right:3px;color:#060;font-weight:bold" title="세금계산서 ${fm(r.taxPart)||0} / 계산서 ${fm(r.freePart)||0} (카드 결제액 뺌)">${fm(slipAmt)}</td>
                         <td class="right" style="padding-right:3px">${fm(r.retAmt)}</td>
+                        <td class="right" style="padding-right:3px">${fm(r.cashAmt)}</td>
+                        <td class="right" style="padding-right:3px">${fm(r.bankAmt)}</td>
                         <td class="right" style="padding-right:3px">${fm(r.recvAmt)}</td>
                         <td class="right" style="padding-right:3px;color:#00a">${fm(r.balance)}</td>
                         <td class="center"><input type="checkbox" class="cps2-row-cb" data-code="${r.clientCode||''}"></td>`;
@@ -10581,10 +10583,10 @@ function doSaveHtml(){
                 else {
                     const _sum = k => rows.reduce((a, x) => a + (parseFloat(x[k]) || 0), 0);
                     window._stickyTotal(tbody, ['', '합계', `${rows.length.toLocaleString('ko-KR')}곳`, _sum('prevBal'), _sum('sellAmt'), _sum('cardAmt'),
-                        _sum('slipAmt'), _sum('retAmt'), _sum('recvAmt'), _sum('balance'), '']);
+                        _sum('slipAmt'), _sum('retAmt'), _sum('cashAmt'), _sum('bankAmt'), _sum('recvAmt'), _sum('balance'), '']);
                 }
             } catch(e) {
-                tbody.innerHTML=`<tr><td colspan="11" style="text-align:center;padding:8px;color:red">오류: ${e.message}</td></tr>`;
+                tbody.innerHTML=`<tr><td colspan="13" style="text-align:center;padding:8px;color:red">오류: ${e.message}</td></tr>`;
             }
         };
         window.runCpSlipNew = function() {
@@ -10599,7 +10601,7 @@ function doSaveHtml(){
             const tbody = document.getElementById('cust-period-slip-grid-body');
             if(!tbody) return;
             window._stickyTotal(tbody, null);
-            const COLS = 11; const MINROWS = 17;
+            const COLS = 13; const MINROWS = 17;
             tbody.innerHTML = '';
             for(let i=1; i<=MINROWS; i++) {
                 const er=document.createElement('tr'); er.style.height='22px';
@@ -10615,7 +10617,7 @@ function doSaveHtml(){
             if (!tbody) return;
             const rows = tbody.querySelectorAll('tr');
             if (!rows.length || rows[0].querySelector('td[colspan]')) { alert('조회 후 엑셀 변환하세요.'); return; }
-            const headers = ['번호','거래처코드','거래처명','전일잔액','매출금액','카드금액','계산서금액','반품금액','입금금액','잔액','선택'];
+            const headers = ['번호','거래처코드','거래처명','전일잔액','매출금액','카드금액','계산서금액','반품금액','현금입금','통장입금','입금금액','잔액','선택'];
             const data = [headers, ...[...rows].filter(tr => tr.querySelector('td:first-child')?.textContent.trim()).map(tr => {
                 const tds = [...tr.querySelectorAll('td')];
                 return tds.map((td, i) => {
