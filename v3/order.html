@@ -52,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun 
          font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
          color:#424242;user-select:none;-webkit-user-select:none}
 .qty-btn:active{background:#e0e0e0}
-.qty-val{width:40px;text-align:center;font-size:15px;font-weight:700;color:#1a237e;
+.qty-val{width:52px;text-align:center;font-size:15px;font-weight:700;color:#1a237e;
           border:1.5px solid transparent;border-radius:6px;background:transparent;
           font-family:inherit;padding:4px 0;-moz-appearance:textfield}
 .qty-val:focus{outline:none;border-color:#1a237e;background:#f3f4fd}
@@ -253,12 +253,15 @@ function cardHtml(p) {
           </div>
           <div class="qty-ctrl">
             <button class="qty-btn" onclick="changeQty('${p.code}',-1)">−</button>
-            <input class="qty-val${qty===0?' zero':''}" id="qty-${p.code}" type="number" inputmode="numeric" min="0" step="1"
+            <input class="qty-val${qty===0?' zero':''}" id="qty-${p.code}" type="text" inputmode="decimal" autocomplete="off"
                    value="${qty}" onfocus="this.select()" oninput="setQty('${p.code}', this.value, true)" onchange="setQty('${p.code}', this.value)">
             <button class="qty-btn" onclick="changeQty('${p.code}',1)">+</button>
           </div>
         </div>`;
 }
+
+// 수량: +/− 버튼은 1씩, 직접 입력하면 소수점(0.5, 1.25 등)도 가능 — 소수 둘째 자리까지
+function q2(n) { return Math.round(n * 100) / 100; }
 
 function changeQty(code, delta) {
   const cur = cart[code] || 0;
@@ -266,12 +269,12 @@ function changeQty(code, delta) {
 }
 
 function setQty(code, val, typing) {
-  const n = Math.floor(Number(val));
+  const n = Number(String(val).replace(/,/g, '').trim());
   applyQty(code, isNaN(n) ? 0 : n, typing);
 }
 
 function applyQty(code, next, typing) {
-  next = Math.max(0, next);
+  next = q2(Math.max(0, next));
   if (next === 0) { delete cart[code]; } else { cart[code] = next; }
   const qtyEl = document.getElementById('qty-' + code);
   const cardEl = document.getElementById('card-' + code);
@@ -281,7 +284,7 @@ function applyQty(code, next, typing) {
 }
 
 function updateSummary() {
-  const total = Object.values(cart).reduce((a,b) => a+b, 0);
+  const total = q2(Object.values(cart).reduce((a,b) => a+b, 0));
   const kinds = Object.keys(cart).length;
   const sumEl = document.getElementById('order-summary');
   const btn   = document.getElementById('order-btn');
@@ -299,7 +302,7 @@ function updateSummary() {
       return sum + (p && p.price ? p.price * qty : 0);
     }, 0);
     if (amount > 0) {
-      totalValEl.textContent = amount.toLocaleString();
+      totalValEl.textContent = Math.round(amount).toLocaleString();
       totalEl.style.display = '';
     } else {
       totalEl.style.display = 'none';
