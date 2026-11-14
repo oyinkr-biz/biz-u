@@ -63,7 +63,7 @@ thead th { background: #d4d0c8; border: 1px solid #808080;
   padding: 2px 5px; white-space: nowrap; position: sticky;
   top: 0; z-index: 2; font-weight: normal; text-align: center; }
 thead th.th-num { background: #bfbcb4; width: 36px; }
-thead th.th-chk { width: 44px; }
+thead th.th-chk { width: 22px; padding: 2px 1px; }
 tbody td { border: 1px solid #d0d0d0; padding: 1px 5px; white-space: nowrap; font-size: 14px; }
 tbody td.td-num { background: #d8d5cd; text-align: center;
   font-size: 11px; color: #444; border-right: 1px solid #999; }
@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.16</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.17</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -243,7 +243,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
       <thead>
         <tr>
           <th class="th-num">번호</th>
-          <th class="th-chk"><input type="checkbox" id="chk-all" onchange="toggleAll(this.checked)">&nbsp;전체</th>
+          <th class="th-chk" title="전체 선택"><input type="checkbox" id="chk-all" onchange="toggleAll(this.checked)" style="margin:0"></th>
           <th>업체명</th><th style="width:56px">버전</th><th style="width:100px">사업자번호</th>
           <th style="width:65px">대표자</th><th style="width:88px">전화번호</th>
           <th style="width:105px">핸드폰번호</th>
@@ -409,7 +409,7 @@ function render(list) {
     const cs = C[r.color] || '';
     return `<tr data-id="${r.id}" onclick="selRow(this,${r.id})" style="${cs}">
       <td class="td-num">${i + 1}</td>
-      <td style="text-align:center"><input type="checkbox" class="rc" data-id="${r.id}" onclick="event.stopPropagation()"></td>
+      <td style="text-align:center;padding:1px 0"><input type="checkbox" class="rc" data-id="${r.id}" onclick="event.stopPropagation()" style="margin:0"></td>
       <td>${r.company_name||''}</td>
       <td style="text-align:center" ${r.update_request ? 'title="업데이트 요청됨 — 다음 로그인 때 자동 업데이트"' : ''}>${r.version||''}${r.update_request ? ' <span style="color:#c60">⟳</span>' : ''}</td>
       <td>${r.business_number||''}</td>
@@ -906,6 +906,15 @@ async function smsHist(all) {
     tb.innerHTML = list.map(x => `<tr><td style="font-size:12px">${x.at}</td>${x.html}</tr>`).join('') || '<tr><td colspan="7" style="text-align:center;color:#888">내역이 없습니다</td></tr>';
   } catch (e) { tb.innerHTML = `<tr><td colspan="7" style="color:#c00">${srEsc(e.message)}</td></tr>`; }
 }
+</script>
+<script>
+// 글 입력칸에 들어가면 한글 입력으로 (설치된 BizManager v1.17 이상에서 동작)
+document.addEventListener('focusin', e => {
+  const el = e.target;
+  if (!window.bmIme) return;
+  const ok = el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && /^(text|search|)$/.test(el.type || ''));
+  if (ok) window.bmIme.hangul();
+});
 </script>
 </body>
 </html>
