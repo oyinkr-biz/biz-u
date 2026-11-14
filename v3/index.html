@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.86 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.87 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -1340,6 +1340,7 @@
                                         <legend style="font-size:10px;padding:0 3px">[ 거래명세서 출력양식 ]</legend>
                                         <label style="margin-right:10px"><input type="radio" name="env-sf" id="env-sf-1" value="1" checked> 기본형</label>
                                         <label><input type="radio" name="env-sf" id="env-sf-2" value="2"> 보관용 2단</label>
+                                        <div style="margin-top:2px"><label style="margin-right:10px"><input type="checkbox" id="env-sf-memo" checked> 비고 출력</label><label><input type="checkbox" id="env-sf-trace"> 이력번호 출력</label></div>
                                     </fieldset>
                                     <fieldset style="border:1px solid #aaa;padding:3px 8px 5px;margin:0;background:#f5f5f5">
                                         <legend style="font-size:10px;padding:0 3px">[ 과세구분 기본값 ]</legend>
@@ -2325,7 +2326,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.86 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.87 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2917,7 +2918,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.86</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.87</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -18596,6 +18597,7 @@ function doSaveHtml(){
                             vat:   '',
                             amt:   String(r2.Inot_Amt   || ''),
                             memo:  r2.Inot_Bigo || '',
+                            traceno: r2.Inot_TraceNo || '',
                         };
                     });
 
@@ -18695,6 +18697,7 @@ function doSaveHtml(){
                             vat:   '',
                             amt:   String(r2.Inot_Amt   || ''),
                             memo:  r2.Inot_Bigo || '',
+                            traceno: r2.Inot_TraceNo || '',
                         };
                     });
 
@@ -20025,7 +20028,22 @@ function doSaveHtml(){
     };
 
     // ── 거래명세표 "보관용 2단" 양식 (예전 프로그램 방식: 위 공급자 보관용/빨강, 아래 공급받는자 보관용/파랑) ──
+    window._stmtShow = function(cfg) {
+        cfg = cfg || {};
+        const memo  = cfg.stmt_memo  !== undefined ? String(cfg.stmt_memo)  === '1' : true;
+        const trace = cfg.stmt_trace !== undefined ? String(cfg.stmt_trace) === '1' : String(cfg.stmt_layout || '') !== '2';
+        return { memo, trace };
+    };
+    // 품목명 뒤에 붙는 '/비고/이력번호' (체크한 것만)
+    function _stmtSuffix(r, show, withTrace) {
+        const parts = [];
+        if (show.memo && r.memo) parts.push(r.memo);
+        if (withTrace && show.trace && r.traceno) parts.push(r.traceno);
+        return parts.map(x => '/' + x).join(' ');
+    }
+
     function _buildStatementHtml2(d, comp, cfg = {}) {
+        const _show = window._stmtShow(cfg);
         const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         const num  = v => parseFloat(String(v||0).replace(/,/g,'')) || 0;
         const fmtN = v => { const n = Math.round(num(v)); return n ? n.toLocaleString('ko-KR') : ''; };
@@ -20059,7 +20077,7 @@ function doSaveHtml(){
                 const qty = r ? (window._szNum(r.size) ? r.size : r.qty) : '';
                 itemRows.push(`<tr style="height:19px">
                     <td style="${V};text-align:center">${r ? (pageNo * ROWS + i + 1) : ''}</td>
-                    <td style="${V};white-space:nowrap" colspan="2">${r ? esc(r.name) + (r.memo ? `<span style="float:right">/${esc(r.memo)}</span>` : '') : ''}</td>
+                    <td style="${V};white-space:nowrap" colspan="2">${r ? esc(r.name) + (_stmtSuffix(r, _show, true) ? `<span style="float:right">${esc(_stmtSuffix(r, _show, true))}</span>` : '') : ''}</td>
                     <td style="${V};text-align:right">${r ? esc(qty) : ''}</td>
                     <td style="${V};text-align:center">${r ? esc(r.unit || '') : ''}</td>
                     <td style="${V};text-align:right">${r ? fmtN(r.price) : ''}</td>
@@ -20145,6 +20163,7 @@ ${body}
     function _buildStatementHtml(d, comp, cfg = {}) {
         // 환경설정 [거래명세서 출력양식] = 보관용 2단 이면 예전 양식으로
         if (String(cfg.stmt_layout || '') === '2') return _buildStatementHtml2(d, comp, cfg);
+        const _show = window._stmtShow(cfg);
         const fmtN = v => { const n = parseInt((v||'').toString().replace(/,/g,'')); return (isNaN(n)||n===0) ? '' : n.toLocaleString('ko-KR'); };
         const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
@@ -20185,14 +20204,14 @@ ${body}
             const rowVat = parseInt((r.vat||'').toString().replace(/,/g,''))||0;
             return `<tr style="height:16px">
                 <td style="${C};text-align:center">${i+1}</td>
-                <td style="${C};text-align:left;padding:0 4px;overflow:hidden;white-space:nowrap">${esc(r.name)}${r.size ? ' <span style="color:#666;font-size:9.5px">'+esc(r.size)+'</span>' : ''}${r.memo ? '<span style="float:right">/'+esc(r.memo)+'</span>' : ''}</td>
+                <td style="${C};text-align:left;padding:0 4px;overflow:hidden;white-space:nowrap">${esc(r.name)}${r.size ? ' <span style="color:#666;font-size:9.5px">'+esc(r.size)+'</span>' : ''}${_stmtSuffix(r, _show, false) ? '<span style="float:right">'+esc(_stmtSuffix(r, _show, false))+'</span>' : ''}</td>
                 <td style="${C};text-align:right;padding:0 3px">${r.qty||''}</td>
                 <td style="${C};text-align:center">${esc(r.unit||'')}</td>
                 <td style="${C};text-align:right;padding:0 3px">${fmtN(r.price)}</td>
                 <td style="${C};text-align:right;padding:0 3px">${fmtN(r.amt)}</td>
                 <td style="${C};text-align:right;padding:0 3px">${fmtN(r.vat)}</td>
                 <td style="${C};text-align:right;padding:0 3px">${(rowAmt+rowVat) ? (rowAmt+rowVat).toLocaleString('ko-KR') : ''}</td>
-                <td style="${C};text-align:center;font-size:9.5px;padding-left:4px;white-space:nowrap;overflow:hidden">${esc(r.traceno||'')}</td>
+                <td style="${C};text-align:center;font-size:9.5px;padding-left:4px;white-space:nowrap;overflow:hidden">${_show.trace ? esc(r.traceno||'') : ''}</td>
             </tr>`;
         }).join('');
 
@@ -20992,6 +21011,8 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             trunc_unit:     parseInt(g('env-trunc-unit')?.value || 0) || 0,
             decimal_places: parseInt(g('env-decimal')?.value ?? 2) || 0,
             stmt_layout:    g('env-sf-2')?.checked ? '2' : '1',   // 거래명세서 출력양식: 1=기본형, 2=보관용 2단
+            stmt_memo:      g('env-sf-memo')?.checked  ? '1' : '0',   // 거래명세서에 비고 출력 (요청 101)
+            stmt_trace:     g('env-sf-trace')?.checked ? '1' : '0',   // 거래명세서에 이력번호 출력 (요청 101)
             sales_bal_btn:  g('ext-bal-hide')?.checked ? 'hide' : 'show',   // 매출등록 [잔액수정] 버튼 보임/숨김 (요청 65)
             sales_tax_default: g('env-taxdef-1')?.checked ? '1' : '2',      // 과세구분 기본값: 1=세금계산서, 2=계산서
             srch_mode:      g('env-srch-mid')?.checked ? 'mid' : 'start',   // 거래처/제품 검색: 첫글자 / 중간글자 (요청 100)
@@ -21094,6 +21115,8 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
                 if (g('env-sf-1')) g('env-sf-1').checked = String(s.stmt_layout) !== '2';
                 if (g('env-sf-2')) g('env-sf-2').checked = String(s.stmt_layout) === '2';
             }
+            if (g('env-sf-memo'))  g('env-sf-memo').checked  = window._stmtShow(s).memo;
+            if (g('env-sf-trace')) g('env-sf-trace').checked = window._stmtShow(s).trace;
             // A4 프린터 설정 로드
             if (s.a4_printer !== undefined && g('env-a4-printer')) {
                 const sel = g('env-a4-printer');
