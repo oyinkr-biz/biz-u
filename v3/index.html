@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.97 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.3.98 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2326,7 +2326,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.97 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.3.98 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2918,7 +2918,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.97</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.3.98</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -20945,31 +20945,7 @@ body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;fon
             try { const sj = await fetch('/api/settings').then(r => r.json()); settings = sj.data || {}; } catch(e) {}
             const bodyHtml = window._buildReceiptHtml({...d, print_time: new Date().toTimeString().substring(0, 8)}, comp, settings);
             const receiptCss = `@page{size:80mm auto;margin:0}*{margin:0;padding:0;box-sizing:border-box}body{font-family:'맑은 고딕','Malgun Gothic','굴림','Gulim',sans-serif;font-size:11pt;width:72mm;margin:0 auto;color:#000;background:#fff;-webkit-print-color-adjust:exact;-webkit-font-smoothing:none;font-smooth:never;text-rendering:optimizeSpeed;print-color-adjust:exact}.rc .title{font-size:12pt;font-weight:bold;text-align:center;margin:0 0 2px}.rc .biz-name{font-size:13pt;font-weight:bold;margin:0}.rc .cli-name{font-size:13pt;font-weight:bold;margin:0}.rc .info{font-size:10pt;line-height:1.3;margin-bottom:1px}.rc .sep{border-top:2px solid #000;margin:1px 0}.rc .sep2{border-top:1px dashed #000;margin:0}.rc table{width:100%;border-collapse:collapse;font-size:10.5pt;table-layout:fixed}.rc table th{border-top:2px solid #000;border-bottom:2px solid #000;padding:1px 3px;white-space:nowrap;font-weight:bold;text-align:center;overflow:hidden}.rc table th.r{text-align:right}.rc table td{vertical-align:top;overflow:hidden}.rc .iname td{padding:2px 3px 0;font-size:11pt;font-weight:bold;line-height:1.15}.rc .inums td{padding:0 3px 2px;font-size:10.5pt;line-height:1.15}.rc .r{text-align:right}.rc .tot td{border-top:2px solid #000;border-bottom:2px solid #000;font-weight:bold;padding:1px 3px}.rc .ar{display:flex;justify-content:space-between;font-size:10pt;padding:0}.rc .ar-bal{font-size:14pt;font-weight:bold;color:#000}.rc .footer{text-align:center;font-weight:bold;margin-top:2px;font-size:10.5pt}.rc *{color:#000 !important}`;
-            let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${receiptCss}</style></head><body>${bodyHtml}<script>window.onload=function(){document.fonts.ready.then(function(){setTimeout(function(){window.print();window.close();},300);});}<\/script></body></html>`;
-            // 요청 107: 서버 영수증과 똑같은 글자 줄(고정폭 굴림체)로 — 칸이 서버 출력처럼 반듯하게
-            try {
-                const tj = await fetch('/api/print/receipt', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...d, print_time: new Date().toTimeString().substring(0,8), comp, is_reprint: isReprint, return_text: true, copies: _copies }),
-                }).then(r => r.json());
-                if (tj.ok && Array.isArray(tj.data?.lines) && tj.data.lines.length) {
-                    const W = tj.data.width || 42;
-                    const gaps = new Set(tj.data.gaps || []);
-                    const e = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-                    const body = tj.data.lines.map((l, i) => {
-                        if (gaps.has(i)) return '<div class="g"></div>';
-                        const big = /^\s*(상호:|거래처:)/.test(l);
-                        return big ? `<div class="l b"><span>${e(l) || ' '}</span></div>` : `<div class="l">${e(l) || ' '}</div>`;
-                    }).join('');
-                    // 굴림체: 영문·숫자 반 칸, 한글 한 칸 → 서버 글자 수(W)가 종이 폭(70mm)에 딱 맞게 글자 크기 계산
-                                        // 요청 111: mm로 고정하면 크롬이 용지에 맞춰 다시 줄이거나 키워 잘림 → 글자 크기를 '용지 폭(100vw) ÷ 칸 수'로 (어떤 영수증 용지든 꽉 맞음)
-                    const css = `@page{margin:0}*{margin:0;padding:0;box-sizing:border-box}html,body{width:100%}body{padding:0 2mm;background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}.l{font-family:'GulimChe','굴림체','DotumChe','돋움체',monospace;font-size:calc((100vw - 4mm) / (${W} * var(--a,0.52)));line-height:1.3;white-space:pre;font-weight:bold;color:#000;-webkit-text-stroke:0.35px #000;overflow:hidden}.b{height:2.5em;line-height:2.5em}.b span{display:inline-block;transform:scaleY(2);transform-origin:50% 50%}.g{height:0.5em}`;
-                    const copies = Math.max(1, Number(tj.data.copies) || 1);
-                    const one = `<div>${body}</div>`;
-                    const all = Array.from({ length: copies }, () => one).join('<div style="break-after:page;height:6mm"></div>');
-                    html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${css}</style></head><body>${all}<div style="height:8mm"></div><script>(function(){var p=document.createElement('span');p.style.cssText='position:absolute;visibility:hidden;white-space:pre;font-family:GulimChe,굴림체,DotumChe,돋움체,monospace;font-weight:bold;font-size:100px';p.textContent='0000000000';document.body.appendChild(p);var a=p.getBoundingClientRect().width/1000;if(a>0.3&&a<0.8)document.documentElement.style.setProperty('--a',String(a*1.01));p.remove();})();<\/script><script>window.onload=function(){setTimeout(function(){window.print();window.close();},300);}<\/script></body></html>`;
-                }
-            } catch (_) { /* 예전 그림 영수증 그대로 */ }
+            const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${receiptCss}</style></head><body>${bodyHtml}<script>window.onload=function(){document.fonts.ready.then(function(){setTimeout(function(){window.print();window.close();},300);});}<\/script></body></html>`;
 
             if (window.electronAPI && window.electronAPI.openPrintWindow) {
                 // Electron 앱: 다이얼로그 표시 (프린터 선택 가능)
