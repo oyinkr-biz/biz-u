@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.19</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.20</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -219,7 +219,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
         <div style="border:1px solid #808080;padding:2px 7px 4px;position:relative;font-size:11px;margin-top:10px">
           <span style="position:absolute;top:-8px;left:5px;background:#d4d0c8;padding:0 3px;font-size:11px">[ 구독 금액 — 선택 업체 (부가세 포함) ]</span>
           <div style="display:grid;grid-template-columns:auto 1fr auto 1fr;gap:3px 4px;align-items:center;margin-top:7px">
-            <span>1개월</span><input type="text" id="f-pp1" class="f-pp" inputmode="numeric" style="width:62px;text-align:right" placeholder="기본">
+            <span>1개월</span><input type="text" id="f-pp1" class="f-pp" inputmode="numeric" style="width:62px;text-align:right" placeholder="기본" oninput="ppAuto(this.value)" title="넣으면 3·6·12개월이 ×3·×6·×12로 자동 (그 뒤 따로 고칠 수 있음)">
             <span>3개월</span><input type="text" id="f-pp3" class="f-pp" inputmode="numeric" style="width:62px;text-align:right" placeholder="기본">
             <span>6개월</span><input type="text" id="f-pp6" class="f-pp" inputmode="numeric" style="width:62px;text-align:right" placeholder="기본">
             <span>12개월</span><input type="text" id="f-pp12" class="f-pp" inputmode="numeric" style="width:62px;text-align:right" placeholder="기본">
@@ -514,6 +514,11 @@ function fillPayPrices(r) {
   let p = {};
   try { p = r && r.pay_prices ? (typeof r.pay_prices === 'string' ? JSON.parse(r.pay_prices) : r.pay_prices) : {}; } catch (_) { p = {}; }
   PP_MONTHS.forEach(k => { const el = document.getElementById('f-pp' + k); if (el) el.value = p && p[k] ? Number(p[k]).toLocaleString('ko-KR') : ''; });
+}
+// 1개월 금액 → 3·6·12개월 자동 (×3·×6·×12), 그 뒤 각 칸은 따로 고칠 수 있음 (v1.20)
+function ppAuto(v) {
+  const n = parseInt(String(v || '').replace(/[^0-9]/g, '')) || 0;
+  ['3', '6', '12'].forEach(k => { const el = document.getElementById('f-pp' + k); if (el) el.value = n ? (n * +k).toLocaleString('ko-KR') : ''; });
 }
 function readPayPrices() {
   const p = {};
