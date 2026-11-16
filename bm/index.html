@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.21</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.22</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -190,7 +190,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
         <button class="btn" onclick="filterColor()" style="width:100%">색상 체크</button>
         <div style="height:6px"></div>
         <button class="btn" onclick="newRec()" style="height:28px;width:100%">신 &nbsp; 규</button>
-        <button class="btn" onclick="saveRec()" style="height:28px;width:100%">수 &nbsp; 정</button>
+        <button class="btn" onclick="saveRec(true)" style="height:28px;width:100%">수 &nbsp; 정</button>
         <button class="btn" onclick="delRec()" style="height:28px;width:100%">삭 &nbsp; 제</button>
       </div>
 
@@ -575,9 +575,11 @@ function clearForm() {
   selId = null; isEdit = false;
 }
 
-async function saveRec() {
+async function saveRec(askEdit) {
   const name = G('f-name');
   if (!name) { alert('업체명을 입력하세요.'); return; }
+  // [수 정] 버튼: 한 번 더 물어봄 (v1.22)
+  if (askEdit && isEdit && selId && !confirm(`[${name}] 업체를 수정하시겠습니까?`)) return;
 
   const payload = {
     company_name:    name,
