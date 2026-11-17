@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.11 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2341,7 +2341,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.11 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2934,7 +2934,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.11</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.12</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4818,6 +4818,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const finp = () => document.getElementById('import-mdb-file-input');
 
                 function _resetImportMdbDialog() {
+                    window._importMdbConr = null;   // 고른 회사 (요청 126)
                     document.getElementById('import-mdb-result').style.display   = 'none';
                     document.getElementById('import-mdb-error').style.display    = 'none';
                     document.getElementById('import-mdb-progress').style.display = 'none';
@@ -4838,6 +4839,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 finp()?.addEventListener('change', () => {
                     const f = finp().files[0];
                     document.getElementById('import-mdb-filename').value = f ? f.name : '';
+                    window._importMdbConr = null;
                 });
                 // 라디오 변경 시 안내문 표시/숨김
                 document.querySelectorAll('input[name="import-mdb-range"]').forEach(r => {
@@ -4858,7 +4860,8 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                     const confirmMsg = isYear
                         ? `${yrFrom}년 ~ ${yrTo}년 거래 데이터를 교체합니다.\n(기초자료는 전체 교체)\n계속하시겠습니까?`
                         : '기존 DB 데이터가 완전히 교체됩니다.\n계속하시겠습니까?';
-                    if (!await window._bizConfirm(confirmMsg)) return;
+                    const _conr = window._importMdbConr;
+                    if (!await window._bizConfirm((_conr != null ? `[${window._importMdbConrName || ''}] 자료만 가져옵니다.\n` : '') + confirmMsg)) return;
 
                     const progressEl  = document.getElementById('import-mdb-progress');
                     const progressTxt = document.getElementById('import-mdb-progress-text');
@@ -4899,6 +4902,7 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                         fd.append('file', uploadFile);
                         fd.append('password', pwd);
                         if (isYear) { fd.append('yr_from', yrFrom); fd.append('yr_to', yrTo); }
+                        if (_conr != null) fd.append('conr', String(_conr));
                         const res = await fetch(window.location.origin + '/api/import-mdb', { method: 'POST', body: fd });
 
                         if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
@@ -4919,7 +4923,32 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                 try { d = JSON.parse(line.slice(6)); } catch { continue; }
 
                                 const cancelBtn = document.getElementById('import-mdb-cancel');
-                                if (d.error && !d.done_table) {   // 표 하나의 오류는 아래 목록에 넣고 끝까지 진행
+                                if (d.need_conr) {
+                                    // 한 파일에 회사가 여럿 → 고르게 함 (자료는 아직 하나도 안 바뀜) (요청 126)
+                                    clearInterval(spinTimer);
+                                    progressEl.style.display = 'none';
+                                    const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+                                    errorEl.style.whiteSpace = 'normal';
+                                    errorEl.style.fontWeight = 'normal';
+                                    errorEl.innerHTML = '<b>이 파일에는 회사가 ' + d.need_conr.length + '개 들어 있습니다.</b><br>'
+                                        + '옛 프로그램은 회사마다 거래처·전표·잔액을 따로 둡니다. 가져올 회사를 하나 고르세요.<br>'
+                                        + '<span style="color:#555">(다른 회사는 BizTech를 따로 설치해서 그쪽에서 가져오세요)</span>'
+                                        + '<div style="margin:6px 0">' + d.need_conr.map((c, i) =>
+                                            '<label style="display:block;margin:3px 0;cursor:pointer"><input type="radio" name="import-mdb-conr" value="' + c.conr + '" data-name="' + esc(c.name) + '"'
+                                            + '> <b>' + esc(c.name) + '</b> '
+                                            + esc(c.sno) + (c.slips != null ? ' — 전표 ' + Number(c.slips).toLocaleString() + '건' + (c.last ? ', 마지막 ' + esc(c.last) : '') : '') + '</label>').join('')
+                                        + '</div><button type="button" id="import-mdb-conr-go" style="padding:3px 14px;font-weight:bold;cursor:pointer">고른 회사로 가져오기</button>';
+                                    errorEl.style.display = 'block';
+                                    document.getElementById('import-mdb-conr-go').onclick = () => {
+                                        const sel = errorEl.querySelector('input[name="import-mdb-conr"]:checked');
+                                        if (!sel) { alert('회사를 고르세요.'); return; }
+                                        window._importMdbConr = parseInt(sel.value);
+                                        window._importMdbConrName = sel.dataset.name || '';
+                                        errorEl.style.display = 'none';
+                                        runBtn.disabled = false;
+                                        runBtn.click();
+                                    };
+                                } else if (d.error && !d.done_table) {   // 표 하나의 오류는 아래 목록에 넣고 끝까지 진행
                                     clearInterval(spinTimer);
                                     progressEl.style.display = 'none';
                                     errorEl.textContent = '오류: ' + d.error;
