@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.13 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2341,7 +2341,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.13 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2934,7 +2934,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.13</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.14</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4973,6 +4973,20 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                     } else {
                                         resultEl.textContent = '✅ ' + (d.message || '완료') + '\n\n' + tableLines.join('\n');
                                         resultEl.style.display = 'block';
+                                        // 요청 128: 가져온 회사(업체기본정보가 바뀜)를 매니저에 자동 등록
+                                        (async () => {
+                                            let txt = '';
+                                            try {
+                                                const c = (await fetch('/api/company').then(r => r.json())).data || {};
+                                                const s = v => String(v ?? '').trim();
+                                                const res = await window._bmRegisterCompany?.({ companyName: s(c.Co_Name), businessNumber: s(c.Co_sNo),
+                                                    representative: s(c.Co_Header), phone: s(c.Co_STel), mobile: s(c.Co_HTel) });
+                                                txt = { created: '매니저(BizManager)에 새 업체로 등록했습니다.', updated: '매니저(BizManager)의 같은 사업자번호 업체 정보를 갱신했습니다.',
+                                                        test: '시험 PC라 매니저(BizManager)에는 보내지 않았습니다.', skip: '사업자번호가 없어 매니저(BizManager)에 등록하지 못했습니다. 업체기본정보에 넣고 [저장] 하세요.',
+                                                        fail: '매니저(BizManager) 등록 실패(인터넷 확인) — 업체기본정보 화면에서 [저장]을 누르면 다시 등록합니다.' }[res] || '';
+                                            } catch (_) { txt = '매니저(BizManager) 등록 실패 — 업체기본정보 화면에서 [저장]을 누르면 다시 등록합니다.'; }
+                                            if (txt) resultEl.textContent = resultEl.textContent.replace(/^(✅[^\n]*)/, '$1\n' + txt);
+                                        })();
                                     }
                                     runBtn.style.display = 'none';
                                     if (cancelBtn) { cancelBtn.textContent = '닫  기'; cancelBtn.style.fontWeight = 'bold'; }
@@ -15226,9 +15240,19 @@ function doSaveHtml(){
         }
 
         // 3. BizManager(Supabase) — 백그라운드 (완료를 기다리지 않음)
+        window._bmRegisterCompany({ companyName, businessNumber, representative, phone, mobile }).then(res => {
+            if (res === 'updated') { msg.textContent = '저장 완료 · BizManager 갱신됨'; msg.style.color = 'green'; }
+            else if (res === 'created') { msg.textContent = '저장 완료 · BizManager 자동 등록됨'; msg.style.color = 'green'; }
+        });
+    }
 
-        if (BM_KEY && businessNumber && !(await window._testPCP)) {
-            (async () => {
+    // 매니저(BizManager)에 이 업체 등록 — 사업자번호로 찾아 있으면 정보 갱신, 없으면 새로 등록.
+    // 돌려주는 값: 'updated' / 'created' / 'test'(시험 PC라 안 보냄) / 'skip'(사업자번호 없음) / 'fail' (요청 128: 가져오기 끝에도 씀)
+    window._bmRegisterCompany = async function({ companyName, businessNumber, representative, phone, mobile }) {
+        if (!BM_KEY || !businessNumber) return 'skip';
+        if (await window._testPCP) return 'test';
+        {
+            {
                 try {
                     const bmSignal = () => AbortSignal.timeout(8000);
                     const chk = await fetch(
@@ -15236,9 +15260,10 @@ function doSaveHtml(){
                         { headers: { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}` }, signal: bmSignal() }
                     );
                     const existing = await chk.json();
+                    if (!Array.isArray(existing)) return 'fail';   // 매니저 응답 오류면 새로 넣지 않음
                     if (existing.length > 0) {
                         // 기존 등록 업체 → 정보 업데이트
-                        await fetch(
+                        const up = await fetch(
                             `${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(businessNumber)}`,
                             {
                                 method: 'PATCH',
@@ -15249,12 +15274,11 @@ function doSaveHtml(){
                                 signal: bmSignal()
                             }
                         );
-                        msg.textContent = '저장 완료 · BizManager 갱신됨';
-                        msg.style.color = 'green';
+                        return up.ok ? 'updated' : 'fail';
                     } else {
                         // 미등록 → BizManager 자동 신규 등록
                         const today = new Date().toISOString().slice(0, 10);
-                        await fetch(`${BM_URL}/rest/v1/biz_clients`, {
+                        const cr = await fetch(`${BM_URL}/rest/v1/biz_clients`, {
                             method: 'POST',
                             headers: { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}`,
                                 'Content-Type': 'application/json', Prefer: 'return=minimal' },
@@ -15267,13 +15291,12 @@ function doSaveHtml(){
                             }),
                             signal: bmSignal()
                         });
-                        msg.textContent = '저장 완료 · BizManager 자동 등록됨';
-                        msg.style.color = 'green';
+                        return cr.ok ? 'created' : 'fail';
                     }
-                } catch(e) { /* 백그라운드 — 실패 무시 */ }
-            })();
+                } catch(e) { return 'fail'; }   // 백그라운드 — 실패 무시
+            }
         }
-    }
+    };
 
     // 사업체 등록 전화번호 입력 이벤트
     document.addEventListener('DOMContentLoaded', () => {
