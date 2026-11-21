@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.22</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.23</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -239,7 +239,10 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
         <input type="text" id="q" style="width:200px" placeholder="검색어"
           onkeydown="if(event.key==='Enter')doSearch()">
         <button class="btn" onclick="doSearch()">조&nbsp;&nbsp;회</button>
-        <button class="btn" onclick="loadAll()">전&nbsp;&nbsp;체</button>
+        <button class="btn" onclick="showDel(false)">전&nbsp;&nbsp;체</button>
+        <button class="btn" id="del-view-btn" onclick="showDel(!delMode)" title="삭제한 업체 목록 — 검색·복구·완전 삭제">삭제업체</button>
+        <button class="btn" id="del-restore-btn" onclick="restoreRec()" style="display:none">복&nbsp;&nbsp;구</button>
+        <button class="btn" id="del-purge-btn" onclick="purgeRec()" style="display:none;color:#c00;font-weight:bold">완전 삭제</button>
         <button class="btn" id="sms-btn-1" onclick="smsOpen(1)" style="margin-left:14px;font-weight:bold" title="충전식 문자 (관리자 1의 문자 서버·알리고 계정)">📱 문자 관리 1</button>
         <button class="btn" id="sms-btn-2" onclick="smsOpen(2)" style="font-weight:bold" title="충전식 문자 (관리자 2의 문자 서버·알리고 계정)">📱 문자 관리 2</button>
       </div>
@@ -368,14 +371,36 @@ const sortByColor = list =>
 // ════════════════════════════════════════════════════════════
 // 데이터 로드
 // ════════════════════════════════════════════════════════════
+// 삭제 보관 (v1.23): biz_clients.deleted_at 칸 — 값이 있으면 삭제한 업체 (목록에서 빠지고 [삭제업체]에서 보임)
+//   칸이 아직 없으면(HAS_DEL=false) 예전처럼 목록 전체, [삭제]는 칸 만드는 방법 안내
+let HAS_DEL = null, delMode = false;
+async function checkDelCol() {
+  if (HAS_DEL !== null) return HAS_DEL;
+  const { error } = await sbGet('/biz_clients?select=deleted_at&limit=1');
+  HAS_DEL = !error;
+  return HAS_DEL;
+}
+const delFilter = () => HAS_DEL ? (delMode ? '&deleted_at=not.is.null' : '&deleted_at=is.null') : '';
+function showDel(on) {
+  if (on && HAS_DEL === false) { alert(NEED_COL_MSG); return; }
+  delMode = !!on;
+  document.getElementById('del-view-btn').style.background = delMode ? '#ffd0d0' : '';
+  document.getElementById('del-restore-btn').style.display = delMode ? '' : 'none';
+  document.getElementById('del-purge-btn').style.display = delMode ? '' : 'none';
+  clearForm(); S('q', '');
+  loadAll();
+}
+const NEED_COL_MSG = '삭제한 업체를 보관하려면 Supabase에 칸을 하나 만들어야 합니다.\n\nSupabase 홈페이지 → SQL Editor에서 아래 한 줄 실행:\n\nalter table biz_clients add column deleted_at timestamptz;\n\n(실행 후 매니저를 다시 여세요)';
+
 async function loadAll() {
   setStatus('로딩 중...');
   try {
-    const { data, error } = await sbGet('/biz_clients?select=*&order=id');
+    await checkDelCol();
+    const { data, error } = await sbGet('/biz_clients?select=*&order=id' + delFilter());
     if (error) { setStatus('오류: ' + (error.message || JSON.stringify(error))); return; }
-    rows = sortByColor(data || []);
+    rows = delMode ? (data || []).sort((a, b) => String(b.deleted_at).localeCompare(String(a.deleted_at))) : sortByColor(data || []);
     render(rows);
-    setStatus(`총 ${rows.length}개 업체`);
+    setStatus(delMode ? `삭제한 업체 ${rows.length}개 — 골라서 [복 구] 또는 [완전 삭제]` : `총 ${rows.length}개 업체`);
   } catch(e) {
     setStatus('연결오류: ' + e.message);
   }
@@ -386,12 +411,12 @@ async function doSearch() {
   if (!q) { loadAll(); return; }
   const f = encodeURIComponent(q);
   const { data, error } = await sbGet(
-    `/biz_clients?select=*&order=id&or=(company_name.ilike.*${f}*,business_number.ilike.*${f}*,representative.ilike.*${f}*,phone.ilike.*${f}*,mobile.ilike.*${f}*)`
+    `/biz_clients?select=*&order=id${delFilter()}&or=(company_name.ilike.*${f}*,business_number.ilike.*${f}*,representative.ilike.*${f}*,phone.ilike.*${f}*,mobile.ilike.*${f}*)`
   );
   if (error) { setStatus('오류: ' + (error.message || JSON.stringify(error))); return; }
-  rows = sortByColor(data || []);
+  rows = delMode ? (data || []) : sortByColor(data || []);
   render(rows);
-  setStatus(`검색결과: ${rows.length}개`);
+  setStatus((delMode ? '삭제한 업체 ' : '') + `검색결과: ${rows.length}개`);
 }
 
 // 색상 체크: 고른 색 업체들의 체크칸을 체크 (예전엔 목록만 걸러 보여서 체크가 안 되는 것처럼 보였음)
@@ -416,7 +441,7 @@ function render(list) {
   const today = new Date().toISOString().slice(0, 10);
   document.getElementById('tbody').innerHTML = list.map((r, i) => {
     const expired = r.expiry_date && r.expiry_date < today;
-    const cs = C[r.color] || '';
+    const cs = delMode ? 'background:#e8e8e8;color:#666' : (C[r.color] || '');
     return `<tr data-id="${r.id}" onclick="selRow(this,${r.id})" style="${cs}">
       <td class="td-num">${i + 1}</td>
       <td style="text-align:center;padding:1px 0"><input type="checkbox" class="rc" data-id="${r.id}" onclick="event.stopPropagation()" style="margin:0"></td>
@@ -432,7 +457,7 @@ function render(list) {
       <td style="text-align:center;font-size:12px" ${r.public_ip ? `title="휴대폰 접속 주소: http://${r.public_ip}/m (더블클릭하면 복사)" ondblclick="event.stopPropagation();navigator.clipboard.writeText('http://${r.public_ip}/m');setStatus('복사됨: http://${r.public_ip}/m')"` : ''}>${r.public_ip||''}</td>
       <td style="text-align:center;font-size:12px">${r.max_pcs ? r.max_pcs + '대' : ''}</td>
       <td style="text-align:center;font-size:12px">${vehText(r.vehicles)}</td>
-      <td>${r.memo||''}</td>
+      <td>${r.deleted_at ? `<b style="color:#c00">[삭제 ${d(new Date(new Date(r.deleted_at).getTime() + 9 * 3600e3).toISOString())}]</b> ` : ''}${r.memo||''}</td>
     </tr>`;
   }).join('');
   document.getElementById('cnt').textContent = `${list.length}건`;
@@ -614,11 +639,33 @@ async function saveRec(askEdit) {
 }
 
 async function delRec() {
+  if (delMode) { purgeRec(); return; }
   if (!selId) { alert('삭제할 업체를 선택하세요.'); return; }
   const r = rows.find(x => x.id === selId);
-  if (!confirm(`[${r?.company_name}] 업체를 삭제하시겠습니까?`)) return;
-  const { error } = await sbDelete(`/biz_clients?id=eq.${selId}`);
+  if (!(await checkDelCol())) { alert(NEED_COL_MSG); return; }
+  if (!confirm(`[${r?.company_name}] 업체를 삭제하시겠습니까?\n\n삭제한 업체는 [삭제업체]에 보관되어 검색·복구할 수 있습니다.`)) return;
+  const { error } = await sbPatch(`/biz_clients?id=eq.${selId}`, { deleted_at: new Date().toISOString() });
   if (error) { alert('삭제 실패: ' + (error.message || JSON.stringify(error))); return; }
+  clearForm();
+  loadAll();
+}
+async function restoreRec() {
+  if (!selId) { alert('복구할 업체를 선택하세요.'); return; }
+  const r = rows.find(x => x.id === selId);
+  if (!confirm(`[${r?.company_name}] 업체를 복구하시겠습니까?\n\n업체 목록으로 다시 돌아갑니다.`)) return;
+  const { error } = await sbPatch(`/biz_clients?id=eq.${selId}`, { deleted_at: null });
+  if (error) { alert('복구 실패: ' + (error.message || JSON.stringify(error))); return; }
+  clearForm();
+  loadAll();
+}
+async function purgeRec() {
+  if (!selId) { alert('완전 삭제할 업체를 선택하세요.'); return; }
+  const r = rows.find(x => x.id === selId);
+  if (!r?.deleted_at) { alert('완전 삭제는 [삭제업체] 목록에서만 할 수 있습니다.'); return; }
+  if (!confirm(`[${r.company_name}] 업체를 완전 삭제하시겠습니까?\n\n완전 삭제하면 다시 되돌릴 수 없습니다.`)) return;
+  if (!confirm(`정말 [${r.company_name}] 업체를 완전 삭제합니까?`)) return;
+  const { error } = await sbDelete(`/biz_clients?id=eq.${selId}&deleted_at=not.is.null`);
+  if (error) { alert('완전 삭제 실패: ' + (error.message || JSON.stringify(error))); return; }
   clearForm();
   loadAll();
 }
