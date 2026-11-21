@@ -83,7 +83,7 @@ tbody tr.sel td { background: #000080 !important; color: #fff !important; }
 <!-- ══ Title Bar ══════════════════════════════════════════════ -->
 <div class="tb">
   <span class="tb-icon">📋</span>
-  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.23</span>
+  <span class="tb-title">BizManager &mdash; 업체관리 시스템 &nbsp; v1.24</span>
   <span class="tb-conn" id="conn">● 연결 중...</span>
 </div>
 
@@ -441,7 +441,7 @@ function render(list) {
   const today = new Date().toISOString().slice(0, 10);
   document.getElementById('tbody').innerHTML = list.map((r, i) => {
     const expired = r.expiry_date && r.expiry_date < today;
-    const cs = delMode ? 'background:#e8e8e8;color:#666' : (C[r.color] || '');
+    const cs = C[r.color] || '';   // 삭제업체 보기도 원래 색상 그대로 (v1.24)
     return `<tr data-id="${r.id}" onclick="selRow(this,${r.id})" style="${cs}">
       <td class="td-num">${i + 1}</td>
       <td style="text-align:center;padding:1px 0"><input type="checkbox" class="rc" data-id="${r.id}" onclick="event.stopPropagation()" style="margin:0"></td>
