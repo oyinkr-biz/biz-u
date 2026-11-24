@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.21 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2341,7 +2341,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.21 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2934,7 +2934,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.20</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.21</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -4979,6 +4979,21 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                                             try {
                                                 const c = (await fetch('/api/company').then(r => r.json())).data || {};
                                                 const s = v => String(v ?? '').trim();
+                                                // 요청 136: 총괄 고객 목록에도 등록 ([저장]과 같게). 매니저에 이미 종료일자가 있으면 그 날짜로 (7일 체험으로 덮지 않음)
+                                                let saTxt = '';
+                                                if (s(c.Co_Name) && window._autoRegisterSaCustomer) {
+                                                    try {
+                                                        let bmExp = '';
+                                                        if (BM_KEY && s(c.Co_sNo)) {
+                                                            const bm = await fetch(`${BM_URL}/rest/v1/biz_clients?business_number=eq.${encodeURIComponent(s(c.Co_sNo))}&select=expiry_date`,
+                                                                { headers: { apikey: BM_KEY, Authorization: `Bearer ${BM_KEY}` }, signal: AbortSignal.timeout(6000) }).then(r => r.json()).catch(() => []);
+                                                            bmExp = Array.isArray(bm) && bm[0]?.expiry_date ? String(bm[0].expiry_date).slice(0, 10) : '';
+                                                        }
+                                                        await window._autoRegisterSaCustomer(s(c.Co_Name), s(c.Co_sNo), s(c.Co_Header), s(c.Co_HTel) || s(c.Co_STel), s(c.Co_Email), { expiryDate: bmExp });
+                                                        saTxt = '총괄 고객 목록에 등록했습니다.' + (bmExp ? ` (매니저 종료일자 ${bmExp})` : '');
+                                                    } catch (_) { saTxt = '총괄 고객 목록 등록 실패 — 업체기본정보 화면에서 [저장]을 누르면 다시 등록합니다.'; }
+                                                }
+                                                if (saTxt) resultEl.textContent = resultEl.textContent.replace(/^(✅[^\n]*)/, '$1\n' + saTxt);
                                                 const res = await window._bmRegisterCompany?.({ companyName: s(c.Co_Name), businessNumber: s(c.Co_sNo),
                                                     representative: s(c.Co_Header), phone: s(c.Co_STel), mobile: s(c.Co_HTel) });
                                                 txt = { created: '매니저(BizManager)에 새 업체로 등록했습니다.', updated: '매니저(BizManager)의 같은 사업자번호 업체 정보를 갱신했습니다.',
@@ -7433,8 +7448,9 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
             }
 
             // 업체 기본정보 저장 시 SA 목록 자동 등록 (7일 체험, 중복 등록 방지)
-            window._autoRegisterSaCustomer = async function(name, bizno, ceo, phone, email) {
+            window._autoRegisterSaCustomer = async function(name, bizno, ceo, phone, email, opts) {
                 if (!name) return;
+                const _keepExp = opts?.expiryDate || '';   // 매니저에 이미 있는 종료일자 (요청 136: 가져오기)
                 // 캐시가 비어 있으면 서버에서 먼저 로드
                 if (!_saCustomersCache) await _loadSaCustomers();
                 let list = saGetCustomers();
@@ -7452,19 +7468,19 @@ ${bodies.join('<div style="page-break-before:always"></div>')}
                 const contractDate = today.toISOString().slice(0, 10);
                 const expDate = new Date(today);
                 expDate.setDate(expDate.getDate() + 7);
-                const expiryDate = expDate.toISOString().slice(0, 10);
+                const expiryDate = _keepExp || expDate.toISOString().slice(0, 10);
                 list.push({
                     id: Date.now().toString(),
                     blocked: false,
                     createdAt: today.toISOString(),
                     name, businessNumber: bizno || '', ceo: ceo||'', phone: phone||'', email: email||'',
                     addr: '', memo: '',
-                    contractDate, expiryDate, licenseType: '7일 체험'
+                    contractDate, expiryDate, licenseType: _keepExp ? '매니저 종료일자' : '7일 체험'
                 });
                 saSaveCustomers(list);
                 saLoadClientGrid();
                 saRefreshDashboard();
-                if (bizno && !(await window._testPCP)) _bmPatchExpiry(bizno, expiryDate);
+                if (!_keepExp && bizno && !(await window._testPCP)) _bmPatchExpiry(bizno, expiryDate);
             };
 
             // BizManager(Supabase) expiry_date PATCH 헬퍼
