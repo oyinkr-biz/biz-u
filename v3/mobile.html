@@ -572,7 +572,7 @@ async function saveDraft(pre, id) {
   if(validLines.length===0){toast('품목을 추가하세요');return;}
   loading(true);
   try {
-    const ticketR=await api('/api/inven/nextticket?date='+encodeURIComponent(d.date));
+    const ticketR=await api('/api/inven/nextticket?date='+encodeURIComponent(d.date)+'&gubun='+gubun);
     const ticket=ticketR.next_ticket||1;
     const totalAmt=validLines.reduce((s,l)=>s+l.amt,0);
     const totalQty=validLines.reduce((s,l)=>s+l.qty,0);
