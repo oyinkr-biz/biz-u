@@ -260,7 +260,7 @@
         <header class="app-title-bar-legacy draggable-header" id="main-app-header">
             <div class="app-title-legacy">
                 <i data-lucide="square" style="width:14px; height:14px; color:#fff; fill:#fff;" id="main-app-icon"></i>
-                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.23 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
+                (<span id="header-company-name">비즈테크</span>) For BizTech Edition &nbsp;&nbsp;&nbsp; Ver 3.4.24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 :<span id="app-username">관리자</span> &nbsp;&nbsp; <span id="server-status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;cursor:pointer;" title="서버 미연결 — 클릭하여 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()"></span><span id="server-status-text" style="font-size:9px;color:#ffcccc;cursor:pointer;" title="클릭하여 서버 재시작" onclick="window._bizShowRestartBanner && window._bizShowRestartBanner()">서버 미연결</span><span id="header-phone" style="margin-left:18px;font-size:13px;color:#ffe082;font-weight:bold;letter-spacing:1px"></span><span id="mobile-url-display" style="display:none;margin-left:16px;font-size:13px;color:#b0d8ff;cursor:pointer;user-select:none;" title="클릭하면 주소 복사"></span><span id="upnp-status-display" style="display:none;margin-left:12px;font-size:13px;cursor:pointer;user-select:none;"></span><button id="order-notif-btn" onclick="window._openOrderInbox && window._openOrderInbox()" style="display:none;margin-left:14px;font-size:9px;background:#e65100;color:#fff;border:1px outset #ff8a50;border-radius:2px;padding:2px 8px;cursor:pointer;font-weight:bold;vertical-align:middle;font-family:inherit">📦 주문 <span id="order-notif-count">0</span>건</button><span id="header-expiry" style="display:none;margin-left:18px;font-size:13px;vertical-align:middle;"></span>
             </div>
         </header>
 
@@ -2341,7 +2341,7 @@
         <header class="app-title-bar-legacy draggable-header" style="background: #8b0000;">
             <div class="app-title-legacy">
                 <i data-lucide="shield" style="width:14px; height:14px; color:#fff; fill:#fff;"></i>
-                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.23 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
+                BizTech 총괄 관리자 센터 &nbsp;&nbsp;&nbsp; Ver 3.4.24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사용자 : 총괄 배포자
                 &nbsp;&nbsp;&nbsp;
                 <span id="sa-server-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f44336;margin-right:3px;vertical-align:middle;"></span>
                 <span id="sa-server-text" style="font-size:11px;color:#ffcccc;">서버 미연결</span>
@@ -2934,7 +2934,7 @@
             </div>
             <div style="padding: 20px; background: #d4d0c8; border: 1px solid #888;">
                 <div style="margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #333;">
-                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.23</span>
+                    <span id="login-company-name">비즈테크</span><br><span id="login-page-ver" style="font-size: 14px; color: #666; font-weight: normal;">버전 3.4.24</span>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: center;">
@@ -16352,9 +16352,10 @@ function doSaveHtml(){
             }
         };
 
-        async function getNextTicket() {
+        // date를 주면 그날 매출·매입 전표 번호 다음 번호 (요청 139 — 1번 프로그램처럼 날마다 1번부터). 안 주면 전체 다음 번호(Loss 등)
+        async function getNextTicket(date) {
             try {
-                const r = await fetch(API + '/inven/nextticket');
+                const r = await fetch(API + '/inven/nextticket' + (date ? '?date=' + encodeURIComponent(date) : ''));
                 const j = await r.json();
                 if (j.ok && j.next_ticket) return j.next_ticket;
                 return 1;
@@ -16402,7 +16403,7 @@ function doSaveHtml(){
             _setDefaultTax();
 
             // 전표번호 / 작성순번 (async — 폼 초기화 후 진행)
-            const next = await getNextTicket();
+            const next = await getNextTicket($id('ivn-date')?.value);
             currentTicket = next;
             if ($id('ivn-ticket')) $id('ivn-ticket').value = next;
 
@@ -16609,7 +16610,8 @@ function doSaveHtml(){
                 const j = await r.json();
                 const list = j.data || [];
                 // 모든 Gubun 포함 최대 Ticket (작성순번 표시 = Windows 방식과 일치)
-                todayMaxTicket = list.reduce((mx, x) => Math.max(mx, parseInt(x.Ivn_Ticket) || 0), 0);
+                todayMaxTicket = list.filter(x => ['1', '2'].includes(String(x.Ivn_Gubun ?? '1')))   // 서버 다음 번호와 같게 매출·매입만 (요청 139)
+                    .reduce((mx, x) => Math.max(mx, parseInt(x.Ivn_Ticket) || 0), 0);
                 // 매출·매입 모두 포함 (순번 이동 시 구분 자동 전환)
                 todayTickets = list
                     .filter(x => { const g = String(x.Ivn_Gubun ?? '1'); return g === '1' || g === '2'; })
@@ -16673,11 +16675,11 @@ function doSaveHtml(){
             if (!el) return;
             const curGubun = String($id('ivn-gubun')?.value || currentGubun || '1');
             const filtered = todayTickets.filter(x => String(x.gubun) === curGubun);
+            // 요청 139: 1번 프로그램처럼 실제 전표번호(거래순번)를 보여 줌 — 지운 번호는 비어 보임
             if (isExistingEntry && currentTicket) {
-                const filteredIdx = filtered.findIndex(x => x.ticket === currentTicket);
-                el.value = filteredIdx >= 0 ? `${filteredIdx + 1}/${filtered.length}` : `?/${filtered.length}`;
+                el.value = String(currentTicket);
             } else {
-                el.value = filtered.length > 0 ? `${filtered.length + 1}` : '1';
+                el.value = String(currentTicket || (todayMaxTicket + 1) || (filtered.length + 1));
             }
         }
 
@@ -16799,7 +16801,7 @@ function doSaveHtml(){
                 const tr = document.createElement('tr');
                 tr.style.cssText = `cursor:pointer;${isCurrent ? 'background:#000080;color:#fff;' : sbg ? `background:${sbg};` : ''}`;
                 tr.innerHTML = `
-                    <td style="padding:4px 8px;text-align:center;font-weight:bold;white-space:nowrap;">${origIdx + 1}</td>
+                    <td style="padding:4px 8px;text-align:center;font-weight:bold;white-space:nowrap;">${item.ticket}</td>
                     <td style="padding:4px 8px;">${item.clientName}</td>
                     <td style="padding:4px 8px;text-align:right;white-space:nowrap;">${item.total ? item.total.toLocaleString('ko-KR') : (item.paid ? '입금 ' + item.paid.toLocaleString('ko-KR') : '')}</td>
                 `;
@@ -18335,7 +18337,7 @@ function doSaveHtml(){
             // 신규 전표: 저장 직전 전표번호 재취득 (다중 사용자 동시 입력 충돌 방지)
             let ticket = currentTicket || parseInt($id('ivn-ticket')?.value) || 0;
             if (!isExistingEntry) {
-                ticket = await getNextTicket();
+                ticket = await getNextTicket(date);
                 currentTicket = ticket;
                 if ($id('ivn-ticket')) $id('ivn-ticket').value = ticket;
             }
@@ -18518,7 +18520,7 @@ function doSaveHtml(){
                         if ($id('ivn-gubun2')) $id('ivn-gubun2').value = '0';
                         onGubunChange(true);
                         _setDefaultTax();
-                        const next = await getNextTicket();
+                        const next = await getNextTicket($id('ivn-date')?.value);
                         currentTicket = next;
                         if ($id('ivn-ticket')) $id('ivn-ticket').value = next;
                         await loadTodayTickets(savedDate);
@@ -18540,7 +18542,7 @@ function doSaveHtml(){
                         if ($id('ivn-gubun2')) $id('ivn-gubun2').value = '0';
                         onGubunChange(true);
                         _setDefaultTax();
-                        const nextAfterEdit = await getNextTicket();
+                        const nextAfterEdit = await getNextTicket($id('ivn-date')?.value);
                         currentTicket = nextAfterEdit;
                         if ($id('ivn-ticket')) $id('ivn-ticket').value = nextAfterEdit;
                         await loadTodayTickets(savedDate);
@@ -19039,7 +19041,7 @@ function doSaveHtml(){
                 // 단, 작성순번으로 불러온 저장된 전표를 보던 중이면 그 내용은 다른 날짜로 가져가지 않고 아래에서 비움
                 if (!isExistingEntry && (currentClientId || hasItems || hasPay)) {
                     await loadTodayTickets(newDate);
-                    const next = await getNextTicket();
+                    const next = await getNextTicket($id('ivn-date')?.value);
                     currentTicket = next;
                     if ($id('ivn-ticket')) $id('ivn-ticket').value = next;
                     updateSeqDisplay();
@@ -19068,7 +19070,7 @@ function doSaveHtml(){
                 _setIvnTime(_ivnNewTime(newDate));
 
                 await loadTodayTickets(newDate);
-                const next = await getNextTicket();
+                const next = await getNextTicket($id('ivn-date')?.value);
                 currentTicket = next;
                 if ($id('ivn-ticket')) $id('ivn-ticket').value = next;
                 _focusClientName();   // 날짜를 바꾸면 바로 거래처 입력
